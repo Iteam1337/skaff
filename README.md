@@ -4,6 +4,10 @@
 
 Detta är den blivande prototypen av matmarknaden byggd på dynamiskt inköpssystem.
 
+## Exempel (under uppbyggnad)
+![image](https://user-images.githubusercontent.com/395843/232560646-26c641a6-429d-46cc-8b9d-1ed460c9e119.png)
+
+
 ## Kom igång
 
 Så här kommer du igång:
