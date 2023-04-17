@@ -15,7 +15,7 @@ export default function Navigation() {
   return (
     <Tab.Navigator
       screenOptions={{
-        headerShown: false,
+        headerShown: true,
       }}
       tabBar={({ navigation, state, descriptors, insets }) => (
         <BottomNavigation.Bar
@@ -47,12 +47,7 @@ export default function Navigation() {
           }}
           getLabelText={({ route }) => {
             const { options } = descriptors[route.key]
-            const label =
-              options.tabBarLabel !== undefined
-                ? options.tabBarLabel
-                : options.title !== undefined
-                ? options.title
-                : route.title
+            const label = options.tabBarLabel
 
             return label
           }}
