@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Avatar, Button, Card, Text } from "react-native-paper"
 import { ScrollView, StyleSheet } from "react-native"
+import { StatusBar } from "expo-status-bar"
 
 const offers = [
   {
@@ -26,7 +27,11 @@ const offers = [
 const Offers = ({ navigation }) => (
   <ScrollView>
     {offers.map(({ id, title, subtitle, image }) => (
-      <Card key={id} style={styles.card}>
+      <Card
+        key={id}
+        style={styles.card}
+        onPress={() => navigation.navigate("Offer", { id })}
+      >
         <Card.Title
           titleVariant="headlineMedium"
           title={title}

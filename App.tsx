@@ -1,3 +1,4 @@
+import "react-native-gesture-handler" // Needs to be on top of this file
 import * as React from "react"
 import { AppRegistry } from "react-native"
 import {
