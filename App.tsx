@@ -9,14 +9,15 @@ import { expo } from "./app.json"
 import App from "./src/App"
 import { StatusBar } from "expo-status-bar"
 
+// TODO: not working yet
 const theme = {
-  ...MD3DarkTheme,
+  ...DefaultTheme,
 }
 
 export default function Main() {
   return (
     <PaperProvider theme={theme}>
-      <StatusBar style={!theme.isV3 || theme.dark ? "light" : "dark"} />
+      <StatusBar />
       <App />
     </PaperProvider>
   )

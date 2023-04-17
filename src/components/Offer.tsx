@@ -25,23 +25,31 @@ const offers = [
   },
 ]
 
-const Offers = () => (
-  <ScrollView>
-    {offers.map(({ title, subtitle, image }) => (
+const Offers = ({ route }: { route: any }) => {
+  const { id } = route.params
+  const offer = offers.find((offer) => offer.id === id)
+  if (!offer) return <Text>Hittade inte erbjudandet</Text>
+
+  return (
+    <ScrollView>
       <Card>
-        <Card.Title title={title} subtitle={subtitle} left={LeftContent} />
+        <Card.Title
+          title={offer.title}
+          subtitle={offer.subtitle}
+          left={LeftContent}
+        />
         <Card.Content>
-          <Text variant="titleLarge">{title}</Text>
-          <Text variant="bodyMedium">{subtitle}</Text>
+          <Text variant="titleLarge">{offer.title}</Text>
+          <Text variant="bodyMedium">{offer.subtitle}</Text>
         </Card.Content>
-        <Card.Cover source={{ uri: image }} />
+        <Card.Cover source={{ uri: offer.image }} />
         <Card.Actions>
           <Button>Cancel</Button>
           <Button>Ok</Button>
         </Card.Actions>
       </Card>
-    ))}
-  </ScrollView>
-)
+    </ScrollView>
+  )
+}
 
 export default Offers
