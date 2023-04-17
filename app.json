@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "foodMarket",
-    "slug": "foodMarket",
+    "slug": "foodmarket",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,16 +15,24 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "se.iteam.foodmarket"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "se.iteam.foodmarket"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "f0004062-4c19-4cf2-bd6d-e9def8a2e1a0"
+      }
+    },
+    "owner": "irony"
   }
 }

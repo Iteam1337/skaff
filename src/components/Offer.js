@@ -27,7 +27,7 @@ const Offers = ({ route }) => {
   const { id } = route.params
   const [title, setTitle] = React.useState('Rubrik')
   const [price, setPrice] = React.useState('')
-  const [image, setImage] = React.useState('')
+  const [image, setImage] = React.useState('https://picsum.photos/700')
   const [bannerVisible, setBannerVisible] = React.useState(true)
 
   React.useEffect(() => {
