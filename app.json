@@ -11,9 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "se.iteam.foodmarket"
@@ -33,6 +31,6 @@
         "projectId": "f0004062-4c19-4cf2-bd6d-e9def8a2e1a0"
       }
     },
-    "owner": "irony"
+    "owner": "iteam"
   }
 }
