@@ -2,31 +2,58 @@ import * as React from 'react'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
+import TendersAndContracts from './components/TendersAndContracts'
 import Deals from './components/Deals'
-import Offers from './components/Offers'
-import Offer from './components/Offer'
+import Deal from './components/Deal'
 import Chat from './components/Chat'
+import TenderRequests from './components/TenderRequests'
+import TenderRequest from './components/TenderRequest'
 import { createStackNavigator } from '@react-navigation/stack'
 
-const OffersNavigation = () => {
+const DealsNavigation = () => {
   const Stack = createStackNavigator()
 
   return (
     <>
       <Stack.Navigator>
         <Stack.Screen
-          name="ListOffers"
+          name="ListDeals"
           options={{
             title: 'Erbjudanden',
           }}
-          component={Offers}
+          component={Deals}
         />
         <Stack.Screen
-          name="Offer"
+          name="Deal"
           options={{
             title: 'Erbjudande',
           }}
-          component={Offer}
+          component={Deal}
+        />
+      </Stack.Navigator>
+    </>
+  )
+}
+
+const TenderRequestsNavigation = () => {
+  const Stack = createStackNavigator()
+
+  return (
+    <>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="ListTenderRequests"
+          options={{
+            title: 'Anbudsförfrågningar',
+          }}
+          component={TenderRequests}
+        />
+        <Stack.Screen
+          name="TenderRequest"
+          options={{
+            title: 'Anbudsförfrågan',
+          }}
+          component={TenderRequest}
         />
       </Stack.Navigator>
     </>
@@ -40,10 +67,20 @@ const Navigation = () => {
     <>
       <Tab.Navigator barStyle={{ backgroundColor: 'white' }}>
         <Tab.Screen
-          name="Offers"
-          component={OffersNavigation}
+          name="TenderReuests"
+          component={TenderRequestsNavigation}
           options={{
-            tabBarLabel: 'Erbjudanden',
+            tabBarLabel: 'Anbudsförfrågningar',
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="cart" color={color} size={26} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Deals"
+          component={DealsNavigation}
+          options={{
+            tabBarLabel: 'Erbjudna varor',
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons name="home" color={color} size={26} />
             ),
@@ -51,8 +88,8 @@ const Navigation = () => {
         />
 
         <Tab.Screen
-          name="Deals"
-          component={Deals}
+          name="TendersAndContracts"
+          component={TendersAndContracts}
           options={{
             tabBarLabel: 'Mina anbud',
             tabBarIcon: ({ color }) => (
