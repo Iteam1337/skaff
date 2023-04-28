@@ -6,13 +6,13 @@ import * as Notifications from 'expo-notifications'
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
   }),
 })
 
 async function getPushReceipt(id: string) {
-  return await fetch('https://exp.host/--/api/v2/push/send', {
+  return await fetch('https://exp.host/--/api/v2/push/getReceipts', {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -44,10 +44,17 @@ async function sendPushNotification(expoPushToken: string) {
     body: JSON.stringify(message),
   })
     .then((response) => {
-      console.log('response', JSON.stringify(response))
-
-      const re = getPushReceipt('6fc17eb2-86fd-4e29-b1ad-d12ffe680a65')
-      console.log('re', re)
+      return response.json()
+    })
+    .then((result) => {
+      console.log('result', result)
+      return getPushReceipt(result.data.id)
+    })
+    .then((response) => {
+      return response.json()
+    })
+    .then((result) => {
+      console.log('result of receipt', result)
     })
     .catch((error) => {
       console.log('error', error)
@@ -110,10 +117,7 @@ export default function Chat() {
         console.log(response)
       })
 
-    console.log('notificationsListener', notificationListener)
-
     return () => {
-      console.log('will remove listeners')
       if (notificationListener.current)
         Notifications.removeNotificationSubscription(
           notificationListener.current
