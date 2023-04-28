@@ -1,12 +1,12 @@
-import * as React from "react"
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs"
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
+import * as React from 'react'
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
-import Quotes from "./components/Quotes"
-import Offers from "./components/Offers"
-import Offer from "./components/Offer"
-import Chat from "./components/Chat"
-import { createStackNavigator } from "@react-navigation/stack"
+import Deals from './components/Deals'
+import Offers from './components/Offers'
+import Offer from './components/Offer'
+import Chat from './components/Chat'
+import { createStackNavigator } from '@react-navigation/stack'
 
 const OffersNavigation = () => {
   const Stack = createStackNavigator()
@@ -17,14 +17,14 @@ const OffersNavigation = () => {
         <Stack.Screen
           name="ListOffers"
           options={{
-            title: "Erbjudanden",
+            title: 'Erbjudanden',
           }}
           component={Offers}
         />
         <Stack.Screen
           name="Offer"
           options={{
-            title: "Erbjudande",
+            title: 'Erbjudande',
           }}
           component={Offer}
         />
@@ -38,12 +38,12 @@ const Navigation = () => {
 
   return (
     <>
-      <Tab.Navigator barStyle={{ backgroundColor: "white" }}>
+      <Tab.Navigator barStyle={{ backgroundColor: 'white' }}>
         <Tab.Screen
           name="Offers"
           component={OffersNavigation}
           options={{
-            tabBarLabel: "Erbjudanden",
+            tabBarLabel: 'Erbjudanden',
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons name="home" color={color} size={26} />
             ),
@@ -51,10 +51,10 @@ const Navigation = () => {
         />
 
         <Tab.Screen
-          name="Quotes"
-          component={Quotes}
+          name="Deals"
+          component={Deals}
           options={{
-            tabBarLabel: "Mina anbud",
+            tabBarLabel: 'Mina anbud',
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons name="lock" color={color} size={26} />
             ),
@@ -64,7 +64,7 @@ const Navigation = () => {
           name="Chat"
           component={Chat}
           options={{
-            tabBarLabel: "Meddelanden",
+            tabBarLabel: 'Meddelanden',
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons name="forum" color={color} size={26} />
             ),

@@ -1,8 +1,8 @@
-import * as React from "react"
-import { List } from "react-native-paper"
-import { StyleSheet } from "react-native"
+import * as React from 'react'
+import { List } from 'react-native-paper'
+import { StyleSheet } from 'react-native'
 
-const Quotes = () => {
+const Deals = () => {
   const [expanded, setExpanded] = React.useState(true)
 
   const handlePress = () => setExpanded(!expanded)
@@ -40,12 +40,12 @@ const Quotes = () => {
   )
 }
 
-export default Quotes
+export default Deals
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 })
