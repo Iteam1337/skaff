@@ -1,0 +1,42 @@
+{
+  "type": "default",
+  "status": 200,
+  "ok": true,
+  "statusText": "",
+  "headers": {
+    "map": {
+      "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+      "content-length": "68",
+      "content-type": "application/json; charset=utf-8",
+      "date": "Fri, 21 Apr 2023 08:24:20 GMT",
+      "etag": "\"44-WE6rGv//P8/N4T0f84CX7+O069g\"",
+      "strict-transport-security": "max-age=31536000; includeSubDomains",
+      "vary": "Accept-Encoding, Origin",
+      "via": "1.1 google",
+      "x-content-type-options": "nosniff",
+      "x-frame-options": "SAMEORIGIN"
+    }
+  },
+  "url": "https://exp.host/--/api/v2/push/send",
+  "bodyUsed": false,
+  "_bodyInit": {
+    "_data": {
+      "size": 68,
+      "offset": 0,
+      "blobId": "3E0A4CC4-6983-4E1E-AAB9-E64D0357825B",
+      "type": "application/json",
+      "name": "send.json",
+      "__collector": {}
+    }
+  },
+  "_bodyBlob": {
+    "_data": {
+      "size": 68,
+      "offset": 0,
+      "blobId": "3E0A4CC4-6983-4E1E-AAB9-E64D0357825B",
+      "type": "application/json",
+      "name": "send.json",
+      "__collector": {}
+    }
+  }
+}

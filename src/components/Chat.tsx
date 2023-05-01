@@ -6,20 +6,33 @@ import * as Notifications from 'expo-notifications'
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
   }),
 })
 
+async function getPushReceipt(id: string) {
+  return await fetch('https://exp.host/--/api/v2/push/getReceipts', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Accept-encoding': 'gzip, deflate',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ ids: [id] }),
+  })
+}
 // Can use this function below OR use Expo's Push Notification Tool from: https://expo.dev/notifications
-async function sendPushNotification(expoPushToken) {
+async function sendPushNotification(expoPushToken: string) {
   const message = {
     to: expoPushToken,
-    sound: 'default',
+    // sound: 'default',
     title: 'Original Title',
     body: 'And here is the body!',
-    data: { someData: 'goes here' },
+    // data: { someData: 'goes here' },
   }
+
+  console.log('message', message)
 
   await fetch('https://exp.host/--/api/v2/push/send', {
     method: 'POST',
@@ -30,6 +43,22 @@ async function sendPushNotification(expoPushToken) {
     },
     body: JSON.stringify(message),
   })
+    .then((response) => {
+      return response.json()
+    })
+    .then((result) => {
+      console.log('result', result)
+      return getPushReceipt(result.data.id)
+    })
+    .then((response) => {
+      return response.json()
+    })
+    .then((result) => {
+      console.log('result of receipt', result)
+    })
+    .catch((error) => {
+      console.log('error', error)
+    })
 }
 
 async function registerForPushNotificationsAsync() {
@@ -46,7 +75,6 @@ async function registerForPushNotificationsAsync() {
       return
     }
     token = (await Notifications.getExpoPushTokenAsync()).data
-    console.log(token)
   } else {
     alert('Must use physical device for Push Notifications')
   }
@@ -65,26 +93,37 @@ async function registerForPushNotificationsAsync() {
 
 export default function Chat() {
   const [expoPushToken, setExpoPushToken] = useState('')
-  const [notification, setNotification] = useState(false)
-  const notificationListener = useRef()
-  const responseListener = useRef()
+  const [notification, setNotification] = useState<Notifications.Notification>()
+  const notificationListener = useRef<Notifications.Subscription>()
+  const responseListener = useRef<Notifications.Subscription>()
 
   useEffect(() => {
-    registerForPushNotificationsAsync().then((token) => setExpoPushToken(token))
+    registerForPushNotificationsAsync().then((token: string | any) => {
+      console.log('setExpoPushToken token', token)
+      setExpoPushToken(token)
+    })
 
     notificationListener.current =
-      Notifications.addNotificationReceivedListener((notification) => {
-        setNotification(notification)
-      })
+      Notifications.addNotificationReceivedListener(
+        (notification: Notifications.Notification) => {
+          console.log('notification', notification)
+          setNotification(notification)
+        }
+      )
 
     responseListener.current =
       Notifications.addNotificationResponseReceivedListener((response) => {
+        console.log('response', response)
         console.log(response)
       })
 
     return () => {
-      Notifications.removeNotificationSubscription(notificationListener.current)
-      Notifications.removeNotificationSubscription(responseListener.current)
+      if (notificationListener.current)
+        Notifications.removeNotificationSubscription(
+          notificationListener.current
+        )
+      if (responseListener.current)
+        Notifications.removeNotificationSubscription(responseListener.current)
     }
   }, [])
 
