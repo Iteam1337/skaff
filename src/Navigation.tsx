@@ -168,22 +168,24 @@ const Navigation = () => {
       barStyle={{ backgroundColor: 'white' }}
       initialRouteName="Login"
     >
-      <Tab.Screen
-        name="Login"
-        children={() => (
-          <Login
-            onLogin={({ userType }: { userType: string }) => {
-              setUser(userType)
-            }}
-          />
-        )}
-        options={{
-          tabBarLabel: 'Hem',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="home" color={color} size={20} />
-          ),
-        }}
-      />
+      {user == '' ? (
+        <Tab.Screen
+          name="Login"
+          children={() => (
+            <Login
+              onLogin={({ userType }: { userType: string }) => {
+                setUser(userType)
+              }}
+            />
+          )}
+          options={{
+            tabBarLabel: 'Logga in',
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="home" color={color} size={20} />
+            ),
+          }}
+        />
+      ) : null}
       {user == 'Supplier' ? SupplierNavigation(Tab) : null}
       {user == 'Buyer' ? BuyerNavigation(Tab) : null}
     </Tab.Navigator>
