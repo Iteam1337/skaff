@@ -1,14 +1,112 @@
-import * as React from 'react'
+// import * as React from 'react'
+import React, { useState } from 'react'
+import { Button } from 'react-native'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-
 import TendersAndContracts from './components/TendersAndContracts'
+import Login from './components/Login'
 import Deals from './components/Deals'
 import Deal from './components/Deal'
 import Chat from './components/Chat'
 import TenderRequests from './components/TenderRequests'
 import TenderRequest from './components/TenderRequest'
 import { createStackNavigator } from '@react-navigation/stack'
+
+const SupplierNavigation = (Tab: any) => {
+  return (
+    <>
+      <Tab.Screen
+        name="TenderReuests"
+        component={TenderRequestsNavigation}
+        options={{
+          tabBarLabel: 'Anbudsförfrågningar',
+          tabBarIcon: (color: any) => (
+            <MaterialCommunityIcons name="cart" color={color} size={20} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Deals"
+        component={DealsNavigation}
+        options={{
+          tabBarLabel: 'Erbjudna varor',
+          tabBarIcon: (color: any) => (
+            <MaterialCommunityIcons name="home" color={color} size={20} />
+          ),
+        }}
+      />
+
+      <Tab.Screen
+        name="TendersAndContracts"
+        component={TendersAndContracts}
+        options={{
+          tabBarLabel: 'Mina anbud',
+          tabBarIcon: (color: any) => (
+            <MaterialCommunityIcons name="lock" color={color} size={20} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Chat"
+        component={Chat}
+        options={{
+          tabBarLabel: 'Meddelanden',
+          tabBarIcon: (color: any) => (
+            <MaterialCommunityIcons name="forum" color={color} size={20} />
+          ),
+        }}
+      />
+    </>
+  )
+}
+
+const BuyerNavigation = (Tab: any) => {
+  return (
+    <>
+      <Tab.Screen
+        name="Deals"
+        component={DealsNavigation}
+        options={{
+          tabBarLabel: 'Erbjudna varor',
+          tabBarIcon: (color: any) => (
+            <MaterialCommunityIcons name="home" color={color} size={20} />
+          ),
+        }}
+      />
+
+      <Tab.Screen
+        name="TenderReuests"
+        component={TenderRequestsNavigation}
+        options={{
+          tabBarLabel: 'Anbudsförfrågningar',
+          tabBarIcon: (color: any) => (
+            <MaterialCommunityIcons name="cart" color={color} size={20} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="TendersAndContracts"
+        component={TendersAndContracts}
+        options={{
+          tabBarLabel: 'Mina anbud',
+          tabBarIcon: (color: any) => (
+            <MaterialCommunityIcons name="lock" color={color} size={20} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Chat"
+        component={Chat}
+        options={{
+          tabBarLabel: 'Meddelanden',
+          tabBarIcon: (color: any) => (
+            <MaterialCommunityIcons name="forum" color={color} size={20} />
+          ),
+        }}
+      />
+    </>
+  )
+}
 
 const DealsNavigation = () => {
   const Stack = createStackNavigator()
@@ -63,52 +161,32 @@ const TenderRequestsNavigation = () => {
 const Navigation = () => {
   const Tab = createMaterialBottomTabNavigator()
 
-  return (
-    <>
-      <Tab.Navigator barStyle={{ backgroundColor: 'white' }}>
-        <Tab.Screen
-          name="TenderReuests"
-          component={TenderRequestsNavigation}
-          options={{
-            tabBarLabel: 'Anbudsförfrågningar',
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="cart" color={color} size={26} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Deals"
-          component={DealsNavigation}
-          options={{
-            tabBarLabel: 'Erbjudna varor',
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="home" color={color} size={26} />
-            ),
-          }}
-        />
+  const [user, setUser] = useState<string>('')
 
-        <Tab.Screen
-          name="TendersAndContracts"
-          component={TendersAndContracts}
-          options={{
-            tabBarLabel: 'Mina anbud',
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="lock" color={color} size={26} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Chat"
-          component={Chat}
-          options={{
-            tabBarLabel: 'Meddelanden',
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="forum" color={color} size={26} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </>
+  return (
+    <Tab.Navigator
+      barStyle={{ backgroundColor: 'white' }}
+      initialRouteName="Login"
+    >
+      <Tab.Screen
+        name="Login"
+        children={() => (
+          <Login
+            onLogin={({ userType }: { userType: string }) => {
+              setUser(userType)
+            }}
+          />
+        )}
+        options={{
+          tabBarLabel: 'Hem',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="home" color={color} size={20} />
+          ),
+        }}
+      />
+      {user == 'Supplier' ? SupplierNavigation(Tab) : null}
+      {user == 'Buyer' ? BuyerNavigation(Tab) : null}
+    </Tab.Navigator>
   )
 }
 
