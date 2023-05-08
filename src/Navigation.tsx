@@ -8,6 +8,7 @@ import Deal from './components/Deal'
 import Chat from './components/Chat'
 import TenderRequests from './components/TenderRequests'
 import TenderRequest from './components/TenderRequest'
+import CreateDeal from './components/CreateDeal'
 import { createStackNavigator } from '@react-navigation/stack'
 
 const DealsNavigation = () => {
@@ -83,6 +84,16 @@ const Navigation = () => {
             tabBarLabel: 'Erbjudna varor',
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons name="home" color={color} size={26} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="CreateDeal"
+          component={CreateDeal}
+          options={{
+            tabBarLabel: 'Skapa erbjudande',
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="cart" color={color} size={52} />
             ),
           }}
         />
