@@ -1,22 +1,19 @@
-import { View, Button } from 'react-native'
+import { View, Button, Text } from 'react-native'
 
-const Login = (
-  // { navigation }: { navigation: any },
-  { onLogin }: { onLogin: any }
-) => {
+const Login = ({ onLogin }: { onLogin: any }) => {
   return (
     <View
       style={{ flex: 1, alignItems: 'center', justifyContent: 'space-around' }}
     >
+      <Text>Vem är du?</Text>
       <Button
-        title="Jag är producent"
+        title="Producent"
         onPress={() => {
           onLogin({ userType: 'Supplier' })
-          // navigation.navigate('TenderReuests')
         }}
       />
       <Button
-        title="Jag är kock"
+        title="Beställare"
         onPress={() => {
           onLogin({ userType: 'Buyer' })
         }}
