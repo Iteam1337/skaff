@@ -13,7 +13,7 @@ import TenderRequests from './components/TenderRequests'
 import TenderRequest from './components/TenderRequest'
 import CreateTenderRequest from './components/CreateTenderRequest'
 import { createStackNavigator } from '@react-navigation/stack'
-
+import { useTheme } from 'react-native-paper'
 const SupplierNavigation = (Tab: any) => {
   return (
     <>
@@ -195,19 +195,15 @@ const Navigation = () => {
   const Tab = createMaterialBottomTabNavigator()
 
   const [user, setUser] = useState<string>('')
-
+  const { colors } = useTheme()
   return (
     <Tab.Navigator
       // activeColor="red"
       // inactiveColor="yellow"
       shifting={true}
-      barStyle={{ backgroundColor: 'white' }}
+      barStyle={{ backgroundColor: colors.background }}
       initialRouteName="Login"
-      screenOptions={
-        {
-          // tabBarColor: 'red',
-        }
-      }
+      screenOptions={{}}
     >
       {user == '' ? (
         <>
