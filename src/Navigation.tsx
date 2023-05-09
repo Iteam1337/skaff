@@ -11,7 +11,6 @@ import Chat from './components/Chat'
 import CreateDeal from './components/CreateDeal'
 import TenderRequests from './components/TenderRequests'
 import TenderRequest from './components/TenderRequest'
-import CreateDeal from './components/CreateDeal'
 import { createStackNavigator } from '@react-navigation/stack'
 
 const SupplierNavigation = (Tab: any) => {

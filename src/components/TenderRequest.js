@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Card, TextInput, Banner } from 'react-native-paper'
+import { Card, TextInput, Banner, Searchbar } from 'react-native-paper'
 import { ScrollView } from 'react-native'
 import tenderRequests from '../data/tenderRequests'
 
