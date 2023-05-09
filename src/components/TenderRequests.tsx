@@ -24,11 +24,17 @@ const ChevronRight = () => (
 
 const TenderRequests = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = React.useState('')
+  const [open, setOpen] = React.useState(true)
   const [checkboxStatus, setCheckboxStatus] = React.useState({
     favoriter: false,
     öppna: false,
     tilldelade: false,
   })
+
+  const filteredRequests = tenderRequests.filter((request) =>
+    request.title.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+
   const handleCheckboxChange = (key) => {
     setCheckboxStatus((prevState) => ({
       ...prevState,
@@ -39,7 +45,7 @@ const TenderRequests = ({ navigation }) => {
   return (
     <ScrollView>
       <Searchbar
-        placeholder="Sök vara"
+        placeholder="Sök upphandling"
         onChangeText={setSearchQuery}
         value={searchQuery}
       />
@@ -51,8 +57,12 @@ const TenderRequests = ({ navigation }) => {
         </View>
       </List.Section>
       <List.Section>
-        <List.Accordion title="Öppna förfrågningar">
-          {tenderRequests.map(({ id, title, subtitle, image }) => (
+        <List.Accordion
+          title="Aktiva upphandlingar"
+          onPress={() => setOpen(!open)}
+          expanded={open}
+        >
+          {filteredRequests.map(({ id, title, subtitle, image }) => (
             <Card
               key={id}
               style={styles.card}
