@@ -1,11 +1,12 @@
-import { View, Button, Text } from 'react-native'
+import { View, Button } from 'react-native'
+import { Title } from 'react-native-paper'
 
 const Login = ({ onLogin }: { onLogin: any }) => {
   return (
     <View
       style={{ flex: 1, alignItems: 'center', justifyContent: 'space-around' }}
     >
-      <Text>Vem är du?</Text>
+      <Title>Vem är du?</Title>
       <Button
         title="Producent"
         onPress={() => {

@@ -20,7 +20,7 @@ const TenderRequest = ({ route }) => {
   return (
     <ScrollView>
       <TextInput
-        label="Rubrik på erbjudandet"
+        label="Rubrik på anbudsförfrågan"
         value={title}
         onChangeText={(text) => setTitle(text)}
       />
