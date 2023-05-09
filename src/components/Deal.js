@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { Card, TextInput, Banner } from 'react-native-paper'
+import { Card, TextInput, Banner, Button } from 'react-native-paper'
 import { ScrollView } from 'react-native'
 import deals from '../data/deals'
 
-const Deal = ({ route }) => {
+const Deal = ({ route, navigation }) => {
   const { id } = route.params
   const [title, setTitle] = React.useState('Rubrik')
   const [price, setPrice] = React.useState('')
@@ -33,6 +33,17 @@ const Deal = ({ route }) => {
         <Card.Title title={title} subtitle={price} />
         <Card.Cover source={{ uri: image }} />
       </Card>
+      <Button
+        onPress={() =>
+          navigation.navigate('CreateTenderRequest', {
+            title: title,
+            price: price,
+            image: image,
+          })
+        }
+      >
+        Ny anbudsförfrågan
+      </Button>
     </ScrollView>
   )
 }

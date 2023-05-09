@@ -1,6 +1,6 @@
-import * as React from "react"
-import { View } from "react-native"
-import { Button, Menu, Divider, Provider } from "react-native-paper"
+import * as React from 'react'
+import { View } from 'react-native'
+import { Button, Menu, Divider, Provider } from 'react-native-paper'
 
 const AccountMenu = () => {
   const [visible, setVisible] = React.useState(false)
@@ -14,8 +14,8 @@ const AccountMenu = () => {
       <View
         style={{
           paddingTop: 50,
-          flexDirection: "row",
-          justifyContent: "center",
+          flexDirection: 'row',
+          justifyContent: 'center',
         }}
       >
         <Menu

@@ -11,6 +11,7 @@ import Chat from './components/Chat'
 import CreateDeal from './components/CreateDeal'
 import TenderRequests from './components/TenderRequests'
 import TenderRequest from './components/TenderRequest'
+import CreateTenderRequest from './components/CreateTenderRequest'
 import { createStackNavigator } from '@react-navigation/stack'
 
 const SupplierNavigation = (Tab: any) => {
@@ -20,7 +21,8 @@ const SupplierNavigation = (Tab: any) => {
         name="TenderReuests"
         component={TenderRequestsNavigation}
         options={{
-          tabBarLabel: '',
+          tabBarLabel: 'Anbuds-förfrågningar',
+          tabBarAccessibilityLabel: 'Anbudsförfrågningar',
           tabBarIcon: (color: any) => (
             <MaterialCommunityIcons name="cart" color={color} size={20} />
           ),
@@ -30,8 +32,8 @@ const SupplierNavigation = (Tab: any) => {
         name="Deals"
         component={DealsNavigation}
         options={{
-          tabBarLabel: '',
-          // tabBarLabel: 'Erbjudna varor',
+          tabBarLabel: 'Erbjudna varor',
+          tabBarAccessibilityLabel: 'Erbjudna varor',
           tabBarIcon: (color: any) => (
             <MaterialCommunityIcons name="corn" color={color} size={20} />
           ),
@@ -41,8 +43,8 @@ const SupplierNavigation = (Tab: any) => {
         name="CreateDeal"
         component={CreateDeal}
         options={{
-          tabBarLabel: '',
-          // tabBarLabel: 'Nytt erbjudande',
+          tabBarLabel: 'Nytt erbjudande',
+          tabBarAccessibilityLabel: 'Nytt erbjudande',
           tabBarIcon: (color: any) => (
             <MaterialCommunityIcons name="corn" color={color} size={30} />
           ),
@@ -53,8 +55,8 @@ const SupplierNavigation = (Tab: any) => {
         name="Chat"
         component={Chat}
         options={{
-          tabBarLabel: '',
-          // tabBarLabel: 'Meddelanden',
+          tabBarLabel: 'Meddelanden',
+          tabBarAccessibilityLabel: 'Meddelanden',
           tabBarIcon: (color: any) => (
             <MaterialCommunityIcons name="compass" color={color} size={20} />
           ),
@@ -64,8 +66,8 @@ const SupplierNavigation = (Tab: any) => {
         name="TendersAndContracts"
         component={TendersAndContracts}
         options={{
-          tabBarLabel: '',
-          // tabBarLabel: 'Mina anbud',
+          tabBarLabel: 'Mina anbud',
+          tabBarAccessibilityLabel: 'Mina anbud',
           tabBarIcon: (color: any) => (
             <MaterialCommunityIcons name="account" color={color} size={20} />
           ),
@@ -82,8 +84,8 @@ const BuyerNavigation = (Tab: any) => {
         name="Deals"
         component={DealsNavigation}
         options={{
-          tabBarLabel: '',
-          // tabBarLabel: 'Erbjudna varor',
+          tabBarLabel: 'Erbjudna varor',
+          tabBarAccessibilityLabel: 'Erbjudna varor',
           tabBarIcon: (color: any) => (
             <MaterialCommunityIcons name="corn" color={color} size={20} />
           ),
@@ -94,19 +96,19 @@ const BuyerNavigation = (Tab: any) => {
         name="TenderReuests"
         component={TenderRequestsNavigation}
         options={{
-          tabBarLabel: '',
-          // tabBarLabel: 'Anbudsförfrågningar',
+          tabBarLabel: 'Anbuds-förfrågningar',
+          tabBarAccessibilityLabel: 'Anbudsförfrågningar',
           tabBarIcon: (color: any) => (
             <MaterialCommunityIcons name="cart" color={color} size={20} />
           ),
         }}
       />
       <Tab.Screen
-        name="NewTenderReuest"
-        component={TenderRequestsNavigation}
+        name="CreateTenderRequest"
+        component={CreateTenderRequest}
         options={{
-          tabBarLabel: '',
-          // tabBarLabel: 'Ny anbudsförfrågan',
+          tabBarLabel: 'Ny anbuds-förfrågan',
+          tabBarAccessibilityLabel: 'Ny anbudsförfrågan',
           tabBarIcon: (color: any) => (
             <MaterialCommunityIcons name="cart-plus" color={color} size={30} />
           ),
@@ -116,8 +118,8 @@ const BuyerNavigation = (Tab: any) => {
         name="Chat"
         component={Chat}
         options={{
-          tabBarLabel: '',
-          // tabBarLabel: 'Meddelanden',
+          tabBarLabel: 'Meddelanden',
+          tabBarAccessibilityLabel: 'Meddelanden',
           tabBarIcon: (color: any) => (
             <MaterialCommunityIcons name="compass" color={color} size={20} />
           ),
@@ -127,8 +129,9 @@ const BuyerNavigation = (Tab: any) => {
         name="TendersAndContracts"
         component={TendersAndContracts}
         options={{
-          tabBarLabel: '',
-          // tabBarLabel: 'Mina anbud',
+          tabBarBadge: '5',
+          tabBarLabel: 'Mina anbud',
+          tabBarAccessibilityLabel: 'Mina anbud',
           tabBarIcon: (color: any) => (
             <MaterialCommunityIcons name="account" color={color} size={20} />
           ),
@@ -195,37 +198,25 @@ const Navigation = () => {
 
   return (
     <Tab.Navigator
+      // activeColor="red"
+      // inactiveColor="yellow"
+      shifting={true}
       barStyle={{ backgroundColor: 'white' }}
       initialRouteName="Login"
       screenOptions={
         {
-          // tabBarStyle: { height: 300 },
+          // tabBarColor: 'red',
         }
       }
     >
       {user == '' ? (
         <>
           <Tab.Screen
-            name="Login"
-            children={() => (
-              <Login
-                onLogin={({ userType }: { userType: string }) => {
-                  setUser(userType)
-                }}
-              />
-            )}
-            options={{
-              tabBarLabel: '',
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons name="home" color={color} size={25} />
-              ),
-            }}
-          />
-          <Tab.Screen
             name="Deals"
             component={DealsNavigation}
             options={{
-              tabBarLabel: '',
+              tabBarAccessibilityLabel: 'Erbjudanden',
+              tabBarLabel: 'Erbjudanden',
               tabBarIcon: (color: any) => (
                 <MaterialCommunityIcons name="corn" color={color} size={25} />
               ),
@@ -236,9 +227,31 @@ const Navigation = () => {
             name="TenderReuests"
             component={TenderRequestsNavigation}
             options={{
-              tabBarLabel: '',
+              tabBarAccessibilityLabel: 'Anbudsförfrågningar',
+              tabBarLabel: 'Anbudsförfrågningar',
               tabBarIcon: (color: any) => (
                 <MaterialCommunityIcons name="cart" color={color} size={25} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Login"
+            children={() => (
+              <Login
+                onLogin={({ userType }: { userType: string }) => {
+                  setUser(userType)
+                }}
+              />
+            )}
+            options={{
+              tabBarAccessibilityLabel: 'Logga in',
+              tabBarLabel: 'Logga in',
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons
+                  name="account"
+                  color={color}
+                  size={25}
+                />
               ),
             }}
           />
