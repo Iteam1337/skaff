@@ -14,7 +14,7 @@ import { StatusBar } from 'expo-status-bar'
 import tenderRequests from '../data/tenderRequests'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
-const ChevronRight = (props) => (
+const ChevronRight = () => (
   <MaterialCommunityIcons
     size="25"
     style={{ marginRight: 20 }}
