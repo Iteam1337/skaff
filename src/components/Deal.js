@@ -3,7 +3,7 @@ import { Card, TextInput, Banner, Button } from 'react-native-paper'
 import { ScrollView } from 'react-native'
 import deals from '../data/deals'
 
-const Deal = ({ route, navigation }) => {
+const Deal = ({ route, navigation, user }) => {
   const { id } = route.params
   const [title, setTitle] = React.useState('Rubrik')
   const [price, setPrice] = React.useState('')
@@ -33,17 +33,19 @@ const Deal = ({ route, navigation }) => {
         <Card.Title title={title} subtitle={price} />
         <Card.Cover source={{ uri: image }} />
       </Card>
-      <Button
-        onPress={() =>
-          navigation.navigate('CreateTenderRequest', {
-            title: title,
-            price: price,
-            image: image,
-          })
-        }
-      >
-        Ny anbudsförfrågan
-      </Button>
+      {user == 'Buyer' ? (
+        <Button
+          onPress={() =>
+            navigation.navigate('CreateTenderRequest', {
+              title: title,
+              price: price,
+              image: image,
+            })
+          }
+        >
+          Ny anbudsförfrågan
+        </Button>
+      ) : null}
     </ScrollView>
   )
 }

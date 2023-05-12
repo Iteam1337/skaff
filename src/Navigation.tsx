@@ -14,7 +14,7 @@ import TenderRequest from './components/TenderRequest'
 import CreateTenderRequest from './components/CreateTenderRequest'
 import { createStackNavigator } from '@react-navigation/stack'
 
-const SupplierNavigation = (Tab: any) => {
+const SupplierNavigation = (Tab: any, user: string) => {
   return (
     <>
       <Tab.Screen
@@ -30,7 +30,7 @@ const SupplierNavigation = (Tab: any) => {
       />
       <Tab.Screen
         name="Deals"
-        component={DealsNavigation}
+        component={DealsNavigation(user)}
         options={{
           tabBarLabel: 'Erbjudna varor',
           tabBarAccessibilityLabel: 'Erbjudna varor',
@@ -77,12 +77,15 @@ const SupplierNavigation = (Tab: any) => {
   )
 }
 
-const BuyerNavigation = (Tab: any) => {
+const BuyerNavigation = (Tab: any, user: string) => {
   return (
     <>
       <Tab.Screen
         name="Deals"
-        component={DealsNavigation}
+        component={DealsNavigation({ user })}
+        // children={({ route, navigation }) => (
+        //   <DealsNavigation route={route} navigation={navigation} user={user} />
+        // )}
         options={{
           tabBarLabel: 'Erbjudna varor',
           tabBarAccessibilityLabel: 'Erbjudna varor',
@@ -141,7 +144,7 @@ const BuyerNavigation = (Tab: any) => {
   )
 }
 
-const DealsNavigation = () => {
+const DealsNavigation = ({ user }: { user: string }) => {
   const Stack = createStackNavigator()
 
   return (
@@ -152,14 +155,18 @@ const DealsNavigation = () => {
           options={{
             title: 'Erbjudanden',
           }}
-          component={Deals}
+          children={({ navigation }) => (
+            <Deals navigation={navigation} user={user} />
+          )}
         />
         <Stack.Screen
           name="Deal"
           options={{
             title: 'Erbjudande',
           }}
-          component={Deal}
+          children={({ route, navigation }) => (
+            <Deal route={route} navigation={navigation} user={user} />
+          )}
         />
       </Stack.Navigator>
     </>
@@ -200,7 +207,7 @@ const Navigation = () => {
     <Tab.Navigator
       // activeColor="red"
       // inactiveColor="yellow"
-      shifting={true}
+      shifting={user == '' ? false : true}
       barStyle={{ backgroundColor: 'white' }}
       initialRouteName="Login"
       screenOptions={
@@ -211,29 +218,6 @@ const Navigation = () => {
     >
       {user == '' ? (
         <>
-          <Tab.Screen
-            name="Deals"
-            component={DealsNavigation}
-            options={{
-              tabBarAccessibilityLabel: 'Erbjudanden',
-              tabBarLabel: 'Erbjudanden',
-              tabBarIcon: (color: any) => (
-                <MaterialCommunityIcons name="corn" color={color} size={25} />
-              ),
-            }}
-          />
-
-          <Tab.Screen
-            name="TenderReuests"
-            component={TenderRequestsNavigation}
-            options={{
-              tabBarAccessibilityLabel: 'Anbudsförfrågningar',
-              tabBarLabel: 'Anbudsförfrågningar',
-              tabBarIcon: (color: any) => (
-                <MaterialCommunityIcons name="cart" color={color} size={25} />
-              ),
-            }}
-          />
           <Tab.Screen
             name="Login"
             children={() => (
@@ -257,8 +241,8 @@ const Navigation = () => {
           />
         </>
       ) : null}
-      {user == 'Supplier' ? SupplierNavigation(Tab) : null}
-      {user == 'Buyer' ? BuyerNavigation(Tab) : null}
+      {user == 'Supplier' ? SupplierNavigation(Tab, user) : null}
+      {user == 'Buyer' ? BuyerNavigation(Tab, user) : null}
     </Tab.Navigator>
   )
 }
