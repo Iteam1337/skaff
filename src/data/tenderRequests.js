@@ -7,18 +7,18 @@ export default [
   {
     id: 1,
     title: 'Ägg 100kg',
-    subtitle: 'Skolmatsalen i Rönnänge Skola',
+    buyer: 'Skolmatsalen i Rönnänge Skola',
   },
   {
     id: 2,
     title: 'Lammkött 100kg',
-    subtitle: 'Södra Ängby Skola',
+    buyer: 'Södra Ängby Skola',
     image: 'https://picsum.photos/700',
   },
   {
     id: 3,
     title: 'Tomater 100kg',
-    subtitle: 'Abrahamsbergsskolan',
+    buyer: 'Abrahamsbergsskolan',
     image: 'https://picsum.photos/700',
   },
 ]
