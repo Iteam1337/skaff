@@ -30,7 +30,7 @@ const SupplierNavigation = (Tab: any, user: string) => {
       />
       <Tab.Screen
         name="Deals"
-        component={DealsNavigation(user)}
+        component={DealsNavigation({ user })}
         options={{
           tabBarLabel: 'Erbjudna varor',
           tabBarAccessibilityLabel: 'Erbjudna varor',
