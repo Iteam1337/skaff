@@ -73,7 +73,7 @@ const BuyerNavigation = () => {
     <Tab.Navigator
       // activeColor="red"
       // inactiveColor="yellow"
-      barStyle={{ backgroundColor: '#fff' }}
+      barStyle={{ backgroundColor: '#eff' }}
       initialRouteName="Deals"
     >
       <Tab.Screen
