@@ -18,13 +18,19 @@ import {
   AccordionGroup,
 } from 'react-native-paper/lib/typescript/src/components/List/List'
 
-const Deals = ({ navigation }) => {
+interface Area {
+  image: string
+  title: string
+  count: number
+}
+
+const Deals = ({ navigation }: { navigation: any }) => {
   const [searchQuery, setSearchQuery] = React.useState('')
   const filteredDeals = deals.filter((deal) =>
     deal.product.name.toLowerCase().includes(searchQuery.toLowerCase())
   )
 
-  const activeAreas = Object.entries(areas).reduce(
+  const activeAreas: { [key: string]: Area } = Object.entries(areas).reduce(
     (result, [key, area]) =>
       Object.assign(result, {
         [key]: {
@@ -46,11 +52,11 @@ const Deals = ({ navigation }) => {
       {Object.entries(activeAreas)
         .filter(([, { count }]) => count > 0)
         .map(([, area]) => (
-          <Card>
+          <Card key={area.title}>
             <Card.Cover source={area.image} />
             <List.Accordion
               title={area.title}
-              expanded={searchQuery || undefined}
+              expanded={!!searchQuery || undefined}
             >
               <List.Subheader>{`${area.count} varor`}</List.Subheader>
               {filteredDeals
