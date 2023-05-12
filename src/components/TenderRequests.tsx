@@ -17,13 +17,13 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 const ChevronRight = () => (
   <MaterialCommunityIcons
-    size="25"
+    size={25}
     style={{ marginRight: 20 }}
     name="chevron-right"
   />
 )
 
-const TenderRequests = ({ navigation }) => {
+const TenderRequests = ({ navigation }: { navigation: any }) => {
   const [searchQuery, setSearchQuery] = React.useState('')
   const [open, setOpen] = React.useState(true)
 
@@ -31,12 +31,12 @@ const TenderRequests = ({ navigation }) => {
     request.title.toLowerCase().includes(searchQuery.toLowerCase())
   )
 
-  const handleCheckboxChange = (key) => {
-    setCheckboxStatus((prevState) => ({
-      ...prevState,
-      [key]: !prevState[key],
-    }))
-  }
+  // const handleCheckboxChange = (key) => {
+  //   setCheckboxStatus((prevState: any) => ({
+  //     ...prevState,
+  //     [key]: !prevState[key],
+  //   }))
+  // }
 
   return (
     <ScrollView>
@@ -58,7 +58,7 @@ const TenderRequests = ({ navigation }) => {
           onPress={() => setOpen(!open)}
           expanded={open}
         >
-          {filteredRequests.map(({ id, title, subtitle, image }) => (
+          {filteredRequests.map(({ id, title, image }) => (
             <Card
               key={id}
               style={styles.card}
@@ -67,7 +67,6 @@ const TenderRequests = ({ navigation }) => {
               <Card.Title
                 titleVariant="headlineMedium"
                 title={title}
-                subtitle={subtitle}
                 right={(props) => <ChevronRight />}
               />
             </Card>
