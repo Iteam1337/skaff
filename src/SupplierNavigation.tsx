@@ -76,7 +76,7 @@ const SupplierNavigation = () => {
     <Tab.Navigator
       // activeColor="red"
       // inactiveColor="yellow"
-      barStyle={{ backgroundColor: '#fff' }}
+      barStyle={{ backgroundColor: '#eef' }}
       initialRouteName="TenderRequests"
     >
       <Tab.Screen

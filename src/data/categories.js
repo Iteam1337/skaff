@@ -1,3 +1,7 @@
+import frozen from '../../assets/area_frozen_food.png'
+import fresh_cooled from '../../assets/area_fresh_or_cooled.png'
+import groceries from '../../assets/area_groceries.png'
+
 export default categories = {
   Frozen: {
     Desserts_Snacks: ['Ostkaka'],
@@ -86,21 +90,51 @@ export default categories = {
 }
 
 export const areas = {
-  'Frozen': 'Djupfryst',
-  'Fresh/Cooled': 'Färskvaror/Kylvaror',
-  'Grocery/Specialty': 'Kolonial/Speceri',
-  'BakeryGoods': 'Bagerivaror',
-  'DryGoods': 'Torrvaror',
-  'CannedGoods': 'Konserver',
-  'Beverages': 'Drycker',
-  'CondimentsAndSpices': 'Kryddor och kryddblandningar',
-  'DiaryProducts': 'Mejeriprodukter',
-  'FishAndSeafood': 'Fisk och skaldjur',
-  'Pastries': 'Konditorivaror',
-  'Snacks': 'Snacks',
-  'HealthFoods': 'Hälsokost',
-  'NonAlcoholicBeverages': 'Alkoholfria drycker',
-  'AlcoholicBeverages': 'Alkoholhaltiga drycker',
+  'Frozen': {
+    title: 'Djupfryst',
+    image: frozen,
+  },
+  'Fresh/Cooled': {
+    title: 'Färskvaror/Kylvaror',
+    image: fresh_cooled,
+  },
+  'Grocery/Specialty': {
+    title: 'Kolonial/Speceri',
+    image: groceries,
+  },
+  'BakeryGoods': {
+    title: 'Bagerivaror',
+  },
+  'DryGoods': {
+    title: 'Torrvaror',
+  },
+  'CannedGoods': {
+    title: 'Konserver',
+  },
+  'Beverages': {
+    title: 'Drycker',
+  },
+  'CondimentsAndSpices': {
+    title: 'Kryddor och kryddblandningar',
+  },
+  'DiaryProducts': {
+    title: 'Mejeriprodukter',
+  },
+  'FishAndSeafood': {
+    title: 'Fisk och skaldjur',
+  },
+  'Pastries': {
+    title: 'Konditorivaror',
+  },
+  'Snacks': {
+    title: 'Snacks',
+  },
+  'HealthFoods': {
+    title: 'Hälsokost',
+  },
+  'NonAlcoholicBeverages': {
+    title: 'Alkoholfria drycker',
+  },
 }
 
 export const mainGroups = {
@@ -121,4 +155,25 @@ export const mainGroups = {
   EnergyBarsAndDrinks: 'Energi bars och drycker',
   GlutenFreeProducts: 'Glutenfria produkter',
   LactoseFreeProducts: 'Laktosfria produkter',
+}
+
+export const certifications = {
+  organic: {
+    title: 'Organisk',
+  },
+  MSC: {
+    title: 'MSC',
+  },
+  kravMarked: {
+    title: 'Kravmärkt',
+  },
+  ethical: {
+    title: 'Etisk',
+  },
+  fairtrade: {
+    title: 'Fairtrade',
+  },
+  locallyProduced: {
+    title: 'Närodlad',
+  },
 }
