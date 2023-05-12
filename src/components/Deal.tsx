@@ -27,12 +27,21 @@ const Header = ({ product, supplier, price }) => (
   </View>
 )
 
-const deal = ({ route, navigation }) => {
+const Deal = ({ route, navigation }) => {
   const { id } = route.params
   const deal = deals.find((deal) => deal.id === id)
   if (!deal) return navigation.back()
 
   const theme = useTheme()
+
+  const getTitle = function (deal: any) {
+    return (
+      deal.commodity.group +
+      'i kategorin ' +
+      deal.commodity.mainGroup.toLocaleLowerCase() +
+      deal.commodity.area.toLocaleLowerCase()
+    )
+  }
 
   return (
     <>
@@ -67,9 +76,7 @@ const deal = ({ route, navigation }) => {
                 <Column>
                   <Caption>Beskrivning</Caption>
                   <Text>
-                    {deal.commodity.group} i kategorin{' '}
-                    {deal.commodity.mainGroup.toLocaleLowerCase()}(
-                    {deal.commodity.area.toLocaleLowerCase()}). Säljs i paket om{' '}
+                    {getTitle(deal)} Säljs i paket om{' '}
                     {deal.price.kilos.toLocaleString('sv')}kg.
                   </Text>
                 </Column>
@@ -110,10 +117,9 @@ const deal = ({ route, navigation }) => {
             <Container>
               <Button
                 onPress={() =>
-                  navigation.navigate('Createdeal', {
-                    title: title,
-                    price: price,
-                    image: image,
+                  navigation.navigate('CreateTenderRequest', {
+                    title: getTitle(deal),
+                    price: deal.price.SEK_per_Kg.toLocaleString('sv'),
                   })
                 }
               >
@@ -168,7 +174,7 @@ const Container = ({ children }) => (
   <View style={styles.container}>{children}</View>
 )
 
-export default deal
+export default Deal
 
 const styles = StyleSheet.create({
   container: { padding: 16, backgroundColor: 'white' },
