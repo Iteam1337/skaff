@@ -7,22 +7,26 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
+import { Caption } from 'react-native-paper'
 
 const messages = [
   {
     id: 1,
     type: 'question',
     text: 'Vad händer om skörden blir mindre än tänkt?',
+    date: '2021-05-01T12:00:00',
   },
   {
     id: 2,
     type: 'answer',
     text: 'Vi för en kontinuerlig dialog och löser det i så fall tillsammans.',
+    date: '2021-05-01T12:01:00',
   },
   {
     id: 3,
     type: 'question',
     text: 'Hur exakt är leveransplanen?',
+    date: '2021-05-02T12:02:00',
   },
   // ...fler meddelanden
 ]
@@ -36,21 +40,27 @@ const Chat = () => {
       id: (messages.at(-1)?.id || 0) + 1,
       type: 'question',
       text: inputText,
+      date: new Date().toISOString(),
     })
     setInputText('') // Rensa svarsfältet efter att ha skickat meddelandet
   }
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {messages.map((message) => (
-        <View
-          key={message.id}
-          style={[
-            styles.messageContainer,
-            message.type === 'question' ? styles.question : styles.answer,
-          ]}
-        >
-          <Text style={styles.messageText}>{message.text}</Text>
-        </View>
+      {messages.map((message, i) => (
+        <>
+          <View
+            key={message.id}
+            style={[
+              styles.messageContainer,
+              message.type === 'question' ? styles.question : styles.answer,
+            ]}
+          >
+            <Text style={styles.messageText}>{message.text}</Text>
+          </View>
+          {i === messages.length - 1 && (
+            <Caption style={styles.messageMetadata}>{message.date}</Caption>
+          )}
+        </>
       ))}
       <View style={styles.inputContainer}>
         <TextInput
@@ -74,22 +84,29 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end', // Lägg till denna rad
   },
   messageContainer: {
+    width: '70%',
     paddingHorizontal: 16,
     paddingVertical: 10,
     borderRadius: 20,
     marginBottom: 10,
   },
-  question: {
-    alignSelf: 'flex-start',
-    backgroundColor: '#26CC77', // Morotsfärg
-  },
   answer: {
-    alignSelf: 'flex-end',
+    alignSelf: 'flex-start',
     backgroundColor: '#757575', // Grå färg från ditt tema
+    marginBottom: 26,
+  },
+  question: {
+    alignSelf: 'flex-end',
+    backgroundColor: '#26CC77', // Morotsfärg
   },
   messageText: {
     fontSize: 16,
     color: '#FFF',
+  },
+  messageMetadata: {
+    alignSelf: 'center',
+    marginTop: -10,
+    color: '#999',
   },
   inputContainer: {
     flexDirection: 'row',

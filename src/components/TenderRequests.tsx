@@ -4,12 +4,13 @@ import {
   Button,
   Card,
   Checkbox,
+  IconButton,
   List,
   Searchbar,
   Text,
   Title,
 } from 'react-native-paper'
-import { ScrollView, StyleSheet, View } from 'react-native'
+import { Alert, ScrollView, StyleSheet, View } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import tenderRequests from '../data/tenderRequests'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -24,11 +25,12 @@ const ChevronRight = () => (
 
 const TenderRequests = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = React.useState('')
-  const [checkboxStatus, setCheckboxStatus] = React.useState({
-    favoriter: false,
-    öppna: false,
-    tilldelade: false,
-  })
+  const [open, setOpen] = React.useState(true)
+
+  const filteredRequests = tenderRequests.filter((request) =>
+    request.title.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+
   const handleCheckboxChange = (key) => {
     setCheckboxStatus((prevState) => ({
       ...prevState,
@@ -39,7 +41,7 @@ const TenderRequests = ({ navigation }) => {
   return (
     <ScrollView>
       <Searchbar
-        placeholder="Sök vara"
+        placeholder="Sök upphandling"
         onChangeText={setSearchQuery}
         value={searchQuery}
       />
@@ -51,8 +53,12 @@ const TenderRequests = ({ navigation }) => {
         </View>
       </List.Section>
       <List.Section>
-        <List.Accordion title="Öppna förfrågningar">
-          {tenderRequests.map(({ id, title, subtitle, image }) => (
+        <List.Accordion
+          title="Aktiva upphandlingar"
+          onPress={() => setOpen(!open)}
+          expanded={open}
+        >
+          {filteredRequests.map(({ id, title, subtitle, image }) => (
             <Card
               key={id}
               style={styles.card}

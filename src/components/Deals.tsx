@@ -3,6 +3,7 @@ import { Avatar, Button, Card, Text } from 'react-native-paper'
 import { ScrollView, StyleSheet } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import deals from '../data/deals'
+import { CustomHeader } from './Header'
 
 const Deals = ({ navigation }) => (
   <ScrollView>

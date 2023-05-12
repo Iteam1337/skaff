@@ -1,7 +1,7 @@
 import React from 'react'
 import { StatusBar } from 'expo-status-bar'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
-import Navigation from './Navigation'
+import Navigation from './RootNavigation'
 import { NavigationContainer } from '@react-navigation/native'
 import { useTheme } from 'react-native-paper'
 export default function App() {
