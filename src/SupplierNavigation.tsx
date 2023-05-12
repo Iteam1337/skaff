@@ -14,66 +14,6 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { IconButton, useTheme } from 'react-native-paper'
 import Notifications from './components/Notifications'
 
-const SupplierNavigation = () => {
-  const Tab = createMaterialBottomTabNavigator()
-  return (
-    <Tab.Navigator
-      // activeColor="red"
-      // inactiveColor="yellow"
-      shifting={true}
-      barStyle={{ backgroundColor: '#fff' }}
-      initialRouteName="Login"
-      screenOptions={{}}
-    >
-      <Tab.Screen
-        name="TenderRequests"
-        component={TenderRequestsNavigation}
-        options={{
-          tabBarLabel: 'Anbuds-förfrågningar',
-          tabBarAccessibilityLabel: 'Anbudsförfrågningar',
-          tabBarIcon: (color: any) => (
-            <MaterialCommunityIcons name="cart" color={color} size={20} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Deals"
-        component={DealsNavigation}
-        options={{
-          tabBarLabel: 'Erbjudna varor',
-          tabBarAccessibilityLabel: 'Erbjudna varor',
-          tabBarIcon: (color: any) => (
-            <MaterialCommunityIcons name="corn" color={color} size={20} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="CreateDeal"
-        component={CreateDeal}
-        options={{
-          tabBarLabel: 'Nytt erbjudande',
-          tabBarAccessibilityLabel: 'Nytt erbjudande',
-          tabBarIcon: (color: any) => (
-            <MaterialCommunityIcons name="corn" color={color} size={30} />
-          ),
-        }}
-      />
-
-      <Tab.Screen
-        name="TendersAndContracts"
-        component={TendersAndContracts}
-        options={{
-          tabBarLabel: 'Mina anbud',
-          tabBarAccessibilityLabel: 'Mina anbud',
-          tabBarIcon: (color: any) => (
-            <MaterialCommunityIcons name="account" color={color} size={20} />
-          ),
-        }}
-      />
-    </Tab.Navigator>
-  )
-}
-
 const DealsNavigation = () => {
   const Stack = createStackNavigator()
   return (
@@ -127,6 +67,64 @@ const TenderRequestsNavigation = () => {
         />
       </Stack.Navigator>
     </>
+  )
+}
+
+const SupplierNavigation = () => {
+  const Tab = createMaterialBottomTabNavigator()
+  return (
+    <Tab.Navigator
+      // activeColor="red"
+      // inactiveColor="yellow"
+      initialRouteName="TenderRequests"
+    >
+      <Tab.Screen
+        name="TenderRequests"
+        component={TenderRequestsNavigation}
+        options={{
+          tabBarLabel: 'Anbuds-förfrågningar',
+          tabBarAccessibilityLabel: 'Anbudsförfrågningar',
+          tabBarIcon: (color: any) => (
+            <MaterialCommunityIcons name="cart" color={color} size={20} />
+          ),
+        }}
+        // add back button in header:
+      />
+      <Tab.Screen
+        name="Deals"
+        component={DealsNavigation}
+        options={{
+          tabBarLabel: 'Erbjudna varor',
+          tabBarAccessibilityLabel: 'Erbjudna varor',
+          tabBarIcon: (color: any) => (
+            <MaterialCommunityIcons name="corn" color={color} size={20} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="CreateDeal"
+        component={CreateDeal}
+        options={{
+          tabBarLabel: 'Nytt erbjudande',
+          tabBarAccessibilityLabel: 'Nytt erbjudande',
+          tabBarIcon: (color: any) => (
+            <MaterialCommunityIcons name="corn" color={color} size={30} />
+          ),
+        }}
+      />
+
+      <Tab.Screen
+        name="TendersAndContracts"
+        component={TendersAndContracts}
+        options={{
+          tabBarLabel: 'Mina anbud',
+          tabBarAccessibilityLabel: 'Mina anbud',
+          tabBarIcon: (color: any) => (
+            <MaterialCommunityIcons name="account" color={color} size={20} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
   )
 }
 

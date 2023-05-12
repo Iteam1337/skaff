@@ -1,15 +1,20 @@
 import * as React from 'react'
-import { List } from 'react-native-paper'
+import { Button, List } from 'react-native-paper'
 import { StyleSheet, SafeAreaView } from 'react-native'
+import { NavigationProp, ParamListBase } from '@react-navigation/native'
 
-const TendersAndContracts = () => {
+const TendersAndContracts = ({
+  navigation,
+}: {
+  navigation: NavigationProp<ParamListBase>
+}) => {
   const [expanded, setExpanded] = React.useState(true)
 
   const handlePress = () => setExpanded(!expanded)
 
   return (
     <SafeAreaView>
-      <List.Section title="Min profil">
+      <List.Section title="Min affärer">
         <List.Accordion
           title="Skickade anbud"
           expanded={true}
@@ -38,6 +43,13 @@ const TendersAndContracts = () => {
         >
           <List.Item title="First item" />
           <List.Item title="Second item" />
+        </List.Accordion>
+      </List.Section>
+      <List.Section>
+        <List.Accordion title="Mitt Konto" expanded={true}>
+          <Button mode="contained" onPress={() => navigation.navigate('Login')}>
+            Logga ut
+          </Button>
         </List.Accordion>
       </List.Section>
     </SafeAreaView>

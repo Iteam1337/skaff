@@ -14,22 +14,20 @@ const Navigation = () => {
 
   return (
     <RootStack.Navigator initialRouteName="Login">
-      {user == '' && (
-        <RootStack.Screen
-          name="Login"
-          options={{
-            headerShown: false,
-          }}
-          children={({ navigation }) => (
-            <Login
-              onLogin={({ userType }: { userType: string }) => {
-                setUser(userType)
-                navigation.navigate(userType)
-              }}
-            />
-          )}
-        />
-      )}
+      <RootStack.Screen
+        name="Login"
+        options={{
+          headerShown: false,
+        }}
+        children={({ navigation }) => (
+          <Login
+            onLogin={({ userType }: { userType: string }) => {
+              setUser(userType)
+              navigation.navigate(userType)
+            }}
+          />
+        )}
+      />
       <RootStack.Screen
         name="Supplier"
         options={{
