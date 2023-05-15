@@ -31,15 +31,13 @@ const Explore = ({ navigation }: { navigation: any }) => {
         {filteredSuppliers.map(
           (supplier: { name: string; image: string; id: number }) => {
             return (
-              <View style={styles.searchResult}>
+              <View style={styles.searchResult} key={supplier.id}>
                 <Avatar.Image
                   size={30}
                   style={styles.avatar}
                   source={supplier.image}
                 />
-                <Text style={styles.searchResultName} key={supplier.id}>
-                  {supplier.name}
-                </Text>
+                <Text style={styles.searchResultName}>{supplier.name}</Text>
               </View>
             )
           }
@@ -59,15 +57,13 @@ const Explore = ({ navigation }: { navigation: any }) => {
         {filteredBuyers.map(
           (buyer: { name: string; image: string; id: number }) => {
             return (
-              <View style={styles.searchResult}>
+              <View style={styles.searchResult} key={buyer.id}>
                 <Avatar.Image
                   size={30}
                   style={styles.avatar}
                   source={buyer.image}
                 />
-                <Text style={styles.searchResultName} key={buyer.id}>
-                  {buyer.name}
-                </Text>
+                <Text style={styles.searchResultName}>{buyer.name}</Text>
               </View>
             )
           }
