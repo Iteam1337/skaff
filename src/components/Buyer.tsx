@@ -1,5 +1,6 @@
 import buyers from '../data/buyers'
 import { Avatar, Button, Searchbar, Text, Subheading } from 'react-native-paper'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { ScrollView, StyleSheet, SafeAreaView, View } from 'react-native'
 
 const Buyer = ({ route, navigation }: { route: any; navigation: any }) => {
@@ -20,6 +21,15 @@ const Buyer = ({ route, navigation }: { route: any; navigation: any }) => {
           {buyer.zip} {buyer.postalAddress}
         </Text>
         <Text style={styles.email}>{buyer.email}</Text>
+        <View style={styles.menuContainer}>
+          <Button style={styles.menuLink}>Planerad matsedel</Button>
+          <MaterialCommunityIcons
+            name="open-in-new"
+            color="black"
+            size={20}
+            style={styles.linkIcon}
+          />
+        </View>
         <Text style={styles.header2} variant="titleMedium">
           Presentation
         </Text>
@@ -56,11 +66,16 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 15,
   },
-  header2: {
-    marginTop: 20,
-  },
+  header2: {},
   description: {
-    marginTop: 3,
     lineHeight: 20,
   },
+  menuContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  linkIcon: { paddingTop: 10 },
+  menuLink: { marginLeft: -12 },
 })
