@@ -32,11 +32,10 @@ const Explore = ({ navigation }: { navigation: any }) => {
           (supplier: { name: string; image: string; id: number }) => {
             return (
               <View style={styles.searchResult}>
-                {/* TODO:Use image from source */}
                 <Avatar.Image
                   size={30}
                   style={styles.avatar}
-                  source={require(`../../assets/avatars/Image005.png`)}
+                  source={supplier.image}
                 />
                 <Text style={styles.searchResultName} key={supplier.id}>
                   {supplier.name}
@@ -61,11 +60,10 @@ const Explore = ({ navigation }: { navigation: any }) => {
           (buyer: { name: string; image: string; id: number }) => {
             return (
               <View style={styles.searchResult}>
-                {/* TODO:Use image from source */}
                 <Avatar.Image
                   size={30}
                   style={styles.avatar}
-                  source={require(`../../assets/avatars/Image007.png`)}
+                  source={buyer.image}
                 />
                 <Text style={styles.searchResultName} key={buyer.id}>
                   {buyer.name}

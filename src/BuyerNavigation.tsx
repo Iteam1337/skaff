@@ -111,6 +111,7 @@ const BuyerNavigation = () => {
           ),
         }}
       />
+      {/* TODO:Stack navigation for explore/supplier/buyer */}
       <Tab.Screen
         name="Explore"
         component={Explore}

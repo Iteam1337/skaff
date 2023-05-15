@@ -114,13 +114,17 @@ const SupplierNavigation = () => {
           ),
         }}
       />
-
+      {/* TODO: Create stack navigation for explore/suppliers/buyers */}
       <Tab.Screen
         name="Explore"
         component={Explore}
-        options={{tabBarLabel: 'Utforska', tabBarAccessibilityLabel:'Utforska', tabBarIcon: (color:any) => (
-          <MaterialCommunityIcons name="compass" color={color} size={20} />
-        )}}
+        options={{
+          tabBarLabel: 'Utforska',
+          tabBarAccessibilityLabel: 'Utforska',
+          tabBarIcon: (color: any) => (
+            <MaterialCommunityIcons name="compass" color={color} size={20} />
+          ),
+        }}
       />
 
       <Tab.Screen
