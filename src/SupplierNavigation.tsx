@@ -7,7 +7,7 @@ import TendersAndContracts from './components/TendersAndContracts'
 import Login from './components/Login'
 import Deals from './components/Deals'
 import Deal from './components/Deal'
-import Explore from './components/Explore'
+import ExploreNavigation from './ExploreNavigation'
 import CreateDeal from './components/CreateDeal'
 import TenderRequests from './components/TenderRequests'
 import TenderRequest from './components/TenderRequest'
@@ -114,10 +114,9 @@ const SupplierNavigation = () => {
           ),
         }}
       />
-      {/* TODO: Create stack navigation for explore/suppliers/buyers */}
       <Tab.Screen
         name="Explore"
-        component={Explore}
+        component={ExploreNavigation}
         options={{
           tabBarLabel: 'Utforska',
           tabBarAccessibilityLabel: 'Utforska',

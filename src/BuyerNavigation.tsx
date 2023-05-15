@@ -9,7 +9,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import Deal from './components/Deal'
 import Deals from './components/Deals'
-import Explore from './components/Explore'
+import ExploreNavigation from './ExploreNavigation'
 import { IconButton } from 'react-native-paper'
 
 const Stack = createStackNavigator()
@@ -111,10 +111,9 @@ const BuyerNavigation = () => {
           ),
         }}
       />
-      {/* TODO:Stack navigation for explore/supplier/buyer */}
       <Tab.Screen
         name="Explore"
-        component={Explore}
+        component={ExploreNavigation}
         options={{
           tabBarLabel: 'Utforska',
           tabBarAccessibilityLabel: 'Utforska',

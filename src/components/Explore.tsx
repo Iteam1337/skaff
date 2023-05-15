@@ -16,9 +16,6 @@ const Explore = ({ navigation }: { navigation: any }) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
-        <Text style={styles.title} variant="titleLarge">
-          Utforska
-        </Text>
         <Searchbar
           placeholder="Sök producent/beställare"
           onChangeText={setSearchQuery}
@@ -37,7 +34,14 @@ const Explore = ({ navigation }: { navigation: any }) => {
                   style={styles.avatar}
                   source={supplier.image}
                 />
-                <Text style={styles.searchResultName}>{supplier.name}</Text>
+                <Text
+                  style={styles.searchResultName}
+                  onPress={() =>
+                    navigation.navigate('Supplier', { id: supplier.id })
+                  }
+                >
+                  {supplier.name}
+                </Text>
               </View>
             )
           }
@@ -63,7 +67,12 @@ const Explore = ({ navigation }: { navigation: any }) => {
                   style={styles.avatar}
                   source={buyer.image}
                 />
-                <Text style={styles.searchResultName}>{buyer.name}</Text>
+                <Text
+                  style={styles.searchResultName}
+                  onPress={() => navigation.navigate('Buyer', { id: buyer.id })}
+                >
+                  {buyer.name}
+                </Text>
               </View>
             )
           }
