@@ -1,56 +1,80 @@
 import * as React from 'react'
-import {
-  Avatar,
-  Badge,
-  Button,
-  Card,
-  List,
-  Searchbar,
-  Text,
-} from 'react-native-paper'
-import { ScrollView, StyleSheet, SafeAreaView } from 'react-native'
-import { StatusBar } from 'expo-status-bar'
+import { Avatar, Button, Searchbar, Text } from 'react-native-paper'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { ScrollView, StyleSheet, SafeAreaView, View } from 'react-native'
 import suppliers from '../data/suppliers'
-import { CustomHeader } from './Header'
-import Categories, { areas } from '../data/categories'
-import {
-  Accordion,
-  AccordionGroup,
-} from 'react-native-paper/lib/typescript/src/components/List/List'
+import buyers from '../data/buyers'
 
 const Explore = ({ navigation }: { navigation: any }) => {
   const [searchQuery, setSearchQuery] = React.useState('')
   const filteredSuppliers = suppliers.filter((supplier) =>
     supplier.name.toLowerCase().includes(searchQuery.toLowerCase())
   )
-console.log('filteredSuppliers', filteredSuppliers)
-  // const activeAreas: { [key: string]: Area } = Object.entries(areas).reduce(
-  //   (result, [key, area]) =>
-  //     Object.assign(result, {
-  //       [key]: {
-  //         ...area,
-  //         count: filteredDeals.filter((d) => d.commodity.area === area.title)
-  //           .length,
-  //       },
-  //     }),
-  //   {}
-  // )
+  const filteredBuyers = buyers.filter((buyer) =>
+    buyer.name.toLowerCase().includes(searchQuery.toLowerCase())
+  )
   return (
-    <SafeAreaView>
-    <ScrollView>
-      <Searchbar
-        placeholder="Sök producent/beställare"
-        onChangeText={setSearchQuery}
-        value={searchQuery}
-      />
-
-      {Object.entries(suppliers)
-        .map((supplier: {name:string, image:string, id:number}) => (
-          
-          <Text key={supplier.id}>supplier: {supplier.name}</Text>
-          // <Text key={supplier.name}>{supplier.name}</Text>
-        ))}
-    </ScrollView>
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        <Text style={styles.title} variant="titleLarge">
+          Utforska
+        </Text>
+        <Searchbar
+          placeholder="Sök producent/beställare"
+          onChangeText={setSearchQuery}
+          value={searchQuery}
+          style={styles.searchbar}
+        />
+        <Text style={styles.header} variant="titleMedium">
+          Producenter
+        </Text>
+        {filteredSuppliers.map(
+          (supplier: { name: string; image: string; id: number }) => {
+            return (
+              <View style={styles.searchResult}>
+                {/* TODO:Use image from source */}
+                <Avatar.Image
+                  size={30}
+                  style={styles.avatar}
+                  source={require(`../../assets/avatars/Image005.png`)}
+                />
+                <Text style={styles.searchResultName} key={supplier.id}>
+                  {supplier.name}
+                </Text>
+              </View>
+            )
+          }
+        )}
+        <View style={styles.linkContainer}>
+          <Button style={styles.link}>Ansök om att bli ansluten</Button>
+          <MaterialCommunityIcons
+            name="open-in-new"
+            color="black"
+            size={20}
+            style={styles.linkIcon}
+          />
+        </View>
+        <Text style={styles.header} variant="titleMedium">
+          Beställare
+        </Text>
+        {filteredBuyers.map(
+          (buyer: { name: string; image: string; id: number }) => {
+            return (
+              <View style={styles.searchResult}>
+                {/* TODO:Use image from source */}
+                <Avatar.Image
+                  size={30}
+                  style={styles.avatar}
+                  source={require(`../../assets/avatars/Image007.png`)}
+                />
+                <Text style={styles.searchResultName} key={buyer.id}>
+                  {buyer.name}
+                </Text>
+              </View>
+            )
+          }
+        )}
+      </ScrollView>
     </SafeAreaView>
   )
 }
@@ -58,12 +82,40 @@ console.log('filteredSuppliers', filteredSuppliers)
 export default Explore
 
 const styles = StyleSheet.create({
-  card: {
-    margin: 10,
+  scrollView: {
+    padding: 10,
     backgroundColor: 'white',
   },
-  cover: {
-    height: 200,
-    borderRadius: 0,
+  container: {
+    backgroundColor: 'white',
+    height: '100%',
   },
+  title: {
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  searchbar: {
+    backgroundColor: 'white',
+    borderColor: 'black',
+    borderWidth: 1,
+  },
+  header: {
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  avatar: { marginRight: 5 },
+  searchResultName: {
+    paddingTop: 10,
+  },
+  searchResult: {
+    flex: 1,
+    flexDirection: 'row',
+    marginBottom: 10,
+  },
+  linkContainer: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  linkIcon: { paddingTop: 10 },
+  link: {},
 })
