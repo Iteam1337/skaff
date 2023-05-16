@@ -1,5 +1,13 @@
 import buyers from '../data/buyers'
-import { Avatar, Button, Searchbar, Text, Subheading } from 'react-native-paper'
+import {
+  Avatar,
+  Button,
+  Searchbar,
+  Text,
+  Subheading,
+  Title,
+  Paragraph,
+} from 'react-native-paper'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { ScrollView, StyleSheet, SafeAreaView, View } from 'react-native'
 
@@ -10,7 +18,7 @@ const Buyer = ({ route, navigation }: { route: any; navigation: any }) => {
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.headerContainer}>
-        <Subheading style={styles.heading}>{buyer.name}</Subheading>
+        <Title style={styles.heading}>{buyer.name}</Title>
         <Avatar.Image
           size={150}
           style={styles.avatar}
@@ -22,18 +30,17 @@ const Buyer = ({ route, navigation }: { route: any; navigation: any }) => {
         </Text>
         <Text style={styles.email}>{buyer.email}</Text>
         <View style={styles.menuContainer}>
-          <Button style={styles.menuLink}>Planerad matsedel</Button>
-          <MaterialCommunityIcons
-            name="open-in-new"
-            color="black"
-            size={20}
-            style={styles.linkIcon}
-          />
+          <Button style={styles.menuLink} uppercase={false}>
+            Planerad matsedel{' '}
+            <MaterialCommunityIcons
+              name="open-in-new"
+              color="black"
+              size={20}
+            />
+          </Button>
         </View>
-        <Text style={styles.header2} variant="titleMedium">
-          Presentation
-        </Text>
-        <Text style={styles.description}>{buyer.description}</Text>
+        <Subheading>Presentation</Subheading>
+        <Paragraph style={styles.description}>{buyer.description}</Paragraph>
       </View>
     </ScrollView>
   )
@@ -66,7 +73,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 15,
   },
-  header2: {},
   description: {
     lineHeight: 20,
   },
@@ -76,6 +82,5 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 10,
   },
-  linkIcon: { paddingTop: 10 },
   menuLink: { marginLeft: -12 },
 })

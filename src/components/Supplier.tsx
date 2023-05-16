@@ -1,15 +1,26 @@
 import suppliers from '../data/suppliers'
-import { Avatar, Button, Searchbar, Text, Subheading } from 'react-native-paper'
+import {
+  Avatar,
+  Button,
+  Searchbar,
+  Text,
+  Subheading,
+  Divider,
+  useTheme,
+  Title,
+  Paragraph,
+} from 'react-native-paper'
 import { ScrollView, StyleSheet, SafeAreaView, View } from 'react-native'
 
 const Supplier = ({ route, navigation }: { route: any; navigation: any }) => {
+  const theme = useTheme()
   const { id } = route.params
   const supplier = suppliers.find((deal) => deal.id === id)
   if (!supplier) return navigation.back()
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.headerContainer}>
-        <Subheading style={styles.heading}>{supplier.name}</Subheading>
+        <Title style={styles.heading}>{supplier.name}</Title>
         <Avatar.Image
           size={150}
           style={styles.avatar}
@@ -20,9 +31,8 @@ const Supplier = ({ route, navigation }: { route: any; navigation: any }) => {
           {supplier.zip} {supplier.postalAddress}
         </Text>
         <Text style={styles.email}>{supplier.email}</Text>
-        <Text style={styles.header2} variant="titleMedium">
-          Varor
-        </Text>
+        <Divider style={styles.divider} />
+        <Subheading style={styles.subHeading}>Varor</Subheading>
         {supplier.produce.map((p) => {
           return (
             <Text key={p} style={styles.produce}>
@@ -30,10 +40,8 @@ const Supplier = ({ route, navigation }: { route: any; navigation: any }) => {
             </Text>
           )
         })}
-        <Text style={styles.header2} variant="titleMedium">
-          Presentation
-        </Text>
-        <Text style={styles.description}>{supplier.description}</Text>
+        <Subheading style={styles.subHeading}>Presentation</Subheading>
+        <Paragraph style={styles.description}>{supplier.description}</Paragraph>
       </View>
     </ScrollView>
   )
@@ -69,11 +77,14 @@ const styles = StyleSheet.create({
   produce: {
     marginTop: 3,
   },
-  header2: {
-    marginTop: 20,
-  },
   description: {
     marginTop: 3,
     lineHeight: 20,
+  },
+  divider: {
+    marginTop: 20,
+  },
+  subHeading: {
+    marginTop: 20,
   },
 })

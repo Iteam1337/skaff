@@ -1,11 +1,20 @@
 import * as React from 'react'
-import { Avatar, Button, Searchbar, Text } from 'react-native-paper'
+import {
+  Avatar,
+  Button,
+  Divider,
+  Searchbar,
+  Text,
+  Subheading,
+  useTheme,
+} from 'react-native-paper'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { ScrollView, StyleSheet, SafeAreaView, View } from 'react-native'
 import suppliers from '../data/suppliers'
 import buyers from '../data/buyers'
 
 const Explore = ({ navigation }: { navigation: any }) => {
+  const theme = useTheme
   const [searchQuery, setSearchQuery] = React.useState('')
   const filteredSuppliers = suppliers.filter((supplier) =>
     supplier.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -22,9 +31,7 @@ const Explore = ({ navigation }: { navigation: any }) => {
           value={searchQuery}
           style={styles.searchbar}
         />
-        <Text style={styles.header} variant="titleMedium">
-          Producenter
-        </Text>
+        <Subheading style={styles.header}>Producenter</Subheading>
         {filteredSuppliers.map(
           (supplier: { name: string; image: string; id: number }) => {
             return (
@@ -47,17 +54,17 @@ const Explore = ({ navigation }: { navigation: any }) => {
           }
         )}
         <View style={styles.linkContainer}>
-          <Button style={styles.link}>Ansök om att bli ansluten</Button>
-          <MaterialCommunityIcons
-            name="open-in-new"
-            color="black"
-            size={20}
-            style={styles.linkIcon}
-          />
+          <Button uppercase={false}>
+            Ansök om att bli ansluten{' '}
+            <MaterialCommunityIcons
+              name="open-in-new"
+              color="black"
+              size={20}
+            />
+          </Button>
         </View>
-        <Text style={styles.header} variant="titleMedium">
-          Beställare
-        </Text>
+        <Divider />
+        <Subheading style={styles.header}>Beställare</Subheading>
         {filteredBuyers.map(
           (buyer: { name: string; image: string; id: number }) => {
             return (
@@ -101,6 +108,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderColor: 'black',
     borderWidth: 1,
+    elevation: false,
   },
   header: {
     marginTop: 20,
@@ -118,7 +126,6 @@ const styles = StyleSheet.create({
   linkContainer: {
     flex: 1,
     flexDirection: 'row',
+    marginBottom: 10,
   },
-  linkIcon: { paddingTop: 10 },
-  link: {},
 })
