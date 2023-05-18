@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/foodMarket/static/js/main.03e43a71.js",
+    "main.js": "/foodMarket/static/js/main.8fa4d463.js",
     "static/js/374.f6f4a7e9.js": "/foodMarket/static/js/374.f6f4a7e9.js",
     "static/media/area_frozen_food.png": "/foodMarket/static/media/area_frozen_food.38b65ea43a71ee12a480.png",
     "static/media/MaterialCommunityIcons.ttf": "/foodMarket/static/media/MaterialCommunityIcons.5d42b4e60858731e7b65.ttf",
@@ -12,11 +12,11 @@
     "favicon-16.png": "/foodMarket/favicon-16.png",
     "manifest.json": "/foodMarket/manifest.json",
     "serve.json": "/foodMarket/serve.json",
-    "main.03e43a71.js.map": "/foodMarket/static/js/main.03e43a71.js.map",
+    "main.8fa4d463.js.map": "/foodMarket/static/js/main.8fa4d463.js.map",
     "374.f6f4a7e9.js.map": "/foodMarket/static/js/374.f6f4a7e9.js.map"
   },
   "entrypoints": [
     "static/js/374.f6f4a7e9.js",
-    "static/js/main.03e43a71.js"
+    "static/js/main.8fa4d463.js"
   ]
 }
