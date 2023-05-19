@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.js": "/foodMarket/static/js/main.8fa4d463.js",
-    "static/js/374.f6f4a7e9.js": "/foodMarket/static/js/374.f6f4a7e9.js",
-    "static/media/area_frozen_food.png": "/foodMarket/static/media/area_frozen_food.38b65ea43a71ee12a480.png",
-    "static/media/MaterialCommunityIcons.ttf": "/foodMarket/static/media/MaterialCommunityIcons.5d42b4e60858731e7b65.ttf",
-    "static/media/area_fresh_or_cooled.png": "/foodMarket/static/media/area_fresh_or_cooled.2e560d71c7cec9d16a6c.png",
-    "static/media/area_groceries.png": "/foodMarket/static/media/area_groceries.8d5f33d904740be92850.png",
-    "favicon.ico": "/foodMarket/favicon.ico",
-    "index.html": "/foodMarket/index.html",
-    "favicon-32.png": "/foodMarket/favicon-32.png",
-    "favicon-16.png": "/foodMarket/favicon-16.png",
-    "manifest.json": "/foodMarket/manifest.json",
-    "serve.json": "/foodMarket/serve.json",
-    "main.8fa4d463.js.map": "/foodMarket/static/js/main.8fa4d463.js.map",
-    "374.f6f4a7e9.js.map": "/foodMarket/static/js/374.f6f4a7e9.js.map"
+    "main.js": "/static/js/main.a3632271.js",
+    "static/js/374.a9fbe020.js": "/static/js/374.a9fbe020.js",
+    "static/media/area_frozen_food.png": "/static/media/area_frozen_food.38b65ea43a71ee12a480.png",
+    "static/media/MaterialCommunityIcons.ttf": "/static/media/MaterialCommunityIcons.5d42b4e60858731e7b65.ttf",
+    "static/media/area_fresh_or_cooled.png": "/static/media/area_fresh_or_cooled.2e560d71c7cec9d16a6c.png",
+    "static/media/area_groceries.png": "/static/media/area_groceries.8d5f33d904740be92850.png",
+    "favicon.ico": "/favicon.ico",
+    "index.html": "/index.html",
+    "favicon-32.png": "/favicon-32.png",
+    "favicon-16.png": "/favicon-16.png",
+    "manifest.json": "/manifest.json",
+    "serve.json": "/serve.json",
+    "main.a3632271.js.map": "/static/js/main.a3632271.js.map",
+    "374.a9fbe020.js.map": "/static/js/374.a9fbe020.js.map"
   },
   "entrypoints": [
-    "static/js/374.f6f4a7e9.js",
-    "static/js/main.8fa4d463.js"
+    "static/js/374.a9fbe020.js",
+    "static/js/main.a3632271.js"
   ]
 }
