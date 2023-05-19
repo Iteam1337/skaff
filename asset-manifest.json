@@ -1,22 +1,30 @@
 {
   "files": {
-    "main.js": "/static/js/main.a3632271.js",
-    "static/js/374.a9fbe020.js": "/static/js/374.a9fbe020.js",
+    "main.js": "/static/js/main.b506a4f0.js",
+    "static/js/926.4f1016f8.js": "/static/js/926.4f1016f8.js",
     "static/media/area_frozen_food.png": "/static/media/area_frozen_food.38b65ea43a71ee12a480.png",
     "static/media/MaterialCommunityIcons.ttf": "/static/media/MaterialCommunityIcons.5d42b4e60858731e7b65.ttf",
     "static/media/area_fresh_or_cooled.png": "/static/media/area_fresh_or_cooled.2e560d71c7cec9d16a6c.png",
     "static/media/area_groceries.png": "/static/media/area_groceries.8d5f33d904740be92850.png",
+    "static/media/Image006.png": "/static/media/Image006.f82f56f33ab0f0f44abf.png",
+    "static/media/Image010.png": "/static/media/Image010.d91b6d308c0cc9717eb6.png",
+    "static/media/Image007.png": "/static/media/Image007.e4e8842aa00b086b5493.png",
+    "static/media/Image009.png": "/static/media/Image009.c5af4c00e3b2ec4ba610.png",
+    "static/media/Image005.png": "/static/media/Image005.375a70a357d0adfcebfe.png",
+    "static/media/Image003.png": "/static/media/Image003.07cdd8de87682e616af0.png",
+    "static/media/Image004.png": "/static/media/Image004.e9948a7f6b9c10010771.png",
+    "static/media/Image008.png": "/static/media/Image008.1ea26798b41619280d74.png",
     "favicon.ico": "/favicon.ico",
     "index.html": "/index.html",
     "favicon-32.png": "/favicon-32.png",
     "favicon-16.png": "/favicon-16.png",
     "manifest.json": "/manifest.json",
     "serve.json": "/serve.json",
-    "main.a3632271.js.map": "/static/js/main.a3632271.js.map",
-    "374.a9fbe020.js.map": "/static/js/374.a9fbe020.js.map"
+    "main.b506a4f0.js.map": "/static/js/main.b506a4f0.js.map",
+    "926.4f1016f8.js.map": "/static/js/926.4f1016f8.js.map"
   },
   "entrypoints": [
-    "static/js/374.a9fbe020.js",
-    "static/js/main.a3632271.js"
+    "static/js/926.4f1016f8.js",
+    "static/js/main.b506a4f0.js"
   ]
 }
