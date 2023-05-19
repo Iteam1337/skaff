@@ -2,7 +2,7 @@
   "name": "foodmarket",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
-  "homepage": "http://iteam1337.github.io/foodMarket",
+  "homepage": "https://iteam1337.github.io/foodMarket",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
