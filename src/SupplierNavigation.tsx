@@ -7,6 +7,7 @@ import TendersAndContracts from './components/TendersAndContracts'
 import Login from './components/Login'
 import Deals from './components/Deals'
 import Deal from './components/Deal'
+import ExploreNavigation from './ExploreNavigation'
 import CreateDeal from './components/CreateDeal'
 import TenderRequests from './components/TenderRequests'
 import TenderRequest from './components/TenderRequest'
@@ -110,6 +111,17 @@ const SupplierNavigation = () => {
           tabBarAccessibilityLabel: 'Nytt erbjudande',
           tabBarIcon: (color: any) => (
             <MaterialCommunityIcons name="corn" color={color} size={30} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Explore"
+        component={ExploreNavigation}
+        options={{
+          tabBarLabel: 'Utforska',
+          tabBarAccessibilityLabel: 'Utforska',
+          tabBarIcon: (color: any) => (
+            <MaterialCommunityIcons name="compass" color={color} size={20} />
           ),
         }}
       />

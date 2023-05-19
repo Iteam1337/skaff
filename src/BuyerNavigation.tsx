@@ -9,6 +9,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import Deal from './components/Deal'
 import Deals from './components/Deals'
+import ExploreNavigation from './ExploreNavigation'
 import { IconButton } from 'react-native-paper'
 
 const Stack = createStackNavigator()
@@ -110,6 +111,18 @@ const BuyerNavigation = () => {
           ),
         }}
       />
+      <Tab.Screen
+        name="Explore"
+        component={ExploreNavigation}
+        options={{
+          tabBarLabel: 'Utforska',
+          tabBarAccessibilityLabel: 'Utforska',
+          tabBarIcon: (color: any) => (
+            <MaterialCommunityIcons name="compass" color={color} size={20} />
+          ),
+        }}
+      />
+
       <Tab.Screen
         name="TendersAndContracts"
         component={TendersAndContracts}
