@@ -13,7 +13,6 @@ import ExploreNavigation from './ExploreNavigation'
 import { IconButton } from 'react-native-paper'
 
 const Stack = createStackNavigator()
-const Tab = createMaterialBottomTabNavigator()
 
 const TenderRequestsNavigation = () => {
   return (
@@ -74,7 +73,7 @@ const BuyerNavigation = () => {
     <Tab.Navigator
       // activeColor="red"
       // inactiveColor="yellow"
-      barStyle={{ backgroundColor: '#eff' }}
+      barStyle={{ backgroundColor: '#fff' }}
       initialRouteName="Deals"
     >
       <Tab.Screen
