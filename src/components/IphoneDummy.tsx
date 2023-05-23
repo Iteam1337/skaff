@@ -15,7 +15,7 @@ export default function IphoneDummy({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#444',
+    backgroundColor: '#333',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -26,8 +26,9 @@ const styles = StyleSheet.create({
     height: '90vh',
     maxHeight: '100vh',
     borderWidth: 10,
-    borderColor: 'gray',
-    borderRadius: 30,
+    borderColor: '#555',
+    borderStyle: 'inset',
+    borderRadius: 40,
     overflow: 'hidden',
     alignItems: 'stretch',
     justifyContent: 'center',
