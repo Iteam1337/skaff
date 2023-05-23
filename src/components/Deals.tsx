@@ -17,6 +17,7 @@ import {
   Accordion,
   AccordionGroup,
 } from 'react-native-paper/lib/typescript/src/components/List/List'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 interface Area {
   image: string
@@ -25,6 +26,7 @@ interface Area {
 }
 
 const Deals = ({ navigation }: { navigation: any }) => {
+  const [expanded, setExpanded] = React.useState({})
   const [searchQuery, setSearchQuery] = React.useState('')
   const filteredDeals = deals.filter((deal) =>
     deal.product.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -53,10 +55,21 @@ const Deals = ({ navigation }: { navigation: any }) => {
         .filter(([, { count }]) => count > 0)
         .map(([, area]) => (
           <Card key={area.title}>
-            <Card.Cover source={area.image} />
+            <TouchableOpacity
+              onPress={() =>
+                setExpanded((expanded) => ({
+                  ...expanded,
+                  [area.title]: !expanded[area.title],
+                }))
+              }
+            >
+              <Card.Cover source={area.image} />
+            </TouchableOpacity>
             <List.Accordion
               title={area.title}
-              expanded={!!searchQuery || undefined}
+              expanded={
+                !!searchQuery || (expanded[area.title] as boolean) || undefined
+              }
             >
               <List.Subheader>{`${area.count} varor`}</List.Subheader>
               {filteredDeals

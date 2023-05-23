@@ -2,7 +2,7 @@ import frozen from '../../assets/area_frozen_food.png'
 import fresh_cooled from '../../assets/area_fresh_or_cooled.png'
 import groceries from '../../assets/area_groceries.png'
 
-export default categories = {
+export const categories = {
   Frozen: {
     Desserts_Snacks: ['Ostkaka'],
     Fruits_Berries: ['Blåbär', 'Lingon'],

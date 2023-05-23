@@ -1,0 +1,13 @@
+apiVersion: skaffold/v4beta1
+kind: Config
+metadata:
+  name: foodMarket
+build:
+  artifacts:
+    - image: ghcr.io/iteam1337/foodMarket
+manifests:
+  rawYaml:
+    - k8s/*.yaml
+deploy:
+  kubectl:
+    defaultNamespace: foodmarket

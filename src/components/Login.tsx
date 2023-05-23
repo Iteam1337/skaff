@@ -4,7 +4,7 @@ import { Title, Button } from 'react-native-paper'
 const Login = ({ onLogin }: { onLogin: any }) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Title>Logga in (demo)</Title>
+      <Title style={styles.title}>Logga in (DEMO)</Title>
       <View style={styles.loginForm}>
         <Text>Vem är du?</Text>
         <Button
@@ -32,6 +32,10 @@ const Login = ({ onLogin }: { onLogin: any }) => {
 export default Login
 
 const styles = StyleSheet.create({
+  title: {
+    textAlign: 'center',
+    marginVertical: 30,
+  },
   container: { flex: 1, alignItems: 'center', justifyContent: 'space-around' },
   loginForm: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   button: {
