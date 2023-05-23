@@ -154,17 +154,6 @@ const SupplierNavigation = () => {
           ),
         }}
       />
-      <Tab.Screen
-        name="TendersAndContracts"
-        component={TendersAndContracts}
-        options={{
-          tabBarLabel: 'Mina anbud',
-          tabBarAccessibilityLabel: 'Mina anbud',
-          tabBarIcon: (color: any) => (
-            <MaterialCommunityIcons name="account" color={color} size={20} />
-          ),
-        }}
-      />
     </Tab.Navigator>
   )
 }

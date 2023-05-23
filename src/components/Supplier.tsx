@@ -1,18 +1,25 @@
 import suppliers from '../data/suppliers'
 import {
   Avatar,
-  Button,
-  Searchbar,
   Text,
   Subheading,
   Divider,
   useTheme,
   Title,
   Paragraph,
+  IconButton,
 } from 'react-native-paper'
-import { ScrollView, StyleSheet, SafeAreaView, View } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 
-const Supplier = ({ route, navigation }: { route: any; navigation: any }) => {
+const Supplier = ({
+  route,
+  navigation,
+  editable,
+}: {
+  route: any
+  navigation: any
+  editable: boolean
+}) => {
   const theme = useTheme()
   const { id } = route.params
   const supplier = suppliers.find((deal) => deal.id === id)
@@ -20,7 +27,11 @@ const Supplier = ({ route, navigation }: { route: any; navigation: any }) => {
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.headerContainer}>
-        <Title style={styles.heading}>{supplier.name}</Title>
+        {editable ? (
+          <IconButton icon="pencil" size={20} style={styles.editButton} />
+        ) : (
+          <Title style={styles.heading}>{supplier.name}</Title>
+        )}
         <Avatar.Image
           size={150}
           style={styles.avatar}
@@ -86,5 +97,8 @@ const styles = StyleSheet.create({
   },
   subHeading: {
     marginTop: 20,
+  },
+  editButton: {
+    alignSelf: 'flex-end',
   },
 })
