@@ -4,6 +4,7 @@ import {
   Button,
   Card,
   Checkbox,
+  FAB,
   IconButton,
   List,
   Searchbar,
@@ -39,52 +40,67 @@ const TenderRequests = ({ navigation }: { navigation: any }) => {
   // }
 
   return (
-    <ScrollView>
-      <Searchbar
-        placeholder="Sök upphandling"
-        onChangeText={setSearchQuery}
-        value={searchQuery}
-      />
-      <List.Section title="Visa urval">
-        <View style={styles.checkboxContainer}>
-          <Checkbox.Item label="Favoriter" status="checked" />
-          <Checkbox.Item label="Öppna" status="checked" />
-          <Checkbox.Item label="Tilldelade" status="checked" />
-        </View>
-      </List.Section>
-      <List.Section>
-        <List.Accordion
-          title="Aktiva upphandlingar"
-          onPress={() => setOpen(!open)}
-          expanded={open}
-        >
-          {filteredRequests.map(({ id, title, image }) => (
-            <Card
-              key={id}
-              style={styles.card}
-              onPress={() => navigation.navigate('TenderRequest', { id })}
-            >
-              <Card.Title
-                titleVariant="headlineMedium"
-                title={title}
-                right={(props) => <ChevronRight />}
-              />
-            </Card>
-          ))}
-        </List.Accordion>
+    <>
+      <ScrollView>
+        <Searchbar
+          placeholder="Sök upphandling"
+          onChangeText={setSearchQuery}
+          value={searchQuery}
+        />
+        <List.Section title="Visa urval">
+          <View style={styles.checkboxContainer}>
+            <Checkbox.Item label="Favoriter" status="checked" />
+            <Checkbox.Item label="Öppna" status="checked" />
+            <Checkbox.Item label="Tilldelade" status="checked" />
+          </View>
+        </List.Section>
+        <List.Section>
+          <List.Accordion
+            title="Aktiva upphandlingar"
+            onPress={() => setOpen(!open)}
+            expanded={open}
+          >
+            {filteredRequests.map(({ id, title, image }) => (
+              <Card
+                key={id}
+                style={styles.card}
+                onPress={() => navigation.navigate('TenderRequest', { id })}
+              >
+                <Card.Title
+                  titleVariant="headlineMedium"
+                  title={title}
+                  right={(props) => <ChevronRight />}
+                />
+              </Card>
+            ))}
+          </List.Accordion>
 
-        <List.Accordion title="Tilldelade förfrågningar">
-          <List.Item title="First item" />
-          <List.Item title="Second item" />
-        </List.Accordion>
-      </List.Section>
-    </ScrollView>
+          <List.Accordion title="Tilldelade förfrågningar">
+            <List.Item title="First item" />
+            <List.Item title="Second item" />
+          </List.Accordion>
+        </List.Section>
+      </ScrollView>
+      <FAB
+        style={styles.fab}
+        onPress={() =>
+          navigation.navigate('Buyer', { screen: 'CreateTenderRequest' })
+        }
+        icon="plus"
+      />
+    </>
   )
 }
 
 export default TenderRequests
 
 const styles = StyleSheet.create({
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+  },
   card: {
     margin: 10,
     backgroundColor: 'white',
