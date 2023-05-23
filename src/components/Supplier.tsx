@@ -15,12 +15,13 @@ import { ScrollView, StyleSheet, SafeAreaView, View } from 'react-native'
 const Supplier = ({ route, navigation }: { route: any; navigation: any }) => {
   const theme = useTheme()
   const { id } = route.params
+  navigation.header = 'Profil'
   const supplier = suppliers.find((deal) => deal.id === id)
+  navigation.setOptions({ title: supplier.name })
   if (!supplier) return navigation.back()
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.headerContainer}>
-        <Title style={styles.heading}>{supplier.name}</Title>
         <Avatar.Image
           size={150}
           style={styles.avatar}
