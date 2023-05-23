@@ -4,7 +4,6 @@ import { Button } from 'react-native'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import TendersAndContracts from './components/TendersAndContracts'
-import Login from './components/Login'
 import Deals from './components/Deals'
 import Deal from './components/Deal'
 import ExploreNavigation from './ExploreNavigation'
@@ -14,6 +13,7 @@ import TenderRequest from './components/TenderRequest'
 import { createStackNavigator } from '@react-navigation/stack'
 import { IconButton, useTheme } from 'react-native-paper'
 import Notifications from './components/Notifications'
+import SupplierProfile from './components/SupplierProfile'
 
 const DealsNavigation = () => {
   const Stack = createStackNavigator()
@@ -65,6 +65,23 @@ const TenderRequestsNavigation = () => {
             title: 'Anbudsförfrågan',
           }}
           component={TenderRequest}
+        />
+      </Stack.Navigator>
+    </>
+  )
+}
+
+const SupplierProfileNavigation = () => {
+  const Stack = createStackNavigator()
+  return (
+    <>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="SupplierProfile"
+          options={{
+            title: 'Wermlands Mejeri',
+          }}
+          component={SupplierProfile}
         />
       </Stack.Navigator>
     </>
@@ -127,11 +144,11 @@ const SupplierNavigation = () => {
       />
 
       <Tab.Screen
-        name="TendersAndContracts"
-        component={TendersAndContracts}
+        name="Profile"
+        component={SupplierProfileNavigation}
         options={{
-          tabBarLabel: 'Mina anbud',
-          tabBarAccessibilityLabel: 'Mina anbud',
+          tabBarLabel: 'Min profil',
+          tabBarAccessibilityLabel: 'Min profil',
           tabBarIcon: (color: any) => (
             <MaterialCommunityIcons name="account" color={color} size={20} />
           ),
