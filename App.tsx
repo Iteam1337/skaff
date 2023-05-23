@@ -12,7 +12,7 @@ const theme = {
   roundness: 1,
   colors: {
     ...MD2LightTheme.colors,
-    primary: '#1e88e5', // morotsfärg: #FFA726
+    primary: '#000', // morotsfärg: #FFA726
     // Add any other color changes here
   },
 }
