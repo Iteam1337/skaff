@@ -27,7 +27,7 @@ const CreateTenderRequest = ({ route }) => {
   }, [incomingProps])
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ backgroundColor: '#fff' }}>
       <Title>Ny anbudsförfrågan</Title>
       <TextInput
         label="Rubrik på anbudsförfrågan"

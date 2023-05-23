@@ -13,7 +13,7 @@ const TendersAndContracts = ({
   const handlePress = () => setExpanded(!expanded)
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ backgroundColor: '#fff' }}>
       <List.Section title="Min affärer">
         <List.Accordion
           title="Skickade anbud"
