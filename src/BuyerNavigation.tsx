@@ -1,7 +1,6 @@
 // import * as React from 'react'
 import React, { useState } from 'react'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import TendersAndContracts from './components/TendersAndContracts'
 import TenderRequests from './components/TenderRequests'
 import TenderRequest from './components/TenderRequest'
 import CreateTenderRequest from './components/CreateTenderRequest'
@@ -11,6 +10,7 @@ import Deal from './components/Deal'
 import Deals from './components/Deals'
 import ExploreNavigation from './ExploreNavigation'
 import { IconButton } from 'react-native-paper'
+import BuyerProfile from './components/BuyerProfile'
 
 const Stack = createStackNavigator()
 const Tab = createMaterialBottomTabNavigator()
@@ -68,6 +68,22 @@ const DealsNavigation = () => {
   )
 }
 
+const BuyerProfileNavigation = () => {
+  const Stack = createStackNavigator()
+  return (
+    <>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="BuyerProfile"
+          options={{
+            title: 'Kvarnbergsskolan',
+          }}
+          component={BuyerProfile}
+        />
+      </Stack.Navigator>
+    </>
+  )
+}
 const BuyerNavigation = () => {
   const Tab = createMaterialBottomTabNavigator()
   return (
@@ -124,12 +140,11 @@ const BuyerNavigation = () => {
       />
 
       <Tab.Screen
-        name="TendersAndContracts"
-        component={TendersAndContracts}
+        name="Profile"
+        component={BuyerProfileNavigation}
         options={{
-          tabBarBadge: '5',
-          tabBarLabel: 'Mina anbud',
-          tabBarAccessibilityLabel: 'Mina anbud',
+          tabBarLabel: 'Min profil',
+          tabBarAccessibilityLabel: 'Min profil',
           tabBarIcon: (color: any) => (
             <MaterialCommunityIcons name="account" color={color} size={20} />
           ),
