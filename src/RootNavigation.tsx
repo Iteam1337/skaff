@@ -15,7 +15,7 @@ const Navigation = () => {
   return (
     <RootStack.Navigator initialRouteName="Login">
       <RootStack.Screen
-        name="Hem"
+        name="Logga ut"
         options={{
           headerShown: false,
         }}
