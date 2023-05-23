@@ -7,18 +7,32 @@ import {
   Subheading,
   Title,
   Paragraph,
+  IconButton,
 } from 'react-native-paper'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { ScrollView, StyleSheet, SafeAreaView, View } from 'react-native'
 
-const Buyer = ({ route, navigation }: { route: any; navigation: any }) => {
+const Buyer = ({
+  route,
+  navigation,
+  editable,
+}: {
+  route: any
+  navigation: any
+  editable: boolean
+}) => {
   const { id } = route.params
   const buyer = buyers.find((buyer) => buyer.id === id)
   if (!buyer) return navigation.back()
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.headerContainer}>
-        <Title style={styles.heading}>{buyer.name}</Title>
+        {editable ? (
+          <IconButton icon="pencil" size={20} style={styles.editButton} />
+        ) : (
+          <Title style={styles.heading}>{buyer.name}</Title>
+        )}
+
         <Avatar.Image
           size={150}
           style={styles.avatar}
@@ -83,4 +97,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   menuLink: { marginLeft: -12 },
+  editButton: {
+    alignSelf: 'flex-end',
+  },
 })
