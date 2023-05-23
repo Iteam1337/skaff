@@ -4,6 +4,7 @@ import {
   Badge,
   Button,
   Card,
+  FAB,
   List,
   Searchbar,
   Text,
@@ -18,6 +19,7 @@ import {
   AccordionGroup,
 } from 'react-native-paper/lib/typescript/src/components/List/List'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import Chat from './Chat'
 
 interface Area {
   image: string
@@ -44,56 +46,79 @@ const Deals = ({ navigation }: { navigation: any }) => {
     {}
   )
   return (
-    <ScrollView>
-      <Searchbar
-        placeholder="Sök erbjudande"
-        onChangeText={setSearchQuery}
-        value={searchQuery}
-      />
+    <>
+      <ScrollView>
+        <Searchbar
+          placeholder="Sök erbjudande"
+          onChangeText={setSearchQuery}
+          value={searchQuery}
+        />
 
-      {Object.entries(activeAreas)
-        .filter(([, { count }]) => count > 0)
-        .map(([, area]) => (
-          <Card key={area.title}>
-            <TouchableOpacity
-              onPress={() =>
-                setExpanded((expanded) => ({
-                  ...expanded,
-                  [area.title]: !expanded[area.title],
-                }))
-              }
-            >
-              <Card.Cover source={area.image} />
-            </TouchableOpacity>
-            <List.Accordion
-              title={area.title}
-              expanded={
-                !!searchQuery || (expanded[area.title] as boolean) || undefined
-              }
-            >
-              <List.Subheader>{`${area.count} varor`}</List.Subheader>
-              {filteredDeals
-                .filter((d) => d.commodity.area === area.title)
-                .sort((a, b) => a.product.name.localeCompare(b.product.name))
-                .map((deal) => (
-                  <List.Item
-                    key={deal.id}
-                    right={() => <Text>{deal.price.SEK_per_Kg} kr/kg</Text>}
-                    title={deal.product.name}
-                    description={deal.product.brand}
-                    onPress={() => navigation.navigate('Deal', { id: deal.id })}
-                  />
-                ))}
-            </List.Accordion>
-          </Card>
-        ))}
-    </ScrollView>
+        {Object.entries(activeAreas)
+          .filter(([, { count }]) => count > 0)
+          .map(([, area]) => (
+            <Card key={area.title}>
+              <TouchableOpacity
+                onPress={() =>
+                  setExpanded((expanded) => ({
+                    ...expanded,
+                    [area.title]: !expanded[area.title],
+                  }))
+                }
+              >
+                <Card.Cover source={area.image} />
+              </TouchableOpacity>
+              <List.Accordion
+                title={area.title}
+                expanded={
+                  !!searchQuery ||
+                  (expanded[area.title] as boolean) ||
+                  undefined
+                }
+              >
+                <List.Subheader>{`${area.count} varor`}</List.Subheader>
+                <List.Item
+                  title=""
+                  description={() => <Chat></Chat>}
+                ></List.Item>
+                {filteredDeals
+                  .filter((d) => d.commodity.area === area.title)
+                  .sort((a, b) => a.product.name.localeCompare(b.product.name))
+                  .map((deal) => (
+                    <List.Item
+                      key={deal.id}
+                      right={() => <Text>{deal.price.SEK_per_Kg} kr/kg</Text>}
+                      title={deal.product.name}
+                      description={deal.product.brand}
+                      onPress={() =>
+                        navigation.navigate('Deal', { id: deal.id })
+                      }
+                    />
+                  ))}
+              </List.Accordion>
+            </Card>
+          ))}
+      </ScrollView>
+      <FAB
+        style={styles.fab}
+        onPress={() =>
+          navigation.navigate('Supplier', { screen: 'CreateDeal' })
+        }
+        icon="plus"
+      />
+    </>
   )
 }
 
 export default Deals
 
 const styles = StyleSheet.create({
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+  },
   card: {
     margin: 10,
     backgroundColor: 'white',
