@@ -11,6 +11,7 @@ import {
 } from 'react-native-paper'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { ScrollView, StyleSheet, SafeAreaView, View } from 'react-native'
+import { useEffect } from 'react'
 
 const Buyer = ({
   route,
@@ -24,13 +25,15 @@ const Buyer = ({
   const { id } = route.params
   const buyer = buyers.find((buyer) => buyer.id === id)
   if (!buyer) return navigation.back()
+
+  useEffect(() => {
+    navigation.setOptions({ title: buyer.name })
+  }, [buyer])
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.headerContainer}>
-        {editable ? (
+        {editable && (
           <IconButton icon="pencil" size={20} style={styles.editButton} />
-        ) : (
-          <Title style={styles.heading}>{buyer.name}</Title>
         )}
 
         <Avatar.Image

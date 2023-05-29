@@ -10,6 +10,7 @@ import {
   IconButton,
 } from 'react-native-paper'
 import { ScrollView, StyleSheet, View } from 'react-native'
+import { useEffect } from 'react'
 
 const Supplier = ({
   route,
@@ -24,8 +25,11 @@ const Supplier = ({
   const { id } = route.params
   navigation.header = 'Profil'
   const supplier = suppliers.find((deal) => deal.id === id)
-  navigation.setOptions({ title: supplier.name })
   if (!supplier) return navigation.back()
+
+  useEffect(() => {
+    navigation.setOptions({ title: supplier.name })
+  }, [supplier])
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.headerContainer}>
