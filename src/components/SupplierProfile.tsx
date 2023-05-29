@@ -3,6 +3,8 @@ import { StyleSheet, SafeAreaView, View } from 'react-native'
 import { Tabs, TabScreen } from 'react-native-paper-tabs'
 import { ScrollView } from 'react-native-gesture-handler'
 import Supplier from './Supplier'
+import { getAuthenticatedUser } from '../../lib/authStorage'
+import { SetStateAction, useState } from 'react'
 
 const SupplierProfile = ({
   route,
@@ -12,6 +14,12 @@ const SupplierProfile = ({
   navigation: any
 }) => {
   const theme = useTheme()
+  const [userId, setUserId] = useState(0)
+
+  getAuthenticatedUser().then((id) => {
+    console.log('id', id)
+    if (id) setUserId(id)
+  })
   return (
     <>
       <Tabs
@@ -87,7 +95,7 @@ const SupplierProfile = ({
         </TabScreen>
         <TabScreen label="Profil">
           <Supplier
-            route={{ ...route, params: { id: 3 } }}
+            route={{ ...route, params: { id: userId } }}
             navigation={navigation}
             editable={true}
           ></Supplier>

@@ -3,6 +3,7 @@ import { View, Text, SafeAreaView, StyleSheet, ScrollView } from 'react-native'
 import { Avatar, Title, Button, Subheading } from 'react-native-paper'
 import suppliers from '../data/suppliers'
 import buyers from '../data/buyers'
+import { saveAuthenticatedUser } from '../../lib/authStorage'
 
 const Login = ({ onLogin }: { onLogin: any }) => {
   const [userType, setUserType] = useState('')
@@ -12,10 +13,10 @@ const Login = ({ onLogin }: { onLogin: any }) => {
   }
 
   const login = (userId: number) => {
-    // onLogin({ userType: 'Supplier' })
-
-    onLogin({ userType: userType })
-    setUserType('')
+    saveAuthenticatedUser(userId).then(() => {
+      onLogin({ userType: userType })
+      setUserType('')
+    })
   }
   return (
     <SafeAreaView style={styles.container}>
@@ -28,7 +29,6 @@ const Login = ({ onLogin }: { onLogin: any }) => {
             mode="contained"
             onPress={() => {
               userTypeSelected('Supplier')
-              // onLogin({ userType: 'Supplier' })
             }}
           >
             Producent
@@ -38,7 +38,6 @@ const Login = ({ onLogin }: { onLogin: any }) => {
             mode="contained"
             onPress={() => {
               userTypeSelected('Buyer')
-              // onLogin({ userType: 'Buyer' })
             }}
           >
             Beställare
@@ -54,24 +53,19 @@ const Login = ({ onLogin }: { onLogin: any }) => {
             {suppliers.map(
               (supplier: { name: string; image: string; id: number }) => {
                 return (
-                  <>
-                    <View style={styles.searchResult} key={supplier.id}>
-                      <Avatar.Image
-                        size={30}
-                        style={styles.avatar}
-                        source={supplier.image}
-                      />
-                      <Text
-                        style={styles.searchResultName}
-                        onPress={
-                          () => login(supplier.id)
-                          // navigation.navigate('Supplier', { id: supplier.id })
-                        }
-                      >
-                        {supplier.name}
-                      </Text>
-                    </View>
-                  </>
+                  <View style={styles.searchResult} key={supplier.id}>
+                    <Avatar.Image
+                      size={30}
+                      style={styles.avatar}
+                      source={supplier.image}
+                    />
+                    <Text
+                      style={styles.searchResultName}
+                      onPress={() => login(supplier.id)}
+                    >
+                      {supplier.name}
+                    </Text>
+                  </View>
                 )
               }
             )}
@@ -87,24 +81,19 @@ const Login = ({ onLogin }: { onLogin: any }) => {
             {buyers.map(
               (buyer: { name: string; image: string; id: number }) => {
                 return (
-                  <>
-                    <View style={styles.searchResult} key={buyer.id}>
-                      <Avatar.Image
-                        size={30}
-                        style={styles.avatar}
-                        source={buyer.image}
-                      />
-                      <Text
-                        style={styles.searchResultName}
-                        onPress={
-                          () => login(buyer.id)
-                          // navigation.navigate('Buyer', { id: supplier.id })
-                        }
-                      >
-                        {buyer.name}
-                      </Text>
-                    </View>
-                  </>
+                  <View style={styles.searchResult} key={buyer.id}>
+                    <Avatar.Image
+                      size={30}
+                      style={styles.avatar}
+                      source={buyer.image}
+                    />
+                    <Text
+                      style={styles.searchResultName}
+                      onPress={() => login(buyer.id)}
+                    >
+                      {buyer.name}
+                    </Text>
+                  </View>
                 )
               }
             )}
