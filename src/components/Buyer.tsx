@@ -28,7 +28,7 @@ const Buyer = ({
 
   useEffect(() => {
     navigation.setOptions({ title: buyer.name })
-  }, [])
+  }, [buyer])
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.headerContainer}>

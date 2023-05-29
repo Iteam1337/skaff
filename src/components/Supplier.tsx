@@ -29,7 +29,7 @@ const Supplier = ({
 
   useEffect(() => {
     navigation.setOptions({ title: supplier.name })
-  }, [])
+  }, [supplier])
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.headerContainer}>
