@@ -2,7 +2,6 @@ import { Text, Button, List, useTheme, Divider, Card } from 'react-native-paper'
 import { StyleSheet, SafeAreaView, View } from 'react-native'
 import { Tabs, TabScreen } from 'react-native-paper-tabs'
 import { ScrollView } from 'react-native-gesture-handler'
-import Supplier from './Supplier'
 import Buyer from './Buyer'
 
 const BuyerProfile = ({
