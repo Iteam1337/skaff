@@ -77,6 +77,7 @@ const theme = {
     surface: '#D8F5E3',
     surfaceVariant: '#EBFAEF',
     primary: '#1C3BA0', //mörkblå
+    accent: '#EBFAEF',
     // : '#666259', //mörkgrå
     // primary: '#000', // morotsfärg: #FFA726
     // accent: '#333', // blå: #29B6F6
