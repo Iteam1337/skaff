@@ -1,19 +1,17 @@
 // import * as React from 'react'
 import React, { useState } from 'react'
-import { Button } from 'react-native'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import TendersAndContracts from './components/TendersAndContracts'
 import Deals from './components/Deals'
 import Deal from './components/Deal'
 import ExploreNavigation from './ExploreNavigation'
-import CreateDeal from './components/CreateDeal'
+// import CreateDeal from './components/CreateDeal'
 import TenderRequests from './components/TenderRequests'
 import TenderRequest from './components/TenderRequest'
 import { createStackNavigator } from '@react-navigation/stack'
 import { IconButton, useTheme } from 'react-native-paper'
 import Notifications from './components/Notifications'
 import SupplierProfile from './components/SupplierProfile'
+import BottomNavigationIcon from './components/BottomNavigationIcon'
 
 const DealsNavigation = () => {
   const Stack = createStackNavigator()
@@ -89,22 +87,27 @@ const SupplierProfileNavigation = () => {
 }
 
 const SupplierNavigation = () => {
+  const theme = useTheme()
   const Tab = createMaterialBottomTabNavigator()
   return (
     <Tab.Navigator
-      // activeColor="red"
-      // inactiveColor="yellow"
-      barStyle={{ backgroundColor: '#eef' }}
+      activeColor={theme.colors.primary}
+      inactiveColor={theme.colors.iconInactive}
+      barStyle={{ backgroundColor: theme.colors.background }}
+      theme={theme}
       initialRouteName="TenderRequests"
     >
       <Tab.Screen
         name="TenderRequests"
         component={TenderRequestsNavigation}
         options={{
-          tabBarLabel: 'Anbuds-förfrågningar',
-          tabBarAccessibilityLabel: 'Anbudsförfrågningar',
-          tabBarIcon: (color: any) => (
-            <MaterialCommunityIcons name="cart" color={color} size={20} />
+          tabBarLabel: 'Förfrågningar',
+          tabBarAccessibilityLabel: 'Förfrågningar',
+          tabBarIcon: ({ focused }) => (
+            <BottomNavigationIcon
+              name="cart"
+              focused={focused}
+            ></BottomNavigationIcon>
           ),
         }}
         // add back button in header:
@@ -113,14 +116,17 @@ const SupplierNavigation = () => {
         name="Deals"
         component={DealsNavigation}
         options={{
-          tabBarLabel: 'Erbjudna varor',
-          tabBarAccessibilityLabel: 'Erbjudna varor',
-          tabBarIcon: (color: any) => (
-            <MaterialCommunityIcons name="corn" color={color} size={20} />
+          tabBarLabel: 'Erbjudanden',
+          tabBarAccessibilityLabel: 'Erbjudanden',
+          tabBarIcon: ({ focused }) => (
+            <BottomNavigationIcon
+              name="corn"
+              focused={focused}
+            ></BottomNavigationIcon>
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="CreateDeal"
         component={CreateDeal}
         options={{
@@ -130,15 +136,18 @@ const SupplierNavigation = () => {
             <MaterialCommunityIcons name="corn" color={color} size={30} />
           ),
         }}
-      />
+      /> */}
       <Tab.Screen
         name="Explore"
         component={ExploreNavigation}
         options={{
-          tabBarLabel: 'Utforska',
-          tabBarAccessibilityLabel: 'Utforska',
-          tabBarIcon: (color: any) => (
-            <MaterialCommunityIcons name="compass" color={color} size={20} />
+          tabBarLabel: 'Upptäck',
+          tabBarAccessibilityLabel: 'Upptäck',
+          tabBarIcon: ({ focused }) => (
+            <BottomNavigationIcon
+              name="compass"
+              focused={focused}
+            ></BottomNavigationIcon>
           ),
         }}
       />
@@ -147,10 +156,13 @@ const SupplierNavigation = () => {
         name="Profile"
         component={SupplierProfileNavigation}
         options={{
-          tabBarLabel: 'Min profil',
-          tabBarAccessibilityLabel: 'Min profil',
-          tabBarIcon: (color: any) => (
-            <MaterialCommunityIcons name="account" color={color} size={20} />
+          tabBarLabel: 'Mina sidor',
+          tabBarAccessibilityLabel: 'Mina sidor',
+          tabBarIcon: ({ focused }) => (
+            <BottomNavigationIcon
+              name="account"
+              focused={focused}
+            ></BottomNavigationIcon>
           ),
         }}
       />

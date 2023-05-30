@@ -76,6 +76,7 @@ const theme = {
     primary: '#000', // morotsfärg: #FFA726
     accent: '#333', // blå: #29B6F6
     // Add any other color changes here
+    iconInactive: '#666259', //mörkgrå
   },
   fonts: configureFonts({ config: fontConfig }),
 }

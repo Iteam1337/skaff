@@ -8,9 +8,11 @@ export default function App() {
   const theme = useTheme()
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
+      <NavigationContainer
+        theme={theme}
+      >
         <Navigation />
-        <StatusBar style="auto" />
+        <StatusBar style="light" />
       </NavigationContainer>
     </SafeAreaProvider>
   )

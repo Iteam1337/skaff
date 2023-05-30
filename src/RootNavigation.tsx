@@ -10,7 +10,6 @@ import BuyerNavigation from './BuyerNavigation'
 const Navigation = () => {
   const RootStack = createStackNavigator()
   const [user, setUser] = useState<string>('')
-  const { colors } = useTheme()
 
   return (
     <RootStack.Navigator initialRouteName="Login">
