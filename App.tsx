@@ -14,20 +14,20 @@ import IphoneDummy from './src/components/IphoneDummy'
 const fontConfig = {
   web: {
     regular: {
-      fontFamily: 'sans-serif',
+      fontFamily: 'Avenir',
       fontWeight: 'normal',
     },
     medium: {
-      fontFamily: 'sans-serif-medium',
-      fontWeight: 'normal',
+      fontFamily: 'Avenir',
+      fontWeight: 600,
     },
     light: {
-      fontFamily: 'sans-serif-light',
-      fontWeight: 'normal',
+      fontFamily: 'Avenir',
+      fontWeight: 'light',
     },
     thin: {
-      fontFamily: 'sans-serif-thin',
-      fontWeight: 'normal',
+      fontFamily: 'Avenir',
+      fontWeight: 'thin',
     },
   },
   ios: {
@@ -70,11 +70,15 @@ const fontConfig = {
 
 const theme = {
   ...MD2LightTheme,
-  roundness: 1,
+  roundness: 4,
   colors: {
     ...MD2LightTheme.colors,
-    primary: '#000', // morotsfärg: #FFA726
-    accent: '#333', // blå: #29B6F6
+    background: '#FAF7F0', //beige
+    surface: '#D8F5E3',
+    surfaceVariant: '#EBFAEF',
+    primary: '#1C3BA0', //mörkblå
+    // primary: '#000', // morotsfärg: #FFA726
+    // accent: '#333', // blå: #29B6F6
     // Add any other color changes here
   },
   fonts: configureFonts({ config: fontConfig }),
