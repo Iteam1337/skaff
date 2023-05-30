@@ -10,7 +10,7 @@ import {
   IconButton,
 } from 'react-native-paper'
 import { ScrollView, StyleSheet, View } from 'react-native'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 const Supplier = ({
   route,
@@ -21,43 +21,52 @@ const Supplier = ({
   navigation: any
   editable: boolean
 }) => {
-  const theme = useTheme()
-  const { id } = route.params
-  navigation.header = 'Profil'
-  const supplier = suppliers.find((deal) => deal.id === id)
-  if (!supplier) return navigation.back()
+  const [supplier, setSupplier] = useState({})
 
   useEffect(() => {
-    navigation.setOptions({ title: supplier.name })
+    const supplier = suppliers.find((deal) => deal.id === route.params.id)
+    setSupplier(supplier)
+  }, [route])
+
+  useEffect(() => {
+    if (supplier) {
+      navigation.header = 'Profil'
+      navigation.setOptions({ title: supplier.name })
+    }
   }, [supplier])
+
   return (
     <ScrollView style={styles.scrollView}>
-      <View style={styles.headerContainer}>
-        {editable && (
-          <IconButton icon="pencil" size={20} style={styles.editButton} />
-        )}
-        <Avatar.Image
-          size={150}
-          style={styles.avatar}
-          source={supplier.image}
-        ></Avatar.Image>
-        <Text style={styles.address}>{supplier.address}</Text>
-        <Text style={styles.address}>
-          {supplier.zip} {supplier.postalAddress}
-        </Text>
-        <Text style={styles.email}>{supplier.email}</Text>
-        <Divider style={styles.divider} />
-        <Subheading style={styles.subHeading}>Varor</Subheading>
-        {supplier.produce.map((p) => {
-          return (
-            <Text key={p} style={styles.produce}>
-              {p}
-            </Text>
-          )
-        })}
-        <Subheading style={styles.subHeading}>Presentation</Subheading>
-        <Paragraph style={styles.description}>{supplier.description}</Paragraph>
-      </View>
+      {supplier && (
+        <View style={styles.headerContainer}>
+          {editable && (
+            <IconButton icon="pencil" size={20} style={styles.editButton} />
+          )}
+          <Avatar.Image
+            size={150}
+            style={styles.avatar}
+            source={supplier.image}
+          ></Avatar.Image>
+          <Text style={styles.address}>{supplier.address}</Text>
+          <Text style={styles.address}>
+            {supplier.zip} {supplier.postalAddress}
+          </Text>
+          <Text style={styles.email}>{supplier.email}</Text>
+          <Divider style={styles.divider} />
+          <Subheading style={styles.subHeading}>Varor</Subheading>
+          {supplier?.produce?.map((p) => {
+            return (
+              <Text key={p} style={styles.produce}>
+                {p}
+              </Text>
+            )
+          })}
+          <Subheading style={styles.subHeading}>Presentation</Subheading>
+          <Paragraph style={styles.description}>
+            {supplier.description}
+          </Paragraph>
+        </View>
+      )}
     </ScrollView>
   )
 }

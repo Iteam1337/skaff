@@ -3,6 +3,8 @@ import { StyleSheet, SafeAreaView, View } from 'react-native'
 import { Tabs, TabScreen } from 'react-native-paper-tabs'
 import { ScrollView } from 'react-native-gesture-handler'
 import Buyer from './Buyer'
+import { getAuthenticatedUser } from '../../lib/authStorage'
+import { useState } from 'react'
 
 const BuyerProfile = ({
   route,
@@ -12,6 +14,12 @@ const BuyerProfile = ({
   navigation: any
 }) => {
   const theme = useTheme()
+  const [userId, setUserId] = useState(0)
+
+  getAuthenticatedUser().then((id) => {
+    if (id) setUserId(id)
+  })
+
   return (
     <>
       <Tabs
@@ -76,7 +84,7 @@ const BuyerProfile = ({
         </TabScreen>
         <TabScreen label="Profil">
           <Buyer
-            route={{ ...route, params: { id: 3 } }}
+            route={{ ...route, params: { id: userId } }}
             navigation={navigation}
             editable={true}
           />
