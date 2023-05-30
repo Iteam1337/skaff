@@ -47,9 +47,13 @@ const TenderRequests = ({ navigation }: { navigation: any }) => {
           onChangeText={setSearchQuery}
           value={searchQuery}
         />
-        <List.Section title="Visa urval">
+        <List.Section title="Visa">
           <View style={styles.checkboxContainer}>
-            <Checkbox.Item label="Favoriter" status="checked" />
+            <Checkbox.Item
+              labelVariant="bodySmall"
+              label="Favoriter"
+              status="checked"
+            />
             <Checkbox.Item label="Öppna" status="checked" />
             <Checkbox.Item label="Tilldelade" status="checked" />
           </View>
@@ -60,15 +64,20 @@ const TenderRequests = ({ navigation }: { navigation: any }) => {
             onPress={() => setOpen(!open)}
             expanded={open}
           >
-            {filteredRequests.map(({ id, title, image }) => (
+            {filteredRequests.map(({ id, title, buyer, image }) => (
               <Card
                 key={id}
                 style={styles.card}
                 onPress={() => navigation.navigate('TenderRequest', { id })}
               >
                 <Card.Title
-                  titleVariant="headlineMedium"
+                  key={id}
+                  titleVariant="titleSmall"
+                  titleStyle={{
+                    fontSize: 14,
+                  }}
                   title={title}
+                  subtitle={buyer}
                   right={(props) => <ChevronRight />}
                 />
               </Card>

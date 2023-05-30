@@ -51,7 +51,9 @@ const Deal = ({ route, navigation }) => {
         uppercase={false} // true/false | default=true | labels are uppercase
         // showTextLabel={false} // true/false | default=false (KEEP PROVIDING LABEL WE USE IT AS KEY INTERNALLY + SCREEN READERS)
         // iconPosition // leading, top | default=leading
-        style={{ backgroundColor: theme.colors.surface }} // works the same as AppBar in react-native-paper
+        style={{
+          backgroundColor: theme.colors.surface,
+        }} // works the same as AppBar in react-native-paper
         // dark={false} // works the same as AppBar in react-native-paper
         theme={theme} // works the same as AppBar in react-native-paper
         // mode="scrollable" // fixed, scrollable | default=fixed

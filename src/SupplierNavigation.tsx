@@ -90,11 +90,12 @@ const SupplierProfileNavigation = () => {
 
 const SupplierNavigation = () => {
   const Tab = createMaterialBottomTabNavigator()
+  const theme = useTheme()
   return (
     <Tab.Navigator
-      // activeColor="red"
-      // inactiveColor="yellow"
-      barStyle={{ backgroundColor: '#eef' }}
+      activeColor={theme.colors.primary}
+      inactiveColor="red"
+      barStyle={{ backgroundColor: theme.colors.background }}
       initialRouteName="TenderRequests"
     >
       <Tab.Screen
@@ -103,7 +104,7 @@ const SupplierNavigation = () => {
         options={{
           tabBarLabel: 'Anbuds-förfrågningar',
           tabBarAccessibilityLabel: 'Anbudsförfrågningar',
-          tabBarIcon: (color: any) => (
+          tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="cart" color={color} size={20} />
           ),
         }}

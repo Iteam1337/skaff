@@ -32,7 +32,11 @@ const BuyerProfile = ({
             <List.Accordion title="Anbudsförfrågningar">
               <List.Subheader>Publicerade</List.Subheader>
               <Card>
-                <Card.Title title="Morötter" subtitle="1 000 kg"></Card.Title>
+                <Card.Title
+                  titleVariant="bodyMedium"
+                  title="Morötter"
+                  subtitle="1 000 kg"
+                ></Card.Title>
               </Card>
               <Card>
                 <Card.Title title="Potatis" subtitle="2 000 kg"></Card.Title>
