@@ -4,7 +4,7 @@ import { Tabs, TabScreen } from 'react-native-paper-tabs'
 import { ScrollView } from 'react-native-gesture-handler'
 import Supplier from './Supplier'
 import { getAuthenticatedUser } from '../../lib/authStorage'
-import { SetStateAction, useState } from 'react'
+import { SetStateAction, useEffect, useState } from 'react'
 
 const SupplierProfile = ({
   route,
@@ -17,9 +17,9 @@ const SupplierProfile = ({
   const [userId, setUserId] = useState(0)
 
   getAuthenticatedUser().then((id) => {
-    console.log('id', id)
     if (id) setUserId(id)
   })
+
   return (
     <>
       <Tabs
@@ -29,30 +29,6 @@ const SupplierProfile = ({
       >
         <TabScreen label="Aktuellt">
           <ScrollView>
-            <List.Accordion title="Anbud">
-              <List.Subheader>Inskickade anbud</List.Subheader>
-              <Card>
-                <Card.Title
-                  title="Morötter"
-                  subtitle="1 000 kg | Kvarnbergsskolan, Karlstad"
-                ></Card.Title>
-              </Card>
-              <Card>
-                <Card.Title
-                  title="Potatis"
-                  subtitle="2 000 kg | Kvarnbergsskolan, Karlstad"
-                ></Card.Title>
-              </Card>
-              <List.Subheader>Utkast</List.Subheader>
-              <Card>
-                <Card.Title
-                  title="Potatis"
-                  subtitle="1 500 kg | Nyeds skola, Molkom"
-                ></Card.Title>
-              </Card>
-              <List.Subheader>Favoriter</List.Subheader>
-              <List.Subheader>Tidigare besökta</List.Subheader>
-            </List.Accordion>
             <Divider />
             <List.Accordion title="Erbjudanden">
               <List.Subheader>Publicerade</List.Subheader>
