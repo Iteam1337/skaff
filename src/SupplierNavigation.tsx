@@ -89,6 +89,7 @@ const SupplierProfileNavigation = () => {
 const SupplierNavigation = () => {
   const theme = useTheme()
   const Tab = createMaterialBottomTabNavigator()
+  const theme = useTheme()
   return (
     <Tab.Navigator
       activeColor={theme.colors.primary}

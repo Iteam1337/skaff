@@ -52,6 +52,7 @@ const Deals = ({ navigation }: { navigation: any }) => {
           placeholder="Sök erbjudande"
           onChangeText={setSearchQuery}
           value={searchQuery}
+          style={styles.searchbar}
         />
 
         {Object.entries(activeAreas)
@@ -113,6 +114,11 @@ const Deals = ({ navigation }: { navigation: any }) => {
 export default Deals
 
 const styles = StyleSheet.create({
+  searchbar: {
+    backgroundColor: 'white',
+    elevation: false,
+    marginBottom: 16,
+  },
   fab: {
     position: 'absolute',
     margin: 16,
