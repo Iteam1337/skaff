@@ -1,16 +1,16 @@
 // import * as React from 'react'
 import React, { useState } from 'react'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import TenderRequests from './components/TenderRequests'
 import TenderRequest from './components/TenderRequest'
-import CreateTenderRequest from './components/CreateTenderRequest'
+// import CreateTenderRequest from './components/CreateTenderRequest'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import Deal from './components/Deal'
 import Deals from './components/Deals'
 import ExploreNavigation from './ExploreNavigation'
-import { IconButton } from 'react-native-paper'
+import { IconButton, useTheme } from 'react-native-paper'
 import BuyerProfile from './components/BuyerProfile'
+import BottomNavigationIcon from './components/BottomNavigationIcon'
 
 const Stack = createStackNavigator()
 
@@ -85,21 +85,26 @@ const BuyerProfileNavigation = () => {
 }
 const BuyerNavigation = () => {
   const Tab = createMaterialBottomTabNavigator()
+  const theme = useTheme()
   return (
     <Tab.Navigator
-      // activeColor="red"
-      // inactiveColor="yellow"
-      barStyle={{ backgroundColor: '#fff' }}
+      activeColor={theme.colors.primary}
+      inactiveColor={theme.colors.iconInactive}
+      barStyle={{ backgroundColor: theme.colors.background }}
+      theme={theme}
       initialRouteName="Deals"
     >
       <Tab.Screen
         name="Deals"
         component={DealsNavigation}
         options={{
-          tabBarLabel: 'Erbjudna varor',
-          tabBarAccessibilityLabel: 'Erbjudna varor',
-          tabBarIcon: (color: any) => (
-            <MaterialCommunityIcons name="corn" color={color} size={20} />
+          tabBarLabel: 'Erbjudanden',
+          tabBarAccessibilityLabel: 'Erbjudanden',
+          tabBarIcon: ({ focused }) => (
+            <BottomNavigationIcon
+              name="corn"
+              focused={focused}
+            ></BottomNavigationIcon>
           ),
         }}
       />
@@ -108,14 +113,17 @@ const BuyerNavigation = () => {
         name="TenderRequests"
         component={TenderRequestsNavigation}
         options={{
-          tabBarLabel: 'Anbuds-förfrågningar',
-          tabBarAccessibilityLabel: 'Anbudsförfrågningar',
-          tabBarIcon: (color: any) => (
-            <MaterialCommunityIcons name="cart" color={color} size={20} />
+          tabBarLabel: 'Förfrågningar',
+          tabBarAccessibilityLabel: 'Förfrågningar',
+          tabBarIcon: ({ focused }) => (
+            <BottomNavigationIcon
+              name="cart"
+              focused={focused}
+            ></BottomNavigationIcon>
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="CreateTenderRequest"
         component={CreateTenderRequest}
         options={{
@@ -125,15 +133,18 @@ const BuyerNavigation = () => {
             <MaterialCommunityIcons name="cart-plus" color={color} size={30} />
           ),
         }}
-      />
+      /> */}
       <Tab.Screen
         name="Explore"
         component={ExploreNavigation}
         options={{
-          tabBarLabel: 'Utforska',
-          tabBarAccessibilityLabel: 'Utforska',
-          tabBarIcon: (color: any) => (
-            <MaterialCommunityIcons name="compass" color={color} size={20} />
+          tabBarLabel: 'Upptäck',
+          tabBarAccessibilityLabel: 'Upptäck',
+          tabBarIcon: ({ focused }) => (
+            <BottomNavigationIcon
+              name="compass"
+              focused={focused}
+            ></BottomNavigationIcon>
           ),
         }}
       />
@@ -142,10 +153,13 @@ const BuyerNavigation = () => {
         name="Profile"
         component={BuyerProfileNavigation}
         options={{
-          tabBarLabel: 'Min profil',
-          tabBarAccessibilityLabel: 'Min profil',
-          tabBarIcon: (color: any) => (
-            <MaterialCommunityIcons name="account" color={color} size={20} />
+          tabBarLabel: 'Mina sidor',
+          tabBarAccessibilityLabel: 'Mina sidor',
+          tabBarIcon: ({ focused }) => (
+            <BottomNavigationIcon
+              name="account"
+              focused={focused}
+            ></BottomNavigationIcon>
           ),
         }}
       />
