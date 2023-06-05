@@ -15,6 +15,7 @@ import { Alert, ScrollView, StyleSheet, View } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import tenderRequests from '../data/tenderRequests'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import useTenderRequests from '../hooks/useTenderRequests'
 
 const ChevronRight = () => (
   <MaterialCommunityIcons
@@ -28,9 +29,13 @@ const TenderRequests = ({ navigation }: { navigation: any }) => {
   const [searchQuery, setSearchQuery] = React.useState('')
   const [open, setOpen] = React.useState(true)
 
-  const filteredRequests = tenderRequests.filter((request) =>
-    request.title.toLowerCase().includes(searchQuery.toLowerCase())
-  )
+  const [tenderRequests] = useTenderRequests()
+
+  const filteredRequests =
+    (!searchQuery && tenderRequests) ||
+    tenderRequests.filter((request) =>
+      request.title.toLowerCase().includes(searchQuery.toLowerCase())
+    )
 
   // const handleCheckboxChange = (key) => {
   //   setCheckboxStatus((prevState: any) => ({

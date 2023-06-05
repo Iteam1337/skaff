@@ -19,7 +19,7 @@ import {
 } from 'react-native-paper/lib/typescript/src/components/List/List'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import Chat from './Chat'
-import useDeals from '../hooks/useDeal'
+import useDeals from '../hooks/useDeals.ts'
 
 interface Area {
   image: string
@@ -31,7 +31,7 @@ const Deals = ({ navigation }: { navigation: any }) => {
   const [expanded, setExpanded] = React.useState({})
   const [searchQuery, setSearchQuery] = React.useState('')
 
-  const [deals] = useDeals()
+  const [deals, addDeal] = useDeals()
 
   if (!deals) return <Text>Loading... </Text>
 

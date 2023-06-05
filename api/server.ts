@@ -33,7 +33,13 @@ const reset = () => {
 
 // either provide socket or io - if you provide io then it will send to all sockets
 const sync = (socket: any) => {
-  console.log('syncing', state.deals.length, 'deals')
+  console.log(
+    'syncing',
+    state.deals.length,
+    'deals',
+    state.tenderRequests.length,
+    'tenderRequests'
+  )
   socket.emit('deals', state.deals)
   socket.emit('tenderRequests', state.tenderRequests)
   socket.emit('suppliers', state.suppliers)

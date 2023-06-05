@@ -3,6 +3,13 @@
 // subtitle: vilken är organisationen, t ex skolmatsalen
 // image: bild på vad som ska upphandlas
 
+export type TenderRequest = {
+  id: number
+  title: string
+  buyer: string
+  image?: string
+}
+
 export default [
   {
     id: 1,
@@ -21,4 +28,4 @@ export default [
     buyer: 'Abrahamsbergsskolan',
     image: 'https://picsum.photos/700',
   },
-]
+] as TenderRequest[]
