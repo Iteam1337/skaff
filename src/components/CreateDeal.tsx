@@ -5,8 +5,9 @@ import deals from '../data/deals'
 
 const CreateDeal = ({ route }) => {
   // const { id } = route.params
-  const [title, setTitle] = React.useState('Rubrik')
+  const [title, setTitle] = React.useState('')
   const [price, setPrice] = React.useState('')
+  const [volume, setVolume] = React.useState('')
   const [image, setImage] = React.useState('https://picsum.photos/700')
   const [bannerVisible, setBannerVisible] = React.useState(true)
 
@@ -21,9 +22,14 @@ const CreateDeal = ({ route }) => {
     <SafeAreaView>
       <ScrollView>
         <TextInput
-          label="Rubrik på erbjudandet"
+          label="Namn på vara"
           value={title}
           onChangeText={(text) => setTitle(text)}
+        />
+        <TextInput
+          label="Volym"
+          value={price}
+          onChangeText={(text) => setVolume(text)}
         />
         <TextInput
           label="Pris"
