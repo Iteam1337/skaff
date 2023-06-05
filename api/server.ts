@@ -1,18 +1,39 @@
+import { Server } from 'socket.io'
+import express from 'express'
+import { createServer } from 'http'
+
+import buyers from '../src/data/buyers'
+import deals from '../src/data/deals'
+import tenderRequests from '../src/data/tenderRequests'
 const port = process.env.PORT || 3000
-const io = require('socket.io')(port)
-const state = {}
+const app = express()
+const server = createServer(app)
+const io = new Server(server)
+
+server.listen(port, () => {
+  console.log(`listening on *:${port}`)
+})
+
+const state = {
+  buyers: buyers,
+  deals: deals,
+  tenderRequests: tenderRequests,
+  suppliers: [],
+  categories: [],
+}
 
 const reset = () => {
-  state.buyers = require('../src/data/buyers')
-  state.suppliers = require('../src/data/suppliers')
-  state.deals = require('../src/data/deals')
+  state.buyers = buyers
+  state.deals = deals
+  /* state.suppliers = require('../src/data/suppliers')
   state.tenderRequests = require('../src/data/tenderRequests')
-  state.categories = require('../src/data/categories')
+  state.categories = require('../src/data/categories')*/
   return state
 }
 
 // either provide socket or io - if you provide io then it will send to all sockets
-const sync = (socket) => {
+const sync = (socket: any) => {
+  console.log('syncing', state.deals.length, 'deals')
   socket.emit('deals', state.deals)
   socket.emit('tenderRequests', state.tenderRequests)
   socket.emit('suppliers', state.suppliers)
@@ -50,3 +71,5 @@ io.on('connection', (socket) => {
     io.emit('tenderRequests', state.tenderRequests)
   })
 })
+
+reset()

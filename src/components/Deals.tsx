@@ -9,17 +9,17 @@ import {
   Searchbar,
   Text,
 } from 'react-native-paper'
-import { ScrollView, StyleSheet } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
-import deals from '../data/deals'
 import { CustomHeader } from './Header'
-import Categories, { areas } from '../data/categories'
+import { areas } from '../data/categories'
 import {
   Accordion,
   AccordionGroup,
 } from 'react-native-paper/lib/typescript/src/components/List/List'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import Chat from './Chat'
+import useDeals from '../hooks/useDeal'
 
 interface Area {
   image: string
@@ -30,9 +30,16 @@ interface Area {
 const Deals = ({ navigation }: { navigation: any }) => {
   const [expanded, setExpanded] = React.useState({})
   const [searchQuery, setSearchQuery] = React.useState('')
-  const filteredDeals = deals.filter((deal) =>
-    deal.product.name.toLowerCase().includes(searchQuery.toLowerCase())
-  )
+
+  const [deals] = useDeals()
+
+  if (!deals) return <Text>Loading... </Text>
+
+  const filteredDeals =
+    (!searchQuery && deals) ||
+    deals.filter((deal: Deal) =>
+      deal.product.name.toLowerCase().includes(searchQuery.toLowerCase())
+    )
 
   const activeAreas: { [key: string]: Area } = Object.entries(areas).reduce(
     (result, [key, area]) =>
