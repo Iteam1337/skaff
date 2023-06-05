@@ -132,17 +132,6 @@ const SupplierNavigation = () => {
           ),
         }}
       />
-      {/* <Tab.Screen
-        name="CreateDeal"
-        component={CreateDeal}
-        options={{
-          tabBarLabel: 'Nytt erbjudande',
-          tabBarAccessibilityLabel: 'Nytt erbjudande',
-          tabBarIcon: (color: any) => (
-            <MaterialCommunityIcons name="corn" color={color} size={30} />
-          ),
-        }}
-      /> */}
       <Tab.Screen
         name="Explore"
         component={ExploreNavigation}
