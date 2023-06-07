@@ -6,12 +6,18 @@ const TextInput = ({
   label,
   value,
   keyboardType,
+  disabled,
+  multiline,
+  numberOfLines,
   onChange,
 }: {
   label: string
   value: string
   keyboardType?: KeyboardTypeOptions
-  onChange: (text: string) => void
+  disabled?: boolean
+  multiline?: boolean
+  numberOfLines?: number
+  onChange?: (text: string) => void
 }) => {
   const theme = useTheme()
   return (
@@ -28,6 +34,9 @@ const TextInput = ({
       label={label}
       value={value}
       onChangeText={onChange}
+      disabled={disabled}
+      multiline={multiline}
+      numberOfLines={numberOfLines}
     ></PaperTextInput>
   )
 }

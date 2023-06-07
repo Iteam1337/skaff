@@ -7,11 +7,13 @@ const DropDownList = ({
   label,
   value,
   values,
+  multiSelect,
   setValue,
 }: {
   label: string
   value: string
   values: Array<{ label: string; value: string }>
+  multiSelect?: boolean
   setValue: any
 }) => {
   const [showDropdown, setShowDropdown] = useState(false)
@@ -35,6 +37,7 @@ const DropDownList = ({
       visible={showDropdown}
       showDropDown={() => setShowDropdown(true)}
       onDismiss={() => setShowDropdown(false)}
+      multiSelect={multiSelect}
     ></DropDown>
   )
 }
