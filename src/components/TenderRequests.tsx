@@ -1,20 +1,10 @@
 import * as React from 'react'
-import {
-  Avatar,
-  Button,
-  Card,
-  Checkbox,
-  FAB,
-  IconButton,
-  List,
-  Searchbar,
-  Text,
-  Title,
-} from 'react-native-paper'
-import { Alert, ScrollView, StyleSheet, View } from 'react-native'
-import { StatusBar } from 'expo-status-bar'
+import { Card, Checkbox, FAB, List, Searchbar } from 'react-native-paper'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import tenderRequests from '../data/tenderRequests'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { getAuthenticatedUserType } from '../../lib/authStorage'
+import { useState } from 'react'
 
 const ChevronRight = () => (
   <MaterialCommunityIcons
@@ -25,8 +15,9 @@ const ChevronRight = () => (
 )
 
 const TenderRequests = ({ navigation }: { navigation: any }) => {
-  const [searchQuery, setSearchQuery] = React.useState('')
-  const [open, setOpen] = React.useState(true)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [open, setOpen] = useState(true)
+  const [userType, setUserType] = useState('')
 
   const filteredRequests = tenderRequests.filter((request) =>
     request.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -38,6 +29,9 @@ const TenderRequests = ({ navigation }: { navigation: any }) => {
   //     [key]: !prevState[key],
   //   }))
   // }
+  getAuthenticatedUserType().then((userType) => {
+    if (userType) setUserType(userType)
+  })
 
   return (
     <>
@@ -90,13 +84,15 @@ const TenderRequests = ({ navigation }: { navigation: any }) => {
           </List.Accordion>
         </List.Section>
       </ScrollView>
-      <FAB
-        style={styles.fab}
-        onPress={() =>
-          navigation.navigate('Buyer', { screen: 'CreateTenderRequest' })
-        }
-        icon="plus"
-      />
+      {userType && userType == 'Buyer' && (
+        <FAB
+          style={styles.fab}
+          onPress={
+            () => navigation.navigate('CreateTenderRequest') //, { screen: 'CreateTenderRequest' }
+          }
+          icon="plus"
+        />
+      )}
     </>
   )
 }

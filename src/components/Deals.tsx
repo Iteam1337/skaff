@@ -1,25 +1,12 @@
 import * as React from 'react'
-import {
-  Avatar,
-  Badge,
-  Button,
-  Card,
-  FAB,
-  List,
-  Searchbar,
-  Text,
-} from 'react-native-paper'
+import { Card, FAB, List, Searchbar, Text } from 'react-native-paper'
 import { ScrollView, StyleSheet } from 'react-native'
-import { StatusBar } from 'expo-status-bar'
 import deals from '../data/deals'
-import { CustomHeader } from './Header'
-import Categories, { areas } from '../data/categories'
-import {
-  Accordion,
-  AccordionGroup,
-} from 'react-native-paper/lib/typescript/src/components/List/List'
+import { areas } from '../data/categories'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import Chat from './Chat'
+import { getAuthenticatedUserType } from '../../lib/authStorage'
+import { useState } from 'react'
 
 interface Area {
   image: string
@@ -29,7 +16,9 @@ interface Area {
 
 const Deals = ({ navigation }: { navigation: any }) => {
   const [expanded, setExpanded] = React.useState({})
+  const [userType, setUserType] = useState('')
   const [searchQuery, setSearchQuery] = React.useState('')
+
   const filteredDeals = deals.filter((deal) =>
     deal.product.name.toLowerCase().includes(searchQuery.toLowerCase())
   )
@@ -45,6 +34,9 @@ const Deals = ({ navigation }: { navigation: any }) => {
       }),
     {}
   )
+  getAuthenticatedUserType().then((userType) => {
+    if (userType) setUserType(userType)
+  })
   return (
     <>
       <ScrollView>
@@ -100,13 +92,13 @@ const Deals = ({ navigation }: { navigation: any }) => {
             </Card>
           ))}
       </ScrollView>
-      <FAB
-        style={styles.fab}
-        onPress={() =>
-          navigation.navigate('Supplier', { screen: 'CreateDeal' })
-        }
-        icon="plus"
-      />
+      {userType && userType == 'Supplier' && (
+        <FAB
+          style={styles.fab}
+          onPress={() => navigation.navigate('CreateDeal')} //, { screen: 'CreateDeal' })}
+          icon="plus"
+        />
+      )}
     </>
   )
 }
