@@ -1,10 +1,8 @@
-// import * as React from 'react'
-import React, { useState } from 'react'
+import React from 'react'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import Deals from './components/Deals'
 import Deal from './components/Deal'
 import ExploreNavigation from './ExploreNavigation'
-// import CreateDeal from './components/CreateDeal'
 import TenderRequests from './components/TenderRequests'
 import TenderRequest from './components/TenderRequest'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -12,6 +10,7 @@ import { IconButton, useTheme } from 'react-native-paper'
 import Notifications from './components/Notifications'
 import SupplierProfile from './components/SupplierProfile'
 import BottomNavigationIcon from './components/BottomNavigationIcon'
+import CreateDeal from './components/CreateDeal'
 
 const DealsNavigation = () => {
   const Stack = createStackNavigator()
@@ -38,6 +37,13 @@ const DealsNavigation = () => {
             title: 'Erbjudande',
           }}
           component={Deal}
+        />
+        <Stack.Screen
+          name="CreateDeal"
+          options={{
+            title: 'Erbjud vara',
+          }}
+          component={CreateDeal}
         />
         <Stack.Screen name="Notifications" component={Notifications} />
       </Stack.Navigator>
@@ -89,7 +95,6 @@ const SupplierProfileNavigation = () => {
 const SupplierNavigation = () => {
   const theme = useTheme()
   const Tab = createMaterialBottomTabNavigator()
-  const theme = useTheme()
   return (
     <Tab.Navigator
       activeColor={theme.colors.primary}
@@ -127,17 +132,6 @@ const SupplierNavigation = () => {
           ),
         }}
       />
-      {/* <Tab.Screen
-        name="CreateDeal"
-        component={CreateDeal}
-        options={{
-          tabBarLabel: 'Nytt erbjudande',
-          tabBarAccessibilityLabel: 'Nytt erbjudande',
-          tabBarIcon: (color: any) => (
-            <MaterialCommunityIcons name="corn" color={color} size={30} />
-          ),
-        }}
-      /> */}
       <Tab.Screen
         name="Explore"
         component={ExploreNavigation}

@@ -1,8 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-export async function saveAuthenticatedUser(id: number) {
+export async function saveAuthenticatedUser(id: number, type: string) {
   try {
     await AsyncStorage.setItem('userId', id.toString())
+    await AsyncStorage.setItem('userType', type)
   } catch (e) {
     console.error('Error saving user selection: ' + e.message)
   }
@@ -14,6 +15,14 @@ export async function getAuthenticatedUser() {
     if (userId != null) return parseInt(userId)
   } catch (e) {
     console.error('Error getting user selection: ' + e.message)
+  }
+}
+export async function getAuthenticatedUserType() {
+  try {
+    const userType = await AsyncStorage.getItem('userType')
+    if (userType != null) return userType
+  } catch (e) {
+    console.error('Error getting user type: ' + e.message)
   }
 }
 

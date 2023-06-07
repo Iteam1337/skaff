@@ -1,8 +1,6 @@
-// import * as React from 'react'
-import React, { useState } from 'react'
+import React from 'react'
 import TenderRequests from './components/TenderRequests'
 import TenderRequest from './components/TenderRequest'
-// import CreateTenderRequest from './components/CreateTenderRequest'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import Deal from './components/Deal'
@@ -11,6 +9,7 @@ import ExploreNavigation from './ExploreNavigation'
 import { IconButton, useTheme } from 'react-native-paper'
 import BuyerProfile from './components/BuyerProfile'
 import BottomNavigationIcon from './components/BottomNavigationIcon'
+import CreateTenderRequest from './components/CreateTenderRequest'
 
 const Stack = createStackNavigator()
 
@@ -31,6 +30,13 @@ const TenderRequestsNavigation = () => {
             title: 'Anbudsförfrågan',
           }}
           component={TenderRequest}
+        />
+        <Stack.Screen
+          name="CreateTenderRequest"
+          options={{
+            title: 'Ny anbudsförfrågan',
+          }}
+          component={CreateTenderRequest}
         />
       </Stack.Navigator>
     </>
@@ -123,17 +129,6 @@ const BuyerNavigation = () => {
           ),
         }}
       />
-      {/* <Tab.Screen
-        name="CreateTenderRequest"
-        component={CreateTenderRequest}
-        options={{
-          tabBarLabel: 'Ny anbuds-förfrågan',
-          tabBarAccessibilityLabel: 'Ny anbudsförfrågan',
-          tabBarIcon: (color: any) => (
-            <MaterialCommunityIcons name="cart-plus" color={color} size={30} />
-          ),
-        }}
-      /> */}
       <Tab.Screen
         name="Explore"
         component={ExploreNavigation}

@@ -13,7 +13,7 @@ const Login = ({ onLogin }: { onLogin: any }) => {
   }
 
   const login = (userId: number) => {
-    saveAuthenticatedUser(userId).then(() => {
+    saveAuthenticatedUser(userId, userType).then(() => {
       onLogin({ userType: userType })
       setUserType('')
     })

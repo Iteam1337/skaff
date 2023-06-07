@@ -37,8 +37,9 @@ const Deal = ({ route, navigation }) => {
   const getTitle = function (deal: any) {
     return (
       deal.commodity.group +
-      'i kategorin ' +
+      ' i kategorin ' +
       deal.commodity.mainGroup.toLocaleLowerCase() +
+      ' ' +
       deal.commodity.area.toLocaleLowerCase()
     )
   }
@@ -116,24 +117,30 @@ const Deal = ({ route, navigation }) => {
                 ))}
             </DataTable>
 
-            <Container>
-              <Button
-                onPress={() =>
-                  navigation.navigate('CreateTenderRequest', {
-                    title: getTitle(deal),
-                    price: deal.price.SEK_per_Kg.toLocaleString('sv'),
+            <Button
+              // mode="contained"
+              onPress={
+                () =>
+                  navigation.navigate('TenderRequests', {
+                    screen: 'CreateTenderRequest',
+                    params: {
+                      title: deal.product.name,
+                    },
                   })
-                }
-              >
-                Skapa anbudsförfrågan på detta
-              </Button>
-            </Container>
+                // navigation.navigate('CreateTenderRequest', {
+                //   title: getTitle(deal),
+                //   price: deal.price.SEK_per_Kg.toLocaleString('sv'),
+                // })
+              }
+            >
+              Skapa anbudsförfrågan från erbjudande
+            </Button>
           </ScrollView>
         </TabScreen>
         <TabScreen label="Meddelande">
           <Chat />
         </TabScreen>
-        <TabScreen
+        {/* <TabScreen
           label="Anbud"
           // icon="bag-suitcase"
           // optional props
@@ -156,7 +163,7 @@ const Deal = ({ route, navigation }) => {
               Lämna anbud
             </Button>
           </Container>
-        </TabScreen>
+        </TabScreen> */}
       </Tabs>
     </>
   )
