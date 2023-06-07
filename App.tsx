@@ -76,7 +76,6 @@ const theme = {
     background: '#FAF7F0', //beige
     surface: '#D8F5E3',
     surfaceVariant: '#EBFAEF',
-    // surfaceVariant: '#FFF',
     primary: '#1C3BA0', //mörkblå
     accent: '#EBFAEF',
     // : '#666259', //mörkgrå
@@ -84,8 +83,6 @@ const theme = {
     // accent: '#333', // blå: #29B6F6
     // Add any other color changes here
     iconInactive: '#666259', //mörkgrå
-    secondary: '#FFFFFF',
-    secondaryVariant: '#FFFFFF',
   },
   fonts: configureFonts({ config: fontConfig }),
 }
