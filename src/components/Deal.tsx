@@ -37,8 +37,9 @@ const Deal = ({ route, navigation }) => {
   const getTitle = function (deal: any) {
     return (
       deal.commodity.group +
-      'i kategorin ' +
+      ' i kategorin ' +
       deal.commodity.mainGroup.toLocaleLowerCase() +
+      ' ' +
       deal.commodity.area.toLocaleLowerCase()
     )
   }
