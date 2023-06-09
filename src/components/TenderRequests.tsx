@@ -29,7 +29,11 @@ const TenderRequests = ({ navigation }: { navigation: any }) => {
   const [searchQuery, setSearchQuery] = React.useState('')
   const [open, setOpen] = React.useState(true)
 
-  const [tenderRequests] = useTenderRequests()
+  const [tenderRequests, update, add, refresh] = useTenderRequests()
+
+  React.useEffect(() => {
+    refresh()
+  }, [])
 
   const filteredRequests =
     (!searchQuery && tenderRequests) ||

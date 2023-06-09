@@ -30,16 +30,21 @@ interface Area {
 const Deals = ({ navigation }: { navigation: any }) => {
   const [expanded, setExpanded] = React.useState({})
   const [searchQuery, setSearchQuery] = React.useState('')
+  const [filteredDeals, setFilteredDeals] = React.useState([])
 
-  const [deals, addDeal] = useDeals()
+  const [deals, update, add, refresh] = useDeals()
 
-  if (!deals) return <Text>Loading... </Text>
+  React.useEffect(() => {
+    refresh()
+  }, [])
 
-  const filteredDeals =
-    (!searchQuery && deals) ||
-    deals.filter((deal: Deal) =>
-      deal.product.name.toLowerCase().includes(searchQuery.toLowerCase())
+  React.useEffect(() => {
+    setFilteredDeals(
+      deals.filter((deal: Deal) =>
+        deal.product.name.toLowerCase().includes(searchQuery.toLowerCase())
+      )
     )
+  }, [searchQuery, deals])
 
   const activeAreas: { [key: string]: Area } = Object.entries(areas).reduce(
     (result, [key, area]) =>

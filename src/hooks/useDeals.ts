@@ -7,18 +7,26 @@ const useDeals = () => {
   const [deals, setDeals] = useState([] as Deal[])
 
   useEffect(() => {
-    socket.on('deals', setDeals)
+    socket.on('deals', (deals: Deal[]) => {
+      setDeals(deals)
+    })
 
     return () => {
       socket.off('deals')
     }
   }, [socket])
 
-  const updateDeal = (deal: Deal) => {
+  const editDeal = (deal: Deal) => {
     socket.emit('editDeal', deal)
   }
 
-  return [deals, updateDeal]
+  const addDeal = (deal: Deal) => {
+    socket.emit('addDeal', deal)
+  }
+
+  const refresh = () => socket.emit('deals')
+
+  return [deals, editDeal, addDeal, refresh]
 }
 
 export default useDeals

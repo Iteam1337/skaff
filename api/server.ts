@@ -15,21 +15,21 @@ server.listen(port, () => {
 })
 
 const state = {
-  buyers: buyers,
+  buyers: [],
   deals: deals,
   tenderRequests: tenderRequests,
   suppliers: [],
   categories: [],
 }
 
-const reset = () => {
-  state.buyers = buyers
-  state.deals = deals
-  /* state.suppliers = require('../src/data/suppliers')
-  state.tenderRequests = require('../src/data/tenderRequests')
-  state.categories = require('../src/data/categories')*/
-  return state
-}
+const reset = () =>
+  Object.assign(state, {
+    buyers: buyers,
+    deals: deals,
+    tenderRequests: tenderRequests,
+    suppliers: [],
+    categories: [],
+  })
 
 // either provide socket or io - if you provide io then it will send to all sockets
 const sync = (socket: any) => {
@@ -40,7 +40,6 @@ const sync = (socket: any) => {
     state.tenderRequests.length,
     'tenderRequests'
   )
-  socket.emit('deals', state.deals)
   socket.emit('tenderRequests', state.tenderRequests)
   socket.emit('suppliers', state.suppliers)
   socket.emit('buyers', state.buyers)
@@ -48,8 +47,13 @@ const sync = (socket: any) => {
 
 io.on('connection', (socket) => {
   console.log('a user connected')
-  sync(socket) // send initial state
   socket.on('reset', () => reset() && sync(io))
+
+  socket.on('deals', () => socket.emit('deals', state.deals))
+  socket.on('buyers', () => socket.emit('buyers', state.buyers))
+  socket.on('tenderRequests', () =>
+    socket.emit('tenderRequests', state.tenderRequests)
+  )
 
   // DEALS
   socket.on('addDeal', (deal) => {

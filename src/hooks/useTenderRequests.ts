@@ -2,19 +2,23 @@ import { useContext, useEffect, useState } from 'react'
 import { SocketContext } from '../context/socketContext'
 import { TenderRequest } from '../data/tenderRequests'
 
-const useTenderRequests = () => {
+const useTenderRequests = (): [Array<TenderRequest>, any, any, any] => {
   const socket = useContext(SocketContext)
-  const [tenderRequests, setTenderRequests] = useState([] as TenderRequest[])
+  const [tenderRequests, setTenderRequests] = useState(
+    new Array<TenderRequest>()
+  )
 
   useEffect(() => {
-    socket.on('tenderRequests', setTenderRequests)
+    socket.on('tenderRequests', (arr: Array<TenderRequest>) =>
+      setTenderRequests(arr)
+    )
 
     return () => {
       socket.off('tenderRequests')
     }
   }, [socket])
 
-  const updateTenderRequest = (tenderRequest: TenderRequest) => {
+  const editTenderRequest = (tenderRequest: TenderRequest) => {
     socket.emit('editTenderRequest', tenderRequest)
   }
 
@@ -22,7 +26,9 @@ const useTenderRequests = () => {
     socket.emit('addTenderRequest', tenderRequest)
   }
 
-  return [tenderRequests, updateTenderRequest, addTenderRequest]
+  const refresh = () => socket.emit('tenderRequests')
+
+  return [tenderRequests, editTenderRequest, addTenderRequest, refresh]
 }
 
 export default useTenderRequests
