@@ -1,10 +1,11 @@
 import * as React from 'react'
 import { Card, FAB, List, Searchbar, Text } from 'react-native-paper'
-import { ScrollView, StyleSheet } from 'react-native'
-import deals from '../data/deals'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import { areas } from '../data/categories'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import Chat from './Chat'
+import useDeals from '../hooks/useDeals'
+import { Deal } from '../data/deals'
 import { getAuthenticatedUserType } from '../../lib/authStorage'
 import { useState } from 'react'
 
@@ -18,10 +19,27 @@ const Deals = ({ navigation }: { navigation: any }) => {
   const [expanded, setExpanded] = React.useState({})
   const [userType, setUserType] = useState('')
   const [searchQuery, setSearchQuery] = React.useState('')
+  const [filteredDeals, setFilteredDeals] = React.useState(new Array<Deal>())
 
-  const filteredDeals = deals.filter((deal) =>
-    deal.product.name.toLowerCase().includes(searchQuery.toLowerCase())
-  )
+  const [deals, update, add, refresh] = useDeals()
+
+  React.useEffect(() => {
+    console.log('refresh')
+    getAuthenticatedUserType().then((userType) => {
+      if (userType) setUserType(userType)
+    })
+    refresh()
+  }, [])
+
+  React.useEffect(() => {
+    console.log('filter')
+
+    setFilteredDeals(
+      deals.filter((deal) =>
+        deal.product.name.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    )
+  }, [searchQuery, deals])
 
   const activeAreas: { [key: string]: Area } = Object.entries(areas).reduce(
     (result, [key, area]) =>
@@ -34,9 +52,7 @@ const Deals = ({ navigation }: { navigation: any }) => {
       }),
     {}
   )
-  getAuthenticatedUserType().then((userType) => {
-    if (userType) setUserType(userType)
-  })
+
   return (
     <>
       <ScrollView>

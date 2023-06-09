@@ -1,3 +1,46 @@
+export type Deal = {
+  id: number
+  procurement: string
+  positionNo: string
+  commodity: {
+    area: string
+    mainGroup: string
+    group: string
+  }
+  supplier: {
+    name: string
+    artNo: string
+  }
+  product: {
+    name: string
+    manufacturer: string
+    brand: string
+    content: {
+      quantity: number
+      unit: string
+    }
+  }
+  price: {
+    SEK: number
+    kilos: number
+    SEK_per_Kg: number
+    finalAmountSEK_per_Kg: number
+    percentageOutsideContract: number
+  }
+  certifications: {
+    organic: boolean
+    MSC: boolean
+    kravMarked: boolean
+    ethical: boolean
+    fairtrade: boolean
+    locallyProduced: boolean
+  }
+  origin: {
+    productManufacturingCountry: string
+    rawMaterialOriginCountry: string
+  }
+}
+
 export default [
   {
     id: 4,
@@ -5165,4 +5208,4 @@ export default [
       rawMaterialOriginCountry: 'Uppgift saknas',
     },
   },
-]
+] as Deal[]

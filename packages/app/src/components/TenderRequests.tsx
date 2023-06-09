@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { Card, Checkbox, FAB, List, Searchbar } from 'react-native-paper'
 import { ScrollView, StyleSheet, View } from 'react-native'
-import tenderRequests from '../data/tenderRequests'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import useTenderRequests from '../hooks/useTenderRequests'
 import { getAuthenticatedUserType } from '../../lib/authStorage'
 import { useState } from 'react'
 
@@ -19,9 +19,17 @@ const TenderRequests = ({ navigation }: { navigation: any }) => {
   const [open, setOpen] = useState(true)
   const [userType, setUserType] = useState('')
 
-  const filteredRequests = tenderRequests.filter((request) =>
-    request.title.toLowerCase().includes(searchQuery.toLowerCase())
-  )
+  const [tenderRequests, update, add, refresh] = useTenderRequests()
+
+  React.useEffect(() => {
+    refresh()
+  }, [])
+
+  const filteredRequests =
+    (!searchQuery && tenderRequests) ||
+    tenderRequests.filter((request) =>
+      request.title.toLowerCase().includes(searchQuery.toLowerCase())
+    )
 
   // const handleCheckboxChange = (key) => {
   //   setCheckboxStatus((prevState: any) => ({
