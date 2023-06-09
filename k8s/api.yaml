@@ -5,40 +5,37 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: foodMarket
+      app: foodMarket-api
   template:
     metadata:
       labels:
-        app: foodMarket
+        app: foodMarket-api
     spec:
       containers:
-        - name: foodMarket
-          image: ghcr.io/iteam1337/foodMarket
-          env:
-            - name: EXPO_PUBLIC_URL
-              value: https://skaff.iteam.pub/
+        - name: foodMarket-api
+          image: iteam1337/foodMarket-api
           resources:
-            limits:
+            requests:
               memory: '128Mi'
               cpu: '500m'
           ports:
-            - containerPort: 19000
+            - containerPort: 3000
               name: http
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: foodMarket
+  name: foodMarket-api
   labels:
-    app: foodMarket
+    app: foodMarket-api
 spec:
   ports:
-    - port: 1900
-      targetPort: 19000
+    - port: 3000
+      targetPort: 3000
       protocol: TCP
       name: http
   selector:
-    app: foodMarket
+    app: foodMarket-api
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -48,15 +45,14 @@ metadata:
     name: foodMarket
 spec:
   tls:
-
   rules:
-    - host: skaff.iteam.pub
+    - host: skaff-api.iteam.pub
       http:
         paths:
           - pathType: Prefix
             path: '/'
             backend:
               service:
-                name: foodMarket
+                name: foodMarket-api
                 port:
-                  number: 19000
+                  number: 3000

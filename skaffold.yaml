@@ -4,7 +4,7 @@ metadata:
   name: foodMarket
 build:
   artifacts:
-    - image: ghcr.io/iteam1337/foodMarket
+    - image: iteam1337/foodMarket-api
 manifests:
   rawYaml:
     - k8s/*.yaml
