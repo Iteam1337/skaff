@@ -2,9 +2,9 @@ import { Server } from 'socket.io'
 import express from 'express'
 import { createServer } from 'http'
 
-import buyers from '../src/data/buyers'
-import deals from '../src/data/deals'
-import tenderRequests from '../src/data/tenderRequests'
+import buyers from '../app/src/data/buyers'
+import deals from '../app/src/data/deals'
+import tenderRequests from '../app/src/data/tenderRequests'
 const port = process.env.PORT || 3000
 const app = express()
 const server = createServer(app)

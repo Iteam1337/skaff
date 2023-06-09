@@ -18,5 +18,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Go to app folder
+        run: cd packages/app
+
       - name: Publish to Github Pages
         run: npm deploy
