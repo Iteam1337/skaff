@@ -2,12 +2,12 @@ import { useContext, useEffect, useState } from 'react'
 import { SocketContext } from '../context/socketContext'
 import { Deal } from '../data/deals'
 
-const useDeals = () => {
+const useDeals = (): [Array<Deal>, any, any, any] => {
   const socket = useContext(SocketContext)
-  const [deals, setDeals] = useState([] as Deal[])
+  const [deals, setDeals] = useState([] as Array<Deal>)
 
   useEffect(() => {
-    socket.on('deals', (deals: Deal[]) => {
+    socket.on('deals', (deals: Array<Deal>) => {
       setDeals(deals)
     })
 

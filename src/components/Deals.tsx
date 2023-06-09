@@ -20,6 +20,7 @@ import {
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import Chat from './Chat'
 import useDeals from '../hooks/useDeals.ts'
+import { Deal } from '../data/deals'
 
 interface Area {
   image: string
@@ -30,17 +31,20 @@ interface Area {
 const Deals = ({ navigation }: { navigation: any }) => {
   const [expanded, setExpanded] = React.useState({})
   const [searchQuery, setSearchQuery] = React.useState('')
-  const [filteredDeals, setFilteredDeals] = React.useState([])
+  const [filteredDeals, setFilteredDeals] = React.useState(new Array<Deal>())
 
   const [deals, update, add, refresh] = useDeals()
 
   React.useEffect(() => {
+    console.log('refresh')
     refresh()
   }, [])
 
   React.useEffect(() => {
+    console.log('filter')
+
     setFilteredDeals(
-      deals.filter((deal: Deal) =>
+      deals.filter((deal) =>
         deal.product.name.toLowerCase().includes(searchQuery.toLowerCase())
       )
     )
