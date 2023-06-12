@@ -17,8 +17,14 @@ Så här kommer du igång:
 Nu startas automatiskt din iOS Simulator och du kan testa applikationen live där.
 
 ## Screenshots (ej färdig layout)
+
 ![image](https://user-images.githubusercontent.com/395843/232560646-26c641a6-429d-46cc-8b9d-1ed460c9e119.png)
 
+## Release
+
+För att göra en release (kräver access till Kuberneteskluster). Se gärna till att du har pushat all kod innan du releasar :) (TODO: gör en automatisk release på push)
+
+    skaffold run --default-repo registry.iteam.services
 
 ## LICENS
 

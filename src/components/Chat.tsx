@@ -55,10 +55,14 @@ const Chat = () => {
               message.type === 'question' ? styles.question : styles.answer,
             ]}
           >
-            <Text style={styles.messageText}>{message.text}</Text>
+            <Text key={i} style={styles.messageText}>
+              {message.text}
+            </Text>
           </View>
           {i === messages.length - 1 && (
-            <Caption style={styles.messageMetadata}>{message.date}</Caption>
+            <Caption key={i} style={styles.messageMetadata}>
+              {message.date}
+            </Caption>
           )}
         </>
       ))}
