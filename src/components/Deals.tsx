@@ -24,16 +24,10 @@ const Deals = ({ navigation }: { navigation: any }) => {
   const [deals, update, add, refresh] = useDeals()
 
   React.useEffect(() => {
-    console.log('refresh')
-    getAuthenticatedUserType().then((userType) => {
-      if (userType) setUserType(userType)
-    })
     refresh()
   }, [])
 
   React.useEffect(() => {
-    console.log('filter')
-
     setFilteredDeals(
       deals.filter((deal) =>
         deal.product.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -52,7 +46,9 @@ const Deals = ({ navigation }: { navigation: any }) => {
       }),
     {}
   )
-
+  getAuthenticatedUserType().then((userType) => {
+    if (userType) setUserType(userType)
+  })
   return (
     <>
       <ScrollView>
