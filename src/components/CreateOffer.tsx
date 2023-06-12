@@ -7,6 +7,13 @@ import buyers from '../data/buyers'
 import { getAuthenticatedUser } from '../../lib/authStorage'
 import { ScrollView } from 'react-native-gesture-handler'
 import tenderRequests from '../data/tenderRequests'
+import { SafeAreaView, StyleSheet, View } from 'react-native'
+
+const containerStyle = StyleSheet.create({
+  rowContainer: {
+    flexDirection: 'row',
+  },
+})
 
 const CreateOffer = ({
   navigation,
@@ -68,23 +75,26 @@ const CreateOffer = ({
   }
 
   return (
-    <ScrollView>
-      <Headline>{tenderRequest.title}</Headline>
-      <Text>{tenderRequest.volume} kg</Text>
-      <Divider />
-      <Text>Sista svar: {tenderRequest.lastOfferDate}</Text>
-      <Text>Tilldelning senast: {tenderRequest.lastAwardDate}</Text>
-      <Text>Leveransplan: {tenderRequest.deliveryPlan}</Text>
-      <Text>Leverans startdatum: {tenderRequest.deliveryStartDate}</Text>
-      <Text>Villor:</Text>
-      <Text>Producent ansvarar för leverans enligt överenskommelse.</Text>
-      <Divider />
-      <Text>Urval:</Text>
-      <Text>
-        Inlämnade anbud som uppfyller krav rangordnas efter offererat pris.
-        Uppfyllda önskemål ger prisavdrag vid rangordning av anbud.
-      </Text>
-      {/* 
+    <SafeAreaView>
+      <ScrollView>
+        <View style={containerStyle}>
+          <Headline style={{ flex: 1 }}>{tenderRequest.title}</Headline>
+          <Text>{tenderRequest.volume} kg</Text>
+        </View>
+        <Divider />
+        <Text>Sista svar: {tenderRequest.lastOfferDate}</Text>
+        <Text>Tilldelning senast: {tenderRequest.lastAwardDate}</Text>
+        <Text>Leveransplan: {tenderRequest.deliveryPlan}</Text>
+        <Text>Leverans startdatum: {tenderRequest.deliveryStartDate}</Text>
+        <Text>Villor:</Text>
+        <Text>Producent ansvarar för leverans enligt överenskommelse.</Text>
+        <Divider />
+        <Text>Urval:</Text>
+        <Text>
+          Inlämnade anbud som uppfyller krav rangordnas efter offererat pris.
+          Uppfyllda önskemål ger prisavdrag vid rangordning av anbud.
+        </Text>
+        {/* 
       <TextInput
         label="Beställare"
         value={
@@ -159,14 +169,15 @@ const CreateOffer = ({
         values={criterias}
         multiSelect={true}
       ></DropDownList> */}
-      <Button
-        mode="contained"
-        // style={{ width: 200 }}
-        onPress={publish}
-      >
-        Skicka anbud
-      </Button>
-    </ScrollView>
+        <Button
+          mode="contained"
+          // style={{ width: 200 }}
+          onPress={publish}
+        >
+          Skicka anbud
+        </Button>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 
