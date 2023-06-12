@@ -7,5 +7,5 @@ RUN npm install -g ts-node
 RUN npm install @types/react@17.0.21
 COPY . .
 EXPOSE 3000
-EXPOSE 19000
-CMD ["expo", "start"]
+EXPOSE 80
+CMD ["expo", "start", "-p", "80"]

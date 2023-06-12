@@ -15,14 +15,14 @@ spec:
         - name: foodmarket
           image: iteam1337/foodmarket
           env:
-            - name: EXPO_URL
-              value: https://skaff-qr.iteam.pub
+            - name: EXPO_PUBLIC_URL
+              value: https://skaff-qr.iteam.pub/
           resources:
             requests:
               memory: '128Mi'
               cpu: '500m'
           ports:
-            - containerPort: 19000
+            - containerPort: 80
               name: http
 ---
 apiVersion: v1
@@ -33,8 +33,8 @@ metadata:
     app: foodmarket
 spec:
   ports:
-    - port: 19000
-      targetPort: 19000
+    - port: 80
+      targetPort: 80
       protocol: TCP
       name: http
   selector:
@@ -64,4 +64,4 @@ spec:
               service:
                 name: foodmarket
                 port:
-                  number: 19000
+                  number: 80
