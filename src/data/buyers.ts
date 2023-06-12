@@ -1,12 +1,20 @@
+import { User } from './user'
+
 const image3 = '/assets/avatars/Image003.png'
 const image4 = '/assets/avatars/Image004.png'
 const image5 = '/assets/avatars/Image005.png'
 const image6 = '/assets/avatars/Image006.png'
 const image7 = '/assets/avatars/Image007.png'
 
+export type Buyer = User & {
+  type: 'buyer'
+}
+
 export default [
   {
-    id: 1,
+    id: '1',
+    type: 'buyer',
+    online: false,
     name: 'Fredricelundsskolan',
     image: image3,
     address: 'Tallåsvägen 2',
@@ -17,7 +25,8 @@ export default [
       'När du kommer till oss möts du av glädje och god stämning! Fredricelundsskolan är en skola med elever från förskoleklass till årskurs 6 med cirka 280 elever. Vår skola ligger på Våxnäs cirka fyra kilometer nordväst om Karlstads centrum i ett naturfint område med park och skog i närheten.',
   },
   {
-    id: 2,
+    id: '2',
+    type: 'buyer',
     name: 'Frödingskolan',
     image: image4,
     address: 'Posthornsgatan 6',
@@ -28,7 +37,8 @@ export default [
       'När du kommer till Frödingskolan möts du av glädje och nyfikenhet. Eleverna på skolan kommer från många olika kulturella bakgrunder. Detta ger en dynamik i lärandet och en härlig atmosfär! Frödingskolans främsta mål är att ge goda kunskaper och stärka språket i alla ämnen så att eleverna är väl förberedda för vidare studier och arbetsliv.',
   },
   {
-    id: 3,
+    id: '3',
+    type: 'buyer',
     name: 'Kvarnbergsskolan',
     image: image5,
     address: 'Ölmegatan 10',
@@ -39,7 +49,8 @@ export default [
       'Kvarnbergssskolan är en F-6 skola som ingår i Skolområde Syd. En skola för ALLA är viktigt för oss på Kvarnbergsskolan. Med forskningen som utgångspunkt strävar vi efter att skapa en kreativ miljö för stor som liten.',
   },
   {
-    id: 4,
+    id: '4',
+    type: 'buyer',
     name: 'Vålbergsskolan',
     image: image6,
     address: 'Åslidsgatan 4B',
@@ -50,7 +61,8 @@ export default [
       'Välkommen till Vålbergsskolan! För oss är det viktigt att era barn får ett bra bemötande och att vi har goda relationer med varandra.',
   },
   {
-    id: 5,
+    id: '5',
+    type: 'buyer',
     name: 'Nyeds skola',
     image: image7,
     address: '',
@@ -60,4 +72,4 @@ export default [
     description:
       'Vår strävan är att våra elever ska nå höga resultat som ger goda förutsättningar för vidare studier, ett gott liv och hopp om en meningsfull framtid',
   },
-]
+] as Array<Buyer>

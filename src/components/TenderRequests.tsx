@@ -5,6 +5,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import useTenderRequests from '../hooks/useTenderRequests'
 import { getAuthenticatedUserType } from '../../lib/authStorage'
 import { useState } from 'react'
+import useAuth from '../hooks/useAuth'
 
 const ChevronRight = () => (
   <MaterialCommunityIcons
@@ -17,7 +18,8 @@ const ChevronRight = () => (
 const TenderRequests = ({ navigation }: { navigation: any }) => {
   const [searchQuery, setSearchQuery] = useState('')
   const [open, setOpen] = useState(true)
-  const [userType, setUserType] = useState('')
+
+  const [user] = useAuth()
 
   const [tenderRequests, update, add, refresh] = useTenderRequests()
 
@@ -30,16 +32,6 @@ const TenderRequests = ({ navigation }: { navigation: any }) => {
     tenderRequests.filter((request) =>
       request.title.toLowerCase().includes(searchQuery.toLowerCase())
     )
-
-  // const handleCheckboxChange = (key) => {
-  //   setCheckboxStatus((prevState: any) => ({
-  //     ...prevState,
-  //     [key]: !prevState[key],
-  //   }))
-  // }
-  getAuthenticatedUserType().then((userType) => {
-    if (userType) setUserType(userType)
-  })
 
   return (
     <>
@@ -92,7 +84,7 @@ const TenderRequests = ({ navigation }: { navigation: any }) => {
           </List.Accordion>
         </List.Section>
       </ScrollView>
-      {userType && userType == 'Buyer' && (
+      {user?.type === 'buyer' && (
         <FAB
           style={styles.fab}
           onPress={

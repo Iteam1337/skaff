@@ -4,20 +4,17 @@ import { Avatar, Title, Button, Subheading } from 'react-native-paper'
 import suppliers from '../data/suppliers'
 import buyers from '../data/buyers'
 import { saveAuthenticatedUser } from '../../lib/authStorage'
+import { registerForPushNotificationsAsync } from '../../lib/notifications'
+import useAuth from '../hooks/useAuth'
 
 const Login = ({ onLogin }: { onLogin: any }) => {
   const [userType, setUserType] = useState('')
+  const [user, login] = useAuth()
 
   const userTypeSelected = (userType: string) => {
     setUserType(userType)
   }
 
-  const login = (userId: number) => {
-    saveAuthenticatedUser(userId, userType).then(() => {
-      onLogin({ userType: userType })
-      setUserType('')
-    })
-  }
   return (
     <SafeAreaView style={styles.container}>
       <Title style={styles.title}>Logga in (DEMO)</Title>
@@ -28,7 +25,7 @@ const Login = ({ onLogin }: { onLogin: any }) => {
             style={styles.button}
             mode="contained"
             onPress={() => {
-              userTypeSelected('Supplier')
+              userTypeSelected('supplier')
             }}
           >
             Producent
@@ -37,66 +34,70 @@ const Login = ({ onLogin }: { onLogin: any }) => {
             style={styles.button}
             mode="contained"
             onPress={() => {
-              userTypeSelected('Buyer')
+              userTypeSelected('buyer')
             }}
           >
             Beställare
           </Button>
         </View>
       )}
-      {userType == 'Supplier' && (
+      {userType == 'supplier' && (
         <ScrollView contentContainerStyle={styles.scrollView}>
           <View>
             <Subheading style={styles.subheading}>
               Välj producent att agera som
             </Subheading>
-            {suppliers.map(
-              (supplier: { name: string; image: string; id: number }) => {
-                return (
-                  <View style={styles.searchResult} key={supplier.id}>
-                    <Avatar.Image
-                      size={30}
-                      style={styles.avatar}
-                      source={supplier.image}
-                    />
-                    <Text
-                      style={styles.searchResultName}
-                      onPress={() => login(supplier.id)}
-                    >
-                      {supplier.name}
-                    </Text>
-                  </View>
-                )
-              }
-            )}
+            {suppliers.map((supplier) => {
+              return (
+                <View style={styles.searchResult} key={supplier.id}>
+                  <Avatar.Image
+                    size={30}
+                    style={styles.avatar}
+                    source={supplier.image}
+                  />
+                  <Text
+                    style={styles.searchResultName}
+                    onPress={async () => {
+                      const token = await registerForPushNotificationsAsync()
+                      login(supplier, token)
+                      onLogin(supplier)
+                    }}
+                  >
+                    {supplier.name}
+                  </Text>
+                </View>
+              )
+            })}
           </View>
         </ScrollView>
       )}
-      {userType == 'Buyer' && (
+      {userType == 'buyer' && (
         <ScrollView contentContainerStyle={styles.scrollView}>
           <View>
             <Subheading style={styles.subheading}>
               Välj beställare att agera som
             </Subheading>
-            {buyers.map(
-              (buyer: { name: string; image: string; id: number }) => {
-                return (
-                  <View style={styles.searchResult} key={buyer.id}>
-                    <Avatar.Image
-                      size={30}
-                      style={styles.avatar}
-                      source={buyer.image}
-                    />
-                    <Text
-                      style={styles.searchResultName}
-                      onPress={() => login(buyer.id)}
-                    >
-                      {buyer.name}
-                    </Text>
-                  </View>
-                )
-              }
-            )}
+            {buyers.map((buyer) => {
+              return (
+                <View style={styles.searchResult} key={buyer.id}>
+                  <Avatar.Image
+                    size={30}
+                    style={styles.avatar}
+                    source={buyer.image}
+                  />
+                  <Text
+                    style={styles.searchResultName}
+                    onPress={async () => {
+                      const token = await registerForPushNotificationsAsync()
+                      login(buyer, token)
+                      onLogin(buyer)
+                    }}
+                  >
+                    {buyer.name}
+                  </Text>
+                </View>
+              )
+            })}
           </View>
         </ScrollView>
       )}
