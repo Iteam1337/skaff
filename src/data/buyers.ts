@@ -1,8 +1,8 @@
-import image3 from '../../assets/avatars/Image003.png'
-import image4 from '../../assets/avatars/Image004.png'
-import image5 from '../../assets/avatars/Image005.png'
-import image6 from '../../assets/avatars/Image006.png'
-import image7 from '../../assets/avatars/Image007.png'
+const image3 = '/assets/avatars/Image003.png'
+const image4 = '/assets/avatars/Image004.png'
+const image5 = '/assets/avatars/Image005.png'
+const image6 = '/assets/avatars/Image006.png'
+const image7 = '/assets/avatars/Image007.png'
 
 export default [
   {

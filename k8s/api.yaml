@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: foodmarket-api
+spec:
+  selector:
+    matchLabels:
+      app: foodmarket-api
+  template:
+    metadata:
+      labels:
+        app: foodmarket-api
+    spec:
+      containers:
+        - name: foodmarket-api
+          image: iteam1337/foodmarket
+          command:
+            - ts-node
+            - api/server.ts
+          resources:
+            limits: {}
+            requests:
+              memory: '128Mi'
+              cpu: '500m'
+          ports:
+            - containerPort: 3000
+              name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: foodmarket-api
+  labels:
+    app: foodmarket-api
+spec:
+  ports:
+    - port: 3000
+      targetPort: 3000
+      protocol: TCP
+      name: http
+  selector:
+    app: foodmarket-api
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: foodmarket-api
+  labels:
+    name: foodmarket-api
+  annotations:
+    kubernetes.io/ingress.class: 'nginx'
+    cert-manager.io/cluster-issuer: 'letsencrypt-prod'
+spec:
+  tls:
+    - hosts:
+        - skaff-api.iteam.pub
+      secretName: skaff-prod-tls
+  rules:
+    - host: skaff-api.iteam.pub
+      http:
+        paths:
+          - pathType: Prefix
+            path: '/'
+            backend:
+              service:
+                name: foodmarket-api
+                port:
+                  number: 3000

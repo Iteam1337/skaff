@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: foodmarket
+spec:
+  selector:
+    matchLabels:
+      app: foodmarket
+  template:
+    metadata:
+      labels:
+        app: foodmarket
+    spec:
+      containers:
+        - name: foodmarket
+          image: iteam1337/foodmarket
+          env:
+            - name: EXPO_PUBLIC_URL
+              value: https://skaff-qr.iteam.pub/
+          resources:
+            requests:
+              memory: '128Mi'
+              cpu: '500m'
+          ports:
+            - containerPort: 80
+              name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: foodmarket
+  labels:
+    app: foodmarket
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+      name: http
+  selector:
+    app: foodmarket
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: foodmarket
+  labels:
+    name: foodmarket
+  annotations:
+    kubernetes.io/ingress.class: 'nginx'
+    cert-manager.io/cluster-issuer: 'letsencrypt-prod'
+spec:
+  tls:
+    - hosts:
+        - skaff-qr.iteam.pub
+      secretName: skaff-prod-tls
+  rules:
+    - host: skaff-qr.iteam.pub
+      http:
+        paths:
+          - pathType: Prefix
+            path: '/'
+            backend:
+              service:
+                name: foodmarket
+                port:
+                  number: 80

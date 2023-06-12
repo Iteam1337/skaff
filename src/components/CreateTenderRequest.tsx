@@ -6,6 +6,7 @@ import DropDownList from './form/DropDownList'
 import buyers from '../data/buyers'
 import { getAuthenticatedUser } from '../../lib/authStorage'
 import { ScrollView } from 'react-native-gesture-handler'
+import useTenderRequests from '../hooks/useTenderRequests'
 
 const CreateTenderRequest = ({
   navigation,
@@ -23,6 +24,7 @@ const CreateTenderRequest = ({
   const [volumePerDelivery, setVolumePerDelivery] = useState('')
   const [qualificationCriteria, setQualificationCriteria] = useState('')
   const [optionalCriteria, setOptionalCriteria] = useState('')
+  const [, , add] = useTenderRequests()
 
   const [buyer, setBuyer] = useState({})
 
@@ -62,16 +64,18 @@ const CreateTenderRequest = ({
   }, [route.params])
 
   const publish = () => {
-    console.log('title', title)
-    console.log('volume', volume)
-    console.log('lastOfferDate', lastOfferDate)
-    console.log('lastAwardDate', lastAwardDate)
-    console.log('deliveryPlan', deliveryPlan)
-    console.log('volumePerDelivery', volumePerDelivery)
-    console.log('optionalCriteria', optionalCriteria)
-    console.log('qualificationCriteria', qualificationCriteria)
+    const tenderRequest = {
+      title,
+      volume,
+      lastOfferDate,
+      lastAwardDate,
+      deliveryPlan,
+      volumePerDelivery,
+      optionalCriteria,
+      qualificationCriteria,
+    }
 
-    //TODO: save new to backend
+    add(tenderRequest)
 
     navigation.navigate('ListTenderRequests')
   }
