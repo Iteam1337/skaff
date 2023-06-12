@@ -4,6 +4,16 @@
 
 Detta är den blivande prototypen av matmarknaden byggd på dynamiskt inköpssystem DIS.
 
+## Testa
+
+Ladda ner appen Expo Go och scanna därefter följande QR-koder:
+
+![image](https://github.com/Iteam1337/foodMarket/assets/395843/79ab706c-c552-42a8-8076-e77ae09a4823)
+Iphone
+
+![image](https://github.com/Iteam1337/foodMarket/assets/395843/46dbd025-3265-4521-9066-155e43f72fe0)
+Android
+
 ## Kom igång
 
 Så här kommer du igång:
