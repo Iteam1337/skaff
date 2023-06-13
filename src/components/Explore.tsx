@@ -14,7 +14,6 @@ import suppliers from '../data/suppliers'
 import buyers from '../data/buyers'
 
 const Explore = ({ navigation }: { navigation: any }) => {
-  const theme = useTheme
   const [searchQuery, setSearchQuery] = React.useState('')
   const filteredSuppliers = suppliers.filter((supplier) =>
     supplier.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -32,27 +31,23 @@ const Explore = ({ navigation }: { navigation: any }) => {
           style={styles.searchbar}
         />
         <Subheading style={styles.header}>Producenter</Subheading>
-        {filteredSuppliers.map(
-          (supplier: { name: string; image: string; id: number }) => {
-            return (
-              <View style={styles.searchResult} key={supplier.id}>
-                <Avatar.Image
-                  size={30}
-                  style={styles.avatar}
-                  source={supplier.image}
-                />
-                <Text
-                  style={styles.searchResultName}
-                  onPress={() =>
-                    navigation.navigate('Supplier', { id: supplier.id })
-                  }
-                >
-                  {supplier.name}
-                </Text>
-              </View>
-            )
-          }
-        )}
+        {filteredSuppliers.map((supplier) => {
+          return (
+            <View style={styles.searchResult} key={supplier.id}>
+              <Avatar.Image
+                size={30}
+                style={styles.avatar}
+                source={{ uri: `https://skaff-api.iteam.pub${supplier.image}` }}
+              />
+              <Text
+                style={styles.searchResultName}
+                onPress={() => navigation.navigate('Supplier', { supplier })}
+              >
+                {supplier.name}
+              </Text>
+            </View>
+          )
+        })}
         <View style={styles.linkContainer}>
           <Button uppercase={false}>
             Ansök om att bli ansluten{' '}
@@ -65,25 +60,23 @@ const Explore = ({ navigation }: { navigation: any }) => {
         </View>
         <Divider />
         <Subheading style={styles.header}>Beställare</Subheading>
-        {filteredBuyers.map(
-          (buyer: { name: string; image: string; id: number }) => {
-            return (
-              <View style={styles.searchResult} key={buyer.id}>
-                <Avatar.Image
-                  size={30}
-                  style={styles.avatar}
-                  source={buyer.image}
-                />
-                <Text
-                  style={styles.searchResultName}
-                  onPress={() => navigation.navigate('Buyer', { id: buyer.id })}
-                >
-                  {buyer.name}
-                </Text>
-              </View>
-            )
-          }
-        )}
+        {filteredBuyers.map((buyer) => {
+          return (
+            <View style={styles.searchResult} key={buyer.id}>
+              <Avatar.Image
+                size={30}
+                style={styles.avatar}
+                source={{ uri: `https://skaff-api.iteam.pub${buyer.image}` }}
+              />
+              <Text
+                style={styles.searchResultName}
+                onPress={() => navigation.navigate('Buyer', { buyer })}
+              >
+                {buyer.name}
+              </Text>
+            </View>
+          )
+        })}
       </ScrollView>
     </SafeAreaView>
   )

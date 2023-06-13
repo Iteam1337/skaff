@@ -14,9 +14,7 @@ spec:
       containers:
         - name: foodmarket-api
           image: iteam1337/foodmarket
-          command:
-            - ts-node
-            - api/server.ts
+
           resources:
             limits: {}
             requests:

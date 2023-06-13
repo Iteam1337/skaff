@@ -8,6 +8,7 @@ import useDeals from '../hooks/useDeals'
 import { Deal } from '../data/deals'
 import { getAuthenticatedUserType } from '../../lib/authStorage'
 import { useState } from 'react'
+import useAuth from '../hooks/useAuth'
 
 interface Area {
   image: string
@@ -17,11 +18,11 @@ interface Area {
 
 const Deals = ({ navigation }: { navigation: any }) => {
   const [expanded, setExpanded] = React.useState({})
-  const [userType, setUserType] = useState('')
   const [searchQuery, setSearchQuery] = React.useState('')
   const [filteredDeals, setFilteredDeals] = React.useState(new Array<Deal>())
 
   const [deals, update, add, refresh] = useDeals()
+  const [user] = useAuth()
 
   React.useEffect(() => {
     refresh()
@@ -46,9 +47,6 @@ const Deals = ({ navigation }: { navigation: any }) => {
       }),
     {}
   )
-  getAuthenticatedUserType().then((userType) => {
-    if (userType) setUserType(userType)
-  })
   return (
     <>
       <ScrollView>
@@ -71,7 +69,9 @@ const Deals = ({ navigation }: { navigation: any }) => {
                   }))
                 }
               >
-                <Card.Cover source={area.image} />
+                <Card.Cover
+                  source={{ uri: `https://skaff-api.iteam.pub${area.image}` }}
+                />
               </TouchableOpacity>
               <List.Accordion
                 title={area.title}
@@ -104,7 +104,7 @@ const Deals = ({ navigation }: { navigation: any }) => {
             </Card>
           ))}
       </ScrollView>
-      {userType && userType == 'Supplier' && (
+      {user?.type === 'supplier' && (
         <FAB
           style={styles.fab}
           onPress={() => navigation.navigate('CreateDeal')} //, { screen: 'CreateDeal' })}

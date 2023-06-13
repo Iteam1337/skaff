@@ -6,6 +6,8 @@ import Buyer from './Buyer'
 import { getAuthenticatedUser } from '../../lib/authStorage'
 import { useState } from 'react'
 
+import useAuth from '../hooks/useAuth'
+
 const BuyerProfile = ({
   route,
   navigation,
@@ -14,11 +16,7 @@ const BuyerProfile = ({
   navigation: any
 }) => {
   const theme = useTheme()
-  const [userId, setUserId] = useState(0)
-
-  getAuthenticatedUser().then((id) => {
-    if (id) setUserId(id)
-  })
+  const [buyer, , logout] = useAuth()
 
   return (
     <>
@@ -88,13 +86,16 @@ const BuyerProfile = ({
         </TabScreen>
         <TabScreen label="Profil">
           <Buyer
-            route={{ ...route, params: { id: userId } }}
+            route={{ ...route, params: { buyer } }}
             navigation={navigation}
             editable={true}
           />
         </TabScreen>
       </Tabs>
-      <Button mode="outlined" onPress={() => navigation.popToTop()}>
+      <Button
+        mode="outlined"
+        onPress={() => navigation.popToTop() || logout(buyer)}
+      >
         Logga ut
       </Button>
     </>

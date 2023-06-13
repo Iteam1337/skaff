@@ -5,6 +5,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import useTenderRequests from '../hooks/useTenderRequests'
 import { getAuthenticatedUserType } from '../../lib/authStorage'
 import { useState } from 'react'
+import useAuth from '../hooks/useAuth'
 
 const ChevronRight = () => (
   <MaterialCommunityIcons
@@ -17,7 +18,8 @@ const ChevronRight = () => (
 const TenderRequests = ({ navigation }: { navigation: any }) => {
   const [searchQuery, setSearchQuery] = useState('')
   const [open, setOpen] = useState(true)
-  const [userType, setUserType] = useState('')
+
+  const [user] = useAuth()
 
   const [tenderRequests, update, add, refresh] = useTenderRequests()
 
@@ -31,16 +33,6 @@ const TenderRequests = ({ navigation }: { navigation: any }) => {
       request.title.toLowerCase().includes(searchQuery.toLowerCase())
     )
 
-  // const handleCheckboxChange = (key) => {
-  //   setCheckboxStatus((prevState: any) => ({
-  //     ...prevState,
-  //     [key]: !prevState[key],
-  //   }))
-  // }
-  getAuthenticatedUserType().then((userType) => {
-    if (userType) setUserType(userType)
-  })
-
   return (
     <>
       <ScrollView>
@@ -48,6 +40,7 @@ const TenderRequests = ({ navigation }: { navigation: any }) => {
           placeholder="Sök upphandling"
           onChangeText={setSearchQuery}
           value={searchQuery}
+          style={styles.searchbar}
         />
         <List.Section title="Visa">
           <View style={styles.checkboxContainer}>
@@ -79,7 +72,7 @@ const TenderRequests = ({ navigation }: { navigation: any }) => {
                     fontSize: 14,
                   }}
                   title={title}
-                  subtitle={buyer}
+                  subtitle={buyer.name}
                   right={(props) => <ChevronRight />}
                 />
               </Card>
@@ -92,7 +85,7 @@ const TenderRequests = ({ navigation }: { navigation: any }) => {
           </List.Accordion>
         </List.Section>
       </ScrollView>
-      {userType && userType == 'Buyer' && (
+      {user?.type === 'buyer' && (
         <FAB
           style={styles.fab}
           onPress={
@@ -142,5 +135,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginRight: 16,
+  },
+  searchbar: {
+    backgroundColor: 'white',
+    elevation: false,
+    marginBottom: 16,
   },
 })

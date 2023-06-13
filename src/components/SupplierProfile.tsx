@@ -1,10 +1,9 @@
-import { Text, Button, List, useTheme, Divider, Card } from 'react-native-paper'
-import { StyleSheet, SafeAreaView, View } from 'react-native'
+import { Button, List, useTheme, Divider, Card } from 'react-native-paper'
 import { Tabs, TabScreen } from 'react-native-paper-tabs'
 import { ScrollView } from 'react-native-gesture-handler'
 import Supplier from './Supplier'
-import { getAuthenticatedUser } from '../../lib/authStorage'
-import { SetStateAction, useState } from 'react'
+import { useEffect } from 'react'
+import useAuth from '../hooks/useAuth'
 
 const SupplierProfile = ({
   route,
@@ -14,12 +13,16 @@ const SupplierProfile = ({
   navigation: any
 }) => {
   const theme = useTheme()
-  const [userId, setUserId] = useState(0)
+  const [supplier, , logout] = useAuth()
+  console.log('supplier', supplier)
 
-  getAuthenticatedUser().then((id) => {
-    console.log('id', id)
-    if (id) setUserId(id)
-  })
+  useEffect(() => {
+    if (supplier) {
+      navigation.header = 'Profil'
+      navigation.setOptions({ title: supplier.name })
+    }
+  }, [supplier])
+
   return (
     <>
       <Tabs
@@ -95,13 +98,16 @@ const SupplierProfile = ({
         </TabScreen>
         <TabScreen label="Profil">
           <Supplier
-            route={{ ...route, params: { id: userId } }}
+            route={{ ...route, params: { supplier } }}
             navigation={navigation}
             editable={true}
           ></Supplier>
         </TabScreen>
       </Tabs>
-      <Button mode="outlined" onPress={() => navigation.popToTop()}>
+      <Button
+        mode="outlined"
+        onPress={() => navigation.popToTop() || logout(supplier)}
+      >
         Logga ut
       </Button>
     </>

@@ -1,16 +1,13 @@
-import suppliers from '../data/suppliers'
 import {
   Avatar,
   Text,
   Subheading,
   Divider,
-  useTheme,
-  Title,
   Paragraph,
   IconButton,
 } from 'react-native-paper'
 import { ScrollView, StyleSheet, View } from 'react-native'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 const Supplier = ({
   route,
@@ -21,12 +18,9 @@ const Supplier = ({
   navigation: any
   editable: boolean
 }) => {
-  const [supplier, setSupplier] = useState({})
+  const supplier = route.params.supplier
 
-  useEffect(() => {
-    const supplier = suppliers.find((deal) => deal.id === route.params.id)
-    setSupplier(supplier)
-  }, [route])
+  console.log('supplier', supplier)
 
   useEffect(() => {
     if (supplier) {
@@ -45,7 +39,7 @@ const Supplier = ({
           <Avatar.Image
             size={150}
             style={styles.avatar}
-            source={supplier.image}
+            source={{ uri: `https://skaff-api.iteam.pub${supplier.image}` }}
           ></Avatar.Image>
           <Text style={styles.address}>{supplier.address}</Text>
           <Text style={styles.address}>

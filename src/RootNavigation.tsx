@@ -2,14 +2,13 @@
 import React, { useState } from 'react'
 import Login from './components/Login'
 import { createStackNavigator } from '@react-navigation/stack'
-import { useTheme } from 'react-native-paper'
 import Notifications from './components/Notifications'
 import SupplierNavigation from './SupplierNavigation'
 import BuyerNavigation from './BuyerNavigation'
+import { User } from './data/user'
 
 const Navigation = () => {
   const RootStack = createStackNavigator()
-  const [user, setUser] = useState<string>('')
 
   return (
     <RootStack.Navigator initialRouteName="Login">
@@ -20,22 +19,21 @@ const Navigation = () => {
         }}
         children={({ navigation }) => (
           <Login
-            onLogin={({ userType }: { userType: string }) => {
-              setUser(userType)
-              navigation.navigate(userType)
+            onLogin={(user: User) => {
+              navigation.navigate(user.type)
             }}
           />
         )}
       />
       <RootStack.Screen
-        name="Supplier"
+        name="supplier"
         options={{
           headerShown: false,
         }}
         children={() => SupplierNavigation()}
       />
       <RootStack.Screen
-        name="Buyer"
+        name="buyer"
         options={{
           headerShown: false,
         }}

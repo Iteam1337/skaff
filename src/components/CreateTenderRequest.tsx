@@ -7,18 +7,8 @@ import buyers from '../data/buyers'
 import { getAuthenticatedUser } from '../../lib/authStorage'
 import { ScrollView } from 'react-native-gesture-handler'
 import useTenderRequests from '../hooks/useTenderRequests'
+import useAuth from '../hooks/useAuth'
 import { StyleSheet, View } from 'react-native'
-
-const styles = StyleSheet.create({
-  actionContainer: {
-    flexDirection: 'row',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingBottom: 20,
-    paddingTop: 20,
-  },
-})
 
 const CreateTenderRequest = ({
   navigation,
@@ -44,7 +34,7 @@ const CreateTenderRequest = ({
   )
   const [, , add] = useTenderRequests()
 
-  const [buyer, setBuyer] = useState({})
+  const [buyer] = useAuth()
 
   const deliveryPlans = [
     { label: 'Veckovis', value: '0' },
@@ -62,11 +52,6 @@ const CreateTenderRequest = ({
     { label: 'Studiebesök digitalt, 1h', value: '5' },
     { label: 'Studiebesök digitalt, 2h', value: '6' },
   ]
-
-  getAuthenticatedUser().then((userId) => {
-    const buyer = buyers.find((deal) => deal.id === userId)
-    setBuyer(buyer)
-  })
 
   useEffect(() => {
     if (route.params?.title) {
@@ -87,11 +72,11 @@ const CreateTenderRequest = ({
   }
   const publish = () => {
     const tenderRequest = {
-      buyer: buyer.name,
       title,
       volume: +volume,
       lastOfferDate,
       lastAwardDate,
+      buyer,
       deliveryStartDate,
       deliveryPlan: getSelectedOptions(deliveryPlan, deliveryPlans).pop(),
       volumePerDelivery: volumePerDelivery,
@@ -207,3 +192,14 @@ const CreateTenderRequest = ({
 }
 
 export default CreateTenderRequest
+
+const styles = StyleSheet.create({
+  actionContainer: {
+    flexDirection: 'row',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: 20,
+    paddingTop: 20,
+  },
+})

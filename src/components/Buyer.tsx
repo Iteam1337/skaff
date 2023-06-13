@@ -22,12 +22,7 @@ const Buyer = ({
   navigation: any
   editable: boolean
 }) => {
-  const [buyer, setBuyer] = useState({})
-
-  useEffect(() => {
-    const buyer = buyers.find((deal) => deal.id === route.params.id)
-    setBuyer(buyer)
-  }, [route])
+  const buyer = route.params.buyer
 
   useEffect(() => {
     if (buyer) {
@@ -48,7 +43,7 @@ const Buyer = ({
           <Avatar.Image
             size={150}
             style={styles.avatar}
-            source={buyer.image}
+            source={{ uri: `https://skaff-api.iteam.pub${buyer.image}` }}
           ></Avatar.Image>
           <Text style={styles.address}>{buyer.address}</Text>
           <Text style={styles.address}>
