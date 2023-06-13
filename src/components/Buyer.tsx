@@ -22,12 +22,7 @@ const Buyer = ({
   navigation: any
   editable: boolean
 }) => {
-  const [buyer, setBuyer] = useState({})
-
-  useEffect(() => {
-    const buyer = buyers.find((deal) => deal.id === route.params.id)
-    setBuyer(buyer)
-  }, [route])
+  const buyer = route.params.buyer
 
   useEffect(() => {
     if (buyer) {

@@ -21,12 +21,9 @@ const Supplier = ({
   navigation: any
   editable: boolean
 }) => {
-  const [supplier, setSupplier] = useState({})
+  const supplier = route.params.supplier
 
-  useEffect(() => {
-    const supplier = suppliers.find((deal) => deal.id === route.params.id)
-    setSupplier(supplier)
-  }, [route])
+  console.log('supplier', supplier)
 
   useEffect(() => {
     if (supplier) {

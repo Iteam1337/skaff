@@ -5,6 +5,7 @@ import { ScrollView } from 'react-native-gesture-handler'
 import Supplier from './Supplier'
 import { getAuthenticatedUser } from '../../lib/authStorage'
 import { SetStateAction, useState } from 'react'
+import useAuth from '../hooks/useAuth'
 
 const SupplierProfile = ({
   route,
@@ -14,12 +15,7 @@ const SupplierProfile = ({
   navigation: any
 }) => {
   const theme = useTheme()
-  const [userId, setUserId] = useState(0)
-
-  getAuthenticatedUser().then((id) => {
-    console.log('id', id)
-    if (id) setUserId(id)
-  })
+  const [user] = useAuth()
   return (
     <>
       <Tabs
@@ -95,7 +91,7 @@ const SupplierProfile = ({
         </TabScreen>
         <TabScreen label="Profil">
           <Supplier
-            route={{ ...route, params: { id: userId } }}
+            route={{ ...route, params: { supplier: user } }}
             navigation={navigation}
             editable={true}
           ></Supplier>
