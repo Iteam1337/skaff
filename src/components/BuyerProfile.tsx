@@ -86,7 +86,7 @@ const BuyerProfile = ({
         </TabScreen>
         <TabScreen label="Profil">
           <Buyer
-            route={{ ...route, params: { buyer: user } }}
+            route={{ ...route, params: { buyer } }}
             navigation={navigation}
             editable={true}
           />

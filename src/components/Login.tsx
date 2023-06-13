@@ -37,7 +37,7 @@ const Login = ({ onLogin }: { onLogin: any }) => {
                     login(supplier, token)
                   }}
                 >
-                  {supplier.name}
+                  {supplier.name} {supplier.online && '🟢'}
                 </Text>
               </View>
             )
@@ -60,7 +60,7 @@ const Login = ({ onLogin }: { onLogin: any }) => {
                     login(buyer, token)
                   }}
                 >
-                  {buyer.name}
+                  {buyer.name} {buyer.online && '🟢'}
                 </Text>
               </View>
             )

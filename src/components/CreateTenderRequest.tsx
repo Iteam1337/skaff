@@ -7,6 +7,7 @@ import buyers from '../data/buyers'
 import { getAuthenticatedUser } from '../../lib/authStorage'
 import { ScrollView } from 'react-native-gesture-handler'
 import useTenderRequests from '../hooks/useTenderRequests'
+import useAuth from '../hooks/useAuth'
 
 const CreateTenderRequest = ({
   navigation,
@@ -26,7 +27,7 @@ const CreateTenderRequest = ({
   const [optionalCriteria, setOptionalCriteria] = useState('')
   const [, , add] = useTenderRequests()
 
-  const [buyer, setBuyer] = useState({})
+  const [buyer] = useAuth()
 
   const deliveryPlans = [
     { label: 'Veckovis', value: '0' },
@@ -44,12 +45,6 @@ const CreateTenderRequest = ({
     { label: 'Studiebesök digitalt, 1h', value: '5' },
     { label: 'Studiebesök digitalt, 2h', value: '6' },
   ]
-
-  getAuthenticatedUser().then((userId) => {
-    const buyer = buyers.find((deal) => deal.id === userId)
-    setBuyer(buyer)
-  })
-
   // useEffect(() => {
   //   const tenderRequest = tenderRequests.find((offer) => offer.id === id)
   //   setTitle(tenderRequest.title)
@@ -73,6 +68,7 @@ const CreateTenderRequest = ({
       volumePerDelivery,
       optionalCriteria,
       qualificationCriteria,
+      buyer,
     }
 
     add(tenderRequest)

@@ -8,7 +8,7 @@ import deals from '../src/data/deals'
 import tenderRequests from '../src/data/tenderRequests'
 import suppliers from '../src/data/suppliers'
 import { categories } from '../src/data/categories'
-import { sendPushNotification } from '../lib/notifications'
+import { sendPushNotification } from './notifications'
 const port = process.env.PORT || 3000
 const app = express()
 const server = createServer(app)
@@ -115,21 +115,19 @@ io.on('connection', (socket) => {
   // DEALS
   socket.on('addDeal', (deal) => {
     state.deals.push(deal)
-
-    state.buyers
-      .filter((b) => b.token)
-      .forEach((buyer) => {
-        sendPushNotification({
-          to: buyer.token,
-          title: 'Nytt erbjudande i Skaff',
-          body: `${deal.product?.name || 'Produkt'} om ${deal.category} från ${
-            deal.supplier.name
-          }`,
-          data: {
-            type: 'deal',
-            id: deal.id,
-          },
-        })
+    console.log('addDeal', deal)
+    const tokens = state.buyers.map(({ token }) => token).filter((t) => t)
+    if (tokens.length)
+      sendPushNotification({
+        to: tokens,
+        title: 'Nytt erbjudande i Skaff',
+        body: `${deal.product?.name || 'Produkt'} om ${deal.category} från ${
+          deal.supplier.name
+        }`,
+        data: {
+          type: 'deal',
+          id: deal.id,
+        },
       })
 
     io.emit('deals', state.deals)
@@ -143,19 +141,18 @@ io.on('connection', (socket) => {
 
   // TENDER REQUESTS
   socket.on('addTenderRequest', (tenderRequest) => {
+    console.log('addTenderRequest', tenderRequest)
     state.tenderRequests.push(tenderRequest)
-    state.suppliers
-      .filter((s) => s.token)
-      .forEach((supplier) => {
-        sendPushNotification({
-          to: supplier.token,
-          title: 'Ny förfrågan i Skaff',
-          body: `${tenderRequest.title} från ${tenderRequest.buyer}`,
-          data: {
-            type: 'tenderRequest',
-            id: tenderRequest.id,
-          },
-        })
+    const tokens = state.suppliers.map(({ token }) => token).filter((t) => t)
+    if (tokens.length)
+      sendPushNotification({
+        to: tokens,
+        title: 'Ny förfrågan i Skaff',
+        body: `${tenderRequest.title} från ${tenderRequest.buyer}`,
+        data: {
+          type: 'tenderRequest',
+          id: tenderRequest.id,
+        },
       })
     io.emit('tenderRequests', state.tenderRequests)
   })
