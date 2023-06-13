@@ -1,6 +1,6 @@
-import frozen from '../../assets/area_frozen_food.png'
-import fresh_cooled from '../../assets/area_fresh_or_cooled.png'
-import groceries from '../../assets/area_groceries.png'
+const frozen = '/assets/area_frozen_food.png'
+const fresh_cooled = '/assets/area_fresh_or_cooled.png'
+const groceries = '/assets/area_groceries.png'
 
 export const categories = {
   Frozen: {

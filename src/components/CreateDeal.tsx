@@ -110,10 +110,6 @@ const CreateDeal = ({ route, navigation }: { route: any; navigation: any }) => {
         >
           Publicera
         </Button>
-        {/* <Card>
-          <Card.Title title={title} subtitle={price} />
-          <Card.Cover source={{ uri: image }} />
-        </Card> */}
       </ScrollView>
     </SafeAreaView>
   )

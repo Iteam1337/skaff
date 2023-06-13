@@ -1,6 +1,7 @@
 import { Server } from 'socket.io'
 import express from 'express'
 import { createServer } from 'http'
+import path from 'path'
 
 import buyers from '../src/data/buyers'
 import deals from '../src/data/deals'
@@ -12,7 +13,7 @@ const app = express()
 const server = createServer(app)
 const io = new Server(server)
 
-app.use('assets', express.static('../assets'))
+app.use('/assets', express.static(path.join(__dirname, '../assets')))
 
 server.listen(port, () => {
   console.log(`listening on *:${port}`)

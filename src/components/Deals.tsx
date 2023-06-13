@@ -69,7 +69,9 @@ const Deals = ({ navigation }: { navigation: any }) => {
                   }))
                 }
               >
-                <Card.Cover source={area.image} />
+                <Card.Cover
+                  source={{ uri: `https://skaff-api.iteam.pub${area.image}` }}
+                />
               </TouchableOpacity>
               <List.Accordion
                 title={area.title}
