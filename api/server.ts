@@ -143,18 +143,18 @@ io.on('connection', (socket) => {
   socket.on('addTenderRequest', (tenderRequest) => {
     console.log('addTenderRequest', tenderRequest)
     state.tenderRequests.push(tenderRequest)
+    io.emit('tenderRequests', state.tenderRequests)
     const tokens = state.suppliers.map(({ token }) => token).filter((t) => t)
     if (tokens.length)
       sendPushNotification({
         to: tokens,
         title: 'Ny förfrågan i Skaff',
-        body: `${tenderRequest.title} från ${tenderRequest.buyer}`,
+        body: `${tenderRequest.title} från ${tenderRequest.buyer.name}`,
         data: {
           type: 'tenderRequest',
           id: tenderRequest.id,
         },
       })
-    io.emit('tenderRequests', state.tenderRequests)
   })
 
   socket.on('editTenderRequest', (tenderRequest) => {
