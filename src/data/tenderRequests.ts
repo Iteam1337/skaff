@@ -6,8 +6,18 @@
 export type TenderRequest = {
   id: number
   title: string
-  buyer: string
-  image?: string
+  buyer: string //string or object?
+  buyerId: string
+  deliveryPlan: string
+  deliveryStartDate: Date
+  lastAwardDate: Date
+  lastOfferDate: Date
+  optionalCriteria: Array<string>
+  qualificationCriteria: Array<string>
+  grading: string
+  terms: string
+  volume: number
+  volumePerDelivery: number
 }
 
 export default [

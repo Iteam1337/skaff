@@ -24,6 +24,12 @@ const CreateTenderRequest = ({
   const [volumePerDelivery, setVolumePerDelivery] = useState('')
   const [qualificationCriteria, setQualificationCriteria] = useState('')
   const [optionalCriteria, setOptionalCriteria] = useState('')
+  const [terms] = useState(
+    'Producent ansvarar för leverans enligt överenskommelse.'
+  )
+  const [grading] = useState(
+    'Inlämnade anbud som uppfyller krav rangordnas efter offererat pris. Uppfyllda önskemål ger prisavdrag vid rangordning av anbud.'
+  )
   const [, , add] = useTenderRequests()
 
   const [buyer, setBuyer] = useState({})
@@ -50,29 +56,40 @@ const CreateTenderRequest = ({
     setBuyer(buyer)
   })
 
-  // useEffect(() => {
-  //   const tenderRequest = tenderRequests.find((offer) => offer.id === id)
-  //   setTitle(tenderRequest.title)
-  //   setPrice(tenderRequest.price)
-  //   setImage(tenderRequest.image)
-  // }, [id])
-
   useEffect(() => {
     if (route.params?.title) {
       setTitle(route.params?.title)
     }
   }, [route.params])
 
+  const getSelectedOptions = (
+    selectedOptions: string,
+    options: Array<{ label: string; value: string }>
+  ) => {
+    return selectedOptions
+      .split(',')
+      .map((critera: string) => {
+        return options.find((option: any) => option.value == critera)?.label
+      })
+      .filter((criteria: string | undefined) => criteria)
+  }
   const publish = () => {
     const tenderRequest = {
+      buyer: buyer.name,
       title,
-      volume,
+      volume: +volume,
       lastOfferDate,
       lastAwardDate,
-      deliveryPlan,
-      volumePerDelivery,
-      optionalCriteria,
-      qualificationCriteria,
+      deliveryStartDate,
+      deliveryPlan: getSelectedOptions(deliveryPlan, deliveryPlans).pop(),
+      volumePerDelivery: volumePerDelivery,
+      optionalCriteria: getSelectedOptions(optionalCriteria, criterias),
+      qualificationCriteria: getSelectedOptions(
+        qualificationCriteria,
+        criterias
+      ),
+      terms,
+      grading,
     }
 
     add(tenderRequest)
@@ -139,14 +156,14 @@ const CreateTenderRequest = ({
       />
       <TextInput
         label="Villkor"
-        value="Producent ansvarar för leverans enligt överenskommelse."
+        value={terms}
         disabled={true}
         multiline={true}
         numberOfLines={2}
       />
       <TextInput
         label="Urval"
-        value="Inlämnade anbud som uppfyller krav rangordnas efter offererat pris. Uppfyllda önskemål ger prisavdrag vid rangordning av anbud."
+        value={grading}
         disabled={true}
         multiline={true}
         numberOfLines={3}
