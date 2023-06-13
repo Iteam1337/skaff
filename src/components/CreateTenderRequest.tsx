@@ -8,6 +8,7 @@ import { getAuthenticatedUser } from '../../lib/authStorage'
 import { ScrollView } from 'react-native-gesture-handler'
 import useTenderRequests from '../hooks/useTenderRequests'
 import useAuth from '../hooks/useAuth'
+import { StyleSheet, View } from 'react-native'
 
 const CreateTenderRequest = ({
   navigation,
@@ -25,6 +26,12 @@ const CreateTenderRequest = ({
   const [volumePerDelivery, setVolumePerDelivery] = useState('')
   const [qualificationCriteria, setQualificationCriteria] = useState('')
   const [optionalCriteria, setOptionalCriteria] = useState('')
+  const [terms] = useState(
+    'Producent ansvarar för leverans enligt överenskommelse.'
+  )
+  const [grading] = useState(
+    'Inlämnade anbud som uppfyller krav rangordnas efter offererat pris. Uppfyllda önskemål ger prisavdrag vid rangordning av anbud.'
+  )
   const [, , add] = useTenderRequests()
 
   const [buyer] = useAuth()
@@ -45,12 +52,6 @@ const CreateTenderRequest = ({
     { label: 'Studiebesök digitalt, 1h', value: '5' },
     { label: 'Studiebesök digitalt, 2h', value: '6' },
   ]
-  // useEffect(() => {
-  //   const tenderRequest = tenderRequests.find((offer) => offer.id === id)
-  //   setTitle(tenderRequest.title)
-  //   setPrice(tenderRequest.price)
-  //   setImage(tenderRequest.image)
-  // }, [id])
 
   useEffect(() => {
     if (route.params?.title) {
@@ -58,17 +59,34 @@ const CreateTenderRequest = ({
     }
   }, [route.params])
 
+  const getSelectedOptions = (
+    selectedOptions: string,
+    options: Array<{ label: string; value: string }>
+  ) => {
+    return selectedOptions
+      .split(',')
+      .map((critera: string) => {
+        return options.find((option: any) => option.value == critera)?.label
+      })
+      .filter((criteria: string | undefined) => criteria)
+  }
   const publish = () => {
     const tenderRequest = {
       title,
-      volume,
+      volume: +volume,
       lastOfferDate,
       lastAwardDate,
-      deliveryPlan,
-      volumePerDelivery,
-      optionalCriteria,
-      qualificationCriteria,
       buyer,
+      deliveryStartDate,
+      deliveryPlan: getSelectedOptions(deliveryPlan, deliveryPlans).pop(),
+      volumePerDelivery: volumePerDelivery,
+      optionalCriteria: getSelectedOptions(optionalCriteria, criterias),
+      qualificationCriteria: getSelectedOptions(
+        qualificationCriteria,
+        criterias
+      ),
+      terms,
+      grading,
     }
 
     add(tenderRequest)
@@ -135,14 +153,14 @@ const CreateTenderRequest = ({
       />
       <TextInput
         label="Villkor"
-        value="Producent ansvarar för leverans enligt överenskommelse."
+        value={terms}
         disabled={true}
         multiline={true}
         numberOfLines={2}
       />
       <TextInput
         label="Urval"
-        value="Inlämnade anbud som uppfyller krav rangordnas efter offererat pris. Uppfyllda önskemål ger prisavdrag vid rangordning av anbud."
+        value={grading}
         disabled={true}
         multiline={true}
         numberOfLines={3}
@@ -161,15 +179,27 @@ const CreateTenderRequest = ({
         values={criterias}
         multiSelect={true}
       ></DropDownList>
-      <Button
-        mode="contained"
-        // style={{ width: 200 }}
-        onPress={publish}
-      >
-        Publicera
-      </Button>
+      <View style={styles.actionContainer}>
+        <Button onPress={() => {}} uppercase={false}>
+          Spara utkast
+        </Button>
+        <Button mode="contained" onPress={publish} uppercase={false}>
+          Publicera
+        </Button>
+      </View>
     </ScrollView>
   )
 }
 
 export default CreateTenderRequest
+
+const styles = StyleSheet.create({
+  actionContainer: {
+    flexDirection: 'row',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: 20,
+    paddingTop: 20,
+  },
+})

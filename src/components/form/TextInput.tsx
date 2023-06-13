@@ -9,6 +9,8 @@ const TextInput = ({
   disabled,
   multiline,
   numberOfLines,
+  styles,
+  outlined,
   onChange,
 }: {
   label: string
@@ -17,6 +19,8 @@ const TextInput = ({
   disabled?: boolean
   multiline?: boolean
   numberOfLines?: number
+  styles?: any
+  outlined?: boolean
   onChange?: (text: string) => void
 }) => {
   const theme = useTheme()
@@ -28,8 +32,12 @@ const TextInput = ({
           ...theme.colors,
           background: '#FFFFFF',
         },
+        roundness: 0,
       }}
-      style={{ opacity: 1 }}
+      style={{
+        backgroundColor: 'white',
+        ...styles,
+      }}
       keyboardType={keyboardType}
       label={label}
       value={value}
@@ -37,6 +45,7 @@ const TextInput = ({
       disabled={disabled}
       multiline={multiline}
       numberOfLines={numberOfLines}
+      mode={outlined == undefined && !outlined ? 'flat' : 'outlined'}
     ></PaperTextInput>
   )
 }

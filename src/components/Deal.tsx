@@ -105,8 +105,8 @@ const Deal = ({ route, navigation }) => {
               </DataTable.Header>
               {Object.entries(deal.certifications)
                 .filter(([, checked]) => checked)
-                .map(([cert, checked]) => (
-                  <DataTable.Row>
+                .map(([cert, checked], i) => (
+                  <DataTable.Row key={i}>
                     <DataTable.Cell>
                       {certifications[cert].title}
                     </DataTable.Cell>

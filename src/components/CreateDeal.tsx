@@ -1,25 +1,41 @@
 import { useEffect, useState } from 'react'
-import { Card, Banner, Title, useTheme, Button } from 'react-native-paper'
+import { Button } from 'react-native-paper'
 
-import { SafeAreaView, ScrollView } from 'react-native'
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native'
 import deals from '../data/deals'
 import TextInput from './form/TextInput'
-import DropDown from 'react-native-paper-dropdown'
 import DropDownList from './form/DropDownList'
 import DateTimeInput from './form/DateTimeInput'
-import Icon from 'react-native-paper/lib/typescript/src/components/Icon'
+import useDeals from '../hooks/useDeals'
+import { withDecay } from 'react-native-reanimated'
 
+const styles = StyleSheet.create({
+  actionContainer: {
+    flexDirection: 'row',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingLeft: 20,
+    paddingBottom: 20,
+    paddingTop: 20,
+  },
+})
 const CreateDeal = ({ route, navigation }: { route: any; navigation: any }) => {
   const id = route?.params?.id
   const [title, setTitle] = useState('')
-  const [price, setPrice] = useState('')
-  const [volume, setVolume] = useState('')
+  const [price, setPrice] = useState('0')
+  const [volume, setVolume] = useState('0')
   const [constraint, setConstraint] = useState('')
   const [date, setDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
   const [description, setDescription] = useState('')
   const [other, setOther] = useState('')
-  const constraints = [{ label: 'Bäst före', value: '0' }]
+  const constraints = [
+    { label: 'Bäst före', value: '0' },
+    { label: 'Sista förbrukningsdag', value: '1' },
+  ]
+
+  const [, , add] = useDeals()
 
   // useEffect(() => {
   //   const deal = deals.find((offer) => offer.id === id)
@@ -30,16 +46,33 @@ const CreateDeal = ({ route, navigation }: { route: any; navigation: any }) => {
   //   }
   // }, [id])
 
-  const publish = () => {
-    console.log('title', title)
-    console.log('price', price)
-    console.log('volume', volume)
-    console.log('constraint', constraint)
-    console.log('date', date)
-    console.log('endDate', endDate)
-    console.log('other', other)
+  const getSelectedOptions = (
+    selectedOptions: string,
+    options: Array<{ label: string; value: string }>
+  ) => {
+    return selectedOptions
+      .split(',')
+      .map((critera: string) => {
+        return options.find((option: any) => option.value == critera)?.label
+      })
+      .filter((criteria: string | undefined) => criteria)
+  }
 
-    //TODO: save new to backend
+  const publish = () => {
+    const deal = {
+      title,
+      price: +price,
+      volume: +volume,
+      constraint: getSelectedOptions(constraint, constraints).pop(),
+      date,
+      endDate,
+      other,
+      description,
+    }
+    //TODO:add seller
+    console.log('deal', deal)
+
+    add(deal)
 
     navigation.navigate('ListDeals')
   }
@@ -85,14 +118,22 @@ const CreateDeal = ({ route, navigation }: { route: any; navigation: any }) => {
           }}
         ></DateTimeInput>
 
-        <Button
-          icon="camera"
-          // mode="contained"
-          // style={{ width: 200 }}
-          // onPress={() => console.log('Pressed')}
+        <View
+          style={{
+            ...styles.actionContainer,
+            justifyContent: 'flex-start',
+            backgroundColor: '#FFFFFF',
+          }}
         >
-          Lägg till bild
-        </Button>
+          <Button
+            icon="camera"
+            mode="contained"
+            uppercase={false}
+            // onPress={() => console.log('Pressed')}
+          >
+            Lägg till bild
+          </Button>
+        </View>
         <TextInput
           label="Kort beskrivning"
           value={description}
@@ -103,13 +144,19 @@ const CreateDeal = ({ route, navigation }: { route: any; navigation: any }) => {
           value={other}
           onChange={(text) => setOther(text)}
         />
-        <Button
-          mode="contained"
-          // style={{ width: 200 }}
-          onPress={publish}
-        >
-          Publicera
-        </Button>
+        <View style={styles.actionContainer}>
+          <Button
+            onPress={() => {
+              navigation.navigate('ListDeals')
+            }}
+            uppercase={false}
+          >
+            Rensa utkast
+          </Button>
+          <Button mode="contained" onPress={publish} uppercase={false}>
+            Publicera
+          </Button>
+        </View>
       </ScrollView>
     </SafeAreaView>
   )
