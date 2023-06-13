@@ -172,11 +172,21 @@ const CreateOffer = ({
             />
           </View>
         </Surface>
-        <View style={{ ...styles.container, flexDirection: 'row' }}>
-          <Button style={{ width: 200 }} onPress={() => {}}>
+        <View
+          style={{
+            ...styles.container,
+            flexDirection: 'row',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            paddingTop: 20,
+            paddingBottom: 20,
+          }}
+        >
+          <Button onPress={() => {}} uppercase={false}>
             Spara utkast
           </Button>
-          <Button mode="contained" style={{ width: 200 }} onPress={publish}>
+          <Button mode="contained" onPress={publish} uppercase={false}>
             Skicka anbud
           </Button>
         </View>

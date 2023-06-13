@@ -18,6 +18,7 @@ const DropDownList = ({
 }) => {
   const [showDropdown, setShowDropdown] = useState(false)
   const theme = useTheme()
+
   return (
     <DropDown
       theme={{
@@ -29,6 +30,11 @@ const DropDownList = ({
       }}
       dropDownStyle={{
         width: '100%',
+      }}
+      inputProps={{
+        style: {
+          backgroundColor: '#FFFFFF',
+        },
       }}
       label={label}
       value={value}

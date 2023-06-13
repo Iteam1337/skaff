@@ -22,6 +22,7 @@ const DateTimeInput = ({
           background: '#FFFFFF',
         },
       }}
+      style={{ backgroundColor: '#FFFFFF' }}
       locale="sv"
       label={label}
       value={value}

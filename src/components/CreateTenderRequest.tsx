@@ -7,6 +7,18 @@ import buyers from '../data/buyers'
 import { getAuthenticatedUser } from '../../lib/authStorage'
 import { ScrollView } from 'react-native-gesture-handler'
 import useTenderRequests from '../hooks/useTenderRequests'
+import { StyleSheet, View } from 'react-native'
+
+const styles = StyleSheet.create({
+  actionContainer: {
+    flexDirection: 'row',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: 20,
+    paddingTop: 20,
+  },
+})
 
 const CreateTenderRequest = ({
   navigation,
@@ -182,13 +194,14 @@ const CreateTenderRequest = ({
         values={criterias}
         multiSelect={true}
       ></DropDownList>
-      <Button
-        mode="contained"
-        // style={{ width: 200 }}
-        onPress={publish}
-      >
-        Publicera
-      </Button>
+      <View style={styles.actionContainer}>
+        <Button onPress={() => {}} uppercase={false}>
+          Spara utkast
+        </Button>
+        <Button mode="contained" onPress={publish} uppercase={false}>
+          Publicera
+        </Button>
+      </View>
     </ScrollView>
   )
 }

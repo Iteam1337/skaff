@@ -35,7 +35,6 @@ const TextInput = ({
         roundness: 0,
       }}
       style={{
-        opacity: 1,
         backgroundColor: 'white',
         ...styles,
       }}

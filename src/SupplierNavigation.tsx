@@ -109,7 +109,7 @@ const SupplierNavigation = () => {
       inactiveColor={theme.colors.iconInactive}
       barStyle={{ backgroundColor: theme.colors.background }}
       theme={theme}
-      initialRouteName="TenderRequests"
+      initialRouteName="Deals"
     >
       <Tab.Screen
         name="TenderRequests"
