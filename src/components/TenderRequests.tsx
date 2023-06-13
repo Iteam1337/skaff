@@ -40,6 +40,7 @@ const TenderRequests = ({ navigation }: { navigation: any }) => {
           placeholder="Sök upphandling"
           onChangeText={setSearchQuery}
           value={searchQuery}
+          style={styles.searchbar}
         />
         <List.Section title="Visa">
           <View style={styles.checkboxContainer}>
@@ -71,7 +72,7 @@ const TenderRequests = ({ navigation }: { navigation: any }) => {
                     fontSize: 14,
                   }}
                   title={title}
-                  subtitle={buyer}
+                  subtitle={buyer.name}
                   right={(props) => <ChevronRight />}
                 />
               </Card>
@@ -134,5 +135,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginRight: 16,
+  },
+  searchbar: {
+    backgroundColor: 'white',
+    elevation: false,
+    marginBottom: 16,
   },
 })

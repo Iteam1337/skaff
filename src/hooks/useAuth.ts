@@ -6,7 +6,7 @@ import { set } from 'react-native-reanimated'
 
 type fn = (user: User, token?: string) => User
 
-const useAuth = (): [user: User, login: fn, logout: fn] => {
+const useAuth = (): [user: User, login: fn, logout: fn, reset: any] => {
   const socket = useContext(SocketContext)
   const auth = useContext(AuthContext) as { user: User }
   const [user, setUser] = useState(auth.user)
@@ -32,7 +32,12 @@ const useAuth = (): [user: User, login: fn, logout: fn] => {
     return user
   }
 
-  return [user, login, logout]
+  const reset = () => {
+    socket.emit('reset')
+    return true
+  }
+
+  return [user, login, logout, reset]
 }
 
 export default useAuth

@@ -17,6 +17,7 @@ export default [
     id: 1,
     title: 'Ägg 100kg',
     buyer: buyers[0],
+    image: 'https://picsum.photos/700',
   },
   {
     id: 2,

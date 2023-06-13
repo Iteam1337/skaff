@@ -8,7 +8,8 @@ import { registerForPushNotificationsAsync } from '../../lib/notifications'
 import useAuth from '../hooks/useAuth'
 
 const Login = ({ onLogin }: { onLogin: any }) => {
-  const [user, login] = useAuth()
+  const [user, login, , reset] = useAuth()
+  const [resetting, setResetting] = useState(false)
 
   useEffect(() => {
     user.type && onLogin(user)
@@ -66,6 +67,14 @@ const Login = ({ onLogin }: { onLogin: any }) => {
             )
           })}
         </View>
+        <Button
+          onPress={() =>
+            (reset() && setResetting(true)) ||
+            setTimeout(() => setResetting(false), 1000)
+          }
+        >
+          {(resetting && 'Återställer...') || 'Återställ demo'}
+        </Button>
       </ScrollView>
     </SafeAreaView>
   )
