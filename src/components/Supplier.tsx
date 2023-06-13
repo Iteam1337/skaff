@@ -1,16 +1,13 @@
-import suppliers from '../data/suppliers'
 import {
   Avatar,
   Text,
   Subheading,
   Divider,
-  useTheme,
-  Title,
   Paragraph,
   IconButton,
 } from 'react-native-paper'
 import { ScrollView, StyleSheet, View } from 'react-native'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 const Supplier = ({
   route,

@@ -16,7 +16,7 @@ const BuyerProfile = ({
   navigation: any
 }) => {
   const theme = useTheme()
-  const [user] = useAuth()
+  const [buyer, , logout] = useAuth()
 
   return (
     <>
@@ -92,7 +92,10 @@ const BuyerProfile = ({
           />
         </TabScreen>
       </Tabs>
-      <Button mode="outlined" onPress={() => navigation.popToTop()}>
+      <Button
+        mode="outlined"
+        onPress={() => navigation.popToTop() || logout(buyer)}
+      >
         Logga ut
       </Button>
     </>

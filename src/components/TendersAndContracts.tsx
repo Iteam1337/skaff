@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Button, List } from 'react-native-paper'
 import { StyleSheet, SafeAreaView } from 'react-native'
 import { NavigationProp, ParamListBase } from '@react-navigation/native'
+import useAuth from '../hooks/useAuth'
 
 const TendersAndContracts = ({
   navigation,
@@ -9,6 +10,7 @@ const TendersAndContracts = ({
   navigation: NavigationProp<ParamListBase>
 }) => {
   const [expanded, setExpanded] = React.useState(true)
+  const [user, , logout] = useAuth()
 
   const handlePress = () => setExpanded(!expanded)
 
@@ -47,7 +49,10 @@ const TendersAndContracts = ({
       </List.Section>
       <List.Section>
         <List.Accordion title="Mitt Konto" expanded={true}>
-          <Button mode="contained" onPress={() => navigation.navigate('Login')}>
+          <Button
+            mode="contained"
+            onPress={() => navigation.navigate('Login') || logout(user)}
+          >
             Logga ut
           </Button>
         </List.Accordion>

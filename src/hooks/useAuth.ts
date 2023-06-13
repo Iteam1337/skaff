@@ -1,36 +1,34 @@
 import { useContext, useEffect, useState } from 'react'
 import { SocketContext } from '../context/socketContext'
 import { User } from '../data/user'
-import {
-  saveAuthenticatedUser,
-  removeAuthenticatedUser,
-} from '../../lib/authStorage'
+import { AuthContext } from '../context/authContext'
+import { set } from 'react-native-reanimated'
 
 type fn = (user: User, token?: string) => User
 
 const useAuth = (): [user: User, login: fn, logout: fn] => {
   const socket = useContext(SocketContext)
-  const [user, setUser] = useState({} as User)
+  const auth = useContext(AuthContext) as { user: User }
+  const [user, setUser] = useState(auth.user)
 
   useEffect(() => {
-    socket.once('user', (user: User) => {
-      console.log('got user', user)
+    socket.on('user', (user: User) => {
+      console.log('got user from socket', user)
+      auth.user = user
       setUser(user)
-      saveAuthenticatedUser(user)
     })
-  }, [])
+  }, [socket])
 
   const login = (user: User, token?: string) => {
-    console.log('login', user, token)
     socket.emit('login', { user, token })
-    saveAuthenticatedUser(user)
     return user
   }
 
   const logout = (user: User) => {
     console.log('logout', user)
-    removeAuthenticatedUser()
     socket.emit('logout', { user })
+    auth.user = {} as User
+    setUser(auth.user)
     return user
   }
 

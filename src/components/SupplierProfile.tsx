@@ -1,10 +1,8 @@
-import { Text, Button, List, useTheme, Divider, Card } from 'react-native-paper'
-import { StyleSheet, SafeAreaView, View } from 'react-native'
+import { Button, List, useTheme, Divider, Card } from 'react-native-paper'
 import { Tabs, TabScreen } from 'react-native-paper-tabs'
 import { ScrollView } from 'react-native-gesture-handler'
 import Supplier from './Supplier'
-import { getAuthenticatedUser } from '../../lib/authStorage'
-import { SetStateAction, useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import useAuth from '../hooks/useAuth'
 
 const SupplierProfile = ({
@@ -15,7 +13,7 @@ const SupplierProfile = ({
   navigation: any
 }) => {
   const theme = useTheme()
-  const [supplier] = useAuth()
+  const [supplier, , logout] = useAuth()
   console.log('supplier', supplier)
 
   useEffect(() => {
@@ -106,7 +104,10 @@ const SupplierProfile = ({
           ></Supplier>
         </TabScreen>
       </Tabs>
-      <Button mode="outlined" onPress={() => navigation.popToTop()}>
+      <Button
+        mode="outlined"
+        onPress={() => navigation.popToTop() || logout(supplier)}
+      >
         Logga ut
       </Button>
     </>
