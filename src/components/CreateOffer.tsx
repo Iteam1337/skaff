@@ -1,17 +1,39 @@
 import { useState, useEffect } from 'react'
-import { Button, Divider, Headline, Text } from 'react-native-paper'
-import TextInput from './form/TextInput'
-import DateTimeInput from './form/DateTimeInput'
-import DropDownList from './form/DropDownList'
-import buyers from '../data/buyers'
-import { getAuthenticatedUser } from '../../lib/authStorage'
+import {
+  Button,
+  Divider,
+  Headline,
+  Subheading,
+  Surface,
+  Text,
+  useTheme,
+} from 'react-native-paper'
 import { ScrollView } from 'react-native-gesture-handler'
 import tenderRequests from '../data/tenderRequests'
-import { SafeAreaView, StyleSheet, View } from 'react-native'
+import { SafeAreaView, StyleSheet } from 'react-native'
+import { View } from 'react-native'
+import CheckboxWithText from './form/CheckboxWithText'
+import TextInput from './form/TextInput'
 
-const containerStyle = StyleSheet.create({
-  rowContainer: {
-    flexDirection: 'row',
+const styles = StyleSheet.create({
+  container: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 10,
+    paddingTop: 10,
+  },
+  text: {
+    paddingTop: 5,
+  },
+  divider: {
+    borderColor: '#D8D6CE',
+    borderWidth: 0.5,
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  surface: {
+    backgroundColor: '#FFFFFF',
+    elevation: 0,
   },
 })
 
@@ -23,6 +45,13 @@ const CreateOffer = ({
   route: any
 }) => {
   const [tenderRequest, setTenderRequest] = useState({})
+  const [vicinityChecked, setVicinityChecked] = useState(true)
+  const [deliveryChecked, setDeliveryChecked] = useState(true)
+  const [visitChecked, setVisitChecked] = useState(true)
+  const [price, setPrice] = useState('')
+  const [other, setOther] = useState('')
+
+  const theme = useTheme()
 
   // const [buyer, setBuyer] = useState({})
 
@@ -77,23 +106,80 @@ const CreateOffer = ({
   return (
     <SafeAreaView>
       <ScrollView>
-        <View style={containerStyle}>
-          <Headline style={{ flex: 1 }}>{tenderRequest.title}</Headline>
-          <Text>{tenderRequest.volume} kg</Text>
+        <View style={styles.container}>
+          <Headline>{tenderRequest.title}</Headline>
+          <Text style={styles.text}>{tenderRequest.volume} kg</Text>
+
+          <Divider style={styles.divider} />
+          <Text style={styles.text}>
+            Sista svar: {tenderRequest.lastOfferDate}
+          </Text>
+          <Text style={styles.text}>
+            Tilldelning senast: {tenderRequest.lastAwardDate}
+          </Text>
+          <Text style={styles.text}>
+            Leveransplan: {tenderRequest.deliveryPlan}
+          </Text>
+          <Text style={styles.text}>
+            Leverans startdatum: {tenderRequest.deliveryStartDate}
+          </Text>
+          <Subheading style={styles.text}>Villkor</Subheading>
+          <Text style={styles.text}>
+            Producent ansvarar för leverans enligt överenskommelse.
+          </Text>
+          <Divider style={styles.divider} />
+          <Subheading style={styles.text}>Urval</Subheading>
+          <Text style={styles.text}>
+            Inlämnade anbud som uppfyller krav rangordnas efter offererat pris.
+            Uppfyllda önskemål ger prisavdrag vid rangordning av anbud.
+          </Text>
         </View>
-        <Divider />
-        <Text>Sista svar: {tenderRequest.lastOfferDate}</Text>
-        <Text>Tilldelning senast: {tenderRequest.lastAwardDate}</Text>
-        <Text>Leveransplan: {tenderRequest.deliveryPlan}</Text>
-        <Text>Leverans startdatum: {tenderRequest.deliveryStartDate}</Text>
-        <Text>Villor:</Text>
-        <Text>Producent ansvarar för leverans enligt överenskommelse.</Text>
-        <Divider />
-        <Text>Urval:</Text>
-        <Text>
-          Inlämnade anbud som uppfyller krav rangordnas efter offererat pris.
-          Uppfyllda önskemål ger prisavdrag vid rangordning av anbud.
-        </Text>
+        <Surface style={styles.surface}>
+          <View style={styles.container}>
+            <Subheading>Krav</Subheading>
+            <CheckboxWithText
+              text="Produktion inom radie om 10 mil från leveransadress."
+              checkedByDefault={true}
+              onChange={(checked) => setVicinityChecked(checked)}
+            ></CheckboxWithText>
+            <CheckboxWithText
+              text="Producent ansvarar för leverans."
+              checkedByDefault={false}
+              onChange={(checked) => setDeliveryChecked(checked)}
+            ></CheckboxWithText>
+            <Subheading>Önskemål</Subheading>
+            <CheckboxWithText
+              text="Studiebesök, 1h, 5 tillfällen"
+              checkedByDefault={true}
+              onChange={(checked) => setVicinityChecked(checked)}
+            ></CheckboxWithText>
+            <Subheading>Offererat pris</Subheading>
+            <TextInput
+              label="Pris i kr"
+              value={price}
+              keyboardType="numeric"
+              outlined={true}
+              styles={{ width: 300, marginBottom: 10 }}
+              onChange={(text) => setPrice(text)}
+            />
+            <Subheading>Övrigt</Subheading>
+            <TextInput
+              label="Eventuell ytterligare information"
+              value={other}
+              outlined={true}
+              styles={{ width: 300 }}
+              onChange={(text) => setOther(text)}
+            />
+          </View>
+        </Surface>
+        <View style={{ ...styles.container, flexDirection: 'row' }}>
+          <Button style={{ width: 200 }} onPress={() => {}}>
+            Spara utkast
+          </Button>
+          <Button mode="contained" style={{ width: 200 }} onPress={publish}>
+            Skicka anbud
+          </Button>
+        </View>
         {/* 
       <TextInput
         label="Beställare"
@@ -169,13 +255,6 @@ const CreateOffer = ({
         values={criterias}
         multiSelect={true}
       ></DropDownList> */}
-        <Button
-          mode="contained"
-          // style={{ width: 200 }}
-          onPress={publish}
-        >
-          Skicka anbud
-        </Button>
       </ScrollView>
     </SafeAreaView>
   )
