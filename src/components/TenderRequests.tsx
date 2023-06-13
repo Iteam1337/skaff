@@ -42,17 +42,6 @@ const TenderRequests = ({ navigation }: { navigation: any }) => {
           value={searchQuery}
           style={styles.searchbar}
         />
-        <List.Section title="Visa">
-          <View style={styles.checkboxContainer}>
-            <Checkbox.Item
-              labelVariant="bodySmall"
-              label="Favoriter"
-              status="checked"
-            />
-            <Checkbox.Item label="Öppna" status="checked" />
-            <Checkbox.Item label="Tilldelade" status="checked" />
-          </View>
-        </List.Section>
         <List.Section>
           <List.Accordion
             title="Aktiva upphandlingar"
