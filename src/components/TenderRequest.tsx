@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useEffect, useState } from 'react'
 import {
   Caption,
   Headline,
@@ -22,15 +22,29 @@ const Header = ({ tenderRequest: { title, price, buyer } }) => (
   </View>
 )
 
-const TenderRequest = ({ route, navigation }) => {
-  const { id } = route.params
-  const theme = useTheme()
-  const tenderRequest = tenderRequests.find((offer) => offer.id === id)
+const TenderRequest = ({
+  route,
+  navigation,
+}: {
+  route: any
+  navigation: any
+}) => {
+  const [tenderRequest, setTenderRequest] = useState({})
 
-  const { applicationDate, assignmentDate } = tenderRequest
+  const theme = useTheme()
+
+  useEffect(() => {
+    if (route.params?.id) {
+      const tenderRequest = tenderRequests.find(
+        (offer) => offer.id === route.params?.id
+      )
+      if (tenderRequest) setTenderRequest(tenderRequest)
+    }
+  }, [route.params])
+
   return (
     <>
-      <Header tenderRequest={tenderRequest} />
+      <Header tenderRequest={{ ...tenderRequest }} />
       <Tabs
         // defaultIndex={0} // default = 0
         uppercase={false} // true/false | default=true | labels are uppercase
@@ -52,11 +66,11 @@ const TenderRequest = ({ route, navigation }) => {
               <Row>
                 <Column>
                   <Caption>Sista svar</Caption>
-                  <Text>{applicationDate || 'Inget datum'}</Text>
+                  <Text>{tenderRequest.applicationDate || 'Inget datum'}</Text>
                 </Column>
                 <Column>
                   <Caption>Tilldelning senast</Caption>
-                  <Text>{assignmentDate || 'Inget datum'}</Text>
+                  <Text>{tenderRequest.assignmentDate || 'Inget datum'}</Text>
                 </Column>
               </Row>
             </Container>
@@ -130,7 +144,12 @@ const TenderRequest = ({ route, navigation }) => {
             <Button
               mode="contained"
               onPress={() =>
-                navigation.navigate('CreateOffer', { tenderRequestId: id })
+                navigation.navigate('TenderRequests', {
+                  screen: 'CreateOffer',
+                  params: {
+                    id: tenderRequest.id,
+                  },
+                })
               }
             >
               Lämna anbud

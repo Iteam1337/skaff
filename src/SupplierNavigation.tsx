@@ -11,6 +11,7 @@ import Notifications from './components/Notifications'
 import SupplierProfile from './components/SupplierProfile'
 import BottomNavigationIcon from './components/BottomNavigationIcon'
 import CreateDeal from './components/CreateDeal'
+import CreateOffer from './components/CreateOffer'
 
 const DealsNavigation = () => {
   const Stack = createStackNavigator()
@@ -59,16 +60,23 @@ const TenderRequestsNavigation = () => {
         <Stack.Screen
           name="ListTenderRequests"
           options={{
-            title: 'Anbudsförfrågningar',
+            title: 'Förfrågningar',
           }}
           component={TenderRequests}
         />
         <Stack.Screen
           name="TenderRequest"
           options={{
-            title: 'Anbudsförfrågan',
+            title: 'Förfrågan',
           }}
           component={TenderRequest}
+        />
+        <Stack.Screen
+          name="CreateOffer"
+          options={{
+            title: 'Lämna anbud',
+          }}
+          component={CreateOffer}
         />
       </Stack.Navigator>
     </>

@@ -20,14 +20,14 @@ const TenderRequestsNavigation = () => {
         <Stack.Screen
           name="ListTenderRequests"
           options={{
-            title: 'Anbudsförfrågningar',
+            title: 'Förfrågningar',
           }}
           component={TenderRequests}
         />
         <Stack.Screen
           name="TenderRequest"
           options={{
-            title: 'Anbudsförfrågan',
+            title: 'Förfrågan',
           }}
           component={TenderRequest}
         />
