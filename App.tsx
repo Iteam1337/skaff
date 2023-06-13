@@ -86,6 +86,8 @@ const theme = {
     iconInactive: '#666259', //mörkgrå
     secondary: '#FFFFFF',
     secondaryVariant: '#FFFFFF',
+    text: '#1B1918',
+    placeholder: '#1B1918',
   },
   fonts: configureFonts({ config: fontConfig }),
 }

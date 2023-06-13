@@ -47,24 +47,19 @@ const Chat = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {messages.map((message, i) => (
-        <>
+        <View key={message.id}>
           <View
-            key={message.id}
             style={[
               styles.messageContainer,
               message.type === 'question' ? styles.question : styles.answer,
             ]}
           >
-            <Text key={i} style={styles.messageText}>
-              {message.text}
-            </Text>
+            <Text style={styles.messageText}>{message.text}</Text>
           </View>
           {i === messages.length - 1 && (
-            <Caption key={i} style={styles.messageMetadata}>
-              {message.date}
-            </Caption>
+            <Caption style={styles.messageMetadata}>{message.date}</Caption>
           )}
-        </>
+        </View>
       ))}
       <View style={styles.inputContainer}>
         <TextInput
