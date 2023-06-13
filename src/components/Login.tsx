@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { View, Text, SafeAreaView, StyleSheet, ScrollView } from 'react-native'
 import { Avatar, Title, Button, Subheading } from 'react-native-paper'
 import suppliers from '../data/suppliers'
@@ -10,6 +10,8 @@ import useAuth from '../hooks/useAuth'
 const Login = ({ onLogin }: { onLogin: any }) => {
   const [userType, setUserType] = useState('')
   const [user, login] = useAuth()
+
+  useEffect(() => user.type && onLogin(user), [user])
 
   const userTypeSelected = (userType: string) => {
     setUserType(userType)
@@ -53,14 +55,15 @@ const Login = ({ onLogin }: { onLogin: any }) => {
                   <Avatar.Image
                     size={30}
                     style={styles.avatar}
-                    source={supplier.image}
+                    source={{
+                      uri: 'https://skaff-api.iteam.pub' + supplier.image,
+                    }}
                   />
                   <Text
                     style={styles.searchResultName}
                     onPress={async () => {
                       const token = await registerForPushNotificationsAsync()
                       login(supplier, token)
-                      onLogin(supplier)
                     }}
                   >
                     {supplier.name}
@@ -83,14 +86,15 @@ const Login = ({ onLogin }: { onLogin: any }) => {
                   <Avatar.Image
                     size={30}
                     style={styles.avatar}
-                    source={buyer.image}
+                    source={{
+                      uri: 'https://skaff-api.iteam.pub' + buyer.image,
+                    }}
                   />
                   <Text
                     style={styles.searchResultName}
                     onPress={async () => {
                       const token = await registerForPushNotificationsAsync()
                       login(buyer, token)
-                      onLogin(buyer)
                     }}
                   >
                     {buyer.name}

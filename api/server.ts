@@ -2,13 +2,17 @@ import { Server } from 'socket.io'
 import express from 'express'
 import { createServer } from 'http'
 
-import buyers, { User } from '../src/data/buyers'
+import buyers from '../src/data/buyers'
 import deals from '../src/data/deals'
 import tenderRequests from '../src/data/tenderRequests'
+import suppliers from '../src/data/suppliers'
+import { categories } from '../src/data/categories'
 const port = process.env.PORT || 3000
 const app = express()
 const server = createServer(app)
 const io = new Server(server)
+
+app.use('assets', express.static('../assets'))
 
 server.listen(port, () => {
   console.log(`listening on *:${port}`)
@@ -16,19 +20,19 @@ server.listen(port, () => {
 
 const state = {
   buyers: buyers,
+  suppliers: suppliers,
   deals: deals,
   tenderRequests: tenderRequests,
-  suppliers: new Array<User>(),
-  categories: new Array<User>(),
+  categories: categories,
 }
 
 const reset = () =>
   Object.assign(state, {
     buyers: buyers,
+    suppliers: suppliers,
     deals: deals,
     tenderRequests: tenderRequests,
-    suppliers: new Array<User>(),
-    categories: new Array<User>(),
+    categories: categories,
   })
 
 // either provide socket or io - if you provide io then it will send to all sockets
@@ -57,6 +61,7 @@ io.on('connection', (socket) => {
 
   // USERS
   socket.on('login', ({ user, token }) => {
+    console.log('login', user, token)
     switch (user.type) {
       case 'buyer':
         const buyer = state.buyers.find((b) => b.id === user.id)
@@ -66,6 +71,7 @@ io.on('connection', (socket) => {
         buyer.lastOnline = new Date()
         io.emit('buyers', state.buyers)
         socket.emit('user', buyer)
+        console.log('buyer', buyer)
 
         break
       case 'supplier':
@@ -76,6 +82,7 @@ io.on('connection', (socket) => {
         supplier.lastOnline = new Date()
         io.emit('suppliers', state.suppliers)
         socket.emit('user', supplier)
+        console.log('supplier', supplier)
         break
     }
   })

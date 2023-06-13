@@ -4,7 +4,7 @@ import { Tabs, TabScreen } from 'react-native-paper-tabs'
 import { ScrollView } from 'react-native-gesture-handler'
 import Supplier from './Supplier'
 import { getAuthenticatedUser } from '../../lib/authStorage'
-import { SetStateAction, useState } from 'react'
+import { SetStateAction, useEffect, useState } from 'react'
 import useAuth from '../hooks/useAuth'
 
 const SupplierProfile = ({
@@ -15,7 +15,16 @@ const SupplierProfile = ({
   navigation: any
 }) => {
   const theme = useTheme()
-  const [user] = useAuth()
+  const [supplier] = useAuth()
+  console.log('supplier', supplier)
+
+  useEffect(() => {
+    if (supplier) {
+      navigation.header = 'Profil'
+      navigation.setOptions({ title: supplier.name })
+    }
+  }, [supplier])
+
   return (
     <>
       <Tabs
@@ -91,7 +100,7 @@ const SupplierProfile = ({
         </TabScreen>
         <TabScreen label="Profil">
           <Supplier
-            route={{ ...route, params: { supplier: user } }}
+            route={{ ...route, params: { supplier } }}
             navigation={navigation}
             editable={true}
           ></Supplier>

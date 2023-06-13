@@ -42,7 +42,7 @@ const Supplier = ({
           <Avatar.Image
             size={150}
             style={styles.avatar}
-            source={supplier.image}
+            source={{ uri: `https://skaff-api.iteam.pub${supplier.image}` }}
           ></Avatar.Image>
           <Text style={styles.address}>{supplier.address}</Text>
           <Text style={styles.address}>

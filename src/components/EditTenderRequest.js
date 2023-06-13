@@ -30,7 +30,7 @@ const EditTenderRequest = ({ route }) => {
       />
       <Card>
         <Card.Title title={title} subtitle={price} />
-        <Card.Cover source={{ uri: image }} />
+        <Card.Cover source={{ uri: 'https://skaff-api.iteam.pub' + image }} />
       </Card>
     </ScrollView>
   )

@@ -1,7 +1,7 @@
-import image8 from '../../assets/avatars/Image008.png'
-import image9 from '../../assets/avatars/Image009.png'
-import image10 from '../../assets/avatars/Image010.png'
 import { User } from './user'
+const image8 = '/assets/avatars/Image008.png'
+const image9 = '/assets/avatars/Image009.png'
+const image10 = '/assets/avatars/Image010.png'
 
 export type Supplier = User & {
   type: 'supplier'
