@@ -59,6 +59,13 @@ const CreateTenderRequest = ({
     }
   }, [route.params])
 
+  useEffect(() => {
+    // publish button in header:
+    navigation.setOptions({
+      headerRight: () => <Button onPress={publish}>Publicera</Button>,
+    })
+  }, [])
+
   const getSelectedOptions = (
     selectedOptions: string,
     options: Array<{ label: string; value: string }>

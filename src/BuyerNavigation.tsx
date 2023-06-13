@@ -34,7 +34,7 @@ const TenderRequestsNavigation = () => {
         <Stack.Screen
           name="CreateTenderRequest"
           options={{
-            title: 'Ny anbudsförfrågan',
+            title: 'Anbudsförfrågan',
           }}
           component={CreateTenderRequest}
         />
