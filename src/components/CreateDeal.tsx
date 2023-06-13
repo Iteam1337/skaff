@@ -2,12 +2,11 @@ import { useEffect, useState } from 'react'
 import { Button } from 'react-native-paper'
 
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native'
-import deals from '../data/deals'
 import TextInput from './form/TextInput'
 import DropDownList from './form/DropDownList'
 import DateTimeInput from './form/DateTimeInput'
 import useDeals from '../hooks/useDeals'
-import { withDecay } from 'react-native-reanimated'
+import useAuth from '../hooks/useAuth'
 
 const styles = StyleSheet.create({
   actionContainer: {
@@ -23,8 +22,8 @@ const styles = StyleSheet.create({
 const CreateDeal = ({ route, navigation }: { route: any; navigation: any }) => {
   const id = route?.params?.id
   const [title, setTitle] = useState('')
-  const [price, setPrice] = useState('0')
-  const [volume, setVolume] = useState('0')
+  const [price, setPrice] = useState('')
+  const [volume, setVolume] = useState('')
   const [constraint, setConstraint] = useState('')
   const [date, setDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
@@ -36,6 +35,7 @@ const CreateDeal = ({ route, navigation }: { route: any; navigation: any }) => {
   ]
 
   const [, , add] = useDeals()
+  const [user] = useAuth()
 
   // useEffect(() => {
   //   const deal = deals.find((offer) => offer.id === id)
@@ -58,18 +58,32 @@ const CreateDeal = ({ route, navigation }: { route: any; navigation: any }) => {
       .filter((criteria: string | undefined) => criteria)
   }
 
+  useEffect(() => {
+    // publish button in header:
+    navigation.setOptions({
+      headerRight: () => <Button onPress={publish}>Publicera</Button>,
+    })
+  }, [])
+
   const publish = () => {
     const deal = {
-      title,
-      price: +price,
+      product: {
+        name: title,
+        price: +price,
+      },
       volume: +volume,
+      supplier: user,
       constraint: getSelectedOptions(constraint, constraints).pop(),
       date,
       endDate,
       other,
       description,
+      commodity: {
+        area: 'Other',
+        mainGroup: 'Other',
+        group: 'Other',
+      },
     }
-    //TODO:add seller
     console.log('deal', deal)
 
     add(deal)
@@ -83,33 +97,23 @@ const CreateDeal = ({ route, navigation }: { route: any; navigation: any }) => {
         <TextInput
           label="Namn på vara"
           value={title}
+          placeholder='t ex "Äpplen"'
           onChange={(text) => setTitle(text)}
         />
         <TextInput
           keyboardType="numeric"
           label="Volym"
           value={volume}
+          placeholder="t ex 10kg eller 5 liter"
           onChange={(text) => setVolume(text)}
         />
         <TextInput
           keyboardType="numeric"
           label="Pris"
+          placeholder="tex 20kr/kg eller 10kr/liter"
           value={price}
           onChange={(text) => setPrice(text)}
         />
-        <DropDownList
-          label="Välj begränsning"
-          value={constraint}
-          setValue={setConstraint}
-          values={constraints}
-        ></DropDownList>
-        <DateTimeInput
-          label="Ange datum"
-          value={date}
-          onChange={(newDate) => {
-            if (newDate) setDate(newDate)
-          }}
-        ></DateTimeInput>
         <DateTimeInput
           label="Sista datum för erbjudande"
           value={endDate}
@@ -117,6 +121,21 @@ const CreateDeal = ({ route, navigation }: { route: any; navigation: any }) => {
             if (newDate) setEndDate(newDate)
           }}
         ></DateTimeInput>
+        <DropDownList
+          label="Ev datumbegränsning"
+          value={constraint}
+          setValue={setConstraint}
+          values={constraints}
+        ></DropDownList>
+        {constraint && (
+          <DateTimeInput
+            label={constraint == '0' ? 'Bäst före' : 'Sista förbrukningsdag'}
+            value={date}
+            onChange={(newDate) => {
+              if (newDate) setDate(newDate)
+            }}
+          ></DateTimeInput>
+        )}
 
         <View
           style={{
@@ -137,6 +156,7 @@ const CreateDeal = ({ route, navigation }: { route: any; navigation: any }) => {
         <TextInput
           label="Kort beskrivning"
           value={description}
+          placeholder='t ex "Ekologiskt, ursprung Sverige"'
           onChange={(text) => setDescription(text)}
         />
         <TextInput
@@ -152,9 +172,6 @@ const CreateDeal = ({ route, navigation }: { route: any; navigation: any }) => {
             uppercase={false}
           >
             Rensa utkast
-          </Button>
-          <Button mode="contained" onPress={publish} uppercase={false}>
-            Publicera
           </Button>
         </View>
       </ScrollView>

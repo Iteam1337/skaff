@@ -18,7 +18,7 @@ import Chat from './Chat'
 const Header = ({ tenderRequest: { title, price, buyer } }) => (
   <View style={styles.container}>
     <Headline>{title}</Headline>
-    <Subheading>{buyer}</Subheading>
+    <Subheading>{buyer?.name}</Subheading>
   </View>
 )
 

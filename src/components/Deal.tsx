@@ -34,6 +34,7 @@ const Deal = ({ route, navigation }) => {
 
   const theme = useTheme()
 
+  console.log('deal', deal)
   const getTitle = function (deal: any) {
     return (
       deal.commodity.group +

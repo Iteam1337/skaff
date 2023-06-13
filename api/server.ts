@@ -21,20 +21,20 @@ server.listen(port, () => {
 })
 
 const state = {
-  buyers: buyers,
-  suppliers: suppliers,
-  deals: deals,
-  tenderRequests: tenderRequests,
-  categories: categories,
+  buyers: [...buyers], // make copy of arrays
+  suppliers: [...suppliers],
+  deals: [...deals],
+  tenderRequests: [...tenderRequests],
+  categories: { ...categories },
 }
 
 const reset = () =>
   Object.assign(state, {
-    buyers: buyers,
-    suppliers: suppliers,
-    deals: deals,
-    tenderRequests: tenderRequests,
-    categories: categories,
+    buyers: [...buyers], // reset to original data
+    suppliers: [...suppliers],
+    deals: [...deals],
+    tenderRequests: [...tenderRequests],
+    categories: { ...categories },
   })
 
 // either provide socket or io - if you provide io then it will send to all sockets

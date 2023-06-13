@@ -21,8 +21,9 @@ const Deals = ({ navigation }: { navigation: any }) => {
   const [searchQuery, setSearchQuery] = React.useState('')
   const [filteredDeals, setFilteredDeals] = React.useState(new Array<Deal>())
 
-  const [deals, update, add, refresh] = useDeals()
+  const [deals, , , refresh] = useDeals()
   const [user] = useAuth()
+  const [activeAreas, setActiveAreas] = React.useState({})
 
   React.useEffect(() => {
     refresh()
@@ -34,19 +35,23 @@ const Deals = ({ navigation }: { navigation: any }) => {
         deal.product.name.toLowerCase().includes(searchQuery.toLowerCase())
       )
     )
-  }, [searchQuery, deals])
+  }, [areas, searchQuery, deals])
 
-  const activeAreas: { [key: string]: Area } = Object.entries(areas).reduce(
-    (result, [key, area]) =>
-      Object.assign(result, {
-        [key]: {
-          ...area,
-          count: filteredDeals.filter((d) => d.commodity.area === area.title)
-            .length,
-        },
-      }),
-    {}
-  )
+  React.useEffect(() => {
+    const activeAreas: { [key: string]: Area } = Object.entries(areas).reduce(
+      (result, [key, area]) =>
+        Object.assign(result, {
+          [key]: {
+            ...area,
+            count: filteredDeals.filter((d) => d.commodity.area === area.title)
+              .length,
+          },
+        }),
+      {}
+    )
+    setActiveAreas(activeAreas)
+  }, [filteredDeals])
+
   return (
     <>
       <ScrollView>
@@ -82,10 +87,6 @@ const Deals = ({ navigation }: { navigation: any }) => {
                 }
               >
                 <List.Subheader>{`${area.count} varor`}</List.Subheader>
-                <List.Item
-                  title=""
-                  description={() => <Chat></Chat>}
-                ></List.Item>
                 {filteredDeals
                   .filter((d) => d.commodity.area === area.title)
                   .sort((a, b) => a.product.name.localeCompare(b.product.name))

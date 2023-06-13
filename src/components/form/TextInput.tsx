@@ -10,6 +10,7 @@ const TextInput = ({
   multiline,
   numberOfLines,
   styles,
+  placeholder,
   outlined,
   onChange,
 }: {
@@ -20,6 +21,7 @@ const TextInput = ({
   multiline?: boolean
   numberOfLines?: number
   styles?: any
+  placeholder?: string
   outlined?: boolean
   onChange?: (text: string) => void
 }) => {
@@ -43,6 +45,7 @@ const TextInput = ({
       value={value}
       onChangeText={onChange}
       disabled={disabled}
+      placeholder={placeholder}
       multiline={multiline}
       numberOfLines={numberOfLines}
       mode={outlined == undefined && !outlined ? 'flat' : 'outlined'}

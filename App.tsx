@@ -74,7 +74,7 @@ const theme = {
   colors: {
     ...MD2LightTheme.colors,
     background: '#FAF7F0', //beige
-    surface: '#D8F5E3',
+    surface: '#fff',
     surfaceVariant: '#EBFAEF',
     // surfaceVariant: '#FFF',
     primary: '#1C3BA0', //mörkblå

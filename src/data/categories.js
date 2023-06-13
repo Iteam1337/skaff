@@ -1,6 +1,7 @@
 const frozen = '/assets/area_frozen_food.png'
 const fresh_cooled = '/assets/area_fresh_or_cooled.png'
 const groceries = '/assets/area_groceries.png'
+const other = '/assets/area_fruit.png'
 
 export const categories = {
   Frozen: {
@@ -134,6 +135,10 @@ export const areas = {
   },
   'NonAlcoholicBeverages': {
     title: 'Alkoholfria drycker',
+  },
+  'Other': {
+    title: 'Övrigt',
+    image: other,
   },
 }
 
