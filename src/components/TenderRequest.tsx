@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import {
   Caption,
   Headline,
@@ -9,6 +9,7 @@ import {
   Paragraph,
   Divider,
   Card,
+  List,
 } from 'react-native-paper'
 import { ScrollView, StyleSheet, View } from 'react-native'
 import { Tabs, TabScreen } from 'react-native-paper-tabs'
@@ -16,6 +17,7 @@ import Chat from './Chat'
 import useTenderRequests from '../hooks/useTenderRequests'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import useAuth from '../hooks/useAuth'
+import { TenderRequest as TenderRequestType } from '../data/tenderRequests'
 import useOffers from '../hooks/useOffers'
 import { Offer } from '../data/offers'
 
@@ -26,35 +28,28 @@ const TenderRequest = ({
   route: any
   navigation: any
 }) => {
-  const [tenderRequest, setTenderRequest] = useState({})
+  const [tenderOffers, setTenderOffers] = useState([] as Offer[])
 
   const [tenderRequests, , , refresh] = useTenderRequests()
   const [offers, updateOffer, , refreshOffers] = useOffers()
-  const [myOffers, setMyOffers] = useState(Array<Offer>)
 
   const theme = useTheme()
   const [user] = useAuth()
 
+  const tenderRequest = route.params.tenderRequest
+
   useEffect(() => {
-    if (route.params?.id) {
-      const tenderRequest = tenderRequests.find(
-        (offer) => offer.id === route.params?.id
+    if (tenderRequest.id) {
+      const offersForTenderRequest = offers.filter(
+        ({ tenderRequestId }) => tenderRequestId === tenderRequest.id
       )
-
-      if (tenderRequest) setTenderRequest(tenderRequest)
+      setTenderOffers(offersForTenderRequest)
     }
-  }, [route.params, tenderRequests])
+  }, [tenderRequest, offers])
 
   useEffect(() => {
-    setMyOffers(
-      offers.filter((offer: Offer) => offer.tenderRequestId == tenderRequest.id)
-    )
-  }, [offers])
-
-  useEffect(() => {
-    refresh()
     refreshOffers()
-  }, [])
+  }, [tenderRequest])
 
   return (
     <>
@@ -161,27 +156,29 @@ const TenderRequest = ({
         </TabScreen>
         <TabScreen label="Anbud">
           <>
-            {user?.type === 'supplier' && (
-              <Container>
-                <Paragraph>
-                  För att lämna anbud måste du vara ansluten till detta DIS. För
-                  att kontrollera att du är det kan du gå till xx..yy.z
-                </Paragraph>
-                <Button
-                  mode="contained"
-                  onPress={() => {
-                    navigation.navigate('TenderRequests', {
-                      screen: 'CreateOffer',
-                      params: {
-                        id: tenderRequest.id,
-                      },
-                    })
-                  }}
-                >
-                  Lämna anbud
-                </Button>
-              </Container>
-            )}
+            <>
+              {user?.type === 'supplier' && (
+                <Container>
+                  <Paragraph>
+                    För att lämna anbud måste du vara ansluten till detta DIS.
+                    För att kontrollera att du är det kan du gå till xx..yy.z
+                  </Paragraph>
+                  <Button
+                    mode="contained"
+                    onPress={() => {
+                      navigation.navigate('TenderRequests', {
+                        screen: 'CreateOffer',
+                        params: {
+                          tenderRequest,
+                        },
+                      })
+                    }}
+                  >
+                    Lämna anbud
+                  </Button>
+                </Container>
+              )}
+            </>
             {user?.type === 'buyer' && tenderRequest.buyer?.id == user?.id && (
               <>
                 <Container>
@@ -192,7 +189,7 @@ const TenderRequest = ({
                 </Container>
                 <Container>
                   <Subheading>Matchande anbud</Subheading>
-                  {myOffers.map((offer, i) => (
+                  {tenderOffers.map((offer, i) => (
                     <Card
                       key={i}
                       style={styles.card}
@@ -232,8 +229,8 @@ const TenderRequest = ({
                               </Container>
                             )
                           else if (
-                            myOffers.filter((offer) => offer.approved).length <
-                            1
+                            tenderOffers.filter((offer) => offer.approved)
+                              .length < 1
                           )
                             return (
                               <Button

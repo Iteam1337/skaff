@@ -62,6 +62,17 @@ const sync = (socket: any) => {
   socket.emit('suppliers', state.suppliers)
   socket.emit('buyers', state.buyers)
   socket.emit('notifications', state.notifications)
+  socket.emit('deals', state.deals)
+  if (socket.data.user) sendMyOffers(socket)
+}
+
+const sendMyOffers = (socket: any) => {
+  const myOffers = state.offers.filter(
+    (offer) =>
+      offer.supplier.id === socket.data.user.id ||
+      offer.buyer.id === socket.data.user.id
+  )
+  socket.emit('offers', myOffers)
 }
 
 io.on('connection', (socket) => {
@@ -76,7 +87,7 @@ io.on('connection', (socket) => {
 
   // USERS
   socket.on('login', ({ user, token }) => {
-    console.log('login', user, token)
+    console.log('login', user.type, user.name, token)
     switch (user.type) {
       case 'buyer':
         const buyer = state.buyers.find((b) => b.id === user.id)
@@ -86,7 +97,6 @@ io.on('connection', (socket) => {
         buyer.lastOnline = new Date()
         io.emit('buyers', state.buyers)
         socket.emit('user', buyer)
-        console.log('buyer', buyer)
         socket.data.user = buyer
 
         break
@@ -98,7 +108,6 @@ io.on('connection', (socket) => {
         supplier.lastOnline = new Date()
         io.emit('suppliers', state.suppliers)
         socket.emit('user', supplier)
-        console.log('supplier', supplier)
         socket.data.user = supplier
         break
     }
@@ -151,6 +160,7 @@ io.on('connection', (socket) => {
 
   // OFFERS
   socket.on('addOffer', (offer) => {
+    if (!offer) return console.error('No offer provided')
     state.offers.push(offer)
     console.log('addOffer', offer)
     const tenderRequest = state.tenderRequests.find(
@@ -169,8 +179,11 @@ io.on('connection', (socket) => {
           id: offer.id,
         },
       })
+    sendMyOffers(socket)
+  })
 
-    io.emit('deals', state.deals)
+  socket.on('offers', () => {
+    sendMyOffers(socket)
   })
 
   socket.on('editOffer', (offer) => {

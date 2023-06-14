@@ -2,8 +2,9 @@ import { Button, List, useTheme, Divider, Card } from 'react-native-paper'
 import { Tabs, TabScreen } from 'react-native-paper-tabs'
 import { ScrollView } from 'react-native-gesture-handler'
 import Supplier from './Supplier'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import useAuth from '../hooks/useAuth'
+import useOffers from '../hooks/useOffers'
 
 const SupplierProfile = ({
   route,
@@ -13,8 +14,9 @@ const SupplierProfile = ({
   navigation: any
 }) => {
   const theme = useTheme()
+  const [showOffers, setShowOffers] = useState(true)
   const [supplier, , logout] = useAuth()
-  console.log('supplier', supplier)
+  const [offers, , , refreshOffers] = useOffers()
 
   useEffect(() => {
     if (supplier) {
@@ -32,20 +34,27 @@ const SupplierProfile = ({
       >
         <TabScreen label="Aktuellt">
           <ScrollView>
-            <List.Accordion title="Anbud">
+            <List.Accordion
+              title="Anbud"
+              expanded={showOffers}
+              onPress={() => setShowOffers((show) => !show)}
+            >
               <List.Subheader>Inskickade anbud</List.Subheader>
-              <Card>
+              {offers.length === 0 && (
                 <Card.Title
-                  title="Morötter"
-                  subtitle="1 000 kg | Kvarnbergsskolan, Karlstad"
+                  title="Inga anbud"
+                  subtitle="Du har inte skickat in några anbud"
                 ></Card.Title>
-              </Card>
-              <Card>
-                <Card.Title
-                  title="Potatis"
-                  subtitle="2 000 kg | Kvarnbergsskolan, Karlstad"
-                ></Card.Title>
-              </Card>
+              )}
+              {offers.map((offer) => (
+                <Card>
+                  <Card.Title
+                    title={offer.tenderRequest.title}
+                    subtitle={offer.tenderRequest.buyer.name}
+                  ></Card.Title>
+                </Card>
+              ))}
+
               <List.Subheader>Utkast</List.Subheader>
               <Card>
                 <Card.Title

@@ -36,6 +36,7 @@ const Navigation = () => {
         name="buyer"
         options={{
           headerShown: false,
+          title: 'Tillbaka',
         }}
         children={() => BuyerNavigation()}
       />

@@ -47,19 +47,21 @@ const TenderRequests = ({ navigation }: { navigation: any }) => {
             onPress={() => setOpen(!open)}
             expanded={open}
           >
-            {filteredRequests.map(({ id, title, buyer, image }, i) => (
+            {filteredRequests.map((tenderRequest, i) => (
               <Card
                 key={i}
                 style={styles.card}
-                onPress={() => navigation.navigate('TenderRequest', { id })}
+                onPress={() =>
+                  navigation.navigate('TenderRequest', { tenderRequest })
+                }
               >
                 <Card.Title
                   titleVariant="titleSmall"
                   titleStyle={{
                     fontSize: 14,
                   }}
-                  title={title}
-                  subtitle={buyer.name}
+                  title={tenderRequest.title}
+                  subtitle={tenderRequest.buyer.name}
                   right={(props) => <ChevronRight />}
                 />
               </Card>
