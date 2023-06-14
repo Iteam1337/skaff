@@ -8,6 +8,7 @@ import {
   Button,
   Paragraph,
   Divider,
+  List,
 } from 'react-native-paper'
 import { ScrollView, StyleSheet, View } from 'react-native'
 import { Tabs, TabScreen } from 'react-native-paper-tabs'
@@ -150,28 +151,48 @@ const TenderRequest = ({
           <Chat />
         </TabScreen>
         <TabScreen label="Anbud">
-          {user?.type === 'supplier' && (
-            <Container>
-              <Paragraph>
-                För att lämna anbud måste du vara ansluten till detta DIS. För
-                att kontrollera att du är det kan du gå till xx..yy.z
-              </Paragraph>
-              <Button
-                mode="contained"
-                onPress={() => {
-                  console.log('skapa anbud nu plz')
-                  navigation.navigate('TenderRequests', {
-                    screen: 'CreateOffer',
-                    params: {
-                      id: tenderRequest.id,
-                    },
-                  })
-                }}
-              >
-                Lämna anbud
-              </Button>
-            </Container>
-          )}
+          <>
+            {user?.type === 'supplier' && (
+              <Container>
+                <Paragraph>
+                  För att lämna anbud måste du vara ansluten till detta DIS. För
+                  att kontrollera att du är det kan du gå till xx..yy.z
+                </Paragraph>
+                <Button
+                  mode="contained"
+                  onPress={() => {
+                    navigation.navigate('TenderRequests', {
+                      screen: 'CreateOffer',
+                      params: {
+                        id: tenderRequest.id,
+                      },
+                    })
+                  }}
+                >
+                  Lämna anbud
+                </Button>
+              </Container>
+            )}
+            {user?.type === 'buyer' && tenderRequest.buyer?.id == user?.id && (
+              <Container>
+                <Paragraph>
+                  Inskickade anbud sorteras efter lägsta pris med eventuella
+                  avdrag för uppfyllda önskemål.
+                </Paragraph>
+                <Subheading>Matchande anbud</Subheading>
+                <Divider />
+                <Subheading>Ej uppfyllda anbud</Subheading>
+              </Container>
+            )}
+            {user?.type === 'buyer' && tenderRequest.buyer?.id != user?.id && (
+              <Container>
+                <Paragraph>
+                  Som beställare kan du inte lämna anbud på andra beställares
+                  anbudsförfrågningar.
+                </Paragraph>
+              </Container>
+            )}
+          </>
         </TabScreen>
       </Tabs>
     </>
