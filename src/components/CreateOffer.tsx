@@ -18,6 +18,7 @@ import useAuth from '../hooks/useAuth'
 import uuid from 'react-native-uuid'
 import useOffers from '../hooks/useOffers'
 import { TenderRequest } from '../data/tenderRequests'
+import { Offer } from '../data/offers'
 
 const styles = StyleSheet.create({
   container: {
@@ -49,7 +50,6 @@ const CreateOffer = ({
   route: any
 }) => {
   const [tenderRequest, setTenderRequest] = useState({} as TenderRequest)
-
   const [selectedQualificationCriterias, setSelectedQualificationCriterias] =
     useState(Array<string>)
   const [selectedOptionalCriterias, setSelectedOptionalCriterias] = useState(
@@ -59,32 +59,30 @@ const CreateOffer = ({
   const [other, setOther] = useState('')
 
   const [tenderRequests, , , refresh] = useTenderRequests()
-  const [, , add] = useOffers()
+  const [, , add, refreshOffers] = useOffers()
   const [supplier] = useAuth()
-
-  useEffect(() => {
-    // publish button in header:
-    navigation.setOptions({
-      headerRight: () => <Button onPress={publish}>Skicka</Button>,
-    })
-  }, [])
 
   useEffect(() => {
     console.log('route.params', route.params)
     if (route.params?.id) {
       const tenderRequest = tenderRequests.find(
-        (offer) => offer.id === route.params?.id
+        (tr) => tr.id === route.params?.id
       )
-      console.log('tenderRequest', tenderRequest)
+      console.log('found tenderRequest', tenderRequest)
       if (tenderRequest) setTenderRequest(tenderRequest)
     }
   }, [route.params, tenderRequests])
 
   useEffect(() => {
     refresh()
+    refreshOffers()
+    navigation.setOptions({
+      headerRight: () => <Button onPress={publish}>Skicka</Button>,
+    })
   }, [])
 
   const publish = () => {
+    if (!tenderRequest.id) return console.error('no tenderRequest.id')
     const offer = {
       qualificationCriteriasMet: selectedOptionalCriterias,
       optionalCriteriasMet: selectedOptionalCriterias,
@@ -98,13 +96,13 @@ const CreateOffer = ({
       supplier: supplier,
       buyer: tenderRequest.buyer,
       id: uuid.v4(),
-    }
+    } as Offer
 
-    console.log('offer', offer)
+    console.log('publish offer', offer)
 
     add(offer)
 
-    navigation.navigate('ListTenderRequests')
+    navigation.navigate('TenderRequest', { id: tenderRequest.id })
   }
 
   return (

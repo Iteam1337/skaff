@@ -85,7 +85,7 @@ io.on('connection', (socket) => {
 
   // USERS
   socket.on('login', ({ user, token }) => {
-    console.log('login', user, token)
+    console.log('login', user.type, user.name, token)
     switch (user.type) {
       case 'buyer':
         const buyer = state.buyers.find((b) => b.id === user.id)
@@ -95,7 +95,6 @@ io.on('connection', (socket) => {
         buyer.lastOnline = new Date()
         io.emit('buyers', state.buyers)
         socket.emit('user', buyer)
-        console.log('buyer', buyer)
         socket.data.user = buyer
 
         break
@@ -107,7 +106,6 @@ io.on('connection', (socket) => {
         supplier.lastOnline = new Date()
         io.emit('suppliers', state.suppliers)
         socket.emit('user', supplier)
-        console.log('supplier', supplier)
         socket.data.user = supplier
         break
     }
