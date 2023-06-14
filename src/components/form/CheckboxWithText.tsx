@@ -34,7 +34,7 @@ const CheckboxWithText = ({
       ></Checkbox>
       <Pressable
         onPress={() => {
-          onChange(checked)
+          onChange(!checked)
           setChecked(!checked)
         }}
       >

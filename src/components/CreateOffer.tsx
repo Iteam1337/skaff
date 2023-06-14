@@ -9,11 +9,11 @@ import {
   useTheme,
 } from 'react-native-paper'
 import { ScrollView } from 'react-native-gesture-handler'
-import tenderRequests from '../data/tenderRequests'
 import { SafeAreaView, StyleSheet } from 'react-native'
 import { View } from 'react-native'
 import CheckboxWithText from './form/CheckboxWithText'
 import TextInput from './form/TextInput'
+import useTenderRequests from '../hooks/useTenderRequests'
 
 const styles = StyleSheet.create({
   container: {
@@ -48,12 +48,17 @@ const CreateOffer = ({
   const [vicinityChecked, setVicinityChecked] = useState(true)
   const [deliveryChecked, setDeliveryChecked] = useState(true)
   const [visitChecked, setVisitChecked] = useState(true)
+
+  const [selectedQualificationCriterias, setSelectedQualificationCriterias] =
+    useState(Array<string>)
+  const [selectedOptionalCriterias, setSelectedOptionalCriterias] = useState(
+    Array<string>
+  )
   const [price, setPrice] = useState('')
   const [other, setOther] = useState('')
 
   const theme = useTheme()
-
-  // const [buyer, setBuyer] = useState({})
+  const [tenderRequests, update, add, refresh] = useTenderRequests()
 
   const deliveryPlans = [
     { label: 'Veckovis', value: '0' },
@@ -72,11 +77,6 @@ const CreateOffer = ({
     { label: 'Studiebesök digitalt, 2h', value: '6' },
   ]
 
-  // getAuthenticatedUser().then((userId) => {
-  //   const buyer = buyers.find((deal) => deal.id === userId)
-  //   setBuyer(buyer)
-  // })
-
   useEffect(() => {
     console.log('route.params', route.params)
     if (route.params?.id) {
@@ -86,21 +86,37 @@ const CreateOffer = ({
       console.log('tenderRequest', tenderRequest)
       if (tenderRequest) setTenderRequest(tenderRequest)
     }
-  }, [route.params])
+  }, [route.params, tenderRequests])
+
+  useEffect(() => {
+    refresh()
+  }, [])
 
   const publish = () => {
-    // console.log('title', title)
-    // console.log('volume', volume)
-    // console.log('lastOfferDate', lastOfferDate)
-    // console.log('lastAwardDate', lastAwardDate)
-    // console.log('deliveryPlan', deliveryPlan)
-    // console.log('volumePerDelivery', volumePerDelivery)
-    // console.log('optionalCriteria', optionalCriteria)
-    // console.log('qualificationCriteria', qualificationCriteria)
+    console.log(
+      'selectedQualificationCriterias',
+      selectedQualificationCriterias
+    )
+    console.log('selectedOptionalCriterias', selectedOptionalCriterias)
+    console.log('price', price)
+    console.log('other', other)
 
-    //TODO: save new to backend
+    const offer = {
+      qualificationCriteriasMet: setSelectedOptionalCriterias,
+      optionalCriteriasMet: selectedOptionalCriterias,
+      price: +price,
+      other:other
+      tenderRequestId: tenderRequest.id,
+      // supplier: 
+    }
 
-    navigation.navigate('ListTenderRequests')
+    //lägg till id
+    //lägg till supplier
+    //lägg till tender request id
+
+    //spara
+
+    // navigation.navigate('ListTenderRequests')
   }
 
   return (
@@ -137,22 +153,41 @@ const CreateOffer = ({
         <Surface style={styles.surface}>
           <View style={styles.container}>
             <Subheading>Krav</Subheading>
-            <CheckboxWithText
-              text="Produktion inom radie om 10 mil från leveransadress."
-              checkedByDefault={true}
-              onChange={(checked) => setVicinityChecked(checked)}
-            ></CheckboxWithText>
-            <CheckboxWithText
-              text="Producent ansvarar för leverans."
-              checkedByDefault={false}
-              onChange={(checked) => setDeliveryChecked(checked)}
-            ></CheckboxWithText>
+            {tenderRequest.qualificationCriteria?.map((criteria, i) => (
+              <CheckboxWithText
+                key={i}
+                text={criteria}
+                checkedByDefault={false}
+                onChange={(checked) => {
+                  let newChoices = selectedQualificationCriterias.filter(
+                    (choice) => choice != criteria
+                  )
+                  if (checked) {
+                    //add to list
+                    newChoices.push(criteria)
+                  }
+                  setSelectedQualificationCriterias(newChoices)
+                }}
+              ></CheckboxWithText>
+            ))}
             <Subheading>Önskemål</Subheading>
-            <CheckboxWithText
-              text="Studiebesök, 1h, 5 tillfällen"
-              checkedByDefault={true}
-              onChange={(checked) => setVicinityChecked(checked)}
-            ></CheckboxWithText>
+            {tenderRequest.optionalCriteria?.map((optionalCriteria, i) => (
+              <CheckboxWithText
+                key={i}
+                text={optionalCriteria}
+                checkedByDefault={false}
+                onChange={(checked) => {
+                  let newChoices = selectedOptionalCriterias.filter(
+                    (choice) => choice != optionalCriteria
+                  )
+                  if (checked) {
+                    //add to list
+                    newChoices.push(optionalCriteria)
+                  }
+                  setSelectedOptionalCriterias(newChoices)
+                }}
+              ></CheckboxWithText>
+            ))}
             <Subheading>Offererat pris</Subheading>
             <TextInput
               label="Pris i kr"
