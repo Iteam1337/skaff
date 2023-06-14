@@ -86,9 +86,6 @@ const CreateOffer = ({
 
   useEffect(() => {
     refreshOffers()
-    navigation.setOptions({
-      headerRight: () => <Button onPress={() => publish(offer)}>Skicka</Button>,
-    })
   }, [tenderRequest])
 
   const publish = (offer: Offer) => {
@@ -205,7 +202,11 @@ const CreateOffer = ({
           <Button onPress={() => {}} uppercase={false}>
             Spara utkast
           </Button>
-          <Button onPress={() => publish()} mode="contained" uppercase={false}>
+          <Button
+            onPress={() => publish(offer)}
+            mode="contained"
+            uppercase={false}
+          >
             Publicera
           </Button>
         </View>
