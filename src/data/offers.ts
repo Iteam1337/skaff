@@ -1,4 +1,5 @@
 import suppliers from './suppliers'
+import { Supplier } from './suppliers'
 
 const days = 24 * 60 * 60 * 1000
 
@@ -22,7 +23,7 @@ export default [
     id: '1',
     supplier: suppliers[0],
     approved: false,
-    submissionDate: new Date() - 7 * days,
+    submissionDate: new Date(Date.now() - 7 * days),
     submitted: false,
     tenderRequestId: 1,
     price: {
@@ -33,7 +34,7 @@ export default [
     id: '2',
     supplier: suppliers[1],
     approved: false,
-    submissionDate: new Date() - 7 * days,
+    submissionDate: new Date(Date.now() - 4 * days),
     submitted: true,
     tenderRequestId: 1,
     price: {
@@ -44,7 +45,7 @@ export default [
     id: '3',
     supplier: suppliers[2],
     approved: false,
-    submissionDate: new Date() - 7 * days,
+    submissionDate: new Date(Date.now() - 5 * days),
     submitted: false,
     tenderRequestId: 1,
     price: {

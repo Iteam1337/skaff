@@ -146,7 +146,7 @@ const TenderRequest = ({
             </Container>
           </ScrollView>
         </TabScreen>
-        <TabScreen label="Frågor & Svar">
+        <TabScreen label="Meddelande">
           <Chat />
         </TabScreen>
         <TabScreen label="Anbud">

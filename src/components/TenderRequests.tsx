@@ -22,7 +22,7 @@ const TenderRequests = ({ navigation }: { navigation: any }) => {
 
   const [tenderRequests, update, add, refresh] = useTenderRequests()
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     refresh()
   }, [])
 
@@ -66,9 +66,18 @@ const TenderRequests = ({ navigation }: { navigation: any }) => {
             ))}
           </List.Accordion>
 
-          <List.Accordion title="Tilldelade förfrågningar">
-            <List.Item title="First item" />
-            <List.Item title="Second item" />
+          <List.Accordion title="Favoritmarkerade">
+            <Card style={styles.card}>
+              <Card.Title
+                titleVariant="titleSmall"
+                titleStyle={{
+                  fontSize: 14,
+                }}
+                title={'Favoritupphandling 1'}
+                subtitle={'Köpare 1'}
+                right={(props) => <ChevronRight />}
+              />
+            </Card>
           </List.Accordion>
         </List.Section>
       </ScrollView>
