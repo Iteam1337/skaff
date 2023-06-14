@@ -37,6 +37,7 @@ const reset = () =>
   Object.assign(state, {
     buyers: [...buyers], // reset to original data
     suppliers: [...suppliers],
+    offers: [...offers],
     deals: [...deals],
     tenderRequests: [...tenderRequests],
     categories: { ...categories },
