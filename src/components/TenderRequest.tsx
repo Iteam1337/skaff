@@ -9,6 +9,7 @@ import {
   Paragraph,
   Divider,
   List,
+  Card,
 } from 'react-native-paper'
 import { ScrollView, StyleSheet, View } from 'react-native'
 import { Tabs, TabScreen } from 'react-native-paper-tabs'
@@ -16,6 +17,8 @@ import Chat from './Chat'
 import useTenderRequests from '../hooks/useTenderRequests'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import useAuth from '../hooks/useAuth'
+import useOffers from '../hooks/useOffers'
+import { Offer } from '../data/offers'
 
 const TenderRequest = ({
   route,
@@ -26,7 +29,8 @@ const TenderRequest = ({
 }) => {
   const [tenderRequest, setTenderRequest] = useState({})
 
-  const [tenderRequests, update, add, refresh] = useTenderRequests()
+  const [tenderRequests, , , refresh] = useTenderRequests()
+  const [offers, updateOffer, , refreshOffers] = useOffers()
 
   const theme = useTheme()
   const [user] = useAuth()
@@ -44,7 +48,12 @@ const TenderRequest = ({
   }, [route.params, tenderRequests])
 
   useEffect(() => {
+    console.log('offers', offers)
+  }, [offers])
+
+  useEffect(() => {
     refresh()
+    refreshOffers()
   }, [])
 
   return (
@@ -180,6 +189,53 @@ const TenderRequest = ({
                   avdrag för uppfyllda önskemål.
                 </Paragraph>
                 <Subheading>Matchande anbud</Subheading>
+                <Card
+                //  style={styles.card}
+                //  onPress={() => navigation.navigate('TenderRequest', { id })}
+                >
+                  <Card.Title
+                    titleVariant="titleSmall"
+                    titleStyle={{
+                      fontSize: 14,
+                    }}
+                    title="Det första matchande anbudet"
+                    subtitle={'Inkom 2023-06-16'}
+                    right={(props) => (
+                      <Button
+                        icon="clipboard-check"
+                        mode="contained"
+                        uppercase={false}
+                        // onPress={() => console.log('Pressed')}
+                      >
+                        Tilldela
+                      </Button>
+                    )}
+                  />
+                </Card>
+                {offers
+                  // .filter(
+                  //   (offer: Offer) => offer.tenderRequestId == tenderRequest.id
+                  // )
+                  .map((offer, i) => (
+                    <Card
+                      key={i}
+                      //  style={styles.card}
+                      //  onPress={() => navigation.navigate('TenderRequest', { id })}
+                    >
+                      <Card.Title
+                        titleVariant="titleSmall"
+                        titleStyle={{
+                          fontSize: 14,
+                        }}
+                        title={offer.supplier.name}
+                        subtitle={
+                          'Inkom ' +
+                          offer.submissionDate?.toString().split('T')[0]
+                        }
+                        right={(props) => <ChevronRight />}
+                      />
+                    </Card>
+                  ))}
                 <Divider />
                 <Subheading>Ej uppfyllda anbud</Subheading>
               </Container>
