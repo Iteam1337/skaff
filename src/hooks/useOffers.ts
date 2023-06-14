@@ -1,14 +1,27 @@
 import { useContext, useEffect, useState } from 'react'
 import { SocketContext } from '../context/socketContext'
 import { Offer } from '../data/offers'
+import useTenderRequests from './useTenderRequests'
+
+type OfferExtended = Offer & {
+  tenderRequest: any
+}
 
 const useOffers = (): [Array<Offer>, any, any, any] => {
   const socket = useContext(SocketContext)
-  const [offers, setOffers] = useState([] as Array<Offer>)
+  const [offers, setOffers] = useState([] as Array<OfferExtended>)
+  const [tenderRequests] = useTenderRequests()
 
   useEffect(() => {
     socket.on('offers', (offers: Array<Offer>) => {
-      setOffers(offers)
+      const extended = offers.map((offer) => {
+        const offerExtended = offer as OfferExtended
+        offerExtended.tenderRequest = tenderRequests.find(
+          (tr) => tr.id === offer.tenderRequestId
+        )
+        return offer
+      }) as Array<OfferExtended>
+      setOffers(extended)
     })
 
     return () => {
@@ -16,12 +29,18 @@ const useOffers = (): [Array<Offer>, any, any, any] => {
     }
   }, [socket])
 
-  const editOffer = (offer: Offer) => {
-    socket.emit('editOffer', offer)
+  const editOffer = (offer: OfferExtended) => {
+    const offerBase = { ...offer } as Offer
+    offerBase.tenderRequestId =
+      offerBase.tenderRequestId || offer.tenderRequest.id
+    socket.emit('editOffer', offerBase)
   }
 
-  const addOffer = (offer: Offer) => {
-    socket.emit('addOffer', offer)
+  const addOffer = (offer: OfferExtended) => {
+    const offerBase = { ...offer } as Offer
+    offerBase.tenderRequestId =
+      offerBase.tenderRequestId || offer.tenderRequest.id
+    socket.emit('addOffer', offerBase)
   }
 
   const refresh = () => socket.emit('offers')

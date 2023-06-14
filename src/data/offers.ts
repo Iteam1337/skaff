@@ -9,7 +9,7 @@ export type Offer = {
   approved: boolean
   submissionDate: Date
   submitted: boolean
-  tenderRequestId: number
+  tenderRequestId: string
   price: {
     SEK: number
   }
@@ -25,7 +25,7 @@ export default [
     approved: false,
     submissionDate: new Date(Date.now() - 7 * days),
     submitted: false,
-    tenderRequestId: 1,
+    tenderRequestId: '1',
     price: {
       SEK: 100,
     },
@@ -36,7 +36,7 @@ export default [
     approved: false,
     submissionDate: new Date(Date.now() - 4 * days),
     submitted: true,
-    tenderRequestId: 1,
+    tenderRequestId: '1',
     price: {
       SEK: 200,
     },
@@ -47,7 +47,7 @@ export default [
     approved: false,
     submissionDate: new Date(Date.now() - 5 * days),
     submitted: false,
-    tenderRequestId: 1,
+    tenderRequestId: '1',
     price: {
       SEK: 300,
     },

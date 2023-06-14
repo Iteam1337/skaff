@@ -83,6 +83,13 @@ const CreateOffer = ({
   ]
 
   useEffect(() => {
+    // publish button in header:
+    navigation.setOptions({
+      headerRight: () => <Button onPress={publish}>Skicka</Button>,
+    })
+  }, [])
+
+  useEffect(() => {
     console.log('route.params', route.params)
     if (route.params?.id) {
       const tenderRequest = tenderRequests.find(
@@ -222,9 +229,6 @@ const CreateOffer = ({
         >
           <Button onPress={() => {}} uppercase={false}>
             Spara utkast
-          </Button>
-          <Button mode="contained" onPress={publish} uppercase={false}>
-            Skicka anbud
           </Button>
         </View>
         {/* 
