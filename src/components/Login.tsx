@@ -17,7 +17,7 @@ const Login = ({ onLogin }: { onLogin: any }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Title style={styles.title}>Logga in (DEMO)</Title>
+      <Title style={styles.title}>Välj användare att testa med</Title>
       <ScrollView contentContainerStyle={styles.scrollView}>
         <View>
           <Subheading style={styles.subheading}>Producent</Subheading>
@@ -43,7 +43,9 @@ const Login = ({ onLogin }: { onLogin: any }) => {
               </View>
             )
           })}
-          <Subheading style={styles.subheading}>Beställare</Subheading>
+          <Subheading style={{ ...styles.subheading, marginTop: 30 }}>
+            Beställare
+          </Subheading>
           {buyers.map((buyer) => {
             return (
               <View style={styles.searchResult} key={buyer.id}>

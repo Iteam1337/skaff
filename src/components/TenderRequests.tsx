@@ -1,9 +1,8 @@
 import * as React from 'react'
-import { Card, Checkbox, FAB, List, Searchbar } from 'react-native-paper'
+import { Card, FAB, List, Searchbar } from 'react-native-paper'
 import { ScrollView, StyleSheet, View } from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import useTenderRequests from '../hooks/useTenderRequests'
-import { getAuthenticatedUserType } from '../../lib/authStorage'
 import { useState } from 'react'
 import useAuth from '../hooks/useAuth'
 
@@ -48,14 +47,13 @@ const TenderRequests = ({ navigation }: { navigation: any }) => {
             onPress={() => setOpen(!open)}
             expanded={open}
           >
-            {filteredRequests.map(({ id, title, buyer, image }) => (
+            {filteredRequests.map(({ id, title, buyer, image }, i) => (
               <Card
-                key={id}
+                key={i}
                 style={styles.card}
                 onPress={() => navigation.navigate('TenderRequest', { id })}
               >
                 <Card.Title
-                  key={id}
                   titleVariant="titleSmall"
                   titleStyle={{
                     fontSize: 14,
