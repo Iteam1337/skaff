@@ -6,7 +6,7 @@
 import buyers, { Buyer } from './buyers'
 
 export type TenderRequest = {
-  id: number
+  id: string
   title: string
   buyer: Buyer
   buyerId: string
@@ -24,17 +24,17 @@ export type TenderRequest = {
 
 export default [
   {
-    id: 1,
+    id: '1',
     title: 'Ägg 100kg',
     buyer: buyers[0],
   },
   {
-    id: 2,
+    id: '2',
     title: 'Lammkött 100kg',
     buyer: buyers[1],
   },
   {
-    id: 3,
+    id: '3',
     title: 'Tomater 100kg',
     buyer: buyers[3],
   },

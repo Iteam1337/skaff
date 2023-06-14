@@ -3,9 +3,8 @@ import { Button } from 'react-native-paper'
 import TextInput from './form/TextInput'
 import DateTimeInput from './form/DateTimeInput'
 import DropDownList from './form/DropDownList'
-import buyers from '../data/buyers'
-import { getAuthenticatedUser } from '../../lib/authStorage'
 import { ScrollView } from 'react-native-gesture-handler'
+import uuid from 'react-native-uuid'
 import useTenderRequests from '../hooks/useTenderRequests'
 import useAuth from '../hooks/useAuth'
 import { StyleSheet, View } from 'react-native'
@@ -94,6 +93,7 @@ const CreateTenderRequest = ({
       ),
       terms,
       grading,
+      id: uuid.v4(), //TODO:move to backend
     }
 
     add(tenderRequest)

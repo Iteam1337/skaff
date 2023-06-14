@@ -63,7 +63,7 @@ const Deal = ({ route, navigation }) => {
         // showLeadingSpace={true} //  (default=true) show leading space in scrollable tabs inside the header
         // disableSwipe={false} // (default=false) disable swipe to left/right gestures
       >
-        <TabScreen label="Erbjudande">
+        <TabScreen label="Information">
           <ScrollView>
             <Container>
               <Row>
@@ -117,25 +117,22 @@ const Deal = ({ route, navigation }) => {
                   </DataTable.Row>
                 ))}
             </DataTable>
-
-            <Button
-              // mode="contained"
-              onPress={
-                () =>
+            <View style={styles.actionContainer}>
+              <Button
+                mode="contained"
+                onPress={() =>
                   navigation.navigate('TenderRequests', {
                     screen: 'CreateTenderRequest',
                     params: {
                       title: deal.product.name,
                     },
                   })
-                // navigation.navigate('CreateTenderRequest', {
-                //   title: getTitle(deal),
-                //   price: deal.price.SEK_per_Kg.toLocaleString('sv'),
-                // })
-              }
-            >
-              Skapa anbudsförfrågan från erbjudande
-            </Button>
+                }
+                uppercase={false}
+              >
+                Skapa anbudsförfrågan
+              </Button>
+            </View>
           </ScrollView>
         </TabScreen>
         <TabScreen label="Meddelande">
@@ -188,4 +185,12 @@ export default Deal
 
 const styles = StyleSheet.create({
   container: { padding: 16, backgroundColor: 'white' },
+  actionContainer: {
+    flexDirection: 'row',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: 20,
+    paddingTop: 20,
+  },
 })
