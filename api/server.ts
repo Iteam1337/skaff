@@ -160,6 +160,7 @@ io.on('connection', (socket) => {
 
   // OFFERS
   socket.on('addOffer', (offer) => {
+    if (!offer) return console.error('No offer provided')
     state.offers.push(offer)
     console.log('addOffer', offer)
     const tenderRequest = state.tenderRequests.find(

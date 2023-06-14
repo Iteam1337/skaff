@@ -49,41 +49,19 @@ const CreateOffer = ({
   navigation: any
   route: any
 }) => {
-  const [tenderRequest, setTenderRequest] = useState({} as TenderRequest)
   const [selectedQualificationCriterias, setSelectedQualificationCriterias] =
     useState(Array<string>)
   const [selectedOptionalCriterias, setSelectedOptionalCriterias] = useState(
     Array<string>
   )
+  const [supplier] = useAuth()
+  const [, , add, refreshOffers] = useOffers()
   const [price, setPrice] = useState('')
   const [other, setOther] = useState('')
-
-  const [tenderRequests, , , refresh] = useTenderRequests()
-  const [, , add, refreshOffers] = useOffers()
-  const [supplier] = useAuth()
-
+  const [offer, setOffer] = useState({} as Offer)
+  const tenderRequest = route.params?.tenderRequest
   useEffect(() => {
-    console.log('route.params', route.params)
-    if (route.params?.id) {
-      const tenderRequest = tenderRequests.find(
-        (tr) => tr.id === route.params?.id
-      )
-      console.log('found tenderRequest', tenderRequest)
-      if (tenderRequest) setTenderRequest(tenderRequest)
-    }
-  }, [route.params, tenderRequests])
-
-  useEffect(() => {
-    refresh()
-    refreshOffers()
-    navigation.setOptions({
-      headerRight: () => <Button onPress={publish}>Skicka</Button>,
-    })
-  }, [])
-
-  const publish = () => {
-    if (!tenderRequest.id) return console.error('no tenderRequest.id')
-    const offer = {
+    setOffer({
       qualificationCriteriasMet: selectedOptionalCriterias,
       optionalCriteriasMet: selectedOptionalCriterias,
       price: {
@@ -96,13 +74,31 @@ const CreateOffer = ({
       supplier: supplier,
       buyer: tenderRequest.buyer,
       id: uuid.v4(),
-    } as Offer
+    } as Offer)
+  }, [
+    selectedQualificationCriterias,
+    selectedOptionalCriterias,
+    price,
+    other,
+    tenderRequest,
+    supplier,
+  ])
+
+  useEffect(() => {
+    refreshOffers()
+    navigation.setOptions({
+      headerRight: () => <Button onPress={() => publish(offer)}>Skicka</Button>,
+    })
+  }, [tenderRequest])
+
+  const publish = (offer: Offer) => {
+    if (!tenderRequest.id) return console.error('no tenderRequest.id')
 
     console.log('publish offer', offer)
 
     add(offer)
 
-    navigation.navigate('TenderRequest', { id: tenderRequest.id })
+    navigation.navigate('TenderRequest', { tenderRequest: tenderRequest })
   }
 
   return (
@@ -208,6 +204,9 @@ const CreateOffer = ({
         >
           <Button onPress={() => {}} uppercase={false}>
             Spara utkast
+          </Button>
+          <Button onPress={() => publish()} mode="contained" uppercase={false}>
+            Publicera
           </Button>
         </View>
         {/* 

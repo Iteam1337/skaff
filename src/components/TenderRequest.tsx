@@ -27,27 +27,13 @@ const TenderRequest = ({
   route: any
   navigation: any
 }) => {
-  const [tenderRequest, setTenderRequest] = useState({} as TenderRequestType)
   const [tenderOffers, setTenderOffers] = useState([] as Offer[])
-
-  const [tenderRequests, update, add, refresh] = useTenderRequests()
 
   const theme = useTheme()
   const [user] = useAuth()
   const [offers, , refreshOffers] = useOffers()
 
-  console.log('route.params?.id', route.params?.id)
-  console.log('offers', offers)
-
-  useEffect(() => {
-    if (route.params?.id) {
-      const tenderRequest = tenderRequests.find(
-        (offer) => offer.id === route.params?.id
-      )
-      console.log('tenderRequest', tenderRequest)
-      if (tenderRequest) setTenderRequest(tenderRequest)
-    }
-  }, [route.params, tenderRequests])
+  const tenderRequest = route.params.tenderRequest
 
   useEffect(() => {
     if (tenderRequest.id) {
@@ -58,10 +44,9 @@ const TenderRequest = ({
     }
   }, [tenderRequest, offers])
 
-  useLayoutEffect(() => {
-    refresh()
+  useEffect(() => {
     refreshOffers()
-  }, [])
+  }, [tenderRequest])
 
   return (
     <>
@@ -181,7 +166,7 @@ const TenderRequest = ({
                     navigation.navigate('TenderRequests', {
                       screen: 'CreateOffer',
                       params: {
-                        id: tenderRequest.id,
+                        tenderRequest,
                       },
                     })
                   }}
@@ -191,7 +176,7 @@ const TenderRequest = ({
 
                 <List.Section title="Inlämnade anbud:">
                   {tenderOffers.map((offer) => (
-                    <List.Item title={offer.tenderRequest.title} />
+                    <List.Item title={offer.buyer.name} />
                   ))}
                 </List.Section>
               </Container>
