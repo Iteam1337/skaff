@@ -17,6 +17,7 @@ import useTenderRequests from '../hooks/useTenderRequests'
 import useAuth from '../hooks/useAuth'
 import uuid from 'react-native-uuid'
 import useOffers from '../hooks/useOffers'
+import { TenderRequest } from '../data/tenderRequests'
 
 const styles = StyleSheet.create({
   container: {
@@ -47,10 +48,7 @@ const CreateOffer = ({
   navigation: any
   route: any
 }) => {
-  const [tenderRequest, setTenderRequest] = useState({})
-  const [vicinityChecked, setVicinityChecked] = useState(true)
-  const [deliveryChecked, setDeliveryChecked] = useState(true)
-  const [visitChecked, setVisitChecked] = useState(true)
+  const [tenderRequest, setTenderRequest] = useState({} as TenderRequest)
 
   const [selectedQualificationCriterias, setSelectedQualificationCriterias] =
     useState(Array<string>)
@@ -60,27 +58,9 @@ const CreateOffer = ({
   const [price, setPrice] = useState('')
   const [other, setOther] = useState('')
 
-  const theme = useTheme()
   const [tenderRequests, , , refresh] = useTenderRequests()
   const [, , add] = useOffers()
   const [supplier] = useAuth()
-
-  const deliveryPlans = [
-    { label: 'Veckovis', value: '0' },
-    { label: 'Månadsvis', value: '1' },
-    { label: 'Kvartalsvis', value: '2' },
-    { label: 'Endast en leverans', value: '3' },
-  ]
-
-  const criterias = [
-    { label: 'KRAV-certifierad', value: '0' },
-    { label: 'Ekologisk', value: '1' },
-    { label: 'Kvalitet klass 1', value: '2' },
-    { label: 'Studiebesök på plats, 1h', value: '3' },
-    { label: 'Studiebesök på plats, 2h', value: '4' },
-    { label: 'Studiebesök digitalt, 1h', value: '5' },
-    { label: 'Studiebesök digitalt, 2h', value: '6' },
-  ]
 
   useEffect(() => {
     // publish button in header:
@@ -116,6 +96,7 @@ const CreateOffer = ({
       approved: false,
       submissionDate: new Date(),
       supplier: supplier,
+      buyer: tenderRequest.buyer,
       id: uuid.v4(),
     }
 

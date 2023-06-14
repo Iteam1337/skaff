@@ -1,3 +1,4 @@
+import buyers, { Buyer } from './buyers'
 import suppliers from './suppliers'
 import { Supplier } from './suppliers'
 
@@ -5,6 +6,7 @@ const days = 24 * 60 * 60 * 1000
 
 export type Offer = {
   id: string
+  buyer: Buyer
   supplier: Supplier
   approved: boolean
   submissionDate: Date
@@ -21,6 +23,7 @@ export type Offer = {
 export default [
   {
     id: '1',
+    buyer: buyers[0],
     supplier: suppliers[0],
     approved: false,
     submissionDate: new Date(Date.now() - 7 * days),
@@ -32,6 +35,7 @@ export default [
   },
   {
     id: '2',
+    buyer: buyers[0],
     supplier: suppliers[1],
     approved: false,
     submissionDate: new Date(Date.now() - 4 * days),
@@ -43,6 +47,7 @@ export default [
   },
   {
     id: '3',
+    buyer: buyers[0],
     supplier: suppliers[2],
     approved: false,
     submissionDate: new Date(Date.now() - 5 * days),

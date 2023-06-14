@@ -64,6 +64,15 @@ const sync = (socket: any) => {
   socket.emit('notifications', state.notifications)
 }
 
+const sendMyOffers = (socket: any) => {
+  const myOffers = state.offers.filter(
+    (offer) =>
+      offer.supplier.id === socket.data.user.id ||
+      offer.buyer.id === socket.data.user.id
+  )
+  socket.emit('offers', myOffers)
+}
+
 io.on('connection', (socket) => {
   console.log('a user connected')
   socket.on('reset', () => reset() && sync(io))
@@ -169,8 +178,11 @@ io.on('connection', (socket) => {
           id: offer.id,
         },
       })
+    sendMyOffers(socket)
+  })
 
-    io.emit('deals', state.deals)
+  socket.on('offers', () => {
+    sendMyOffers(socket)
   })
 
   socket.on('editOffer', (offer) => {
