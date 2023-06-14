@@ -7,7 +7,7 @@ type OfferExtended = Offer & {
   tenderRequest: any
 }
 
-const useOffers = (): [Array<Offer>, any, any, any] => {
+const useOffers = (): [Array<OfferExtended>, any, any, any] => {
   const socket = useContext(SocketContext)
   const [offers, setOffers] = useState([] as Array<OfferExtended>)
   const [tenderRequests] = useTenderRequests()

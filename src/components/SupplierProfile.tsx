@@ -49,8 +49,8 @@ const SupplierProfile = ({
               {offers.map((offer) => (
                 <Card>
                   <Card.Title
-                    title={offer.title}
-                    subtitle={offer.buyer?.name}
+                    title={offer.tenderRequest.title}
+                    subtitle={offer.tenderRequest.buyer.name}
                   ></Card.Title>
                 </Card>
               ))}
