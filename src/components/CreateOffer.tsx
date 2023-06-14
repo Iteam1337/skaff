@@ -14,6 +14,9 @@ import { View } from 'react-native'
 import CheckboxWithText from './form/CheckboxWithText'
 import TextInput from './form/TextInput'
 import useTenderRequests from '../hooks/useTenderRequests'
+import useAuth from '../hooks/useAuth'
+import uuid from 'react-native-uuid'
+import useOffers from '../hooks/useOffers'
 
 const styles = StyleSheet.create({
   container: {
@@ -58,7 +61,9 @@ const CreateOffer = ({
   const [other, setOther] = useState('')
 
   const theme = useTheme()
-  const [tenderRequests, update, add, refresh] = useTenderRequests()
+  const [tenderRequests, , , refresh] = useTenderRequests()
+  const [, , add] = useOffers()
+  const [supplier] = useAuth()
 
   const deliveryPlans = [
     { label: 'Veckovis', value: '0' },
@@ -93,30 +98,25 @@ const CreateOffer = ({
   }, [])
 
   const publish = () => {
-    console.log(
-      'selectedQualificationCriterias',
-      selectedQualificationCriterias
-    )
-    console.log('selectedOptionalCriterias', selectedOptionalCriterias)
-    console.log('price', price)
-    console.log('other', other)
-
     const offer = {
-      qualificationCriteriasMet: setSelectedOptionalCriterias,
+      qualificationCriteriasMet: selectedOptionalCriterias,
       optionalCriteriasMet: selectedOptionalCriterias,
-      price: +price,
-      other:other
+      price: {
+        SEK: +price,
+      },
+      other: other,
       tenderRequestId: tenderRequest.id,
-      // supplier: 
+      approved: false,
+      submissionDate: new Date(),
+      supplier: supplier,
+      id: uuid.v4(),
     }
 
-    //lägg till id
-    //lägg till supplier
-    //lägg till tender request id
+    console.log('offer', offer)
 
-    //spara
+    add(offer)
 
-    // navigation.navigate('ListTenderRequests')
+    navigation.navigate('ListTenderRequests')
   }
 
   return (
@@ -128,16 +128,18 @@ const CreateOffer = ({
 
           <Divider style={styles.divider} />
           <Text style={styles.text}>
-            Sista svar: {tenderRequest.lastOfferDate}
+            Sista svar: {tenderRequest.lastOfferDate?.toString().split('T')[0]}
           </Text>
           <Text style={styles.text}>
-            Tilldelning senast: {tenderRequest.lastAwardDate}
+            Tilldelning senast:{' '}
+            {tenderRequest.lastAwardDate?.toString().split('T')[0]}
           </Text>
           <Text style={styles.text}>
             Leveransplan: {tenderRequest.deliveryPlan}
           </Text>
           <Text style={styles.text}>
-            Leverans startdatum: {tenderRequest.deliveryStartDate}
+            Leverans startdatum:{' '}
+            {tenderRequest.deliveryStartDate?.toString().split('T')[0]}
           </Text>
           <Subheading style={styles.text}>Villkor</Subheading>
           <Text style={styles.text}>

@@ -12,6 +12,9 @@ export type Offer = {
   price: {
     SEK: number
   }
+  qualificationCriteriasMet: Array<string>
+  optionalCriteriasMet: Array<string>
+  other: string
 }
 
 export default [
