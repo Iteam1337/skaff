@@ -52,7 +52,7 @@ export default [
       group: 'Ostkaka',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '3075',
     },
     product: {
@@ -94,13 +94,13 @@ export default [
       group: 'Blåbär',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '2003',
     },
     product: {
       name: 'Blåbär 2.5kg',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'ST',
@@ -136,13 +136,13 @@ export default [
       group: 'Lingon',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '777',
     },
     product: {
       name: 'Lingon Färskfrysta 2.5kg',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'ST',
@@ -178,7 +178,7 @@ export default [
       group: 'Bacon',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: 'K70400',
     },
     product: {
@@ -220,13 +220,13 @@ export default [
       group: 'Fransyska',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: 'K8109',
     },
     product: {
       name: 'Fransyska Bit  Nätad',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -262,13 +262,13 @@ export default [
       group: 'Nötfärs',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1236587',
     },
     product: {
       name: 'Nötfärs 10% ref 00820082',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -304,13 +304,13 @@ export default [
       group: 'Nötkött strimlat',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '148967',
     },
     product: {
       name: 'Nötkött Strimlat',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -346,13 +346,13 @@ export default [
       group: 'Viltfärs',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1204',
     },
     product: {
       name: 'Hjortfärs 5kg SE',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -388,7 +388,7 @@ export default [
       group: 'Grillkorv',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: 'K1276',
     },
     product: {
@@ -430,7 +430,7 @@ export default [
       group: 'Kassler',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: 'K7013',
     },
     product: {
@@ -472,13 +472,13 @@ export default [
       group: 'Päron',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '17803',
     },
     product: {
       name: 'Päron Conference',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -514,13 +514,13 @@ export default [
       group: 'Äpplen',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '14790',
     },
     product: {
       name: 'Äpplen Rubinola Krav',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -556,13 +556,13 @@ export default [
       group: 'Äpplen',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '14791',
     },
     product: {
       name: 'Äpple Aroma Krav',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -598,13 +598,13 @@ export default [
       group: 'Äpplen',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '14792',
     },
     product: {
       name: 'Äpple Ingrid Marie Krav',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -640,7 +640,7 @@ export default [
       group: 'Kycklingkorv',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1500',
     },
     product: {
@@ -682,13 +682,13 @@ export default [
       group: 'Champinjoner',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '485',
     },
     product: {
       name: 'Wermlandsodlarna Champinjoner ca3kg',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -724,13 +724,13 @@ export default [
       group: 'Gulbetor',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '3088',
     },
     product: {
       name: 'Gulbetor Krav ca10kg',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'ST',
@@ -766,7 +766,7 @@ export default [
       group: 'Gulbetor',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: 'K3088',
     },
     product: {
@@ -808,13 +808,13 @@ export default [
       group: 'Kålrot',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '12008',
     },
     product: {
       name: 'Kålrötter Lv SE',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -850,13 +850,13 @@ export default [
       group: 'Kålrot',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '12460',
     },
     product: {
       name: 'Kålrot Krav',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -892,13 +892,13 @@ export default [
       group: 'Lök gul',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '12011',
     },
     product: {
       name: 'Lök Gul Lv EU ',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -934,13 +934,13 @@ export default [
       group: 'Lök gul',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '12030',
     },
     product: {
       name: 'Lök Gul SE',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -976,7 +976,7 @@ export default [
       group: 'Lök gul',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '3701',
     },
     product: {
@@ -1018,13 +1018,13 @@ export default [
       group: 'Morötter',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1580',
     },
     product: {
       name: 'Morot Krav Tv 10kg',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'ST',
@@ -1060,13 +1060,13 @@ export default [
       group: 'Morötter',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '15900',
     },
     product: {
       name: 'Morot Tv 10kg SE',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'ST',
@@ -1102,13 +1102,13 @@ export default [
       group: 'Morötter',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '159875',
     },
     product: {
       name: 'Morot Lv Tv SE',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -1144,13 +1144,13 @@ export default [
       group: 'Palsternackor',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1581',
     },
     product: {
       name: 'Palsternacka SE',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -1186,7 +1186,7 @@ export default [
       group: 'Palsternackor',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '7061',
     },
     product: {
@@ -1228,7 +1228,7 @@ export default [
       group: 'Palsternackor',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '70616',
     },
     product: {
@@ -1270,13 +1270,13 @@ export default [
       group: 'Polkabetor',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '3071',
     },
     product: {
       name: 'Polkabetor Lsv 15kg',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'ST',
@@ -1312,7 +1312,7 @@ export default [
       group: 'Polkabetor',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: 'K3071',
     },
     product: {
@@ -1354,13 +1354,13 @@ export default [
       group: 'Purjolök',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '12013',
     },
     product: {
       name: 'Purjolök Klass 1 Lv SE/EU ',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -1396,13 +1396,13 @@ export default [
       group: 'Rotselleri',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '15897',
     },
     product: {
       name: 'Rotselleri SE/EU',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -1438,13 +1438,13 @@ export default [
       group: 'Rödbetor',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '12007',
     },
     product: {
       name: 'Rödbetor SE',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -1480,13 +1480,13 @@ export default [
       group: 'Rödbetor',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1806',
     },
     product: {
       name: 'Rödbetor',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -1522,13 +1522,13 @@ export default [
       group: 'Rödbetor',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '3086',
     },
     product: {
       name: 'Rödbetor Krav ca10kg',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'ST',
@@ -1564,7 +1564,7 @@ export default [
       group: 'Rödbetor',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: 'K3086',
     },
     product: {
@@ -1606,13 +1606,13 @@ export default [
       group: 'Vitkål',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1582',
     },
     product: {
       name: 'Vitkål 10kg SE',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -1648,13 +1648,13 @@ export default [
       group: 'Vitkål',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '15820',
     },
     product: {
       name: 'Vitkål 10kg EU',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -1690,7 +1690,7 @@ export default [
       group: 'Morötter',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '310',
     },
     product: {
@@ -1732,13 +1732,13 @@ export default [
       group: 'Morötter',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '8305',
     },
     product: {
       name: 'Morot Skalad 5kg SE',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'ST',
@@ -1774,13 +1774,13 @@ export default [
       group: 'Blandfärs',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '8099',
     },
     product: {
       name: 'Blandfärs 50/50',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -1816,7 +1816,7 @@ export default [
       group: 'Fläskkarré',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1245',
     },
     product: {
@@ -1858,7 +1858,7 @@ export default [
       group: 'Fläskkotlett',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1657',
     },
     product: {
@@ -1900,13 +1900,13 @@ export default [
       group: 'Fläskkött strimlat',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1659',
     },
     product: {
       name: 'Fläskbog Strimlad',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -1942,7 +1942,7 @@ export default [
       group: 'Fläskkött tärnat',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1658',
     },
     product: {
@@ -1984,13 +1984,13 @@ export default [
       group: 'Hjortkött',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '11140',
     },
     product: {
       name: 'Hjortgrytbitar',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -2026,13 +2026,13 @@ export default [
       group: 'Nötfärs',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '8027',
     },
     product: {
       name: 'Nötfärs 10%',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -2068,13 +2068,13 @@ export default [
       group: 'Nötfärs',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '8028',
     },
     product: {
       name: 'Nötfärs max 15%',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -2110,13 +2110,13 @@ export default [
       group: 'Nötfärs',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '8077',
     },
     product: {
       name: 'Nötfärs Krav 10%',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -2152,13 +2152,13 @@ export default [
       group: 'Nötfärs',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '8078',
     },
     product: {
       name: 'Nötfärs Krav 15%',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -2194,13 +2194,13 @@ export default [
       group: 'Nötkött strimlat',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '8021',
     },
     product: {
       name: 'Nötkött Strimlat',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -2236,13 +2236,13 @@ export default [
       group: 'Nötkött strimlat',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '8071',
     },
     product: {
       name: 'Nötkött Strimlat Krav',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -2278,13 +2278,13 @@ export default [
       group: 'Nötkött tärnat',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '8020',
     },
     product: {
       name: 'Nötkött Tärnat',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -2320,13 +2320,13 @@ export default [
       group: 'Nötkött tärnat',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '8070',
     },
     product: {
       name: 'Nötkött Tärnat Krav',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'KG',
@@ -2362,7 +2362,7 @@ export default [
       group: 'Falukorv',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '14658',
     },
     product: {
@@ -2404,7 +2404,7 @@ export default [
       group: 'Falukorv',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: 'K146581',
     },
     product: {
@@ -2446,7 +2446,7 @@ export default [
       group: 'Fläskkorv',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '7008',
     },
     product: {
@@ -2488,7 +2488,7 @@ export default [
       group: 'Grillkorv',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '123985',
     },
     product: {
@@ -2530,7 +2530,7 @@ export default [
       group: 'Korv övrig',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '7006',
     },
     product: {
@@ -2572,7 +2572,7 @@ export default [
       group: 'Prinskorv',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '7055',
     },
     product: {
@@ -2614,7 +2614,7 @@ export default [
       group: 'Skinka kokt',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '80200',
     },
     product: {
@@ -2656,7 +2656,7 @@ export default [
       group: 'Varmkorv',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '80101',
     },
     product: {
@@ -2698,7 +2698,7 @@ export default [
       group: 'Filmjölk naturell lägst 2% fetthalt',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1030',
     },
     product: {
@@ -2740,7 +2740,7 @@ export default [
       group: 'Lättmjölk, högst 0,5% fetthalt',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1033',
     },
     product: {
@@ -2782,7 +2782,7 @@ export default [
       group: 'Mellanmjölk, 1,5%-1,8% fetthalt',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1032',
     },
     product: {
@@ -2824,7 +2824,7 @@ export default [
       group: 'Mellanmjölk, 1,5%-1,8% fetthalt',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1038',
     },
     product: {
@@ -2866,7 +2866,7 @@ export default [
       group: 'Mellanmjölk, 1,5%-1,8% fetthalt',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: 'EK1032',
     },
     product: {
@@ -2908,7 +2908,7 @@ export default [
       group: 'Standardmjölk, 3,0%-3,5% fetthalt',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1031',
     },
     product: {
@@ -2950,7 +2950,7 @@ export default [
       group: 'Vispgrädde',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1034',
     },
     product: {
@@ -2992,7 +2992,7 @@ export default [
       group: 'Yoghurt naturell',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1039',
     },
     product: {
@@ -3034,7 +3034,7 @@ export default [
       group: 'Yoghurt smaksatt',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1040',
     },
     product: {
@@ -3076,7 +3076,7 @@ export default [
       group: 'Ost Hårdost övrig',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '150',
     },
     product: {
@@ -3118,7 +3118,7 @@ export default [
       group: 'Potatis',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '109091',
     },
     product: {
@@ -3160,7 +3160,7 @@ export default [
       group: 'Potatis',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1819',
     },
     product: {
@@ -3202,13 +3202,13 @@ export default [
       group: 'Potatis',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '317',
     },
     product: {
       name: 'Potatis Fast Tv 10kg ',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'ST',
@@ -3244,13 +3244,13 @@ export default [
       group: 'Potatis',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '324',
     },
     product: {
       name: 'Potatis Krav Fast Tv 10kg',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'ST',
@@ -3286,13 +3286,13 @@ export default [
       group: 'Potatis',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '3240',
     },
     product: {
       name: 'Potatis Fast Krav Tv 10kg',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'ST',
@@ -3328,7 +3328,7 @@ export default [
       group: 'Potatis',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '4230',
     },
     product: {
@@ -3370,13 +3370,13 @@ export default [
       group: 'Potatis skalad',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1578',
     },
     product: {
       name: 'Potatis Skalad Fast Krav 5kg',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'ST',
@@ -3412,7 +3412,7 @@ export default [
       group: 'Potatis skalad',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '300',
     },
     product: {
@@ -3454,7 +3454,7 @@ export default [
       group: 'Potatis skalad',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '302',
     },
     product: {
@@ -3496,7 +3496,7 @@ export default [
       group: 'Potatis skalad',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '304',
     },
     product: {
@@ -3538,13 +3538,13 @@ export default [
       group: 'Potatis skivad',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1579',
     },
     product: {
       name: 'Potatis Skivad Fast Krav Vac 5kg',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'ST',
@@ -3580,7 +3580,7 @@ export default [
       group: 'Potatis strimlad',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '312',
     },
     product: {
@@ -3622,7 +3622,7 @@ export default [
       group: 'Ägg färska',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '023',
     },
     product: {
@@ -3664,7 +3664,7 @@ export default [
       group: 'Ägg färska',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1000M',
     },
     product: {
@@ -3706,7 +3706,7 @@ export default [
       group: 'Ägg färska',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '12365',
     },
     product: {
@@ -3748,7 +3748,7 @@ export default [
       group: 'Ägg färska',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '3000M',
     },
     product: {
@@ -3790,7 +3790,7 @@ export default [
       group: 'Ägg färska',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '3015M',
     },
     product: {
@@ -3832,7 +3832,7 @@ export default [
       group: 'Baljväxter övriga',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '6281',
     },
     product: {
@@ -3874,7 +3874,7 @@ export default [
       group: 'Ärter gula',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '6280',
     },
     product: {
@@ -3916,7 +3916,7 @@ export default [
       group: 'Solroskärnor',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '756',
     },
     product: {
@@ -3958,7 +3958,7 @@ export default [
       group: 'Havregryn',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '4202',
     },
     product: {
@@ -4000,7 +4000,7 @@ export default [
       group: 'Mannagryn',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1021',
     },
     product: {
@@ -4042,13 +4042,13 @@ export default [
       group: 'Rapsolja',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '100',
     },
     product: {
       name: 'Västanås Rapsolja Krav 5L',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'ST',
@@ -4084,7 +4084,7 @@ export default [
       group: 'Dinkelmjöl',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '4200',
     },
     product: {
@@ -4126,7 +4126,7 @@ export default [
       group: 'Grahamsmjöl',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '622',
     },
     product: {
@@ -4168,7 +4168,7 @@ export default [
       group: 'Grahamsmjöl',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '755',
     },
     product: {
@@ -4210,7 +4210,7 @@ export default [
       group: 'Havremjöl',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1220',
     },
     product: {
@@ -4252,13 +4252,13 @@ export default [
       group: 'Havremjöl',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1726',
     },
     product: {
       name: 'Skrädmjöl Stöpafors 1kg',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'ST',
@@ -4294,7 +4294,7 @@ export default [
       group: 'Mjölmix',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1020',
     },
     product: {
@@ -4336,7 +4336,7 @@ export default [
       group: 'Rågmjöl',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1588',
     },
     product: {
@@ -4378,7 +4378,7 @@ export default [
       group: 'Rågmjöl',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '4205',
     },
     product: {
@@ -4420,7 +4420,7 @@ export default [
       group: 'Rågmjöl',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '42051',
     },
     product: {
@@ -4462,7 +4462,7 @@ export default [
       group: 'Rågmjöl',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '66010',
     },
     product: {
@@ -4504,7 +4504,7 @@ export default [
       group: 'Rågsikt',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '4204',
     },
     product: {
@@ -4546,7 +4546,7 @@ export default [
       group: 'Rågsikt',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '750',
     },
     product: {
@@ -4588,7 +4588,7 @@ export default [
       group: 'Vetemjöl',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1584',
     },
     product: {
@@ -4630,7 +4630,7 @@ export default [
       group: 'Vetemjöl',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '1586',
     },
     product: {
@@ -4672,7 +4672,7 @@ export default [
       group: 'Vetemjöl',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '4206',
     },
     product: {
@@ -4714,7 +4714,7 @@ export default [
       group: 'Vetemjöl',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '4207',
     },
     product: {
@@ -4756,7 +4756,7 @@ export default [
       group: 'Vetemjöl',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '4208',
     },
     product: {
@@ -4798,7 +4798,7 @@ export default [
       group: 'Vetemjöl',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '506796',
     },
     product: {
@@ -4840,7 +4840,7 @@ export default [
       group: 'Vetemjöl',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '57689',
     },
     product: {
@@ -4882,7 +4882,7 @@ export default [
       group: 'Vetemjöl',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '66020',
     },
     product: {
@@ -4924,7 +4924,7 @@ export default [
       group: 'Vetemjöl',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '744',
     },
     product: {
@@ -4966,13 +4966,13 @@ export default [
       group: 'Honung',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '5445',
     },
     product: {
       name: 'Honung Värmländsk Öxnevåls Gård 4.8kg',
-      manufacturer: 'Skafferi Värmland',
-      brand: 'Skafferi Värmland',
+      manufacturer: 'Kalles AB',
+      brand: 'Kalles AB',
       content: {
         quantity: 1,
         unit: 'ST',
@@ -5008,7 +5008,7 @@ export default [
       group: 'Jordgubbssylt',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '123',
     },
     product: {
@@ -5050,7 +5050,7 @@ export default [
       group: 'Lingonsylt',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '122',
     },
     product: {
@@ -5092,7 +5092,7 @@ export default [
       group: 'Pannkakssylt',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '125',
     },
     product: {
@@ -5134,7 +5134,7 @@ export default [
       group: 'Pannkakssylt',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: '134',
     },
     product: {
@@ -5176,7 +5176,7 @@ export default [
       group: 'Öl klass 1',
     },
     supplier: {
-      name: 'Skafferi Värmland',
+      name: 'Kalles AB',
       artNo: 'D021',
     },
     product: {

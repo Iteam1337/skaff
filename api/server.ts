@@ -72,7 +72,7 @@ const sync = (socket: any) => {
   socket.emit('buyers', state.buyers)
   socket.emit('notifications', state.notifications)
   socket.emit('deals', state.deals)
-  if (socket.data.user) sendMyOffers(socket)
+  sendMyOffers(socket)
 }
 
 io.on('connection', (socket) => {
