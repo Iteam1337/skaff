@@ -8,7 +8,6 @@ import {
   Button,
   Paragraph,
   Divider,
-  List,
   Card,
 } from 'react-native-paper'
 import { ScrollView, StyleSheet, View } from 'react-native'
@@ -31,24 +30,25 @@ const TenderRequest = ({
 
   const [tenderRequests, , , refresh] = useTenderRequests()
   const [offers, updateOffer, , refreshOffers] = useOffers()
+  const [myOffers, setMyOffers] = useState(Array<Offer>)
 
   const theme = useTheme()
   const [user] = useAuth()
-
-  console.log('route.params?.id', route.params?.id)
 
   useEffect(() => {
     if (route.params?.id) {
       const tenderRequest = tenderRequests.find(
         (offer) => offer.id === route.params?.id
       )
-      console.log('tenderRequest', tenderRequest)
+
       if (tenderRequest) setTenderRequest(tenderRequest)
     }
   }, [route.params, tenderRequests])
 
   useEffect(() => {
-    console.log('offers', offers)
+    setMyOffers(
+      offers.filter((offer: Offer) => offer.tenderRequestId == tenderRequest.id)
+    )
   }, [offers])
 
   useEffect(() => {
@@ -183,43 +183,19 @@ const TenderRequest = ({
               </Container>
             )}
             {user?.type === 'buyer' && tenderRequest.buyer?.id == user?.id && (
-              <Container>
-                <Paragraph>
-                  Inskickade anbud sorteras efter lägsta pris med eventuella
-                  avdrag för uppfyllda önskemål.
-                </Paragraph>
-                <Subheading>Matchande anbud</Subheading>
-                <Card
-                //  style={styles.card}
-                //  onPress={() => navigation.navigate('TenderRequest', { id })}
-                >
-                  <Card.Title
-                    titleVariant="titleSmall"
-                    titleStyle={{
-                      fontSize: 14,
-                    }}
-                    title="Det första matchande anbudet"
-                    subtitle={'Inkom 2023-06-16'}
-                    right={(props) => (
-                      <Button
-                        icon="clipboard-check"
-                        mode="contained"
-                        uppercase={false}
-                        // onPress={() => console.log('Pressed')}
-                      >
-                        Tilldela
-                      </Button>
-                    )}
-                  />
-                </Card>
-                {offers
-                  // .filter(
-                  //   (offer: Offer) => offer.tenderRequestId == tenderRequest.id
-                  // )
-                  .map((offer, i) => (
+              <>
+                <Container>
+                  <Paragraph>
+                    Inskickade anbud sorteras efter lägsta pris med eventuella
+                    avdrag för uppfyllda önskemål.
+                  </Paragraph>
+                </Container>
+                <Container>
+                  <Subheading>Matchande anbud</Subheading>
+                  {myOffers.map((offer, i) => (
                     <Card
                       key={i}
-                      //  style={styles.card}
+                      style={styles.card}
                       //  onPress={() => navigation.navigate('TenderRequest', { id })}
                     >
                       <Card.Title
@@ -227,18 +203,62 @@ const TenderRequest = ({
                         titleStyle={{
                           fontSize: 14,
                         }}
-                        title={offer.supplier.name}
+                        title={offer.supplier?.name}
                         subtitle={
                           'Inkom ' +
                           offer.submissionDate?.toString().split('T')[0]
                         }
-                        right={(props) => <ChevronRight />}
+                        right={(props) => {
+                          if (offer.approved)
+                            return (
+                              <Container
+                                style={{
+                                  flexDirection: 'row',
+                                  display: 'flex',
+                                }}
+                              >
+                                <MaterialCommunityIcons
+                                  size={25}
+                                  name="clipboard-check"
+                                />
+                                <Text
+                                  style={{
+                                    marginLeft: 5,
+                                    marginTop: 5,
+                                  }}
+                                >
+                                  Tilldelad
+                                </Text>
+                              </Container>
+                            )
+                          else if (
+                            myOffers.filter((offer) => offer.approved).length <
+                            1
+                          )
+                            return (
+                              <Button
+                                icon="clipboard-check"
+                                mode="contained"
+                                uppercase={false}
+                                style={{ marginRight: 10 }}
+                                onPress={() => {
+                                  console.log('offer', offer)
+                                  updateOffer({ ...offer, approved: true })
+                                }}
+                              >
+                                Tilldela
+                              </Button>
+                            )
+                        }}
                       />
                     </Card>
                   ))}
-                <Divider />
-                <Subheading>Ej uppfyllda anbud</Subheading>
-              </Container>
+                </Container>
+                <Container>
+                  <Divider />
+                  <Subheading>Ej uppfyllda anbud</Subheading>
+                </Container>
+              </>
             )}
             {user?.type === 'buyer' && tenderRequest.buyer?.id != user?.id && (
               <Container>
@@ -275,6 +295,11 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     paddingTop: 5,
     paddingBottom: 5,
+    backgroundColor: 'white',
+  },
+  card: {
+    marginTop: 5,
+    marginBottom: 5,
     backgroundColor: 'white',
   },
 })
