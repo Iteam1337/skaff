@@ -27,14 +27,14 @@ const CheckboxWithText = ({
       <Checkbox
         status={checked ? 'checked' : 'unchecked'}
         onPress={() => {
-          onChange(checked)
+          onChange(!checked)
           setChecked(!checked)
         }}
         color={theme.colors.primary}
       ></Checkbox>
       <Pressable
         onPress={() => {
-          onChange(checked)
+          onChange(!checked)
           setChecked(!checked)
         }}
       >

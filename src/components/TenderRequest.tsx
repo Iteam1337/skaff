@@ -14,6 +14,7 @@ import { Tabs, TabScreen } from 'react-native-paper-tabs'
 import Chat from './Chat'
 import useTenderRequests from '../hooks/useTenderRequests'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import useAuth from '../hooks/useAuth'
 
 const TenderRequest = ({
   route,
@@ -27,14 +28,19 @@ const TenderRequest = ({
   const [tenderRequests, update, add, refresh] = useTenderRequests()
 
   const theme = useTheme()
+  const [user] = useAuth()
+
+  console.log('route.params?.id', route.params?.id)
+
   useEffect(() => {
     if (route.params?.id) {
       const tenderRequest = tenderRequests.find(
         (offer) => offer.id === route.params?.id
       )
+      console.log('tenderRequest', tenderRequest)
       if (tenderRequest) setTenderRequest(tenderRequest)
     }
-  }, [route.params])
+  }, [route.params, tenderRequests])
 
   useEffect(() => {
     refresh()
@@ -106,14 +112,14 @@ const TenderRequest = ({
             </Container>
             <Container>
               <Subheading>Krav</Subheading>
-              {tenderRequest.qualificationCriteria?.map((criteria) => (
-                <Paragraph>{criteria}</Paragraph>
+              {tenderRequest.qualificationCriteria?.map((criteria, i) => (
+                <Paragraph key={i}>{criteria}</Paragraph>
               ))}
             </Container>
             <Container>
               <Subheading>Önskemål</Subheading>
-              {tenderRequest.optionalCriteria?.map((optionalCriteria) => (
-                <Paragraph>{optionalCriteria}</Paragraph>
+              {tenderRequest.optionalCriteria?.map((optionalCriteria, i) => (
+                <Paragraph key={i}>{optionalCriteria}</Paragraph>
               ))}
             </Container>
             <Container
@@ -144,25 +150,28 @@ const TenderRequest = ({
           <Chat />
         </TabScreen>
         <TabScreen label="Anbud">
-          <Container>
-            <Paragraph>
-              För att lämna anbud måste du vara ansluten till detta DIS. För att
-              kontrollera att du är det kan du gå till xx..yy.z
-            </Paragraph>
-            <Button
-              mode="contained"
-              onPress={() =>
-                navigation.navigate('TenderRequests', {
-                  screen: 'CreateOffer',
-                  params: {
-                    id: tenderRequest.id,
-                  },
-                })
-              }
-            >
-              Lämna anbud
-            </Button>
-          </Container>
+          {user?.type === 'supplier' && (
+            <Container>
+              <Paragraph>
+                För att lämna anbud måste du vara ansluten till detta DIS. För
+                att kontrollera att du är det kan du gå till xx..yy.z
+              </Paragraph>
+              <Button
+                mode="contained"
+                onPress={() => {
+                  console.log('skapa anbud nu plz')
+                  navigation.navigate('TenderRequests', {
+                    screen: 'CreateOffer',
+                    params: {
+                      id: tenderRequest.id,
+                    },
+                  })
+                }}
+              >
+                Lämna anbud
+              </Button>
+            </Container>
+          )}
         </TabScreen>
       </Tabs>
     </>
