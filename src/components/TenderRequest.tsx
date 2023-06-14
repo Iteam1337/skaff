@@ -8,6 +8,7 @@ import {
   Button,
   Paragraph,
   Divider,
+  Card,
   List,
 } from 'react-native-paper'
 import { ScrollView, StyleSheet, View } from 'react-native'
@@ -29,9 +30,11 @@ const TenderRequest = ({
 }) => {
   const [tenderOffers, setTenderOffers] = useState([] as Offer[])
 
+  const [tenderRequests, , , refresh] = useTenderRequests()
+  const [offers, updateOffer, , refreshOffers] = useOffers()
+
   const theme = useTheme()
   const [user] = useAuth()
-  const [offers, , refreshOffers] = useOffers()
 
   const tenderRequest = route.params.tenderRequest
 
@@ -153,44 +156,113 @@ const TenderRequest = ({
         </TabScreen>
         <TabScreen label="Anbud">
           <>
-            {user?.type === 'supplier' && (
+            <>
+              {user?.type === 'supplier' && (
+                <Container>
+                  <Paragraph>
+                    För att lämna anbud måste du vara ansluten till detta DIS.
+                    För att kontrollera att du är det kan du gå till xx..yy.z
+                  </Paragraph>
+                  <Button
+                    mode="contained"
+                    onPress={() => {
+                      navigation.navigate('TenderRequests', {
+                        screen: 'CreateOffer',
+                        params: {
+                          tenderRequest,
+                        },
+                      })
+                    }}
+                  >
+                    Lämna anbud
+                  </Button>
+                </Container>
+              )}
+            </>
+            {user?.type === 'buyer' && tenderRequest.buyer?.id == user?.id && (
+              <>
+                <Container>
+                  <Paragraph>
+                    Inskickade anbud sorteras efter lägsta pris med eventuella
+                    avdrag för uppfyllda önskemål.
+                  </Paragraph>
+                </Container>
+                <Container>
+                  <Subheading>Matchande anbud</Subheading>
+                  {tenderOffers.map((offer, i) => (
+                    <Card
+                      key={i}
+                      style={styles.card}
+                      //  onPress={() => navigation.navigate('TenderRequest', { id })}
+                    >
+                      <Card.Title
+                        titleVariant="titleSmall"
+                        titleStyle={{
+                          fontSize: 14,
+                        }}
+                        title={offer.supplier?.name}
+                        subtitle={
+                          'Inkom ' +
+                          offer.submissionDate?.toString().split('T')[0]
+                        }
+                        right={(props) => {
+                          if (offer.approved)
+                            return (
+                              <Container
+                                style={{
+                                  flexDirection: 'row',
+                                  display: 'flex',
+                                }}
+                              >
+                                <MaterialCommunityIcons
+                                  size={25}
+                                  name="clipboard-check"
+                                />
+                                <Text
+                                  style={{
+                                    marginLeft: 5,
+                                    marginTop: 5,
+                                  }}
+                                >
+                                  Tilldelad
+                                </Text>
+                              </Container>
+                            )
+                          else if (
+                            tenderOffers.filter((offer) => offer.approved)
+                              .length < 1
+                          )
+                            return (
+                              <Button
+                                icon="clipboard-check"
+                                mode="contained"
+                                uppercase={false}
+                                style={{ marginRight: 10 }}
+                                onPress={() => {
+                                  console.log('offer', offer)
+                                  updateOffer({ ...offer, approved: true })
+                                }}
+                              >
+                                Tilldela
+                              </Button>
+                            )
+                        }}
+                      />
+                    </Card>
+                  ))}
+                </Container>
+                <Container>
+                  <Divider />
+                  <Subheading>Ej uppfyllda anbud</Subheading>
+                </Container>
+              </>
+            )}
+            {user?.type === 'buyer' && tenderRequest.buyer?.id != user?.id && (
               <Container>
                 <Paragraph>
-                  För att lämna anbud måste du vara ansluten till detta DIS. För
-                  att kontrollera att du är det kan du gå till xx..yy.z
+                  Som beställare kan du inte lämna anbud på andra beställares
+                  anbudsförfrågningar.
                 </Paragraph>
-                <Button
-                  mode="contained"
-                  onPress={() => {
-                    console.log('skapa anbud nu plz')
-                    navigation.navigate('TenderRequests', {
-                      screen: 'CreateOffer',
-                      params: {
-                        tenderRequest,
-                      },
-                    })
-                  }}
-                >
-                  Lämna anbud
-                </Button>
-
-                <List.Section title="Inlämnade anbud:">
-                  {tenderOffers.map((offer) => (
-                    <List.Item title={offer.buyer.name} />
-                  ))}
-                </List.Section>
-              </Container>
-            )}
-            {user?.type === 'buyer' && (
-              <Container>
-                <List.Section title="Inkomna Anbud">
-                  {tenderOffers.length === 0 && (
-                    <List.Item title="Inga inkomna anbud än" />
-                  )}
-                  {tenderOffers.map((offer) => (
-                    <List.Item title={offer.tenderRequest.title} />
-                  ))}
-                </List.Section>
               </Container>
             )}
           </>
@@ -220,6 +292,11 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     paddingTop: 5,
     paddingBottom: 5,
+    backgroundColor: 'white',
+  },
+  card: {
+    marginTop: 5,
+    marginBottom: 5,
     backgroundColor: 'white',
   },
 })
