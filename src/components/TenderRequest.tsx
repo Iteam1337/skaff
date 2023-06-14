@@ -90,7 +90,7 @@ const TenderRequest = ({
                 <Column>
                   <Caption>Första leverans</Caption>
                   <Text>
-                    {tenderRequest.deliveryStartDate.toString().split('T')[0]}
+                    {tenderRequest.deliveryStartDate?.toString().split('T')[0]}
                   </Text>
                 </Column>
               </Row>
@@ -106,13 +106,13 @@ const TenderRequest = ({
             </Container>
             <Container>
               <Subheading>Krav</Subheading>
-              {tenderRequest.qualificationCriteria.map((criteria) => (
+              {tenderRequest.qualificationCriteria?.map((criteria) => (
                 <Paragraph>{criteria}</Paragraph>
               ))}
             </Container>
             <Container>
               <Subheading>Önskemål</Subheading>
-              {tenderRequest.optionalCriteria.map((optionalCriteria) => (
+              {tenderRequest.optionalCriteria?.map((optionalCriteria) => (
                 <Paragraph>{optionalCriteria}</Paragraph>
               ))}
             </Container>
