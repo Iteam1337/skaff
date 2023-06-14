@@ -25,7 +25,7 @@ const Deals = ({ navigation }: { navigation: any }) => {
   const [user] = useAuth()
   const [activeAreas, setActiveAreas] = React.useState({})
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     refresh()
   }, [])
 
