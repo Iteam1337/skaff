@@ -48,6 +48,15 @@ const sendPushNotification = (data: any) => {
   push(data)
   state.notifications.push(data)
 }
+const sendMyOffers = (socket: any) => {
+  /*if (!socket.data.user) return console.error('no user, can not send offers')
+  const myOffers = state.offers.filter(
+    (offer) =>
+      offer.supplier?.id === socket.data.user.id ||
+      offer.buyer?.id === socket.data.user.id
+  )*/
+  socket.emit('offers', state.offers)
+}
 
 // either provide socket or io - if you provide io then it will send to all sockets
 const sync = (socket: any) => {
@@ -64,15 +73,6 @@ const sync = (socket: any) => {
   socket.emit('notifications', state.notifications)
   socket.emit('deals', state.deals)
   if (socket.data.user) sendMyOffers(socket)
-}
-
-const sendMyOffers = (socket: any) => {
-  const myOffers = state.offers.filter(
-    (offer) =>
-      offer.supplier.id === socket.data.user.id ||
-      offer.buyer.id === socket.data.user.id
-  )
-  socket.emit('offers', myOffers)
 }
 
 io.on('connection', (socket) => {
