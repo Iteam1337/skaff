@@ -5,6 +5,7 @@ import path from 'path'
 
 import buyers from '../src/data/buyers'
 import deals from '../src/data/deals'
+import offers from '../src/data/offers'
 import tenderRequests from '../src/data/tenderRequests'
 import suppliers from '../src/data/suppliers'
 import { categories } from '../src/data/categories'
@@ -24,6 +25,7 @@ const state = {
   buyers: [...buyers], // make copy of arrays
   suppliers: [...suppliers],
   deals: [...deals],
+  offers: [...offers],
   tenderRequests: [...tenderRequests],
   categories: { ...categories },
 }
@@ -133,10 +135,33 @@ io.on('connection', (socket) => {
     io.emit('deals', state.deals)
   })
 
-  socket.on('editDeal', (deal) => {
-    const index = state.deals.findIndex((d) => d.id === deal.id)
-    state.deals[index] = deal
+  // OFFERS
+  socket.on('addOffer', (offer) => {
+    state.offers.push(offer)
+    console.log('addOffer', offer)
+    const tenderRequest = state.tenderRequests.find(
+      (tr) => tr.id === offer.tenderRequestId
+    )
+    // TODO: only send if the offer is submitted
+    const token = tenderRequest?.buyer?.token
+    if (token)
+      sendPushNotification({
+        to: [token],
+        title: 'Nytt anbud i Skaff',
+        body: `Anbud på ${tenderRequest.title} från ${offer.supplier.name}`,
+        data: {
+          type: 'offer',
+          id: offer.id,
+        },
+      })
+
     io.emit('deals', state.deals)
+  })
+
+  socket.on('editOffer', (offer) => {
+    const index = state.offers.findIndex((d) => d.id === offer.id)
+    state.offers[index] = offer
+    io.emit('offers', state.offers)
   })
 
   // TENDER REQUESTS

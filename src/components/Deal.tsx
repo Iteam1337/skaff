@@ -99,7 +99,7 @@ const Deal = ({ route, navigation }) => {
               </Row>
             </Container>
 
-            <DataTable backgroundColor="#fff">
+            <DataTable>
               <DataTable.Header>
                 <DataTable.Title>Miljömärkning</DataTable.Title>
                 <DataTable.Title>Godkänd</DataTable.Title>
