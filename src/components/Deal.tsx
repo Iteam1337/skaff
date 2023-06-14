@@ -18,7 +18,7 @@ import deals from '../data/deals'
 import categories, { certifications } from '../data/categories'
 
 const Header = ({ product, supplier, price }) => (
-  <View style={styles.container}>
+  <View style={{ ...styles.container, backgroundColor: '#fff' }}>
     <Headline>{product.name}</Headline>
     <Subheading>{supplier.name}</Subheading>
     <Subheading style={{ fontWeight: 'bold' }}>
@@ -184,7 +184,7 @@ const Container = ({ children }) => (
 export default Deal
 
 const styles = StyleSheet.create({
-  container: { padding: 16, backgroundColor: 'white' },
+  container: { padding: 16 },
   actionContainer: {
     flexDirection: 'row',
     display: 'flex',

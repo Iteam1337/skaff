@@ -9,7 +9,7 @@ import offers from '../src/data/offers'
 import tenderRequests from '../src/data/tenderRequests'
 import suppliers from '../src/data/suppliers'
 import { categories } from '../src/data/categories'
-import { sendPushNotification } from './notifications'
+import { sendPushNotification as push } from './notifications'
 const port = process.env.PORT || 3000
 const app = express()
 const server = createServer(app)
@@ -21,14 +21,17 @@ server.listen(port, () => {
   console.log(`listening on *:${port}`)
 })
 
-const state = {
-  buyers: [...buyers], // make copy of arrays
-  suppliers: [...suppliers],
-  deals: [...deals],
-  offers: [...offers],
-  tenderRequests: [...tenderRequests],
-  categories: { ...categories },
+type State = {
+  buyers: typeof buyers
+  suppliers: typeof suppliers
+  deals: typeof deals
+  offers: typeof offers
+  tenderRequests: typeof tenderRequests
+  categories: typeof categories
+  notifications: any[]
 }
+
+const state = {} as State
 
 const reset = () =>
   Object.assign(state, {
@@ -37,7 +40,13 @@ const reset = () =>
     deals: [...deals],
     tenderRequests: [...tenderRequests],
     categories: { ...categories },
+    notifications: [],
   })
+
+const sendPushNotification = (data: any) => {
+  push(data)
+  state.notifications.push(data)
+}
 
 // either provide socket or io - if you provide io then it will send to all sockets
 const sync = (socket: any) => {
@@ -51,6 +60,7 @@ const sync = (socket: any) => {
   socket.emit('tenderRequests', state.tenderRequests)
   socket.emit('suppliers', state.suppliers)
   socket.emit('buyers', state.buyers)
+  socket.emit('notifications', state.notifications)
 }
 
 io.on('connection', (socket) => {
@@ -76,6 +86,7 @@ io.on('connection', (socket) => {
         io.emit('buyers', state.buyers)
         socket.emit('user', buyer)
         console.log('buyer', buyer)
+        socket.data.user = buyer
 
         break
       case 'supplier':
@@ -87,6 +98,7 @@ io.on('connection', (socket) => {
         io.emit('suppliers', state.suppliers)
         socket.emit('user', supplier)
         console.log('supplier', supplier)
+        socket.data.user = supplier
         break
     }
   })
@@ -128,6 +140,7 @@ io.on('connection', (socket) => {
         }`,
         data: {
           type: 'deal',
+          to: state.buyers.map(({ id }) => id),
           id: deal.id,
         },
       })
@@ -151,6 +164,7 @@ io.on('connection', (socket) => {
         body: `Anbud på ${tenderRequest.title} från ${offer.supplier.name}`,
         data: {
           type: 'offer',
+          to: [tenderRequest.buyer.id],
           id: offer.id,
         },
       })
@@ -177,6 +191,7 @@ io.on('connection', (socket) => {
         body: `${tenderRequest.title} från ${tenderRequest.buyer.name}`,
         data: {
           type: 'tenderRequest',
+          to: state.suppliers.map(({ id }) => id),
           id: tenderRequest.id,
         },
       })
@@ -189,6 +204,15 @@ io.on('connection', (socket) => {
     state.tenderRequests[index] = tenderRequest
     io.emit('tenderRequests', state.tenderRequests)
   })
+
+  // NOTIFICATIONS
+
+  socket.on('notifications', () =>
+    socket.emit(
+      'notifications',
+      state.notifications.filter((n) => n.data.to.includes(socket.data.user.id))
+    )
+  )
 })
 
 reset()
