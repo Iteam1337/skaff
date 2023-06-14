@@ -62,6 +62,8 @@ const sync = (socket: any) => {
   socket.emit('suppliers', state.suppliers)
   socket.emit('buyers', state.buyers)
   socket.emit('notifications', state.notifications)
+  socket.emit('deals', state.deals)
+  if (socket.data.user) sendMyOffers(socket)
 }
 
 const sendMyOffers = (socket: any) => {
