@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useLayoutEffect } from 'react'
 import { Button } from 'react-native-paper'
 import TextInput from './form/TextInput'
 import DateTimeInput from './form/DateTimeInput'
@@ -58,13 +58,6 @@ const CreateTenderRequest = ({
     }
   }, [route.params])
 
-  useEffect(() => {
-    // publish button in header:
-    navigation.setOptions({
-      headerRight: () => <Button onPress={publish}>Publicera</Button>,
-    })
-  }, [])
-
   const getSelectedOptions = (
     selectedOptions: string,
     options: Array<{ label: string; value: string }>
@@ -76,26 +69,33 @@ const CreateTenderRequest = ({
       })
       .filter((criteria: string | undefined) => criteria)
   }
-  const publish = () => {
-    const tenderRequest = {
-      title,
-      volume: +volume,
-      lastOfferDate,
-      lastAwardDate,
-      buyer,
-      deliveryStartDate,
-      deliveryPlan: getSelectedOptions(deliveryPlan, deliveryPlans).pop(),
-      volumePerDelivery: volumePerDelivery,
-      optionalCriteria: getSelectedOptions(optionalCriteria, criterias),
-      qualificationCriteria: getSelectedOptions(
-        qualificationCriteria,
-        criterias
-      ),
-      terms,
-      grading,
-      id: uuid.v4(), //TODO:move to backend
-    }
 
+  const tenderRequest = {
+    title,
+    volume: +volume,
+    lastOfferDate,
+    lastAwardDate,
+    buyer,
+    deliveryStartDate,
+    deliveryPlan: getSelectedOptions(deliveryPlan, deliveryPlans).pop(),
+    volumePerDelivery: volumePerDelivery,
+    optionalCriteria: getSelectedOptions(optionalCriteria, criterias),
+    qualificationCriteria: getSelectedOptions(qualificationCriteria, criterias),
+    terms,
+    grading,
+    id: uuid.v4(), //TODO:move to backend
+  }
+
+  useLayoutEffect(() => {
+    // publish button in header:
+    navigation.setOptions({
+      headerRight: () => (
+        <Button onPress={() => publish(tenderRequest)}>Publicera</Button>
+      ),
+    })
+  }, [tenderRequest])
+
+  const publish = (tenderRequest: any) => {
     add(tenderRequest)
 
     navigation.navigate('ListTenderRequests')
