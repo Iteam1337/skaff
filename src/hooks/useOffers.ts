@@ -7,12 +7,13 @@ const useOffers = (): [Array<Offer>, any, any, any] => {
   const [offers, setOffers] = useState([] as Array<Offer>)
 
   useEffect(() => {
-    socket.on('offers', (offers: Array<Offer>) => {
+    const receive = (offers: Array<Offer>) => {
       setOffers(offers)
-    })
+    }
+    socket.on('offers', receive)
 
     return () => {
-      socket.off('offers')
+      socket.off('offers', receive)
     }
   }, [socket])
 
@@ -24,7 +25,8 @@ const useOffers = (): [Array<Offer>, any, any, any] => {
     socket.emit('addOffer', offer)
   }
 
-  const refresh = () => socket.emit('offers')
+  const refresh = () =>
+    socket.emit('offers', (offers: Array<Offer>) => setOffers(offers))
 
   return [offers, editOffer, addOffer, refresh]
 }

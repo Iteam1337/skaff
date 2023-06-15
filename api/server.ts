@@ -47,6 +47,7 @@ const reset = () =>
 const sendPushNotification = (data: any) => {
   push(data)
   state.notifications.push(data)
+  io.emit('notifications', state.notifications)
 }
 const sendMyOffers = (socket: any) => {
   /*if (!socket.data.user) return console.error('no user, can not send offers')
@@ -77,16 +78,14 @@ const sync = (socket: any) => {
 
 io.on('connection', (socket) => {
   console.log('a user connected')
-  socket.on('reset', () => reset() && sync(io))
+  socket.on('reset', () => process.exit(0))
 
-  socket.on('deals', () => socket.emit('deals', state.deals))
-  socket.on('buyers', () => socket.emit('buyers', state.buyers))
-  socket.on('tenderRequests', () =>
-    socket.emit('tenderRequests', state.tenderRequests)
-  )
+  socket.on('deals', (respond) => respond(state.deals))
+  socket.on('buyers', (respond) => respond(state.buyers))
+  socket.on('tenderRequests', (respond) => respond(state.tenderRequests))
 
   // USERS
-  socket.on('login', ({ user, token }) => {
+  socket.on('login', ({ user, token }, respond) => {
     console.log('login', user.type, user.name, token)
     switch (user.type) {
       case 'buyer':
@@ -96,8 +95,8 @@ io.on('connection', (socket) => {
         buyer.online = true
         buyer.lastOnline = new Date()
         io.emit('buyers', state.buyers)
-        socket.emit('user', buyer)
         socket.data.user = buyer
+        respond(buyer)
 
         break
       case 'supplier':
@@ -107,8 +106,8 @@ io.on('connection', (socket) => {
         supplier.online = true
         supplier.lastOnline = new Date()
         io.emit('suppliers', state.suppliers)
-        socket.emit('user', supplier)
         socket.data.user = supplier
+        respond(supplier)
         break
     }
   })
@@ -149,6 +148,7 @@ io.on('connection', (socket) => {
           deal.supplier.name
         }`,
         data: {
+          date: new Date(),
           type: 'deal',
           to: state.buyers.map(({ id }) => id),
           id: deal.id,
@@ -174,6 +174,7 @@ io.on('connection', (socket) => {
         title: 'Nytt anbud i Skaff',
         body: `Anbud på ${tenderRequest.title} från ${offer.supplier.name}`,
         data: {
+          date: new Date(),
           type: 'offer',
           to: [tenderRequest.buyer.id],
           id: offer.id,
@@ -182,8 +183,8 @@ io.on('connection', (socket) => {
     sendMyOffers(socket)
   })
 
-  socket.on('offers', () => {
-    sendMyOffers(socket)
+  socket.on('offers', (respond) => {
+    respond(state.offers)
   })
 
   socket.on('editOffer', (offer) => {
@@ -204,6 +205,7 @@ io.on('connection', (socket) => {
         title: 'Ny förfrågan i Skaff',
         body: `${tenderRequest.title} från ${tenderRequest.buyer.name}`,
         data: {
+          date: new Date(),
           type: 'tenderRequest',
           to: state.suppliers.map(({ id }) => id),
           id: tenderRequest.id,
@@ -221,12 +223,19 @@ io.on('connection', (socket) => {
 
   // NOTIFICATIONS
 
-  socket.on('notifications', () =>
-    socket.emit(
-      'notifications',
-      state.notifications.filter((n) => n.data.to.includes(socket.data.user.id))
+  socket.on('notifications', (respond) =>
+    respond(
+      state.notifications.filter(
+        (n) => !socket.data.user || n.data.to.includes(socket.data.user.id)
+      )
     )
   )
+
+  // SUPPLIERS
+  socket.on('suppliers', (respond) => respond(state.suppliers))
+
+  // BUYERS
+  socket.on('buyers', (respond) => respond(state.buyers))
 })
 
 reset()

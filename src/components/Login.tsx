@@ -1,18 +1,26 @@
 import { useEffect, useState } from 'react'
 import { View, Text, SafeAreaView, StyleSheet, ScrollView } from 'react-native'
 import { Avatar, Title, Button, Subheading } from 'react-native-paper'
-import suppliers from '../data/suppliers'
-import buyers from '../data/buyers'
-import { saveAuthenticatedUser } from '../../lib/authStorage'
 import { registerForPushNotificationsAsync } from '../../lib/notifications'
 import useAuth from '../hooks/useAuth'
+import useBuyers from '../hooks/useBuyers'
+import useSuppliers from '../hooks/useSuppliers'
+import { useAuthContext } from '../context/authContext'
 
 const Login = ({ onLogin }: { onLogin: any }) => {
-  const [user, login, , reset] = useAuth()
+  const [user, login, logout, reset] = useAuth()
   const [resetting, setResetting] = useState(false)
+  const [buyers, , , loadBuyers] = useBuyers()
+  const [suppliers, , , loadSuppliers] = useSuppliers()
 
   useEffect(() => {
-    user.type && onLogin(user)
+    loadBuyers()
+    loadSuppliers()
+  }, [])
+
+  useEffect(() => {
+    console.log('user', user)
+    user?.type && user.online && onLogin(user)
   }, [user])
 
   return (
@@ -21,9 +29,9 @@ const Login = ({ onLogin }: { onLogin: any }) => {
       <ScrollView contentContainerStyle={styles.scrollView}>
         <View>
           <Subheading style={styles.subheading}>Producent</Subheading>
-          {suppliers.map((supplier) => {
+          {suppliers.map((supplier, i) => {
             return (
-              <View style={styles.searchResult} key={supplier.id}>
+              <View style={styles.searchResult} key={i}>
                 <Avatar.Image
                   size={30}
                   style={styles.avatar}
@@ -38,7 +46,7 @@ const Login = ({ onLogin }: { onLogin: any }) => {
                     login(supplier, token)
                   }}
                 >
-                  {supplier.name} {supplier.online && '🟢'}
+                  {supplier.name} {supplier.online && ' 🥕'}
                 </Text>
               </View>
             )
@@ -46,9 +54,9 @@ const Login = ({ onLogin }: { onLogin: any }) => {
           <Subheading style={{ ...styles.subheading, marginTop: 30 }}>
             Beställare
           </Subheading>
-          {buyers.map((buyer) => {
+          {buyers.map((buyer, i) => {
             return (
-              <View style={styles.searchResult} key={buyer.id}>
+              <View style={styles.searchResult} key={i}>
                 <Avatar.Image
                   size={30}
                   style={styles.avatar}
@@ -63,7 +71,7 @@ const Login = ({ onLogin }: { onLogin: any }) => {
                     login(buyer, token)
                   }}
                 >
-                  {buyer.name} {buyer.online && '🟢'}
+                  {buyer.name} {buyer.online && ' 🥕'}
                 </Text>
               </View>
             )
@@ -72,7 +80,7 @@ const Login = ({ onLogin }: { onLogin: any }) => {
         <Button
           onPress={() =>
             (reset() && setResetting(true)) ||
-            setTimeout(() => setResetting(false), 1000)
+            setTimeout(() => setResetting(false), 10000)
           }
         >
           {(resetting && 'Återställer...') || 'Återställ demo'}

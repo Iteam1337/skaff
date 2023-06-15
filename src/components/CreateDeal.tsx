@@ -7,6 +7,7 @@ import DropDownList from './form/DropDownList'
 import DateTimeInput from './form/DateTimeInput'
 import useDeals from '../hooks/useDeals'
 import useAuth from '../hooks/useAuth'
+import { useAuthContext } from '../context/authContext'
 
 const styles = StyleSheet.create({
   actionContainer: {
@@ -35,16 +36,7 @@ const CreateDeal = ({ route, navigation }: { route: any; navigation: any }) => {
   ]
 
   const [, , add] = useDeals()
-  const [user] = useAuth()
-
-  // useEffect(() => {
-  //   const deal = deals.find((offer) => offer.id === id)
-  //   if (deal) {
-  //     setTitle(deal?.product?.name)
-  //     setPrice(deal?.price.SEK.toString())
-  //     setVolume(deal?.price.kilos.toString())
-  //   }
-  // }, [id])
+  const { user } = useAuthContext()
 
   const getSelectedOptions = (
     selectedOptions: string,
@@ -58,34 +50,44 @@ const CreateDeal = ({ route, navigation }: { route: any; navigation: any }) => {
       .filter((criteria: string | undefined) => criteria)
   }
 
+  const deal = {
+    product: {
+      name: title,
+      price: +price,
+    },
+    volume: +volume,
+    supplier: user,
+    constraint: getSelectedOptions(constraint, constraints).pop(),
+    date,
+    endDate,
+    other,
+    description,
+    commodity: {
+      area: 'Other',
+      mainGroup: 'Other',
+      group: 'Other',
+    },
+  }
+
+  // useEffect(() => {
+  //   const deal = deals.find((offer) => offer.id === id)
+  //   if (deal) {
+  //     setTitle(deal?.product?.name)
+  //     setPrice(deal?.price.SEK.toString())
+  //     setVolume(deal?.price.kilos.toString())
+  //   }
+  // }, [id])
+
   useEffect(() => {
     // publish button in header:
     navigation.setOptions({
-      headerRight: () => <Button onPress={publish}>Publicera</Button>,
+      headerRight: () => (
+        <Button onPress={() => publish(deal)}>Publicera</Button>
+      ),
     })
   }, [])
 
-  const publish = () => {
-    const deal = {
-      product: {
-        name: title,
-        price: +price,
-      },
-      volume: +volume,
-      supplier: user,
-      constraint: getSelectedOptions(constraint, constraints).pop(),
-      date,
-      endDate,
-      other,
-      description,
-      commodity: {
-        area: 'Other',
-        mainGroup: 'Other',
-        group: 'Other',
-      },
-    }
-    console.log('deal', deal)
-
+  const publish = (deal: any) => {
     add(deal)
 
     navigation.navigate('ListDeals')

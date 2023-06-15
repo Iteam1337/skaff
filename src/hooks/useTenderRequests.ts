@@ -9,12 +9,11 @@ const useTenderRequests = (): [Array<TenderRequest>, any, any, any] => {
   )
 
   useEffect(() => {
-    socket.on('tenderRequests', (arr: Array<TenderRequest>) =>
-      setTenderRequests(arr)
-    )
+    const receive = (arr: Array<TenderRequest>) => setTenderRequests(arr)
+    socket.on('tenderRequests', receive)
 
     return () => {
-      socket.off('tenderRequests')
+      socket.off('tenderRequests', receive)
     }
   }, [socket])
 
@@ -26,7 +25,10 @@ const useTenderRequests = (): [Array<TenderRequest>, any, any, any] => {
     socket.emit('addTenderRequest', tenderRequest)
   }
 
-  const refresh = () => socket.emit('tenderRequests')
+  const refresh = () =>
+    socket.emit('tenderRequests', (tenderRequests: TenderRequest[]) =>
+      setTenderRequests(tenderRequests)
+    )
 
   return [tenderRequests, editTenderRequest, addTenderRequest, refresh]
 }
