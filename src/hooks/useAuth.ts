@@ -1,41 +1,39 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useCallback } from 'react'
 import { SocketContext } from '../context/socketContext'
 import { User } from '../data/user'
-import { AuthContext } from '../context/authContext'
-import { set } from 'react-native-reanimated'
+import { useAuthContext } from '../context/authContext'
 
-type fn = (user: User, token?: string) => User
+type fn = (user: User, token?: string) => void
 
-const useAuth = (): [user: User, login: fn, logout: fn, reset: any] => {
+const useAuth = (): [user: User | null, login: fn, logout: fn, reset: any] => {
   const socket = useContext(SocketContext)
-  const auth = useContext(AuthContext) as { user: User }
-  const [user, setUser] = useState(auth.user)
+  const { user, setUser } = useAuthContext()
 
-  useEffect(() => {
-    socket.on('user', (user: User) => {
-      console.log('got user from socket', user)
-      auth.user = user
-      setUser(user)
-    })
-  }, [socket])
+  const login = useCallback(
+    (user: User, token?: string) => {
+      socket.emit('login', { user, token }, (user: User) => {
+        console.log('got user from socket', user)
+        setUser(user)
+      })
+    },
+    [socket, setUser]
+  )
 
-  const login = (user: User, token?: string) => {
-    socket.emit('login', { user, token })
-    return user
-  }
+  const logout = useCallback(
+    (user: User) => {
+      console.log('logout', user)
+      socket.emit('logout', { user }, (user: User) => {
+        console.log('got user from socket', user)
+        setUser(user)
+      })
+    },
+    [socket, setUser]
+  )
 
-  const logout = (user: User) => {
-    console.log('logout', user)
-    socket.emit('logout', { user })
-    auth.user = {} as User
-    setUser(auth.user)
-    return user
-  }
-
-  const reset = () => {
+  const reset = useCallback(() => {
     socket.emit('reset')
     return true
-  }
+  }, [socket])
 
   return [user, login, logout, reset]
 }

@@ -3,8 +3,6 @@ import { StyleSheet, SafeAreaView, View } from 'react-native'
 import { Tabs, TabScreen } from 'react-native-paper-tabs'
 import { ScrollView } from 'react-native-gesture-handler'
 import Buyer from './Buyer'
-import { getAuthenticatedUser } from '../../lib/authStorage'
-import { useState } from 'react'
 
 import useAuth from '../hooks/useAuth'
 
@@ -18,6 +16,7 @@ const BuyerProfile = ({
   const theme = useTheme()
   const [buyer, , logout] = useAuth()
 
+  console.log('buyer profile', buyer)
   return (
     <>
       <Tabs

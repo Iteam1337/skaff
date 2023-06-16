@@ -10,6 +10,7 @@ import { expo } from './app.json'
 import App from './src/App'
 import { StatusBar } from 'expo-status-bar'
 import IphoneDummy from './src/components/IphoneDummy'
+import useNotifications from './src/hooks/useNotifications'
 
 const fontConfig = {
   web: {
@@ -93,6 +94,20 @@ const theme = {
 }
 
 export default function Main() {
+  /*
+  const [notification, setNotification] = React.useState({} as Notification)
+
+  React.useEffect(() => {
+    const lastNotification = notifications.at(-1)
+    if (
+      lastNotification &&
+      new Date(lastNotification?.data.date).valueOf() > Date.now() - 10000
+    ) {
+      setNotificationVisible(true)
+      setNotification(lastNotification)
+    }
+  }, [notifications])*/
+
   return (
     <PaperProvider theme={theme}>
       {Platform.OS === 'web' ? (

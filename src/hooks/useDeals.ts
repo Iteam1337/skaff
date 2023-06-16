@@ -7,12 +7,13 @@ const useDeals = (): [Array<Deal>, any, any, any] => {
   const [deals, setDeals] = useState([] as Array<Deal>)
 
   useEffect(() => {
-    socket.on('deals', (deals: Array<Deal>) => {
+    const receive = (deals: Array<Deal>) => {
       setDeals(deals)
-    })
+    }
+    socket.on('deals', receive)
 
     return () => {
-      socket.off('deals')
+      socket.off('deals', receive)
     }
   }, [socket])
 
@@ -24,7 +25,8 @@ const useDeals = (): [Array<Deal>, any, any, any] => {
     socket.emit('addDeal', deal)
   }
 
-  const refresh = () => socket.emit('deals')
+  const refresh = () =>
+    socket.emit('deals', (deals: Array<Deal>) => setDeals(deals))
 
   return [deals, editDeal, addDeal, refresh]
 }

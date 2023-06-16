@@ -24,7 +24,7 @@ export async function sendPushNotification({
 
   console.log('sending notifications', message)
 
-  await fetch('https://exp.host/--/api/v2/push/send', {
+  const result = await fetch('https://exp.host/--/api/v2/push/send', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -32,6 +32,7 @@ export async function sendPushNotification({
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(message),
-  })
-  console.log('sent', to.length, 'notifications')
+  }).then((res) => (res.ok ? res.json() : res.text()))
+
+  console.log('sent', to.length, 'notifications', result)
 }
