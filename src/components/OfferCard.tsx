@@ -7,6 +7,7 @@ import { User } from '../data/user'
 const OfferCard = ({
   offer,
   navigation,
+  user,
 }: {
   offer: Offer
   navigation: any
