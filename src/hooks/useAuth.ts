@@ -5,7 +5,13 @@ import { useAuthContext } from '../context/authContext'
 
 type fn = (user: User, token?: string) => void
 
-const useAuth = (): [user: User | null, login: fn, logout: fn, reset: any] => {
+const useAuth = (): {
+  user: User | null
+  login: fn
+  logout: fn
+  save: fn
+  reset: any
+} => {
   const socket = useContext(SocketContext)
   const { user, setUser } = useAuthContext()
 
@@ -30,12 +36,23 @@ const useAuth = (): [user: User | null, login: fn, logout: fn, reset: any] => {
     [socket, setUser]
   )
 
+  const save = useCallback(
+    (user: User) => {
+      console.log('save', user)
+      socket.emit('editUser', user, (user: User) => {
+        console.log('got updated user from socket', user)
+        setUser(user)
+      })
+    },
+    [socket, setUser]
+  )
+
   const reset = useCallback(() => {
     socket.emit('reset')
     return true
   }, [socket])
 
-  return [user, login, logout, reset]
+  return { user, login, logout, save, reset }
 }
 
 export default useAuth

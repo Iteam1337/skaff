@@ -54,7 +54,7 @@ const CreateOffer = ({
   const [selectedOptionalCriterias, setSelectedOptionalCriterias] = useState(
     Array<string>
   )
-  const [supplier] = useAuth()
+  const { user: supplier } = useAuth()
   const [, , add, refreshOffers] = useOffers()
   const [price, setPrice] = useState('')
   const [other, setOther] = useState('')

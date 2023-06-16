@@ -8,7 +8,7 @@ import useSuppliers from '../hooks/useSuppliers'
 import { useAuthContext } from '../context/authContext'
 
 const Login = ({ onLogin }: { onLogin: any }) => {
-  const [user, login, logout, reset] = useAuth()
+  const { user, login, reset } = useAuth()
   const [resetting, setResetting] = useState(false)
   const [buyers, , , loadBuyers] = useBuyers()
   const [suppliers, , , loadSuppliers] = useSuppliers()
@@ -25,9 +25,9 @@ const Login = ({ onLogin }: { onLogin: any }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Title style={styles.title}>Välj användare att testa med</Title>
       <ScrollView contentContainerStyle={styles.scrollView}>
         <View>
+          <Title style={styles.title}>Välj användare att testa med</Title>
           <Subheading style={styles.subheading}>Producent</Subheading>
           {suppliers.map((supplier, i) => {
             return (

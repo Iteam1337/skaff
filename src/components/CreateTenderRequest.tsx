@@ -33,7 +33,7 @@ const CreateTenderRequest = ({
   )
   const [, , add] = useTenderRequests()
 
-  const [buyer] = useAuth()
+  const { user: buyer } = useAuth()
 
   const deliveryPlans = [
     { label: 'Veckovis', value: '0' },

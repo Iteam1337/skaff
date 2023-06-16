@@ -10,7 +10,7 @@ const TendersAndContracts = ({
   navigation: NavigationProp<ParamListBase>
 }) => {
   const [expanded, setExpanded] = React.useState(true)
-  const [user, , logout] = useAuth()
+  const { user, logout } = useAuth()
 
   const handlePress = () => setExpanded(!expanded)
 

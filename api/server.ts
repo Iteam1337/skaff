@@ -143,6 +143,32 @@ io.on('connection', (socket) => {
     }
   })
 
+  socket.on('editUser', (user, respond) => {
+    console.log('editUser', user)
+
+    // don't overwrite values set by server
+    delete user.token
+    delete user.onlin
+    delete user.lastOnline
+
+    switch (user.type) {
+      case 'buyer':
+        const buyer = state.buyers.find((b) => b.id === user.id)
+        if (!buyer) return
+        Object.assign(buyer, user)
+        respond(buyer)
+        io.emit('buyers', state.buyers)
+        break
+      case 'supplier':
+        const supplier = state.suppliers.find((s) => s.id === user.id)
+        if (!supplier) return
+        Object.assign(supplier, user)
+        io.emit('suppliers', state.suppliers)
+        respond(supplier)
+        break
+    }
+  })
+
   // DEALS
   socket.on('addDeal', (deal) => {
     state.deals.push(deal)

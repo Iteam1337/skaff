@@ -41,11 +41,20 @@ const TenderRequest = ({
 
   const [tenderRequests, , , refresh] = useTenderRequests()
   const [offers, updateOffer, , refreshOffers] = useOffers()
-  const [tenderRequest, setTenderRequest] = useState(
-    route.params.tenderRequest as TenderRequestType
-  )
+  const [tenderRequest, setTenderRequest] = useState<
+    TenderRequestType | undefined
+  >(route.params.tenderRequest as TenderRequestType)
   const theme = useTheme()
-  const [user] = useAuth()
+  const { user } = useAuth()
+
+  useEffect(() => {
+    setTenderRequest(
+      tenderRequests.find(({ id }) => id === route.params.tenderRequestId)
+    )
+  }, [route.params.tenderRequestId])
+
+  if (!tenderRequest)
+    return <Text>Loading... {route.params.tenderRequestId}</Text>
 
   useEffect(() => {
     if (tenderRequest.id) {

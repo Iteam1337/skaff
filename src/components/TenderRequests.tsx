@@ -18,7 +18,7 @@ const TenderRequests = ({ navigation }: { navigation: any }) => {
   const [searchQuery, setSearchQuery] = useState('')
   const [open, setOpen] = useState(true)
 
-  const [user] = useAuth()
+  const { user } = useAuth()
 
   const [tenderRequests, update, add, refresh] = useTenderRequests()
 

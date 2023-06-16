@@ -14,6 +14,7 @@ import { Tabs, TabScreen } from 'react-native-paper-tabs'
 import Chat from './Chat'
 import deals from '../data/deals'
 import { certifications } from '../data/categories'
+import useAuth from '../hooks/useAuth'
 
 const Header = ({ product, supplier, price }) => (
   <View style={{ ...styles.container, ...styles.header }}>
@@ -27,8 +28,10 @@ const Header = ({ product, supplier, price }) => (
 
 const Deal = ({ route, navigation }) => {
   const { id } = route.params
+  const [favorite, setFavorite] = React.useState(false)
   const deal = deals.find((deal) => deal.id === id)
   if (!deal) return navigation.back()
+  const { user } = useAuth()
 
   const theme = useTheme()
 
@@ -42,6 +45,22 @@ const Deal = ({ route, navigation }) => {
       deal.commodity.area.toLocaleLowerCase()
     )
   }
+
+  const toggleFavorite = function (deal: any, on: boolean = !favorite) {
+    console.log('favorite', deal)
+  }
+
+  React.useLayoutEffect(() => {
+    // publish button in header:
+    navigation.setOptions({
+      headerRight: () => (
+        <Button
+          icon={favorite ? 'star' : 'star-outline'}
+          onPress={() => toggleFavorite(deal, !favorite)}
+        ></Button>
+      ),
+    })
+  }, [deal, favorite])
 
   return (
     <>

@@ -16,6 +16,7 @@ import Buyer from './Buyer'
 import useAuth from '../hooks/useAuth'
 import { useEffect, useState } from 'react'
 import useTenderRequests from '../hooks/useTenderRequests'
+import TenderRequestCard from './TenderRequestCard'
 
 const BuyerProfile = ({
   route,
@@ -25,7 +26,7 @@ const BuyerProfile = ({
   navigation: any
 }) => {
   const theme = useTheme()
-  const [buyer, , logout] = useAuth()
+  const { user: buyer, logout } = useAuth()
   const [tenderRequests, , , refreshTenderRequests] = useTenderRequests()
   const [showTenderRequests, setShowTenderRequests] = useState(true)
   const [showDeals, setShowDeals] = useState(true)
@@ -67,32 +68,11 @@ const BuyerProfile = ({
                 ></Card.Title>
               )) || <List.Subheader>Publicerade</List.Subheader>}
               {myTenderRequests.map((tenderRequest) => (
-                <>
-                  <Card
-                    style={styles.card}
-                    onPress={() =>
-                      navigation.navigate('TenderRequests', {
-                        screen: 'TenderRequest',
-                        params: {
-                          tenderRequest,
-                        },
-                      })
-                    }
-                  >
-                    <Card.Title
-                      title={tenderRequest.title}
-                      titleVariant="titleSmall"
-                      titleStyle={{
-                        fontSize: 14,
-                      }}
-                      subtitle={
-                        'Tilldelningsdatum: ' +
-                        tenderRequest.lastAwardDate?.toString().split('T')[0]
-                      }
-                      right={(props) => <Button icon="chevron-right" />}
-                    ></Card.Title>
-                  </Card>
-                </>
+                <TenderRequestCard
+                  key={tenderRequest.id}
+                  tenderRequest={tenderRequest}
+                  navigation={navigation}
+                />
               ))}
             </List.Accordion>
             <Divider />

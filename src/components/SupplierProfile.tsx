@@ -5,6 +5,7 @@ import Supplier from './Supplier'
 import { useEffect, useState } from 'react'
 import useAuth from '../hooks/useAuth'
 import useOffers from '../hooks/useOffers'
+import OfferCard from './OfferCard'
 
 const SupplierProfile = ({
   route,
@@ -15,7 +16,7 @@ const SupplierProfile = ({
 }) => {
   const theme = useTheme()
   const [showOffers, setShowOffers] = useState(true)
-  const [supplier, , logout] = useAuth()
+  const { user: supplier, logout } = useAuth()
   const [offers, , , refreshOffers] = useOffers()
 
   useEffect(() => {
@@ -24,6 +25,10 @@ const SupplierProfile = ({
       navigation.setOptions({ title: supplier.name })
     }
   }, [supplier])
+
+  useEffect(() => {
+    refreshOffers()
+  }, [])
 
   return (
     <>
@@ -47,12 +52,11 @@ const SupplierProfile = ({
                 ></Card.Title>
               )}
               {offers.map((offer) => (
-                <Card>
-                  <Card.Title
-                    title={offer.price.SEK}
-                    subtitle={offer.buyer.name}
-                  ></Card.Title>
-                </Card>
+                <OfferCard
+                  key={offer.id}
+                  offer={offer}
+                  navigation={navigation}
+                />
               ))}
 
               <List.Subheader>Utkast</List.Subheader>

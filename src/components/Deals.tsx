@@ -22,7 +22,7 @@ const Deals = ({ navigation }: { navigation: any }) => {
   const [filteredDeals, setFilteredDeals] = React.useState(new Array<Deal>())
 
   const [deals, , , refresh] = useDeals()
-  const [user] = useAuth()
+  const { user } = useAuth()
   const [activeAreas, setActiveAreas] = React.useState({})
 
   React.useLayoutEffect(() => {
