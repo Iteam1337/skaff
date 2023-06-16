@@ -15,6 +15,7 @@ import buyers from '../data/buyers'
 
 const Explore = ({ navigation }: { navigation: any }) => {
   const [searchQuery, setSearchQuery] = React.useState('')
+  const theme = useTheme()
   const filteredSuppliers = suppliers.filter((supplier) =>
     supplier.name.toLowerCase().includes(searchQuery.toLowerCase())
   )
@@ -22,61 +23,65 @@ const Explore = ({ navigation }: { navigation: any }) => {
     buyer.name.toLowerCase().includes(searchQuery.toLowerCase())
   )
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
+    <SafeAreaView>
+      <ScrollView>
         <Searchbar
           placeholder="Sök producent/beställare"
           onChangeText={setSearchQuery}
           value={searchQuery}
           style={styles.searchbar}
         />
-        <Subheading style={styles.header}>Producenter</Subheading>
-        {filteredSuppliers.map((supplier) => {
-          return (
-            <View style={styles.searchResult} key={supplier.id}>
-              <Avatar.Image
-                size={30}
-                style={styles.avatar}
-                source={{ uri: `https://skaff-api.iteam.pub${supplier.image}` }}
+        <View style={styles.container}>
+          <Subheading style={styles.header}>Producenter</Subheading>
+          {filteredSuppliers.map((supplier, i) => {
+            return (
+              <View style={styles.searchResult} key={i}>
+                <Avatar.Image
+                  size={30}
+                  style={styles.avatar}
+                  source={{
+                    uri: `https://skaff-api.iteam.pub${supplier.image}`,
+                  }}
+                />
+                <Text
+                  style={styles.searchResultName}
+                  onPress={() => navigation.navigate('Supplier', { supplier })}
+                >
+                  {supplier.name}
+                </Text>
+              </View>
+            )
+          })}
+          <View style={styles.linkContainer}>
+            <Button uppercase={false}>
+              Ansök om att bli ansluten{' '}
+              <MaterialCommunityIcons
+                name="open-in-new"
+                color="black"
+                size={20}
               />
-              <Text
-                style={styles.searchResultName}
-                onPress={() => navigation.navigate('Supplier', { supplier })}
-              >
-                {supplier.name}
-              </Text>
-            </View>
-          )
-        })}
-        <View style={styles.linkContainer}>
-          <Button uppercase={false}>
-            Ansök om att bli ansluten{' '}
-            <MaterialCommunityIcons
-              name="open-in-new"
-              color="black"
-              size={20}
-            />
-          </Button>
+            </Button>
+          </View>
+          <Divider />
+          <Subheading style={styles.header}>Beställare</Subheading>
+          {filteredBuyers.map((buyer) => {
+            return (
+              <View style={styles.searchResult} key={buyer.id}>
+                <Avatar.Image
+                  size={30}
+                  style={styles.avatar}
+                  source={{ uri: `https://skaff-api.iteam.pub${buyer.image}` }}
+                />
+                <Text
+                  style={styles.searchResultName}
+                  onPress={() => navigation.navigate('Buyer', { buyer })}
+                >
+                  {buyer.name}
+                </Text>
+              </View>
+            )
+          })}
         </View>
-        <Divider />
-        <Subheading style={styles.header}>Beställare</Subheading>
-        {filteredBuyers.map((buyer) => {
-          return (
-            <View style={styles.searchResult} key={buyer.id}>
-              <Avatar.Image
-                size={30}
-                style={styles.avatar}
-                source={{ uri: `https://skaff-api.iteam.pub${buyer.image}` }}
-              />
-              <Text
-                style={styles.searchResultName}
-                onPress={() => navigation.navigate('Buyer', { buyer })}
-              >
-                {buyer.name}
-              </Text>
-            </View>
-          )
-        })}
       </ScrollView>
     </SafeAreaView>
   )
@@ -85,13 +90,8 @@ const Explore = ({ navigation }: { navigation: any }) => {
 export default Explore
 
 const styles = StyleSheet.create({
-  scrollView: {
-    padding: 10,
-    backgroundColor: 'white',
-  },
   container: {
-    backgroundColor: 'white',
-    height: '100%',
+    padding: 10,
   },
   title: {
     fontWeight: 'bold',
@@ -99,9 +99,8 @@ const styles = StyleSheet.create({
   },
   searchbar: {
     backgroundColor: 'white',
-    borderColor: 'black',
-    borderWidth: 1,
     elevation: false,
+    marginBottom: 16,
   },
   header: {
     marginTop: 20,

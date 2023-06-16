@@ -8,17 +8,15 @@ import {
   DataTable,
   Checkbox,
   Button,
-  Paragraph,
-  Card,
 } from 'react-native-paper'
 import { ScrollView, StyleSheet, View } from 'react-native'
 import { Tabs, TabScreen } from 'react-native-paper-tabs'
 import Chat from './Chat'
 import deals from '../data/deals'
-import categories, { certifications } from '../data/categories'
+import { certifications } from '../data/categories'
 
 const Header = ({ product, supplier, price }) => (
-  <View style={{ ...styles.container, backgroundColor: '#fff' }}>
+  <View style={{ ...styles.container, ...styles.header }}>
     <Headline>{product.name}</Headline>
     <Subheading>{supplier.name}</Subheading>
     <Subheading style={{ fontWeight: 'bold' }}>
@@ -54,7 +52,7 @@ const Deal = ({ route, navigation }) => {
         // showTextLabel={false} // true/false | default=false (KEEP PROVIDING LABEL WE USE IT AS KEY INTERNALLY + SCREEN READERS)
         // iconPosition // leading, top | default=leading
         style={{
-          backgroundColor: '#fff',
+          backgroundColor: theme.colors.surface,
         }} // works the same as AppBar in react-native-paper
         dark={false} // works the same as AppBar in react-native-paper
         theme={theme} // works the same as AppBar in react-native-paper
@@ -185,6 +183,7 @@ export default Deal
 
 const styles = StyleSheet.create({
   container: { padding: 16 },
+  header: {},
   actionContainer: {
     flexDirection: 'row',
     display: 'flex',

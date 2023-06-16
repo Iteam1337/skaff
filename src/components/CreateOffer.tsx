@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useLayoutEffect } from 'react'
 import {
   Button,
   Divider,
@@ -87,6 +87,13 @@ const CreateOffer = ({
   useEffect(() => {
     refreshOffers()
   }, [tenderRequest])
+
+  useLayoutEffect(() => {
+    // publish button in header:
+    navigation.setOptions({
+      headerRight: () => <Button onPress={() => publish(offer)}>Skicka</Button>,
+    })
+  }, [offer])
 
   const publish = (offer: Offer) => {
     if (!tenderRequest.id) return console.error('no tenderRequest.id')

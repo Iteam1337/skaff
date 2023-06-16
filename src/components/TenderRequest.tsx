@@ -10,6 +10,7 @@ import {
   Divider,
   Card,
   List,
+  Avatar,
 } from 'react-native-paper'
 import { ScrollView, StyleSheet, View } from 'react-native'
 import { Tabs, TabScreen } from 'react-native-paper-tabs'
@@ -20,6 +21,14 @@ import useAuth from '../hooks/useAuth'
 import { TenderRequest as TenderRequestType } from '../data/tenderRequests'
 import useOffers from '../hooks/useOffers'
 import { Offer } from '../data/offers'
+
+const ChevronRight = () => (
+  <MaterialCommunityIcons
+    size={25}
+    style={{ marginRight: 20 }}
+    name="chevron-right"
+  />
+)
 
 const TenderRequest = ({
   route,
@@ -32,11 +41,11 @@ const TenderRequest = ({
 
   const [tenderRequests, , , refresh] = useTenderRequests()
   const [offers, updateOffer, , refreshOffers] = useOffers()
-
+  const [tenderRequest, setTenderRequest] = useState(
+    route.params.tenderRequest as TenderRequestType
+  )
   const theme = useTheme()
   const [user] = useAuth()
-
-  const tenderRequest = route.params.tenderRequest
 
   useEffect(() => {
     if (tenderRequest.id) {
@@ -44,8 +53,17 @@ const TenderRequest = ({
         ({ tenderRequestId }) => tenderRequestId === tenderRequest.id
       )
       setTenderOffers(offersForTenderRequest)
+
+      const tenderRequestFromState = tenderRequests.find(
+        ({ id }) => id === tenderRequest.id
+      )
+      if (tenderRequestFromState) {
+        setTenderRequest(tenderRequestFromState)
+      }
     }
   }, [tenderRequest, offers])
+
+  const myOffers = tenderOffers.filter((to) => to.supplier.id === user?.id)
 
   useEffect(() => {
     refreshOffers()
@@ -53,7 +71,7 @@ const TenderRequest = ({
 
   return (
     <>
-      <View style={{ ...styles.container, marginTop: 20 }}>
+      <View style={{ ...styles.container, ...styles.header }}>
         <Headline>{tenderRequest.title}</Headline>
         <Subheading>{tenderRequest.buyer?.name}</Subheading>
       </View>
@@ -73,7 +91,7 @@ const TenderRequest = ({
         // disableSwipe={false} // (default=false) disable swipe to left/right gestures
       >
         <TabScreen label="Förfrågan">
-          <ScrollView style={{ backgroundColor: '#ffffff' }}>
+          <ScrollView>
             <Container>
               <Row>
                 <Column>
@@ -159,23 +177,65 @@ const TenderRequest = ({
             <>
               {user?.type === 'supplier' && (
                 <Container>
-                  <Paragraph>
-                    För att lämna anbud måste du vara ansluten till detta DIS.
-                    För att kontrollera att du är det kan du gå till xx..yy.z
-                  </Paragraph>
-                  <Button
-                    mode="contained"
-                    onPress={() => {
-                      navigation.navigate('TenderRequests', {
-                        screen: 'CreateOffer',
-                        params: {
-                          tenderRequest,
-                        },
-                      })
-                    }}
-                  >
-                    Lämna anbud
-                  </Button>
+                  {!myOffers.length && (
+                    <>
+                      <Paragraph>
+                        För att lämna anbud måste du vara ansluten till detta
+                        DIS. För att kontrollera att du är det kan du gå till
+                        xx..yy.z
+                      </Paragraph>
+                      <Button
+                        mode="contained"
+                        onPress={() => {
+                          navigation.navigate('TenderRequests', {
+                            screen: 'CreateOffer',
+                            params: {
+                              tenderRequest,
+                            },
+                          })
+                        }}
+                      >
+                        Lämna anbud
+                      </Button>
+                    </>
+                  )}
+                  <List.Section>
+                    <List.Subheader>Dina skickade anbud</List.Subheader>
+                    {myOffers.map((offer, i) => (
+                      <Card
+                        key={i}
+                        style={styles.card}
+                        onPress={() => {
+                          console.log('pressed', offer)
+                          navigation.navigate('Supplier', {
+                            supplier: offer.supplier,
+                          })
+                        }}
+                      >
+                        <Card.Title
+                          titleVariant="titleSmall"
+                          titleStyle={{
+                            fontSize: 14,
+                          }}
+                          left={(props) => (
+                            <MaterialCommunityIcons
+                              name="file-document-outline"
+                              color="black"
+                              size={24}
+                            />
+                          )}
+                          title={offer.price.SEK + ' kr'}
+                          subtitle={
+                            'Inlämnad ' +
+                            offer.submissionDate?.toString().split('T')[0] +
+                            '. ' +
+                            (offer.approved ? 'Vunnen' : 'Ej godkänt')
+                          }
+                          right={(props) => <ChevronRight />}
+                        />
+                      </Card>
+                    ))}
+                  </List.Section>
                 </Container>
               )}
             </>
@@ -287,12 +347,12 @@ const Container = ({ children, style }: { children: any; style?: any }) => (
 export default TenderRequest
 
 const styles = StyleSheet.create({
+  header: {},
   container: {
     paddingLeft: 20,
     paddingRight: 20,
-    paddingTop: 5,
+    paddingTop: 20,
     paddingBottom: 5,
-    backgroundColor: 'white',
   },
   card: {
     marginTop: 5,
