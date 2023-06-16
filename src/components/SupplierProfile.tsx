@@ -29,7 +29,7 @@ const SupplierProfile = ({
     <>
       <Tabs
         uppercase={false}
-        style={{ backgroundColor: theme.colors.surface }}
+        style={{ backgroundColor: '#D8F5E3' }}
         theme={theme}
       >
         <TabScreen label="Aktuellt">
@@ -63,7 +63,6 @@ const SupplierProfile = ({
                 ></Card.Title>
               </Card>
               <List.Subheader>Favoriter</List.Subheader>
-              <List.Subheader>Tidigare besökta</List.Subheader>
             </List.Accordion>
             <Divider />
             <List.Accordion title="Erbjudanden">

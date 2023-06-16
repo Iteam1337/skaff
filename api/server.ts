@@ -110,6 +110,14 @@ io.on('connection', (socket) => {
         respond(supplier)
         break
     }
+    socket.once('disconnect', () => {
+      if (!socket.data.user) return
+      console.log('disconnect', socket.data.user.name)
+      socket.data.user.online = false
+      socket.data.user.lastOnline = new Date()
+      io.emit('suppliers', state.suppliers)
+      io.emit('buyers', state.buyers)
+    })
   })
 
   socket.on('logout', ({ user }) => {

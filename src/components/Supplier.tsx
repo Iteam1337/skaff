@@ -70,7 +70,6 @@ export default Supplier
 const styles = StyleSheet.create({
   scrollView: {
     padding: 10,
-    backgroundColor: 'white',
   },
   headerContainer: {
     width: '100%',

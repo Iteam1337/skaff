@@ -5,6 +5,8 @@
 
 import buyers, { Buyer } from './buyers'
 
+const days = 24 * 60 * 60 * 1000
+
 export type TenderRequest = {
   id: string
   title: string
@@ -26,16 +28,19 @@ export default [
   {
     id: '1',
     title: 'Ägg 100kg',
+    lastAwardDate: new Date() + 10 * days,
     buyer: buyers[0],
   },
   {
     id: '2',
     title: 'Lammkött 100kg',
+    lastAwardDate: new Date() + 14 * days,
     buyer: buyers[1],
   },
   {
     id: '3',
     title: 'Tomater 100kg',
+    lastAwardDate: new Date() + 3 * days,
     buyer: buyers[3],
   },
 ] as TenderRequest[]

@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import { Caption } from 'react-native-paper'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const messages = [
   {
@@ -45,34 +46,39 @@ const Chat = () => {
     setInputText('') // Rensa svarsfältet efter att ha skickat meddelandet
   }
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      {messages.map((message, i) => (
-        <View key={message.id}>
-          <View
-            style={[
-              styles.messageContainer,
-              message.type === 'question' ? styles.question : styles.answer,
-            ]}
-          >
-            <Text style={styles.messageText}>{message.text}</Text>
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView contentContainerStyle={styles.container}>
+        {messages.map((message, i) => (
+          <View key={message.id}>
+            <View
+              style={[
+                styles.messageContainer,
+                message.type === 'question' ? styles.question : styles.answer,
+              ]}
+            >
+              <Text style={styles.messageText}>{message.text}</Text>
+            </View>
+            {i === messages.length - 1 && (
+              <Caption style={styles.messageMetadata}>{message.date}</Caption>
+            )}
           </View>
-          {i === messages.length - 1 && (
-            <Caption style={styles.messageMetadata}>{message.date}</Caption>
-          )}
+        ))}
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            value={inputText}
+            onChangeText={setInputText}
+            placeholder="Skriv din fråga här..."
+          />
+          <TouchableOpacity
+            onPress={handleSendMessage}
+            style={styles.sendButton}
+          >
+            <Text style={styles.sendButtonText}>Skicka</Text>
+          </TouchableOpacity>
         </View>
-      ))}
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          value={inputText}
-          onChangeText={setInputText}
-          placeholder="Skriv din fråga här..."
-        />
-        <TouchableOpacity onPress={handleSendMessage} style={styles.sendButton}>
-          <Text style={styles.sendButtonText}>Skicka</Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 

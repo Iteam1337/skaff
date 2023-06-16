@@ -102,7 +102,7 @@ const CreateOffer = ({
 
     add(offer)
 
-    navigation.navigate('TenderRequest', { tenderRequest: tenderRequest })
+    navigation.navigate('TenderRequest', { tenderRequest })
   }
 
   return (

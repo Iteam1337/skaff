@@ -52,16 +52,18 @@ const Explore = ({ navigation }: { navigation: any }) => {
               </View>
             )
           })}
-          <View style={styles.linkContainer}>
-            <Button uppercase={false}>
-              Ansök om att bli ansluten{' '}
-              <MaterialCommunityIcons
-                name="open-in-new"
-                color="black"
-                size={20}
-              />
-            </Button>
-          </View>
+          {searchQuery.length === 0 && (
+            <View style={styles.linkContainer}>
+              <Button uppercase={false}>
+                Ansök om att bli ansluten{' '}
+                <MaterialCommunityIcons
+                  name="open-in-new"
+                  color="black"
+                  size={20}
+                />
+              </Button>
+            </View>
+          )}
           <Divider />
           <Subheading style={styles.header}>Beställare</Subheading>
           {filteredBuyers.map((buyer) => {
