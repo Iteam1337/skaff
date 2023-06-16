@@ -69,6 +69,7 @@ const BuyerProfile = ({
               )) || <List.Subheader>Publicerade</List.Subheader>}
               {myTenderRequests.map((tenderRequest) => (
                 <TenderRequestCard
+                  user={buyer}
                   key={tenderRequest.id}
                   tenderRequest={tenderRequest}
                   navigation={navigation}

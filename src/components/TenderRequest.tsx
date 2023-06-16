@@ -47,12 +47,10 @@ const TenderRequest = ({
   const theme = useTheme()
   const { user } = useAuth()
 
-  useEffect(() => {
+  if (route.params.tenderRequestId)
     setTenderRequest(
       tenderRequests.find(({ id }) => id === route.params.tenderRequestId)
     )
-  }, [route.params.tenderRequestId])
-
   if (!tenderRequest)
     return <Text>Loading... {route.params.tenderRequestId}</Text>
 
@@ -72,7 +70,10 @@ const TenderRequest = ({
     }
   }, [tenderRequest, offers])
 
-  const myOffers = tenderOffers.filter((to) => to.supplier.id === user?.id)
+  const myOffers = tenderOffers.filter(
+    (to) =>
+      to.supplier.id === user?.id && to.tenderRequestId === tenderRequest.id
+  )
 
   useEffect(() => {
     refreshOffers()

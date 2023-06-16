@@ -104,7 +104,7 @@ const CreateDeal = ({ route, navigation }: { route: any; navigation: any }) => {
         />
         <TextInput
           keyboardType="numeric"
-          label="Volym"
+          label="Volym eller vikt (kg/liter)"
           value={volume}
           placeholder="t ex 10kg eller 5 liter"
           onChange={(text) => setVolume(text)}

@@ -6,11 +6,12 @@ import useAuth from '../hooks/useAuth'
 const TenderRequestCard = ({
   tenderRequest,
   navigation,
+  user,
 }: {
   tenderRequest: TenderRequest
   navigation: any
+  user: ReturnType<typeof useAuth>['user']
 }) => {
-  const { user } = useAuth()
   const isBuyer = user?.type === 'buyer'
   const isSupplier = user?.type === 'supplier'
 

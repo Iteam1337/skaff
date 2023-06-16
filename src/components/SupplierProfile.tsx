@@ -19,6 +19,7 @@ const SupplierProfile = ({
   const { user: supplier, logout } = useAuth()
   const [offers, , , refreshOffers] = useOffers()
 
+  if (!supplier) return null
   useEffect(() => {
     if (supplier) {
       navigation.header = 'Profil'
@@ -53,6 +54,7 @@ const SupplierProfile = ({
               )}
               {offers.map((offer) => (
                 <OfferCard
+                  user={supplier}
                   key={offer.id}
                   offer={offer}
                   navigation={navigation}
@@ -69,7 +71,7 @@ const SupplierProfile = ({
               <List.Subheader>Favoriter</List.Subheader>
             </List.Accordion>
             <Divider />
-            <List.Accordion title="Erbjudanden">
+            <List.Accordion title="Erbjudanden" expanded={true}>
               <List.Subheader>Publicerade</List.Subheader>
               <Card>
                 <Card.Title
