@@ -51,6 +51,7 @@ const TenderRequest = ({
     setTenderRequest(
       tenderRequests.find(({ id }) => id === route.params.tenderRequestId)
     )
+
   if (!tenderRequest)
     return <Text>Loading... {route.params.tenderRequestId}</Text>
 

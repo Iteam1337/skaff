@@ -19,14 +19,15 @@ const OfferCard = ({
   return (
     <Card
       style={styles.card}
-      onPress={() =>
+      /*  this causes endless loop
+        onPress={() =>
         navigation.navigate('TenderRequests', {
           screen: 'TenderRequest',
           params: {
             tenderRequestId: offer.tenderRequestId,
           },
         })
-      }
+      }*/
     >
       <Card.Title
         title={offer.price.SEK + ' kr' + ' - ' + offer.buyer.name}
