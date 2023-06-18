@@ -4,11 +4,7 @@ import { StyleSheet, SafeAreaView } from 'react-native'
 import { NavigationProp, ParamListBase } from '@react-navigation/native'
 import useAuth from '../hooks/useAuth'
 
-const TendersAndContracts = ({
-  navigation,
-}: {
-  navigation: NavigationProp<ParamListBase>
-}) => {
+const TendersAndContracts = ({ navigation }: any) => {
   const [expanded, setExpanded] = React.useState(true)
   const { user, logout } = useAuth()
 
@@ -51,7 +47,10 @@ const TendersAndContracts = ({
         <List.Accordion title="Mitt Konto" expanded={true}>
           <Button
             mode="contained"
-            onPress={() => navigation.navigate('Login') || logout(user)}
+            onPress={() => {
+              navigation.popToTop()
+              if (user) logout(user)
+            }}
           >
             Logga ut
           </Button>
