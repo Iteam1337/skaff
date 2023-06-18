@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "foodMarket",
-    "slug": "foodMarket",
+    "slug": "foodmarket",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -28,14 +28,15 @@
     },
     "extra": {
       "eas": {
-        "projectId": "a0349030-9b90-466e-90fc-e9c6ddc6e7b9"
+        "projectId": "f0004062-4c19-4cf2-bd6d-e9def8a2e1a0"
       }
     },
     "runtimeVersion": {
       "policy": "sdkVersion"
     },
     "updates": {
-      "url": "https://u.expo.dev/a0349030-9b90-466e-90fc-e9c6ddc6e7b9"
-    }
+      "url": "https://u.expo.dev/f0004062-4c19-4cf2-bd6d-e9def8a2e1a0"
+    },
+    "owner": "iteam"
   }
 }
