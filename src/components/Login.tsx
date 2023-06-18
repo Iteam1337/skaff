@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { View, Text, SafeAreaView, StyleSheet, ScrollView } from 'react-native'
 import { Avatar, Title, Button, Subheading } from 'react-native-paper'
 import { registerForPushNotificationsAsync } from '../../lib/notifications'
@@ -6,12 +6,15 @@ import useAuth from '../hooks/useAuth'
 import useBuyers from '../hooks/useBuyers'
 import useSuppliers from '../hooks/useSuppliers'
 import { useAuthContext } from '../context/authContext'
+import { SocketContext } from '../context/socketContext'
 
 const Login = ({ onLogin }: { onLogin: any }) => {
   const { user, login, reset } = useAuth()
   const [resetting, setResetting] = useState(false)
   const [buyers, , , loadBuyers] = useBuyers()
   const [suppliers, , , loadSuppliers] = useSuppliers()
+
+  const socket = useContext(SocketContext)
 
   useEffect(() => {
     loadBuyers()
@@ -83,7 +86,9 @@ const Login = ({ onLogin }: { onLogin: any }) => {
             setTimeout(() => setResetting(false), 10000)
           }
         >
-          {(resetting && 'Återställer...') || 'Återställ demo'}
+          {socket.connected
+            ? (resetting && 'Återställer...') || 'Återställ demo'
+            : 'Server offline'}
         </Button>
       </ScrollView>
     </SafeAreaView>

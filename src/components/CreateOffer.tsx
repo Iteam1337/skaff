@@ -9,7 +9,7 @@ import {
   useTheme,
 } from 'react-native-paper'
 import { ScrollView } from 'react-native-gesture-handler'
-import { SafeAreaView, StyleSheet } from 'react-native'
+import { KeyboardAvoidingView, SafeAreaView, StyleSheet } from 'react-native'
 import { View } from 'react-native'
 import CheckboxWithText from './form/CheckboxWithText'
 import TextInput from './form/TextInput'
@@ -107,7 +107,7 @@ const CreateOffer = ({
 
   return (
     <SafeAreaView>
-      <ScrollView>
+      <KeyboardAvoidingView>
         <View style={styles.container}>
           <Headline>{tenderRequest.title}</Headline>
           <Text style={styles.text}>{tenderRequest.volume} kg</Text>
@@ -292,7 +292,7 @@ const CreateOffer = ({
         values={criterias}
         multiSelect={true}
       ></DropDownList> */}
-      </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   )
 }
