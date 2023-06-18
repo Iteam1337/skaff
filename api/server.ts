@@ -13,7 +13,12 @@ import { sendPushNotification as push } from './notifications'
 const port = process.env.PORT || 3000
 const app = express()
 const server = createServer(app)
-const io = new Server(server)
+const io = new Server(server, {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST'],
+  },
+})
 
 app.use('/assets', express.static(path.join(__dirname, '../assets')))
 

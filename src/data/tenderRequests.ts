@@ -28,19 +28,19 @@ export default [
   {
     id: '1',
     title: 'Ägg 100kg',
-    lastAwardDate: new Date() + 10 * days,
+    lastAwardDate: new Date(Date.now() + 10 * days),
     buyer: buyers[0],
   },
   {
     id: '2',
     title: 'Lammkött 100kg',
-    lastAwardDate: new Date() + 14 * days,
+    lastAwardDate: new Date(Date.now() + 14 * days),
     buyer: buyers[1],
   },
   {
     id: '3',
     title: 'Tomater 100kg',
-    lastAwardDate: new Date() + 3 * days,
+    lastAwardDate: new Date(Date.now() + 3 * days),
     buyer: buyers[3],
   },
 ] as TenderRequest[]
