@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
   },
   surface: {
     backgroundColor: '#FFFFFF',
-    elevation: 0,
   },
 })
 

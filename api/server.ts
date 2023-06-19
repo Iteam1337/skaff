@@ -85,7 +85,7 @@ const sync = (socket: any) => {
 
 io.on('connection', (socket) => {
   console.log('a user connected')
-  socket.on('reset', () => process.exit(0))
+  socket.on('reset', () => reset())
 
   socket.on('deals', (respond) => respond(state.deals))
   socket.on('buyers', (respond) => respond(state.buyers))

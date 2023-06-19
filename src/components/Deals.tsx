@@ -116,7 +116,6 @@ export default Deals
 const styles = StyleSheet.create({
   searchbar: {
     backgroundColor: 'white',
-    elevation: false,
     marginBottom: 16,
   },
   fab: {

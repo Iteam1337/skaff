@@ -90,11 +90,19 @@ const SupplierProfileNavigation = () => {
       <Stack.Navigator>
         <Stack.Screen
           name="SupplierProfile"
-          options={{
-            title: 'Wermlands Mejeri',
-          }}
+          options={({ navigation }) => ({
+            title: 'Producent',
+            headerRight: () => (
+              <IconButton
+                icon="bell"
+                size={18}
+                onPress={() => navigation.navigate('Notifications')}
+              />
+            ),
+          })}
           component={SupplierProfile}
         />
+        <Stack.Screen name="Notifications" component={Notifications} />
       </Stack.Navigator>
     </>
   )
@@ -111,6 +119,13 @@ const SupplierNavigation = () => {
       theme={theme}
       initialRouteName="TenderRequests"
     >
+      <Tab.Screen
+        name="Notifications"
+        component={Notifications}
+        options={{
+          title: 'Notiser',
+        }}
+      />
       <Tab.Screen
         name="TenderRequests"
         component={TenderRequestsNavigation}

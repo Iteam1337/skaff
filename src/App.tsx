@@ -16,8 +16,6 @@ export default function App() {
         <SafeAreaProvider>
           <NavigationContainer theme={theme}>
             <Navigation />
-            <StatusBar style="light" />
-            <NotificationSnackbar />
           </NavigationContainer>
         </SafeAreaProvider>
       </SocketProvider>

@@ -40,15 +40,6 @@ const Navigation = () => {
         }}
         children={() => BuyerNavigation()}
       />
-      <RootStack.Group screenOptions={{ presentation: 'modal' }}>
-        <RootStack.Screen
-          name="Notifications"
-          component={Notifications}
-          options={{
-            title: 'Notiser',
-          }}
-        />
-      </RootStack.Group>
     </RootStack.Navigator>
   )
 }

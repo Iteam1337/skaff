@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react'
 import { Button } from 'react-native-paper'
 
-import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native'
+import {
+  KeyboardAvoidingView,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native'
 import TextInput from './form/TextInput'
 import DropDownList from './form/DropDownList'
 import DateTimeInput from './form/DateTimeInput'
@@ -113,7 +119,7 @@ const CreateDeal = ({ route, navigation }: { route: any; navigation: any }) => {
 
   return (
     <SafeAreaView>
-      <ScrollView>
+      <KeyboardAvoidingView>
         <TextInput
           label="Namn på vara"
           value={title}
@@ -194,7 +200,7 @@ const CreateDeal = ({ route, navigation }: { route: any; navigation: any }) => {
             Rensa utkast
           </Button>
         </View>
-      </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   )
 }

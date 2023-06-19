@@ -10,10 +10,13 @@ import { IconButton, useTheme } from 'react-native-paper'
 import BuyerProfile from './components/BuyerProfile'
 import BottomNavigationIcon from './components/BottomNavigationIcon'
 import CreateTenderRequest from './components/CreateTenderRequest'
+import Notifications from './components/Notifications'
+import { useNavigation } from '@react-navigation/native'
 
 const Stack = createStackNavigator()
 
 const TenderRequestsNavigation = () => {
+  const navigation = useNavigation()
   return (
     <>
       <Stack.Navigator>
@@ -68,6 +71,7 @@ const DealsNavigation = () => {
           }}
           component={Deal}
         />
+        <Stack.Screen name="Notifications" component={Notifications} />
       </Stack.Navigator>
     </>
   )
@@ -80,11 +84,19 @@ const BuyerProfileNavigation = () => {
       <Stack.Navigator>
         <Stack.Screen
           name="BuyerProfile"
-          options={{
+          options={({ navigation }) => ({
             title: 'Kvarnbergsskolan',
-          }}
+            headerRight: () => (
+              <IconButton
+                icon="bell"
+                size={18}
+                onPress={() => navigation.navigate('Notifications')}
+              />
+            ),
+          })}
           component={BuyerProfile}
         />
+        <Stack.Screen name="Notifications" component={Notifications} />
       </Stack.Navigator>
     </>
   )
@@ -100,6 +112,13 @@ const BuyerNavigation = () => {
       theme={theme}
       initialRouteName="Deals"
     >
+      <Tab.Screen
+        name="Notifications"
+        component={Notifications}
+        options={{
+          title: 'Notiser',
+        }}
+      />
       <Tab.Screen
         name="Deals"
         component={DealsNavigation}
