@@ -8,11 +8,11 @@ Detta är den blivande prototypen av matmarknaden byggd på dynamiskt inköpssys
 
 Ladda ner appen Expo Go och scanna därefter följande QR-koder:
 
-![image](https://github.com/Iteam1337/foodMarket/assets/395843/c4603d13-6f12-425c-8f42-2bfca059de26)
+![image](https://github.com/Iteam1337/skaff/assets/395843/c4603d13-6f12-425c-8f42-2bfca059de26)
 
 Iphone
 
-![image](https://github.com/Iteam1337/foodMarket/assets/395843/0c164b7b-af4d-4539-9b73-f8fd6445ae7a)
+![image](https://github.com/Iteam1337/skaff/assets/395843/0c164b7b-af4d-4539-9b73-f8fd6445ae7a)
 
 Android
 
@@ -20,8 +20,8 @@ Android
 
 Så här kommer du igång:
 
-    git clone https://github.com/iteam1337/foodMarket
-    cd foodMarket
+    git clone https://github.com/iteam1337/skaff
+    cd skaff
 
     npm install
     npm run ios
