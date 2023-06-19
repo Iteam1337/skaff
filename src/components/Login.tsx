@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useLayoutEffect, useState } from 'react'
 import { View, Text, SafeAreaView, StyleSheet, ScrollView } from 'react-native'
 import { Avatar, Title, Button, Subheading } from 'react-native-paper'
 import { registerForPushNotificationsAsync } from '../../lib/notifications'
@@ -9,21 +9,23 @@ import { useAuthContext } from '../context/authContext'
 import { SocketContext } from '../context/socketContext'
 
 const Login = ({ onLogin }: { onLogin: any }) => {
-  const { user, login, reset } = useAuth()
+  const { user, login, logout, reset } = useAuth()
   const [resetting, setResetting] = useState(false)
   const [buyers, , , loadBuyers] = useBuyers()
   const [suppliers, , , loadSuppliers] = useSuppliers()
-
   const socket = useContext(SocketContext)
+  const [connected, setConnected] = useState(socket.connected)
 
   useEffect(() => {
     loadBuyers()
     loadSuppliers()
+    socket.on('connect', () => setConnected(true))
+    socket.on('disconnect', () => setConnected(false))
   }, [])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     console.log('user', user)
-    user?.type && user.online && onLogin(user)
+    user?.online && logout(user) // logout if we are online
   }, [user])
 
   return (
@@ -45,8 +47,14 @@ const Login = ({ onLogin }: { onLogin: any }) => {
                 <Text
                   style={styles.searchResultName}
                   onPress={async () => {
-                    const token = await registerForPushNotificationsAsync()
+                    let token
+                    try {
+                      token = await registerForPushNotificationsAsync()
+                    } catch (e) {
+                      console.log('push error', e)
+                    }
                     login(supplier, token)
+                    onLogin(supplier)
                   }}
                 >
                   {supplier.name} {supplier.online && ' 🥕'}
@@ -70,8 +78,14 @@ const Login = ({ onLogin }: { onLogin: any }) => {
                 <Text
                   style={styles.searchResultName}
                   onPress={async () => {
-                    const token = await registerForPushNotificationsAsync()
+                    let token
+                    try {
+                      token = await registerForPushNotificationsAsync()
+                    } catch (e) {
+                      console.log('push error', e)
+                    }
                     login(buyer, token)
+                    onLogin(buyer)
                   }}
                 >
                   {buyer.name} {buyer.online && ' 🥕'}
@@ -86,7 +100,7 @@ const Login = ({ onLogin }: { onLogin: any }) => {
             setTimeout(() => setResetting(false), 10000)
           }
         >
-          {socket.connected
+          {connected
             ? (resetting && 'Återställer...') || 'Återställ demo'
             : 'Server offline'}
         </Button>

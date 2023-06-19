@@ -53,7 +53,11 @@ const CreateDeal = ({ route, navigation }: { route: any; navigation: any }) => {
   const deal = {
     product: {
       name: title,
-      price: +price,
+    },
+    price: {
+      SEK: +price,
+      SEK_per_kilo: +price / +volume,
+      kilos: +volume,
     },
     volume: +volume,
     supplier: user,

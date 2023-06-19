@@ -27,9 +27,8 @@ const Header = ({ product, supplier, price }) => (
 )
 
 const Deal = ({ route, navigation }) => {
-  const { id } = route.params
   const [favorite, setFavorite] = React.useState(false)
-  const deal = deals.find((deal) => deal.id === id)
+  const deal = route.params.deal
   if (!deal) return navigation.back()
   const { user } = useAuth()
 

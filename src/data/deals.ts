@@ -1979,9 +1979,9 @@ export default [
     procurement: '-',
     positionNo: '-',
     commodity: {
-      area: 'Färskvaror/Kylvaror',
-      mainGroup: 'Kött oberett',
-      group: 'Hjortkött',
+      area: 'Other',
+      mainGroup: 'Other',
+      group: 'Other',
     },
     supplier: {
       name: 'Kalles AB',
