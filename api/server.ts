@@ -51,7 +51,7 @@ const reset = () =>
   })
 
 const sendPushNotification = (data: any) => {
-  if (data.tokens.length) push(data)
+  if (data.tokens?.length) push(data)
   state.notifications.push(data)
   io.emit('notifications', state.notifications)
 }
