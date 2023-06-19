@@ -57,42 +57,6 @@ const CreateDeal = ({ route, navigation }: { route: any; navigation: any }) => {
       .filter((criteria: string | undefined) => criteria)
   }
 
-  const deal = {
-    id: 0, // created on server
-    product: {
-      name: title,
-    },
-    price: {
-      SEK: +price,
-      SEK_per_Kg: +price / +volume,
-      kilos: +volume,
-    },
-    volume: +volume,
-    supplier: user,
-    constraint: getSelectedOptions(constraint, constraints).pop(),
-    date,
-    endDate,
-    other,
-    description,
-    commodity: {
-      area: 'Other',
-      mainGroup: 'Other',
-      group: 'Other',
-    },
-    certifications: {
-      organic: false, // TODO: add certifications
-      MSC: false,
-      kravMarked: false,
-      ethical: false,
-      fairtrade: false,
-      locallyProduced: false,
-    },
-    origin: {
-      productManufacturingCountry: 'Sverige', // TODO: add origin
-      rawMaterialOriginCountry: 'Sverige',
-    },
-  } as Deal
-
   // useEffect(() => {
   //   const deal = deals.find((offer) => offer.id === id)
   //   if (deal) {
@@ -106,12 +70,64 @@ const CreateDeal = ({ route, navigation }: { route: any; navigation: any }) => {
     // publish button in header:
     navigation.setOptions({
       headerRight: () => (
-        <Button onPress={() => publish(deal)}>Publicera</Button>
+        <Button onPress={() => publish({ title, price, volume, user })}>
+          Publicera
+        </Button>
       ),
     })
-  }, [])
+  }, [title, price, volume, user])
 
-  const publish = (deal: any) => {
+  const publish = ({
+    title,
+    price,
+    volume,
+    user,
+  }: {
+    title: string
+    price: string
+    volume: string
+    user: any
+  }) => {
+    console.log('title', title)
+    console.log('price', price)
+    console.log('volume', volume)
+
+    const deal = {
+      id: 0, // created on server
+      product: {
+        name: title,
+      },
+      price: {
+        SEK: +price,
+        SEK_per_Kg: +price / +volume,
+        kilos: +volume,
+      },
+      volume: +volume,
+      supplier: { ...user, artNo: '' },
+      // constraint: getSelectedOptions(constraint, constraints).pop(),
+      // date,
+      // endDate,
+      // other,
+      // description,
+      commodity: {
+        area: 'Other',
+        mainGroup: 'Other',
+        group: 'Other',
+      },
+      certifications: {
+        organic: false, // TODO: add certifications
+        MSC: false,
+        kravMarked: false,
+        ethical: false,
+        fairtrade: false,
+        locallyProduced: false,
+      },
+      origin: {
+        productManufacturingCountry: 'Sverige', // TODO: add origin
+        rawMaterialOriginCountry: 'Sverige',
+      },
+    } as Deal
+
     add(deal)
 
     navigation.navigate('ListDeals')
@@ -128,15 +144,15 @@ const CreateDeal = ({ route, navigation }: { route: any; navigation: any }) => {
         />
         <TextInput
           keyboardType="numeric"
-          label="Volym eller vikt (kg/liter)"
+          label="Volym eller vikt (i kg/liter)"
           value={volume}
-          placeholder="t ex 10kg eller 5 liter"
+          placeholder="t ex 10 eller 5"
           onChange={(text) => setVolume(text)}
         />
         <TextInput
           keyboardType="numeric"
-          label="Pris"
-          placeholder="tex 20kr/kg eller 10kr/liter"
+          label="Pris i SEK"
+          placeholder="tex 20 eller 10"
           value={price}
           onChange={(text) => setPrice(text)}
         />
