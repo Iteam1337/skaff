@@ -1,21 +1,20 @@
+import { User } from './user'
+
 export type Deal = {
   id: number
-  procurement: string
-  positionNo: string
+  procurement?: string
+  positionNo?: string
   commodity: {
     area: string
     mainGroup: string
     group: string
   }
-  supplier: {
-    name: string
-    artNo: string
-  }
+  supplier: User & { artNo: string }
   product: {
     name: string
-    manufacturer: string
-    brand: string
-    content: {
+    manufacturer?: string
+    brand?: string
+    content?: {
       quantity: number
       unit: string
     }
@@ -24,10 +23,10 @@ export type Deal = {
     SEK: number
     kilos: number
     SEK_per_Kg: number
-    finalAmountSEK_per_Kg: number
-    percentageOutsideContract: number
+    finalAmountSEK_per_Kg?: number
+    percentageOutsideContract?: number
   }
-  certifications: {
+  certifications?: {
     organic: boolean
     MSC: boolean
     kravMarked: boolean
