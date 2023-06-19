@@ -23,10 +23,10 @@ const Login = ({ onLogin }: { onLogin: any }) => {
     socket.on('disconnect', () => setConnected(false))
   }, [])
 
-  useLayoutEffect(() => {
-    console.log('user', user)
-    user?.online && logout(user) // logout if we are online
-  }, [user])
+  // useLayoutEffect(() => {
+  //   console.log('user', user)
+  //   user?.online && logout(user) // logout if we are online
+  // }, [user])
 
   return (
     <SafeAreaView style={styles.container}>

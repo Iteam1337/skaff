@@ -3,12 +3,12 @@ import useNotifications from '../hooks/useNotifications'
 import { Button, Snackbar, Text } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 
-const getNavigationType = (type: string) =>
+const getNavigationType = (data: any) =>
   ({
     deal: 'Deal',
     offer: 'Offer',
     tenderRequest: 'TenderRequest',
-  }[type])
+  }[data.type])
 
 export const NotificationSnackbar = () => {
   const [notificationVisible, setNotificationVisible] = useState<boolean>(true)

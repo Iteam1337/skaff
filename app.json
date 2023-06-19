@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Skaff",
-    "slug": "foodmarket",
+    "slug": "skaff",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -24,17 +26,17 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "f0004062-4c19-4cf2-bd6d-e9def8a2e1a0"
-      }
-    },
     "runtimeVersion": {
       "policy": "sdkVersion"
     },
-    "updates": {
-      "url": "https://u.expo.dev/f0004062-4c19-4cf2-bd6d-e9def8a2e1a0"
+    "owner": "iteam",
+    "extra": {
+      "eas": {
+        "projectId": "d4f01b24-c60a-484d-ba58-27d3e465baf1"
+      }
     },
-    "owner": "iteam"
+    "updates": {
+      "url": "https://u.expo.dev/d4f01b24-c60a-484d-ba58-27d3e465baf1"
+    }
   }
 }

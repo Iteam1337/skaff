@@ -51,7 +51,8 @@ const reset = () =>
   })
 
 const sendPushNotification = (data: any) => {
-  if (data.tokens?.length) push(data)
+  console.log('saving and sending push notification', data)
+  if (data.to?.length) push(data)
   state.notifications.push(data)
   io.emit('notifications', state.notifications)
 }
@@ -131,7 +132,6 @@ io.on('connection', (socket) => {
       case 'buyer':
         const buyer = state.buyers.find((b) => b.id === user.id)
         if (!buyer) return
-        buyer.token = undefined
         buyer.online = false
         buyer.lastOnline = new Date()
         io.emit('suppliers', state.suppliers)
@@ -140,7 +140,6 @@ io.on('connection', (socket) => {
       case 'supplier':
         const supplier = state.suppliers.find((s) => s.id === user.id)
         if (!supplier) return
-        supplier.token = undefined
         supplier.online = false
         supplier.lastOnline = new Date()
         io.emit('suppliers', state.suppliers)

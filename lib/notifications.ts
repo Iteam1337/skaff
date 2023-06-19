@@ -1,6 +1,7 @@
 import * as Device from 'expo-device'
 import * as ExpoNotifications from 'expo-notifications'
 import { Platform } from 'react-native'
+import app from '../app.json'
 
 export async function registerForPushNotificationsAsync() {
   let token
@@ -16,7 +17,11 @@ export async function registerForPushNotificationsAsync() {
       alert('Failed to get push token for push notification!')
       return undefined
     }
-    token = (await ExpoNotifications.getExpoPushTokenAsync()).data
+    token = (
+      await ExpoNotifications.getExpoPushTokenAsync({
+        projectId: app.expo.extra.eas.projectId,
+      })
+    ).data
     console.log('token', token)
 
     if (Platform.OS === 'android') {
