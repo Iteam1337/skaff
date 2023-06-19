@@ -114,7 +114,6 @@ const BuyerNavigation = () => {
           ),
         }}
       />
-
       <Tab.Screen
         name="TenderRequests"
         component={TenderRequestsNavigation}
@@ -143,7 +142,6 @@ const BuyerNavigation = () => {
           ),
         }}
       />
-
       <Tab.Screen
         name="Profile"
         component={BuyerProfileNavigation}

@@ -24,40 +24,48 @@ export default function Notifications({ navigation }) {
           description="Du har inga notifikationer än. Pröva att skapa ett erbjudande eller en förfrågan."
         />
       )}
-      {notifications.map((notification, i) => (
-        <List.Item
-          key={i}
-          onPress={() => {
-            console.log('navigate to', notification)
-            switch (notification.data.type) {
-              case 'offer':
-                navigation.navigate('Offer', {
-                  offer: offers.find(
-                    (offer) => offer.id === notification.data.id
-                  ),
-                })
-                break
-              case 'tenderRequest':
-                navigation.navigate('TenderRequest', {
-                  tenderRequest: tenderRequests.find(
-                    (tenderRequest) => tenderRequest.id === notification.data.id
-                  ),
-                })
-                break
+      {notifications
+        .sort(
+          (a, b) =>
+            new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf()
+        )
+        .map((notification, i) => (
+          <List.Item
+            key={i}
+            onPress={() => {
+              console.log('navigate to', notification)
+              switch (notification.data.type) {
+                case 'offer':
+                  navigation.navigate('Offer', {
+                    offer: offers.find(
+                      (offer) => offer.id === notification.data.id
+                    ),
+                  })
+                  break
+                case 'tenderRequest':
+                  navigation.navigate('TenderRequest', {
+                    tenderRequest: tenderRequests.find(
+                      (tenderRequest) =>
+                        tenderRequest.id === notification.data.id
+                    ),
+                  })
+                  break
 
-              case 'deal':
-                navigation.navigate('Deal', {
-                  deal: deals.find((deal) => deal.id === notification.data.id),
-                })
-                break
-            }
-          }}
-          title={notification.title}
-          right={(props) => <List.Icon {...props} icon="chevron-right" />}
-          description={notification.body}
-          left={(props) => <List.Icon {...props} icon="bell" />}
-        />
-      ))}
+                case 'deal':
+                  navigation.navigate('Deal', {
+                    deal: deals.find(
+                      (deal) => deal.id === notification.data.id
+                    ),
+                  })
+                  break
+              }
+            }}
+            title={notification.title}
+            right={(props) => <List.Icon {...props} icon="chevron-right" />}
+            description={notification.body}
+            left={(props) => <List.Icon {...props} icon="bell" />}
+          />
+        ))}
     </List.Section>
   )
 }

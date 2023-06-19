@@ -3,18 +3,31 @@ import { SocketContext } from '../context/socketContext'
 import useAuth from './useAuth'
 import { useAuthContext } from '../context/authContext'
 
+type Notification = {
+  to: Array<string>
+  title: string
+  body: string
+  data: {
+    date: Date
+    type: string
+    to: string
+    id: string
+  }
+}
+
 type fn = () => {}
 
 const useNotifications = (): [Array<Notification>, fn] => {
   const socket = useContext(SocketContext)
   const [notifications, setNotifications] = useState([] as Array<Notification>)
-  const { user } = useAuthContext()
+  const { user } = useAuth()
 
   useEffect(() => {
     if (!socket) return
     const receive = (notifications: Array<Notification>) => {
+      if (!user) return
       setNotifications(
-        notifications.filter((n) => n.data?.to?.contains(user.id))
+        notifications.filter((n) => n.data?.to?.includes(user?.id))
       )
     }
     socket.on('notifications', receive)

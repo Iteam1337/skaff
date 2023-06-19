@@ -51,7 +51,7 @@ const reset = () =>
   })
 
 const sendPushNotification = (data: any) => {
-  push(data)
+  if (data.tokens.length) push(data)
   state.notifications.push(data)
   io.emit('notifications', state.notifications)
 }
@@ -181,20 +181,19 @@ io.on('connection', (socket) => {
     state.deals.push(deal)
     console.log('addDeal', deal)
     const tokens = state.buyers.map(({ token }) => token).filter((t) => t)
-    if (tokens.length)
-      sendPushNotification({
-        to: tokens,
-        title: 'Nytt erbjudande i Skaff',
-        body: `${deal.product?.name || 'Produkt'} om ${deal.category} från ${
-          deal.supplier.name
-        }`,
-        data: {
-          date: new Date(),
-          type: 'deal',
-          to: state.buyers.map(({ id }) => id),
-          id: deal.id,
-        },
-      })
+    sendPushNotification({
+      to: tokens,
+      title: 'Nytt erbjudande i Skaff',
+      body: `${deal.product?.name || 'Produkt'} om ${deal.category} från ${
+        deal.supplier.name
+      }`,
+      data: {
+        date: new Date(),
+        type: 'deal',
+        to: state.buyers.map(({ id }) => id),
+        id: deal.id,
+      },
+    })
 
     io.emit('deals', state.deals)
   })
@@ -210,7 +209,7 @@ io.on('connection', (socket) => {
     )
     // TODO: only send if the offer is submitted
     const token = tenderRequest?.buyer?.token
-    if (token)
+    if (tenderRequest)
       sendPushNotification({
         to: [token],
         title: 'Nytt anbud i Skaff',
@@ -242,18 +241,17 @@ io.on('connection', (socket) => {
     state.tenderRequests.push(tenderRequest)
     io.emit('tenderRequests', state.tenderRequests)
     const tokens = state.suppliers.map(({ token }) => token).filter((t) => t)
-    if (tokens.length)
-      sendPushNotification({
-        to: tokens,
-        title: 'Ny förfrågan i Skaff',
-        body: `${tenderRequest.title} från ${tenderRequest.buyer.name}`,
-        data: {
-          date: new Date(),
-          type: 'tenderRequest',
-          to: state.suppliers.map(({ id }) => id),
-          id: tenderRequest.id,
-        },
-      })
+    sendPushNotification({
+      to: tokens,
+      title: 'Ny förfrågan i Skaff',
+      body: `${tenderRequest.title} från ${tenderRequest.buyer.name}`,
+      data: {
+        date: new Date(),
+        type: 'tenderRequest',
+        to: state.suppliers.map(({ id }) => id),
+        id: tenderRequest.id,
+      },
+    })
   })
 
   socket.on('editTenderRequest', (tenderRequest) => {
