@@ -2,6 +2,7 @@ import { Server } from 'socket.io'
 import express from 'express'
 import { createServer } from 'http'
 import path from 'path'
+import uuid from 'react-native-uuid'
 
 import buyers from '../src/data/buyers'
 import deals from '../src/data/deals'
@@ -176,6 +177,7 @@ io.on('connection', (socket) => {
 
   // DEALS
   socket.on('addDeal', (deal) => {
+    deal.id = uuid.v4()
     state.deals.push(deal)
     console.log('addDeal', deal)
     const tokens = state.buyers.map(({ token }) => token).filter((t) => t)
@@ -200,6 +202,7 @@ io.on('connection', (socket) => {
   // OFFERS
   socket.on('addOffer', (offer) => {
     if (!offer) return console.error('No offer provided')
+    offer.id = uuid.v4()
     state.offers.push(offer)
     console.log('addOffer', offer)
     const tenderRequest = state.tenderRequests.find(
@@ -235,6 +238,7 @@ io.on('connection', (socket) => {
   // TENDER REQUESTS
   socket.on('addTenderRequest', (tenderRequest) => {
     console.log('addTenderRequest', tenderRequest)
+    tenderRequest.id = uuid.v4()
     state.tenderRequests.push(tenderRequest)
     io.emit('tenderRequests', state.tenderRequests)
     const tokens = state.suppliers.map(({ token }) => token).filter((t) => t)
