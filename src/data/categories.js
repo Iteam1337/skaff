@@ -137,7 +137,7 @@ export const areas = {
     title: 'Alkoholfria drycker',
   },
   'Other': {
-    title: 'Övrigt',
+    title: 'Other',
     image: other,
   },
 }

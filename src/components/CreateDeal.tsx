@@ -8,6 +8,7 @@ import DateTimeInput from './form/DateTimeInput'
 import useDeals from '../hooks/useDeals'
 import useAuth from '../hooks/useAuth'
 import { useAuthContext } from '../context/authContext'
+import { Deal } from '../data/deals'
 
 const styles = StyleSheet.create({
   actionContainer: {
@@ -51,9 +52,14 @@ const CreateDeal = ({ route, navigation }: { route: any; navigation: any }) => {
   }
 
   const deal = {
+    id: 0, // created on server
     product: {
       name: title,
-      price: +price,
+    },
+    price: {
+      SEK: +price,
+      SEK_per_Kg: +price / +volume,
+      kilos: +volume,
     },
     volume: +volume,
     supplier: user,
@@ -67,7 +73,19 @@ const CreateDeal = ({ route, navigation }: { route: any; navigation: any }) => {
       mainGroup: 'Other',
       group: 'Other',
     },
-  }
+    certifications: {
+      organic: false, // TODO: add certifications
+      MSC: false,
+      kravMarked: false,
+      ethical: false,
+      fairtrade: false,
+      locallyProduced: false,
+    },
+    origin: {
+      productManufacturingCountry: 'Sverige', // TODO: add origin
+      rawMaterialOriginCountry: 'Sverige',
+    },
+  } as Deal
 
   // useEffect(() => {
   //   const deal = deals.find((offer) => offer.id === id)

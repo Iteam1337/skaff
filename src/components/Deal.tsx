@@ -27,9 +27,8 @@ const Header = ({ product, supplier, price }) => (
 )
 
 const Deal = ({ route, navigation }) => {
-  const { id } = route.params
   const [favorite, setFavorite] = React.useState(false)
-  const deal = deals.find((deal) => deal.id === id)
+  const deal = route.params.deal
   if (!deal) return navigation.back()
   const { user } = useAuth()
 
@@ -47,7 +46,7 @@ const Deal = ({ route, navigation }) => {
   }
 
   const toggleFavorite = function (deal: any, on: boolean = !favorite) {
-    console.log('favorite', deal)
+    global.alert('Ej implementerad än')
   }
 
   React.useLayoutEffect(() => {
@@ -55,9 +54,10 @@ const Deal = ({ route, navigation }) => {
     navigation.setOptions({
       headerRight: () => (
         <Button
+          children={[]}
           icon={favorite ? 'star' : 'star-outline'}
           onPress={() => toggleFavorite(deal, !favorite)}
-        ></Button>
+        />
       ),
     })
   }, [deal, favorite])

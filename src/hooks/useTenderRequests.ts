@@ -18,10 +18,12 @@ const useTenderRequests = (): [Array<TenderRequest>, any, any, any] => {
   }, [socket])
 
   const editTenderRequest = (tenderRequest: TenderRequest) => {
+    console.log('editTenderRequest', tenderRequest)
     socket.emit('editTenderRequest', tenderRequest)
   }
 
   const addTenderRequest = (tenderRequest: TenderRequest) => {
+    console.log('addTenderRequest', tenderRequest)
     socket.emit('addTenderRequest', tenderRequest)
   }
 

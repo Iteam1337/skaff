@@ -129,7 +129,10 @@ const BuyerProfile = ({
       </Tabs>
       <Button
         mode="outlined"
-        onPress={() => navigation.popToTop() || logout(buyer)}
+        onPress={() => {
+          navigation.popToTop()
+          if (buyer) logout(buyer)
+        }}
       >
         Logga ut
       </Button>

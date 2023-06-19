@@ -6,7 +6,6 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import Chat from './Chat'
 import useDeals from '../hooks/useDeals'
 import { Deal } from '../data/deals'
-import { getAuthenticatedUserType } from '../../lib/authStorage'
 import { useState } from 'react'
 import useAuth from '../hooks/useAuth'
 
@@ -23,7 +22,9 @@ const Deals = ({ navigation }: { navigation: any }) => {
 
   const [deals, , , refresh] = useDeals()
   const { user } = useAuth()
-  const [activeAreas, setActiveAreas] = React.useState({})
+  const [activeAreas, setActiveAreas] = React.useState<{ [key: string]: Area }>(
+    {}
+  )
 
   React.useLayoutEffect(() => {
     refresh()
@@ -62,48 +63,42 @@ const Deals = ({ navigation }: { navigation: any }) => {
           style={styles.searchbar}
         />
 
-        {Object.entries(activeAreas)
-          .filter(([, { count }]) => count > 0)
-          .map(([, area]) => (
-            <Card key={area.title}>
-              <TouchableOpacity
-                onPress={() =>
-                  setExpanded((expanded) => ({
-                    ...expanded,
-                    [area.title]: !expanded[area.title],
-                  }))
-                }
-              >
-                <Card.Cover
-                  source={{ uri: `https://skaff-api.iteam.pub${area.image}` }}
-                />
-              </TouchableOpacity>
-              <List.Accordion
-                title={area.title}
-                expanded={
-                  !!searchQuery ||
-                  (expanded[area.title] as boolean) ||
-                  undefined
-                }
-              >
-                <List.Subheader>{`${area.count} varor`}</List.Subheader>
-                {filteredDeals
-                  .filter((d) => d.commodity.area === area.title)
-                  .sort((a, b) => a.product.name.localeCompare(b.product.name))
-                  .map((deal) => (
-                    <List.Item
-                      key={deal.id}
-                      right={() => <Text>{deal.price.SEK_per_Kg} kr/kg</Text>}
-                      title={deal.product.name}
-                      description={deal.product.brand}
-                      onPress={() =>
-                        navigation.navigate('Deal', { id: deal.id })
-                      }
-                    />
-                  ))}
-              </List.Accordion>
-            </Card>
-          ))}
+        {Object.entries(activeAreas).map(([, area]) => (
+          <Card key={area.title}>
+            <TouchableOpacity
+              onPress={() =>
+                setExpanded((expanded) => ({
+                  ...expanded,
+                  [area.title]: !expanded[area.title],
+                }))
+              }
+            >
+              <Card.Cover
+                source={{ uri: `https://skaff-api.iteam.pub${area.image}` }}
+              />
+            </TouchableOpacity>
+            <List.Accordion
+              title={area.title}
+              expanded={
+                !!searchQuery || (expanded[area.title] as boolean) || undefined
+              }
+            >
+              <List.Subheader>{`${area.count} varor`}</List.Subheader>
+              {filteredDeals
+                .filter((d) => d.commodity.area === area.title)
+                .sort((a, b) => a.product.name.localeCompare(b.product.name))
+                .map((deal) => (
+                  <List.Item
+                    key={deal.id}
+                    right={() => <Text>{deal.price.SEK_per_Kg} kr/kg</Text>}
+                    title={deal.product.name}
+                    description={deal.product.brand}
+                    onPress={() => navigation.navigate('Deal', { deal })}
+                  />
+                ))}
+            </List.Accordion>
+          </Card>
+        ))}
       </ScrollView>
       {user?.type === 'supplier' && (
         <FAB
