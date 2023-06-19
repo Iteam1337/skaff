@@ -31,7 +31,7 @@ const CreateDeal = ({ route, navigation }: { route: any; navigation: any }) => {
   const id = route?.params?.id
   const [title, setTitle] = useState('')
   const [price, setPrice] = useState('')
-  const [volume, setVolume] = useState('')
+  const [volume, setVolume] = useState('1')
   const [constraint, setConstraint] = useState('')
   const [date, setDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
@@ -128,6 +128,7 @@ const CreateDeal = ({ route, navigation }: { route: any; navigation: any }) => {
       },
     } as Deal
 
+    console.log('deal', deal)
     add(deal)
 
     navigation.navigate('ListDeals')

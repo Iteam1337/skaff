@@ -63,42 +63,46 @@ const Deals = ({ navigation }: { navigation: any }) => {
           style={styles.searchbar}
         />
 
-        {Object.entries(activeAreas).map(([, area]) => (
-          <Card key={area.title}>
-            <TouchableOpacity
-              onPress={() =>
-                setExpanded((expanded) => ({
-                  ...expanded,
-                  [area.title]: !expanded[area.title],
-                }))
-              }
-            >
-              <Card.Cover
-                source={{ uri: `https://skaff-api.iteam.pub${area.image}` }}
-              />
-            </TouchableOpacity>
-            <List.Accordion
-              title={area.title}
-              expanded={
-                !!searchQuery || (expanded[area.title] as boolean) || undefined
-              }
-            >
-              <List.Subheader>{`${area.count} varor`}</List.Subheader>
-              {filteredDeals
-                .filter((d) => d.commodity.area === area.title)
-                .sort((a, b) => a.product.name.localeCompare(b.product.name))
-                .map((deal) => (
-                  <List.Item
-                    key={deal.id}
-                    right={() => <Text>{deal.price.SEK_per_Kg} kr/kg</Text>}
-                    title={deal.product.name}
-                    description={deal.product.brand}
-                    onPress={() => navigation.navigate('Deal', { deal })}
-                  />
-                ))}
-            </List.Accordion>
-          </Card>
-        ))}
+        {Object.entries(activeAreas)
+          .filter(([, c]) => c.count > 0)
+          .map(([, area]) => (
+            <Card key={area.title}>
+              <TouchableOpacity
+                onPress={() =>
+                  setExpanded((expanded) => ({
+                    ...expanded,
+                    [area.title]: !expanded[area.title],
+                  }))
+                }
+              >
+                <Card.Cover
+                  source={{ uri: `https://skaff-api.iteam.pub${area.image}` }}
+                />
+              </TouchableOpacity>
+              <List.Accordion
+                title={area.title}
+                expanded={
+                  !!searchQuery ||
+                  (expanded[area.title] as boolean) ||
+                  undefined
+                }
+              >
+                <List.Subheader>{`${area.count} varor`}</List.Subheader>
+                {filteredDeals
+                  .filter((d) => d.commodity.area === area.title)
+                  .sort((a, b) => a.product.name.localeCompare(b.product.name))
+                  .map((deal) => (
+                    <List.Item
+                      key={deal.id}
+                      right={() => <Text>{deal.price.SEK_per_Kg} kr/kg</Text>}
+                      title={deal.product.name}
+                      description={deal.supplier.name}
+                      onPress={() => navigation.navigate('Deal', { deal })}
+                    />
+                  ))}
+              </List.Accordion>
+            </Card>
+          ))}
       </ScrollView>
       {user?.type === 'supplier' && (
         <FAB

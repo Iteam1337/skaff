@@ -50,28 +50,32 @@ const DealsNavigation = () => {
   return (
     <>
       <Stack.Navigator>
-        <Stack.Screen
-          name="ListDeals"
-          options={({ navigation }) => ({
-            headerRight: () => (
-              <IconButton
-                icon="bell"
-                size={18}
-                onPress={() => navigation.navigate('Notifications')}
-              />
-            ),
-            title: 'Erbjudanden',
-          })}
-          component={Deals}
-        />
-        <Stack.Screen
-          name="Deal"
-          options={{
-            title: 'Erbjudande',
-          }}
-          component={Deal}
-        />
-        <Stack.Screen name="Notifications" component={Notifications} />
+        <Stack.Group>
+          <Stack.Screen
+            name="ListDeals"
+            options={({ navigation }) => ({
+              headerRight: () => (
+                <IconButton
+                  icon="bell"
+                  size={18}
+                  onPress={() => navigation.navigate('Notifications')}
+                />
+              ),
+              title: 'Erbjudanden',
+            })}
+            component={Deals}
+          />
+          <Stack.Screen
+            name="Deal"
+            options={{
+              title: 'Erbjudande',
+            }}
+            component={Deal}
+          />
+        </Stack.Group>
+        <Stack.Group screenOptions={{ presentation: 'modal' }}>
+          <Stack.Screen name="Notifications" component={Notifications} />
+        </Stack.Group>
       </Stack.Navigator>
     </>
   )
@@ -112,13 +116,6 @@ const BuyerNavigation = () => {
       theme={theme}
       initialRouteName="Deals"
     >
-      <Tab.Screen
-        name="Notifications"
-        component={Notifications}
-        options={{
-          title: 'Notiser',
-        }}
-      />
       <Tab.Screen
         name="Deals"
         component={DealsNavigation}

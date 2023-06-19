@@ -96,7 +96,7 @@ const Deal = ({ route, navigation }) => {
                   <Caption>Beskrivning</Caption>
                   <Text>
                     {getTitle(deal)} Säljs i paket om{' '}
-                    {deal.price.kilos.toLocaleString('sv')}kg.
+                    {deal.price.kilos?.toLocaleString('sv')}kg.
                   </Text>
                 </Column>
               </Row>
@@ -104,7 +104,7 @@ const Deal = ({ route, navigation }) => {
                 <Column>
                   <Caption>Pris</Caption>
                   <Text>
-                    {deal.price.SEK_per_Kg.toLocaleString('sv')} kr/kg
+                    {deal.price.SEK_per_Kg?.toLocaleString('sv')} kr/kg
                   </Text>
                 </Column>
                 <Column>

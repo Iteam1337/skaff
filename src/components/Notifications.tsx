@@ -43,11 +43,11 @@ export default function Notifications({ navigation }) {
                   })
                   break
                 case 'tenderRequest':
-                  navigation.navigate('TenderRequest', {
-                    tenderRequest: tenderRequests.find(
-                      (tenderRequest) =>
-                        tenderRequest.id === notification.data.id
-                    ),
+                  navigation.navigate('TenderRequests', {
+                    screen: 'TenderRequest',
+                    params: {
+                      tenderRequestId: notification.data.id,
+                    },
                   })
                   break
 

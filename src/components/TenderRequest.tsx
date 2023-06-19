@@ -39,7 +39,7 @@ const TenderRequest = ({
 }) => {
   const [tenderOffers, setTenderOffers] = useState([] as Offer[])
 
-  const [tenderRequests, , , refresh] = useTenderRequests()
+  const [tenderRequests, , , refreshTenderRequests] = useTenderRequests()
   const [offers, updateOffer, , refreshOffers] = useOffers()
   const [tenderRequest, setTenderRequest] = useState<
     TenderRequestType | undefined
@@ -47,13 +47,19 @@ const TenderRequest = ({
   const theme = useTheme()
   const { user } = useAuth()
 
-  if (route.params.tenderRequestId)
-    setTenderRequest(
-      tenderRequests.find(({ id }) => id === route.params.tenderRequestId)
-    )
+  useEffect(() => {
+    if (route.params.tenderRequestId)
+      setTenderRequest(
+        tenderRequests.find(({ id }) => id === route.params.tenderRequestId)
+      )
+  }, [tenderRequests, route.params.tenderRequestId])
 
   if (!tenderRequest)
-    return <Text>Loading... {route.params.tenderRequestId}</Text>
+    return (
+      <Text>
+        Ladda via parametrar stöds ej än: {route.params.tenderRequestId}
+      </Text>
+    )
 
   useEffect(() => {
     if (tenderRequest.id) {
@@ -78,7 +84,8 @@ const TenderRequest = ({
 
   useEffect(() => {
     refreshOffers()
-  }, [tenderRequest])
+    refreshTenderRequests()
+  }, [])
 
   return (
     <>
