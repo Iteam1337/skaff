@@ -50,6 +50,8 @@ const reset = () =>
     notifications: [],
   })
 
+const unique = (arr: any[]) => [...new Set(arr)]
+
 const sendPushNotification = (data: any) => {
   console.log('saving and sending push notification', data)
   if (data.to?.length) push(data)
@@ -179,7 +181,10 @@ io.on('connection', (socket) => {
     deal.id = uuid.v4()
     state.deals.push(deal)
     console.log('addDeal', deal)
-    const tokens = state.buyers.map(({ token }) => token).filter((t) => t)
+    const tokens = unique(
+      state.buyers.map(({ token }) => token).filter((t) => t)
+    )
+
     sendPushNotification({
       to: tokens,
       title: 'Nytt erbjudande i Skaff',
@@ -239,7 +244,9 @@ io.on('connection', (socket) => {
     tenderRequest.id = uuid.v4()
     state.tenderRequests.push(tenderRequest)
     io.emit('tenderRequests', state.tenderRequests)
-    const tokens = state.suppliers.map(({ token }) => token).filter((t) => t)
+    const tokens = unique(
+      state.suppliers.map(({ token }) => token).filter((t) => t)
+    )
     sendPushNotification({
       to: tokens,
       title: 'Ny förfrågan i Skaff',

@@ -137,86 +137,88 @@ const CreateDeal = ({ route, navigation }: { route: any; navigation: any }) => {
   return (
     <SafeAreaView>
       <KeyboardAvoidingView>
-        <TextInput
-          label="Namn på vara"
-          value={title}
-          placeholder='t ex "Äpplen"'
-          onChange={(text) => setTitle(text)}
-        />
-        <TextInput
-          keyboardType="numeric"
-          label="Volym eller vikt (i kg/liter)"
-          value={volume}
-          placeholder="t ex 10 eller 5"
-          onChange={(text) => setVolume(text)}
-        />
-        <TextInput
-          keyboardType="numeric"
-          label="Pris i SEK"
-          placeholder="tex 20 eller 10"
-          value={price}
-          onChange={(text) => setPrice(text)}
-        />
-        <DateTimeInput
-          label="Sista datum för erbjudande"
-          value={endDate}
-          onChange={(newDate) => {
-            if (newDate) setEndDate(newDate)
-          }}
-        ></DateTimeInput>
-        <DropDownList
-          label="Ev datumbegränsning"
-          value={constraint}
-          setValue={setConstraint}
-          values={constraints}
-        ></DropDownList>
-        {constraint && (
+        <ScrollView>
+          <TextInput
+            label="Namn på vara"
+            value={title}
+            placeholder='t ex "Äpplen"'
+            onChange={(text) => setTitle(text)}
+          />
+          <TextInput
+            keyboardType="numeric"
+            label="Volym eller vikt (i kg/liter)"
+            value={volume}
+            placeholder="t ex 10 eller 5"
+            onChange={(text) => setVolume(text)}
+          />
+          <TextInput
+            keyboardType="numeric"
+            label="Pris i SEK"
+            placeholder="tex 20 eller 10"
+            value={price}
+            onChange={(text) => setPrice(text)}
+          />
           <DateTimeInput
-            label={constraint == '0' ? 'Bäst före' : 'Sista förbrukningsdag'}
-            value={date}
+            label="Sista datum för erbjudande"
+            value={endDate}
             onChange={(newDate) => {
-              if (newDate) setDate(newDate)
+              if (newDate) setEndDate(newDate)
             }}
           ></DateTimeInput>
-        )}
+          <DropDownList
+            label="Ev datumbegränsning"
+            value={constraint}
+            setValue={setConstraint}
+            values={constraints}
+          ></DropDownList>
+          {constraint && (
+            <DateTimeInput
+              label={constraint == '0' ? 'Bäst före' : 'Sista förbrukningsdag'}
+              value={date}
+              onChange={(newDate) => {
+                if (newDate) setDate(newDate)
+              }}
+            ></DateTimeInput>
+          )}
 
-        <View
-          style={{
-            ...styles.actionContainer,
-            justifyContent: 'flex-start',
-            backgroundColor: '#FFFFFF',
-          }}
-        >
-          <Button
-            icon="camera"
-            mode="contained"
-            uppercase={false}
-            // onPress={() => console.log('Pressed')}
-          >
-            Lägg till bild
-          </Button>
-        </View>
-        <TextInput
-          label="Kort beskrivning"
-          value={description}
-          placeholder='t ex "Ekologiskt, ursprung Sverige"'
-          onChange={(text) => setDescription(text)}
-        />
-        <TextInput
-          label="Övrigt"
-          value={other}
-          onChange={(text) => setOther(text)}
-        />
-        <View style={styles.actionContainer}>
-          <Button
-            onPress={() => {
-              navigation.navigate('ListDeals')
+          <View
+            style={{
+              ...styles.actionContainer,
+              justifyContent: 'flex-start',
+              backgroundColor: '#FFFFFF',
             }}
-            uppercase={false}
           >
-            Rensa utkast
-          </Button>
-        </View>
+            <Button
+              icon="camera"
+              mode="contained"
+              uppercase={false}
+              // onPress={() => console.log('Pressed')}
+            >
+              Lägg till bild
+            </Button>
+          </View>
+          <TextInput
+            label="Kort beskrivning"
+            value={description}
+            placeholder='t ex "Ekologiskt, ursprung Sverige"'
+            onChange={(text) => setDescription(text)}
+          />
+          <TextInput
+            label="Övrigt"
+            value={other}
+            onChange={(text) => setOther(text)}
+          />
+          <View style={styles.actionContainer}>
+            <Button
+              onPress={() => {
+                navigation.navigate('ListDeals')
+              }}
+              uppercase={false}
+            >
+              Rensa utkast
+            </Button>
+          </View>
+        </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
   )

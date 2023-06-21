@@ -124,13 +124,6 @@ const SupplierNavigation = () => {
       initialRouteName="TenderRequests"
     >
       <Tab.Screen
-        name="Notifications"
-        component={Notifications}
-        options={{
-          title: 'Notiser',
-        }}
-      />
-      <Tab.Screen
         name="TenderRequests"
         component={TenderRequestsNavigation}
         options={{
