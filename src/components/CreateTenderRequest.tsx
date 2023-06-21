@@ -6,7 +6,7 @@ import DropDownList from './form/DropDownList'
 import { ScrollView } from 'react-native-gesture-handler'
 import useTenderRequests from '../hooks/useTenderRequests'
 import useAuth from '../hooks/useAuth'
-import { StyleSheet, View } from 'react-native'
+import { KeyboardAvoidingView, StyleSheet, View } from 'react-native'
 
 const CreateTenderRequest = ({
   navigation,
@@ -100,99 +100,101 @@ const CreateTenderRequest = ({
   }
 
   return (
-    <ScrollView>
-      <TextInput
-        label="Namn på vara"
-        value={title}
-        onChange={(text) => setTitle(text)}
-      />
-      <TextInput
-        label="Total volym"
-        value={volume}
-        onChange={(text) => setVolume(text)}
-      />
-      <TextInput
-        label="Beställare"
-        value={
-          buyer?.name +
-          ', ' +
-          buyer?.address +
-          ', ' +
-          buyer?.zip +
-          ' ' +
-          buyer?.postalAddress
-        }
-        disabled={true}
-      />
-      <DateTimeInput
-        label="Sista anbud"
-        value={lastOfferDate}
-        onChange={(newDate) => {
-          if (newDate) setLastOfferDate(newDate)
-        }}
-      ></DateTimeInput>
-      <DateTimeInput
-        label="Tilldelning senast"
-        value={lastAwardDate}
-        onChange={(newDate) => {
-          if (newDate) setLastAwardDate(newDate)
-        }}
-      ></DateTimeInput>
-      <DateTimeInput
-        label="Leverans startdatum"
-        value={deliveryStartDate}
-        onChange={(newDate) => {
-          if (newDate) setDeliveryStartDate(newDate)
-        }}
-      ></DateTimeInput>
-      <DropDownList
-        label="Leveransplan"
-        value={deliveryPlan}
-        setValue={setDeliveryPlan}
-        values={deliveryPlans}
-      ></DropDownList>
-      <TextInput
-        label="Volym per leverans"
-        value={volumePerDelivery}
-        onChange={(text) => setVolumePerDelivery(text)}
-      />
-      <TextInput
-        label="Villkor"
-        value={terms}
-        disabled={true}
-        multiline={true}
-        numberOfLines={2}
-      />
-      <TextInput
-        label="Urval"
-        value={grading}
-        disabled={true}
-        multiline={true}
-        numberOfLines={3}
-      />
-      <DropDownList
-        label="Krav"
-        value={qualificationCriteria}
-        setValue={setQualificationCriteria}
-        values={criterias}
-        multiSelect={true}
-      ></DropDownList>
-      <DropDownList
-        label="Önskemål"
-        value={optionalCriteria}
-        setValue={setOptionalCriteria}
-        values={criterias}
-        multiSelect={true}
-      ></DropDownList>
-      <View style={styles.actionContainer}>
-        <Button onPress={() => {}} uppercase={false}>
-          Spara utkast
-        </Button>
-        <Button mode="contained" onPress={publish} uppercase={false}>
-          Publicera
-        </Button>
-      </View>
-    </ScrollView>
+    <KeyboardAvoidingView>
+      <ScrollView>
+        <TextInput
+          label="Namn på vara"
+          value={title}
+          onChange={(text) => setTitle(text)}
+        />
+        <TextInput
+          label="Total volym"
+          value={volume}
+          onChange={(text) => setVolume(text)}
+        />
+        <TextInput
+          label="Beställare"
+          value={
+            buyer?.name +
+            ', ' +
+            buyer?.address +
+            ', ' +
+            buyer?.zip +
+            ' ' +
+            buyer?.postalAddress
+          }
+          disabled={true}
+        />
+        <DateTimeInput
+          label="Sista anbud"
+          value={lastOfferDate}
+          onChange={(newDate) => {
+            if (newDate) setLastOfferDate(newDate)
+          }}
+        ></DateTimeInput>
+        <DateTimeInput
+          label="Tilldelning senast"
+          value={lastAwardDate}
+          onChange={(newDate) => {
+            if (newDate) setLastAwardDate(newDate)
+          }}
+        ></DateTimeInput>
+        <DateTimeInput
+          label="Leverans startdatum"
+          value={deliveryStartDate}
+          onChange={(newDate) => {
+            if (newDate) setDeliveryStartDate(newDate)
+          }}
+        ></DateTimeInput>
+        <DropDownList
+          label="Leveransplan"
+          value={deliveryPlan}
+          setValue={setDeliveryPlan}
+          values={deliveryPlans}
+        ></DropDownList>
+        <TextInput
+          label="Volym per leverans"
+          value={volumePerDelivery}
+          onChange={(text) => setVolumePerDelivery(text)}
+        />
+        <TextInput
+          label="Villkor"
+          value={terms}
+          disabled={true}
+          multiline={true}
+          numberOfLines={2}
+        />
+        <TextInput
+          label="Urval"
+          value={grading}
+          disabled={true}
+          multiline={true}
+          numberOfLines={3}
+        />
+        <DropDownList
+          label="Krav"
+          value={qualificationCriteria}
+          setValue={setQualificationCriteria}
+          values={criterias}
+          multiSelect={true}
+        ></DropDownList>
+        <DropDownList
+          label="Önskemål"
+          value={optionalCriteria}
+          setValue={setOptionalCriteria}
+          values={criterias}
+          multiSelect={true}
+        ></DropDownList>
+        <View style={styles.actionContainer}>
+          <Button onPress={() => {}} uppercase={false}>
+            Spara utkast
+          </Button>
+          <Button mode="contained" onPress={publish} uppercase={false}>
+            Publicera
+          </Button>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   )
 }
 
