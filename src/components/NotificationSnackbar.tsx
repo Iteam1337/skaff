@@ -3,12 +3,30 @@ import useNotifications from '../hooks/useNotifications'
 import { Button, Snackbar, Text } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 
-const getNavigationType = (data: any) =>
-  ({
-    deal: 'Deal',
-    offer: 'Offer',
-    tenderRequest: 'TenderRequest',
-  }[data.type])
+const getNavigationArguments = (data: any) => {
+  if (!data) return null
+  console.log('getNavigationType', data)
+  switch (data?.type) {
+    case 'deal':
+      return ['Deals', { screen: 'Deal', params: { dealId: data.id } }]
+    case 'offer':
+      return [
+        'Offer',
+        [
+          'TenderRequests',
+          {
+            screen: 'TenderRequest',
+            params: { tenderRequestId: data.tenderRequestId },
+          },
+        ],
+      ]
+    case 'tenderRequest':
+      return [
+        'TenderRequests',
+        { screen: 'TenderRequest', params: { tenderRequestId: data.id } },
+      ]
+  }
+}
 
 export const NotificationSnackbar = () => {
   const [notificationVisible, setNotificationVisible] = useState<boolean>(true)
@@ -26,21 +44,19 @@ export const NotificationSnackbar = () => {
   }, [notifications])
 
   const lastNotification = notifications.at(-1)
-  const navigationType = getNavigationType(lastNotification?.data.type || '')
+  const args = getNavigationArguments(lastNotification?.data)
 
   return (
     (lastNotification && (
       <Snackbar
         visible={notificationVisible}
         onDismiss={() => setNotificationVisible(false)}
-        action={{
+        /* action={{
           label: 'Gå till',
           onPress: () => {
-            navigation.navigate(navigationType, {
-              id: lastNotification.data.id,
-            })
+            if (args) navigation.navigate(args)
           },
-        }}
+        }}*/
       >
         {lastNotification.title + ': ' + lastNotification.body}
       </Snackbar>

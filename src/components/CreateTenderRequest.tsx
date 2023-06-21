@@ -185,14 +185,6 @@ const CreateTenderRequest = ({
           values={criterias}
           multiSelect={true}
         ></DropDownList>
-        <View style={styles.actionContainer}>
-          <Button onPress={() => {}} uppercase={false}>
-            Spara utkast
-          </Button>
-          <Button mode="contained" onPress={publish} uppercase={false}>
-            Publicera
-          </Button>
-        </View>
       </ScrollView>
     </KeyboardAvoidingView>
   )

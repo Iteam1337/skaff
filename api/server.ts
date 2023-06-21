@@ -223,9 +223,10 @@ io.on('connection', (socket) => {
           type: 'offer',
           to: [tenderRequest.buyer.id],
           id: offer.id,
+          tenderRequestId: offer.tenderRequestId,
         },
       })
-    sendMyOffers(socket)
+    io.emit('offers', state.offers)
   })
 
   socket.on('offers', (respond) => {

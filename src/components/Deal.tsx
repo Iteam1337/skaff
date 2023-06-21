@@ -28,9 +28,18 @@ const Header = ({ product, supplier, price }) => (
 
 const Deal = ({ route, navigation }) => {
   const [favorite, setFavorite] = React.useState(false)
-  const deal = route.params.deal
-  if (!deal) return navigation.back()
-  const { user } = useAuth()
+  const [deal, setDeal] = React.useState(route.params.deal)
+
+  const [deals] = useDeals()
+
+  React.useEffect(() => {
+    if (route.params.dealId) {
+      const deal = deals.find(({ id }) => id === route.params.dealId)
+      setDeal(deal)
+    }
+  }, [route.params.dealId])
+
+  if (!deal) return <Text>Deal not found: {route.params.dealId}</Text>
 
   const theme = useTheme()
 
