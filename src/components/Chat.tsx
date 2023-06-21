@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
+  KeyboardAvoidingView,
 } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import { Caption } from 'react-native-paper'
@@ -47,37 +48,39 @@ const Chat = () => {
   }
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView contentContainerStyle={styles.container}>
-        {messages.map((message, i) => (
-          <View key={message.id}>
-            <View
-              style={[
-                styles.messageContainer,
-                message.type === 'question' ? styles.question : styles.answer,
-              ]}
-            >
-              <Text style={styles.messageText}>{message.text}</Text>
+      <KeyboardAvoidingView>
+        <ScrollView contentContainerStyle={styles.container}>
+          {messages.map((message, i) => (
+            <View key={message.id}>
+              <View
+                style={[
+                  styles.messageContainer,
+                  message.type === 'question' ? styles.question : styles.answer,
+                ]}
+              >
+                <Text style={styles.messageText}>{message.text}</Text>
+              </View>
+              {i === messages.length - 1 && (
+                <Caption style={styles.messageMetadata}>{message.date}</Caption>
+              )}
             </View>
-            {i === messages.length - 1 && (
-              <Caption style={styles.messageMetadata}>{message.date}</Caption>
-            )}
+          ))}
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              value={inputText}
+              onChangeText={setInputText}
+              placeholder="Skriv din fråga här..."
+            />
+            <TouchableOpacity
+              onPress={handleSendMessage}
+              style={styles.sendButton}
+            >
+              <Text style={styles.sendButtonText}>Skicka</Text>
+            </TouchableOpacity>
           </View>
-        ))}
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            value={inputText}
-            onChangeText={setInputText}
-            placeholder="Skriv din fråga här..."
-          />
-          <TouchableOpacity
-            onPress={handleSendMessage}
-            style={styles.sendButton}
-          >
-            <Text style={styles.sendButtonText}>Skicka</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   )
 }
