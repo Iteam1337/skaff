@@ -15,6 +15,7 @@ import Chat from './Chat'
 import deals from '../data/deals'
 import { certifications } from '../data/categories'
 import useAuth from '../hooks/useAuth'
+import useDeals from '../hooks/useDeals'
 
 const Header = ({ product, supplier, price }) => (
   <View style={{ ...styles.container, ...styles.header }}>

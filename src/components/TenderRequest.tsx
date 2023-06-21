@@ -265,67 +265,73 @@ const TenderRequest = ({
                 </Container>
                 <Container>
                   <Subheading>Matchande anbud</Subheading>
-                  {tenderOffers.map((offer, i) => (
-                    <Card
-                      key={i}
-                      style={styles.card}
-                      //  onPress={() => navigation.navigate('TenderRequest', { id })}
-                    >
-                      <Card.Title
-                        titleVariant="titleSmall"
-                        titleStyle={{
-                          fontSize: 14,
-                        }}
-                        title={offer.supplier?.name}
-                        subtitle={
-                          'Inkom ' +
-                          offer.submissionDate?.toString().split('T')[0]
-                        }
-                        right={(props) => {
-                          if (offer.approved)
-                            return (
-                              <Container
-                                style={{
-                                  flexDirection: 'row',
-                                  display: 'flex',
-                                }}
-                              >
-                                <MaterialCommunityIcons
-                                  size={25}
-                                  name="clipboard-check"
-                                />
-                                <Text
+                  {tenderOffers
+                    .sort((a, b) => a.price.SEK - b.price.SEK)
+                    .map((offer, i) => (
+                      <Card
+                        key={i}
+                        style={styles.card}
+                        //  onPress={() => navigation.navigate('TenderRequest', { id })}
+                      >
+                        <Card.Title
+                          titleVariant="titleSmall"
+                          titleStyle={{
+                            fontSize: 14,
+                          }}
+                          title={
+                            offer.price.SEK +
+                            ' kr från: ' +
+                            offer.supplier?.name
+                          }
+                          subtitle={
+                            'Inkom ' +
+                            offer.submissionDate?.toString().split('T')[0]
+                          }
+                          right={(props) => {
+                            if (offer.approved)
+                              return (
+                                <Container
                                   style={{
-                                    marginLeft: 5,
-                                    marginTop: 5,
+                                    flexDirection: 'row',
+                                    display: 'flex',
                                   }}
                                 >
-                                  Tilldelad
-                                </Text>
-                              </Container>
+                                  <MaterialCommunityIcons
+                                    size={25}
+                                    name="clipboard-check"
+                                  />
+                                  <Text
+                                    style={{
+                                      marginLeft: 5,
+                                      marginTop: 5,
+                                    }}
+                                  >
+                                    Tilldelad
+                                  </Text>
+                                </Container>
+                              )
+                            else if (
+                              tenderOffers.filter((offer) => offer.approved)
+                                .length < 1
                             )
-                          else if (
-                            tenderOffers.filter((offer) => offer.approved)
-                              .length < 1
-                          )
-                            return (
-                              <Button
-                                icon="clipboard-check"
-                                mode="contained"
-                                uppercase={false}
-                                style={{ marginRight: 10 }}
-                                onPress={() => {
-                                  console.log('offer', offer)
-                                  updateOffer({ ...offer, approved: true })
-                                }}
-                              >
-                                Tilldela
-                              </Button>
-                            )
-                        }}
-                      />
-                    </Card>
-                  ))}
+                              return (
+                                <Button
+                                  icon="clipboard-check"
+                                  mode="contained"
+                                  uppercase={false}
+                                  style={{ marginRight: 10 }}
+                                  onPress={() => {
+                                    console.log('offer', offer)
+                                    updateOffer({ ...offer, approved: true })
+                                  }}
+                                >
+                                  Tilldela
+                                </Button>
+                              )
+                          }}
+                        />
+                      </Card>
+                    ))}
                 </Container>
                 <Container>
                   <Divider />
