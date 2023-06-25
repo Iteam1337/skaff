@@ -17,6 +17,7 @@ import useAuth from '../hooks/useAuth'
 import { useEffect, useState } from 'react'
 import useTenderRequests from '../hooks/useTenderRequests'
 import TenderRequestCard from './TenderRequestCard'
+import useOffers from '../hooks/useOffers'
 
 const BuyerProfile = ({
   route,
@@ -28,11 +29,13 @@ const BuyerProfile = ({
   const theme = useTheme()
   const { user: buyer, logout } = useAuth()
   const [tenderRequests, , , refreshTenderRequests] = useTenderRequests()
+  const [offers, , , refreshOffers] = useOffers()
   const [showTenderRequests, setShowTenderRequests] = useState(true)
   const [showDeals, setShowDeals] = useState(true)
 
   useEffect(() => {
     refreshTenderRequests()
+    refreshOffers()
   }, [])
 
   const myTenderRequests = tenderRequests.filter(
@@ -95,27 +98,37 @@ const BuyerProfile = ({
         <TabScreen label="Mina avtal">
           <ScrollView>
             <List.Accordion title="Pågående" expanded={true}>
-              <Card>
-                <Card.Title
-                  title="Morötter"
-                  subtitle="500 kg | Wermlands Mejeri"
-                ></Card.Title>
-              </Card>
-              <Card>
-                <Card.Title
-                  title="Morötter"
-                  subtitle="700 kg | Wermlands Mejeri"
-                ></Card.Title>
-              </Card>
+              {myTenderRequests
+                .filter((t) =>
+                  offers
+                    .filter((o) => !o.approved)
+                    .some((o) => o.tenderRequestId === t.id)
+                )
+                .map((tenderRequest) => (
+                  <TenderRequestCard
+                    user={buyer}
+                    key={tenderRequest.id}
+                    tenderRequest={tenderRequest}
+                    navigation={navigation}
+                  />
+                ))}
             </List.Accordion>
             <Divider />
-            <List.Accordion title="Avslutade">
-              <Card>
-                <Card.Title
-                  title="Morötter"
-                  subtitle="500 kg | Wermlands Mejeri"
-                ></Card.Title>
-              </Card>
+            <List.Accordion title="Avslutade" expanded={true}>
+              {myTenderRequests
+                .filter((t) =>
+                  offers
+                    .filter((o) => o.approved)
+                    .some((o) => o.tenderRequestId === t.id)
+                )
+                .map((tenderRequest) => (
+                  <TenderRequestCard
+                    user={buyer}
+                    key={tenderRequest.id}
+                    tenderRequest={tenderRequest}
+                    navigation={navigation}
+                  />
+                ))}
             </List.Accordion>
           </ScrollView>
         </TabScreen>

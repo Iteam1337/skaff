@@ -235,6 +235,26 @@ io.on('connection', (socket) => {
 
   socket.on('editOffer', (offer) => {
     const index = state.offers.findIndex((d) => d.id === offer.id)
+    const oldOffer = state.offers[index]
+    if (!oldOffer.approved && offer.approved) {
+      const token = oldOffer.supplier.token
+      const tenderRequest = state.tenderRequests.find(
+        (tr) => tr.id === offer.tenderRequestId
+      )
+      if (tenderRequest)
+        sendPushNotification({
+          to: [token],
+          title: 'Anbud godkänt',
+          body: `Ditt anbud på ${tenderRequest.title} har godkänts`,
+          data: {
+            date: new Date(),
+            type: 'offer',
+            to: [oldOffer.supplier.id],
+            id: offer.id,
+            tenderRequestId: offer.tenderRequestId,
+          },
+        })
+    }
     state.offers[index] = offer
     io.emit('offers', state.offers)
   })

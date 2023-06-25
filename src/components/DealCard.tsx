@@ -1,13 +1,13 @@
 import { StyleSheet } from 'react-native'
 import { Button, Card } from 'react-native-paper'
-import { TenderRequest } from '../data/tenderRequests'
+import { Deal } from '../data/deals'
 import useAuth from '../hooks/useAuth'
 
-const TenderRequestCard = ({
-  tenderRequest,
+const DealCard = ({
+  deal,
   navigation,
 }: {
-  tenderRequest: TenderRequest
+  deal: Deal
   navigation: any
   user: ReturnType<typeof useAuth>['user']
 }) => {
@@ -15,31 +15,28 @@ const TenderRequestCard = ({
     <Card
       style={styles.card}
       onPress={() =>
-        navigation.navigate('TenderRequests', {
-          screen: 'TenderRequest',
+        navigation.navigate('Deals', {
+          screen: 'Deal',
           params: {
-            tenderRequestId: tenderRequest.id,
+            deal,
           },
         })
       }
     >
       <Card.Title
-        title={tenderRequest.title}
+        title={deal.product.name}
         titleVariant="titleSmall"
         titleStyle={{
           fontSize: 14,
         }}
-        subtitle={
-          'Tilldelningsdatum: ' +
-          tenderRequest.lastAwardDate?.toString().split('T')[0]
-        }
+        subtitle={'Pris: ' + deal.price.SEK}
         right={(props) => <Button icon="chevron-right" />}
       ></Card.Title>
     </Card>
   )
 }
 
-export default TenderRequestCard
+export default DealCard
 
 const styles = StyleSheet.create({
   header: {
