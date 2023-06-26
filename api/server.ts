@@ -39,7 +39,7 @@ type State = {
 
 const state = {} as State
 
-const reset = () =>
+const reset = () => {
   Object.assign(state, {
     buyers: [...buyers], // reset to original data
     suppliers: [...suppliers],
@@ -49,6 +49,8 @@ const reset = () =>
     categories: { ...categories },
     notifications: [],
   })
+  sync(io)
+}
 
 const unique = (arr: any[]) => [...new Set(arr)]
 
@@ -58,15 +60,6 @@ const sendPushNotification = (data: any) => {
   state.notifications.push(data)
   io.emit('notifications', state.notifications)
 }
-const sendMyOffers = (socket: any) => {
-  /*if (!socket.data.user) return console.error('no user, can not send offers')
-  const myOffers = state.offers.filter(
-    (offer) =>
-      offer.supplier?.id === socket.data.user.id ||
-      offer.buyer?.id === socket.data.user.id
-  )*/
-  socket.emit('offers', state.offers)
-}
 
 // either provide socket or io - if you provide io then it will send to all sockets
 const sync = (socket: any) => {
@@ -75,14 +68,20 @@ const sync = (socket: any) => {
     state.deals.length,
     'deals',
     state.tenderRequests.length,
-    'tenderRequests'
+    'tenderRequests',
+    state.suppliers.length,
+    'suppliers',
+    state.buyers.length,
+    'buyers',
+    state.offers.length,
+    'offers'
   )
   socket.emit('tenderRequests', state.tenderRequests)
   socket.emit('suppliers', state.suppliers)
   socket.emit('buyers', state.buyers)
   socket.emit('notifications', state.notifications)
   socket.emit('deals', state.deals)
-  sendMyOffers(socket)
+  socket.emit('offers', state.offers)
 }
 
 io.on('connection', (socket) => {

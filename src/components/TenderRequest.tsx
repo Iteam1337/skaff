@@ -37,8 +37,6 @@ const TenderRequest = ({
   route: any
   navigation: any
 }) => {
-  const [tenderOffers, setTenderOffers] = useState([] as Offer[])
-
   const [tenderRequests, , , refreshTenderRequests] = useTenderRequests()
   const [tenderRequest, setTenderRequest] = useState<
     TenderRequestType | undefined
@@ -46,13 +44,6 @@ const TenderRequest = ({
   const theme = useTheme()
   const { user } = useAuth()
   const [offers, updateOffer, , refreshOffers] = useOffers()
-
-  useEffect(() => {
-    if (route.params.tenderRequestId)
-      setTenderRequest(
-        tenderRequests.find(({ id }) => id === route.params.tenderRequestId)
-      )
-  }, [tenderRequests, route.params.tenderRequestId])
 
   useEffect(() => {
     if (tenderRequest?.id) {
@@ -258,7 +249,7 @@ const TenderRequest = ({
                 </Container>
                 <Container>
                   <Subheading>Matchande anbud</Subheading>
-                  {tenderOffers
+                  {offers
                     .filter((o) => o.tenderRequestId === tenderRequest.id)
                     .sort((a, b) => a.price.SEK - b.price.SEK)
                     .map((offer, i) => (
@@ -305,8 +296,8 @@ const TenderRequest = ({
                                 </Container>
                               )
                             else if (
-                              tenderOffers.filter((offer) => offer.approved)
-                                .length < 1
+                              offers.filter((offer) => offer.approved).length <
+                              1
                             )
                               return (
                                 <Button

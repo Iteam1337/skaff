@@ -32,31 +32,29 @@ export const NotificationSnackbar = () => {
   const [notificationVisible, setNotificationVisible] = useState<boolean>(true)
   const [notifications] = useNotifications()
   const navigation = useNavigation()
+  const lastNotification = notifications.at(0)
 
   useEffect(() => {
+    console.log('notifications', notifications)
     if (
-      (notifications?.length > 0 &&
-        new Date(notifications.at(-1).data.date || 0).valueOf()) ||
-      0 > Date.now().valueOf() - 10000
+      new Date(lastNotification?.data.date || 0).valueOf() >
+      Date.now() - 10000
     ) {
       setNotificationVisible(true)
     }
-  }, [notifications])
-
-  const lastNotification = notifications.at(-1)
-  const args = getNavigationArguments(lastNotification?.data)
+  }, [lastNotification])
 
   return (
     (lastNotification && (
       <Snackbar
         visible={notificationVisible}
         onDismiss={() => setNotificationVisible(false)}
-        /* action={{
-          label: 'Gå till',
+        action={{
+          label: 'OK',
           onPress: () => {
-            if (args) navigation.navigate(args)
+            navigation.navigate('Notifications')
           },
-        }}*/
+        }}
       >
         {lastNotification.title + ': ' + lastNotification.body}
       </Snackbar>

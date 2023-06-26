@@ -27,7 +27,12 @@ const useNotifications = (): [Array<Notification>, fn] => {
     const receive = (notifications: Array<Notification>) => {
       if (!user) return
       setNotifications(
-        notifications.filter((n) => n.data?.to?.includes(user?.id))
+        notifications
+          .filter((n) => n.data?.to?.includes(user?.id))
+          .sort(
+            (a, b) =>
+              new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf()
+          )
       )
     }
     socket.on('notifications', receive)

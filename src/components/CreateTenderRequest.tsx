@@ -96,7 +96,9 @@ const CreateTenderRequest = ({
   const publish = (tenderRequest: any) => {
     add(tenderRequest)
 
-    navigation.navigate('ListTenderRequests')
+    navigation.navigate('TenderRequests', {
+      screen: 'ListTenderRequests',
+    })
   }
 
   return (
