@@ -40,12 +40,12 @@ const TenderRequest = ({
   const [tenderOffers, setTenderOffers] = useState([] as Offer[])
 
   const [tenderRequests, , , refreshTenderRequests] = useTenderRequests()
-  const [offers, updateOffer, , refreshOffers] = useOffers()
   const [tenderRequest, setTenderRequest] = useState<
     TenderRequestType | undefined
   >(route.params.tenderRequest as TenderRequestType)
   const theme = useTheme()
   const { user } = useAuth()
+  const [offers, updateOffer, , refreshOffers] = useOffers()
 
   useEffect(() => {
     if (route.params.tenderRequestId)
@@ -66,9 +66,11 @@ const TenderRequest = ({
   }, [tenderRequest, offers])
 
   useEffect(() => {
-    refreshOffers()
+    const buyer = user?.type === 'buyer' ? user : undefined
+    const supplier = user?.type === 'supplier' ? user : undefined
+    refreshOffers({ buyer, supplier })
     refreshTenderRequests()
-  }, [])
+  }, [user])
 
   if (!tenderRequest)
     return (

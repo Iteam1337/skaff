@@ -28,12 +28,11 @@ const useOffers = (): [Array<Offer>, any, any, any] => {
   const refresh = ({ supplier, buyer } = {}) =>
     socket.emit('offers', (offers: Array<Offer>) =>
       setOffers(
-        offers.filter(
-          (o) =>
-            o.supplier.id === supplier.id ||
-            o.buyer.id === buyer.id ||
-            (!supplier && !buyer)
-        )
+        offers.filter((o) => {
+          if (supplier) return o.supplier.id == supplier.id
+          if (buyer) return o.buyer.id == buyer.id
+          return true
+        })
       )
     )
 
