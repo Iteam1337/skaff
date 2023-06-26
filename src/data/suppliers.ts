@@ -53,17 +53,17 @@ export default [
       'Välkommen till Wermlands Mejeri. Ett mejeri med hjärtat i Värmlands Nysäter som säljer närproducerad mjölk och grädde från värmländska kor.',
   },
   {
-    id: '3',
+    id: '4',
     type: 'supplier',
     online: false,
     name: 'Magdakullan',
     image: image3,
-    address: 'Gillbergavägen 2',
+    address: 'Magdavägen 2',
     zip: '661 95',
-    postalAddress: 'Värmlands Nysäter',
-    email: 'info@wermlandsmeeri.se',
+    postalAddress: 'Margaetelundsvägen 1337',
+    email: 'info@margaretelund.se',
     produce: ['Komjölk', 'Yoghurt', 'Ost'],
     description:
-      'Välkommen till Wermlands Mejeri. Ett mejeri med hjärtat i Värmlands Nysäter som säljer närproducerad mjölk och grädde från värmländska kor.',
+      'Välkommen till Magdakullan. Ett mejeri med hjärtat i Magdakullan som säljer närproducerad skålar och färdigmat från värmländska kor.',
   },
 ] as Array<Supplier>

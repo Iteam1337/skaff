@@ -30,9 +30,9 @@ const useOffers = (): [Array<Offer>, any, any, any] => {
       setOffers(
         offers.filter(
           (o) =>
-            supplier ||
-            (buyer &&
-              (o.supplier.id === supplier.id || o.buyer.id === buyer.id))
+            o.supplier.id === supplier.id ||
+            o.buyer.id === buyer.id ||
+            (!supplier && !buyer)
         )
       )
     )
