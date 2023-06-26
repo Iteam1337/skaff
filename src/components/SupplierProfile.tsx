@@ -33,10 +33,10 @@ const SupplierProfile = ({
   }, [supplier])
 
   useEffect(() => {
-    refreshOffers()
+    refreshOffers({ supplier })
     refreshTenderRequests()
     refreshDeals()
-  }, [])
+  }, [supplier])
 
   const myOffers = offers.filter((o) => o.supplier.id === supplier.id)
   const myDeals = deals.filter((o) => o.supplier.id === supplier.id)
@@ -67,7 +67,6 @@ const SupplierProfile = ({
               )}
               {myOffers.map((offer, i) => (
                 <OfferCard
-                  key={i}
                   user={supplier}
                   key={offer.id}
                   offer={offer}

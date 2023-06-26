@@ -35,7 +35,7 @@ const BuyerProfile = ({
 
   useEffect(() => {
     refreshTenderRequests()
-    refreshOffers()
+    refreshOffers({ buyer })
   }, [])
 
   const myTenderRequests = tenderRequests.filter(
@@ -79,23 +79,9 @@ const BuyerProfile = ({
                 />
               ))}
             </List.Accordion>
-            <Divider />
-            <List.Accordion
-              title="Erbjudanden"
-              expanded={showDeals}
-              onPress={() => setShowDeals((showDeals) => !showDeals)}
-            >
-              <List.Subheader>Favoriter</List.Subheader>
-              <Card>
-                <Card.Title
-                  title="Fina morötter"
-                  subtitle="Upp till 5 000 kg per år, leverans veckovis"
-                ></Card.Title>
-              </Card>
-            </List.Accordion>
           </ScrollView>
         </TabScreen>
-        <TabScreen label="Mina avtal">
+        <TabScreen label="Anbud">
           <ScrollView>
             <List.Accordion title="Pågående" expanded={true}>
               {myTenderRequests

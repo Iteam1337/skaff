@@ -54,20 +54,8 @@ const TenderRequest = ({
       )
   }, [tenderRequests, route.params.tenderRequestId])
 
-  if (!tenderRequest)
-    return (
-      <Text>
-        Ladda via parametrar stöds ej än: {route.params.tenderRequestId}
-      </Text>
-    )
-
   useEffect(() => {
-    if (tenderRequest.id) {
-      const offersForTenderRequest = offers.filter(
-        ({ tenderRequestId }) => tenderRequestId === tenderRequest.id
-      )
-      setTenderOffers(offersForTenderRequest)
-
+    if (tenderRequest?.id) {
       const tenderRequestFromState = tenderRequests.find(
         ({ id }) => id === tenderRequest.id
       )
@@ -77,16 +65,17 @@ const TenderRequest = ({
     }
   }, [tenderRequest, offers])
 
-  const myOffers = tenderOffers.filter(
-    (to) =>
-      to.supplier.id === user?.id && to.tenderRequestId === tenderRequest.id
-  )
-
   useEffect(() => {
     refreshOffers()
     refreshTenderRequests()
   }, [])
 
+  if (!tenderRequest)
+    return (
+      <Text>
+        Ladda via parametrar stöds ej än: {route.params.tenderRequestId}
+      </Text>
+    )
   return (
     <>
       <View style={{ ...styles.header }}>
@@ -193,7 +182,7 @@ const TenderRequest = ({
             <>
               {user?.type === 'supplier' && (
                 <Container>
-                  {!myOffers.length && (
+                  {!offers.length && (
                     <>
                       <Paragraph>
                         För att lämna anbud måste du vara ansluten till detta
@@ -217,7 +206,7 @@ const TenderRequest = ({
                   )}
                   <List.Section>
                     <List.Subheader>Dina skickade anbud</List.Subheader>
-                    {myOffers.map((offer, i) => (
+                    {offers.map((offer, i) => (
                       <Card
                         key={i}
                         style={styles.card}

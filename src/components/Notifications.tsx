@@ -36,10 +36,11 @@ export default function Notifications({ navigation }) {
               console.log('navigate to', notification)
               switch (notification.data.type) {
                 case 'offer':
-                  navigation.navigate('Offer', {
-                    offer: offers.find(
-                      (offer) => offer.id === notification.data.id
-                    ),
+                  navigation.navigate('TenderRequests', {
+                    screen: 'TenderRequest',
+                    params: {
+                      tenderRequestId: notification.data.tenderRequestId,
+                    },
                   })
                   break
                 case 'tenderRequest':

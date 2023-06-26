@@ -19,6 +19,11 @@ const OfferCard = ({
   return (
     <Card
       style={styles.card}
+      onPress={() =>
+        navigation.navigate('TenderRequest', {
+          tenderRequestId: offer.tenderRequestId,
+        })
+      }
       /*  this causes endless loop
         onPress={() =>
         navigation.navigate('TenderRequests', {
@@ -34,6 +39,7 @@ const OfferCard = ({
         titleVariant="titleSmall"
         titleStyle={{
           fontSize: 14,
+          color: offer.approved ? 'green' : 'black',
         }}
         subtitle={'Inlämnat: ' + offer.submissionDate?.toString().split('T')[0]}
         right={(props) => <Button icon="chevron-right" />}

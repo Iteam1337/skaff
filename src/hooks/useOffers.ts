@@ -25,8 +25,17 @@ const useOffers = (): [Array<Offer>, any, any, any] => {
     socket.emit('addOffer', offer)
   }
 
-  const refresh = () =>
-    socket.emit('offers', (offers: Array<Offer>) => setOffers(offers))
+  const refresh = ({ supplier, buyer } = {}) =>
+    socket.emit('offers', (offers: Array<Offer>) =>
+      setOffers(
+        offers.filter(
+          (o) =>
+            supplier ||
+            (buyer &&
+              (o.supplier.id === supplier.id || o.buyer.id === buyer.id))
+        )
+      )
+    )
 
   return [offers, editOffer, addOffer, refresh]
 }
