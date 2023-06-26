@@ -2,8 +2,8 @@
   "background_color": "#ffffff",
   "display": "standalone",
   "lang": "en",
-  "name": "foodMarket",
-  "short_name": "foodMarket",
+  "name": "Skaff",
+  "short_name": "Skaff",
   "start_url": "/?utm_source=web_app_manifest",
   "orientation": "portrait"
 }
