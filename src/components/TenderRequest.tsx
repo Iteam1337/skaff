@@ -54,7 +54,7 @@ const TenderRequest = ({
         setTenderRequest(tenderRequestFromState)
       }
     }
-  }, [tenderRequest, offers])
+  }, [tenderRequest])
 
   useEffect(() => {
     const buyer = user?.type === 'buyer' ? user : undefined
@@ -69,6 +69,14 @@ const TenderRequest = ({
         Ladda via parametrar stöds ej än: {route.params.tenderRequestId}
       </Text>
     )
+
+  const validOffers = offers
+    .filter((offer) => offer.tenderRequestId === tenderRequest?.id)
+    .filter(
+      (offer) => offer.buyer.id === user?.id || offer.supplier.id === user?.id
+    )
+    .sort((a, b) => a.price.SEK - b.price.SEK)
+
   return (
     <>
       <View style={{ ...styles.header }}>
@@ -175,7 +183,7 @@ const TenderRequest = ({
             <>
               {user?.type === 'supplier' && (
                 <Container>
-                  {!offers.length && (
+                  {!validOffers.length && (
                     <>
                       <Paragraph>
                         För att lämna anbud måste du vara ansluten till detta
@@ -199,42 +207,40 @@ const TenderRequest = ({
                   )}
                   <List.Section>
                     <List.Subheader>Dina skickade anbud</List.Subheader>
-                    {offers
-                      .filter((o) => o.tenderRequestId === tenderRequest.id)
-                      .map((offer, i) => (
-                        <Card
-                          key={i}
-                          style={styles.card}
-                          onPress={() => {
-                            console.log('pressed', offer)
-                            navigation.navigate('Supplier', {
-                              supplier: offer.supplier,
-                            })
+                    {validOffers.map((offer, i) => (
+                      <Card
+                        key={i}
+                        style={styles.card}
+                        onPress={() => {
+                          console.log('pressed', offer)
+                          navigation.navigate('Supplier', {
+                            supplier: offer.supplier,
+                          })
+                        }}
+                      >
+                        <Card.Title
+                          titleVariant="titleSmall"
+                          titleStyle={{
+                            fontSize: 14,
                           }}
-                        >
-                          <Card.Title
-                            titleVariant="titleSmall"
-                            titleStyle={{
-                              fontSize: 14,
-                            }}
-                            left={(props) => (
-                              <MaterialCommunityIcons
-                                name="file-document-outline"
-                                color="black"
-                                size={24}
-                              />
-                            )}
-                            title={offer.price.SEK + ' kr'}
-                            subtitle={
-                              'Inlämnad ' +
-                              offer.submissionDate?.toString().split('T')[0] +
-                              '. ' +
-                              (offer.approved ? 'Vunnen' : 'Ej godkänt')
-                            }
-                            right={(props) => <ChevronRight />}
-                          />
-                        </Card>
-                      ))}
+                          left={(props) => (
+                            <MaterialCommunityIcons
+                              name="file-document-outline"
+                              color="black"
+                              size={24}
+                            />
+                          )}
+                          title={offer.price.SEK + ' kr'}
+                          subtitle={
+                            'Inlämnad ' +
+                            offer.submissionDate?.toString().split('T')[0] +
+                            '. ' +
+                            (offer.approved ? 'Vunnen' : 'Ej godkänt')
+                          }
+                          right={(props) => <ChevronRight />}
+                        />
+                      </Card>
+                    ))}
                   </List.Section>
                 </Container>
               )}
@@ -249,74 +255,68 @@ const TenderRequest = ({
                 </Container>
                 <Container>
                   <Subheading>Matchande anbud</Subheading>
-                  {offers
-                    .filter((o) => o.tenderRequestId === tenderRequest.id)
-                    .sort((a, b) => a.price.SEK - b.price.SEK)
-                    .map((offer, i) => (
-                      <Card
-                        key={i}
-                        style={styles.card}
-                        //  onPress={() => navigation.navigate('TenderRequest', { id })}
-                      >
-                        <Card.Title
-                          titleVariant="titleSmall"
-                          titleStyle={{
-                            fontSize: 14,
-                          }}
-                          title={
-                            offer.price.SEK +
-                            ' kr från: ' +
-                            offer.supplier?.name
-                          }
-                          subtitle={
-                            'Inkom ' +
-                            offer.submissionDate?.toString().split('T')[0]
-                          }
-                          right={(props) => {
-                            if (offer.approved)
-                              return (
-                                <Container
+                  {validOffers.map((offer, i) => (
+                    <Card
+                      key={i}
+                      style={styles.card}
+                      //  onPress={() => navigation.navigate('TenderRequest', { id })}
+                    >
+                      <Card.Title
+                        titleVariant="titleSmall"
+                        titleStyle={{
+                          fontSize: 14,
+                        }}
+                        title={
+                          offer.price.SEK + ' kr från: ' + offer.supplier?.name
+                        }
+                        subtitle={
+                          'Inkom ' +
+                          offer.submissionDate?.toString().split('T')[0]
+                        }
+                        right={(props) => {
+                          if (offer.approved)
+                            return (
+                              <Container
+                                style={{
+                                  flexDirection: 'row',
+                                  display: 'flex',
+                                }}
+                              >
+                                <MaterialCommunityIcons
+                                  size={25}
+                                  name="clipboard-check"
+                                />
+                                <Text
                                   style={{
-                                    flexDirection: 'row',
-                                    display: 'flex',
+                                    marginLeft: 5,
+                                    marginTop: 5,
                                   }}
                                 >
-                                  <MaterialCommunityIcons
-                                    size={25}
-                                    name="clipboard-check"
-                                  />
-                                  <Text
-                                    style={{
-                                      marginLeft: 5,
-                                      marginTop: 5,
-                                    }}
-                                  >
-                                    Tilldelad
-                                  </Text>
-                                </Container>
-                              )
-                            else if (
-                              offers.filter((offer) => offer.approved).length <
-                              1
+                                  Tilldelad
+                                </Text>
+                              </Container>
                             )
-                              return (
-                                <Button
-                                  icon="clipboard-check"
-                                  mode="contained"
-                                  uppercase={false}
-                                  style={{ marginRight: 10 }}
-                                  onPress={() => {
-                                    console.log('offer', offer)
-                                    updateOffer({ ...offer, approved: true })
-                                  }}
-                                >
-                                  Tilldela
-                                </Button>
-                              )
-                          }}
-                        />
-                      </Card>
-                    ))}
+                          else if (
+                            offers.filter((offer) => offer.approved).length < 1
+                          )
+                            return (
+                              <Button
+                                icon="clipboard-check"
+                                mode="contained"
+                                uppercase={false}
+                                style={{ marginRight: 10 }}
+                                onPress={() => {
+                                  console.log('offer', offer)
+                                  updateOffer({ ...offer, approved: true })
+                                }}
+                              >
+                                Tilldela
+                              </Button>
+                            )
+                        }}
+                      />
+                    </Card>
+                  ))}
                 </Container>
                 <Container>
                   <Divider />
