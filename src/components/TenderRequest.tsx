@@ -46,15 +46,15 @@ const TenderRequest = ({
   const [offers, updateOffer, , refreshOffers] = useOffers()
 
   useEffect(() => {
-    if (tenderRequest?.id) {
+    if (route.params.tenderRequestId) {
       const tenderRequestFromState = tenderRequests.find(
-        ({ id }) => id === tenderRequest.id
+        ({ id }) => id === route.params.tenderRequestId
       )
       if (tenderRequestFromState) {
         setTenderRequest(tenderRequestFromState)
       }
     }
-  }, [tenderRequest])
+  }, [route.params.tenderRequestId, tenderRequests])
 
   useEffect(() => {
     const buyer = user?.type === 'buyer' ? user : undefined

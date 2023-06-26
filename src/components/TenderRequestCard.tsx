@@ -15,11 +15,8 @@ const TenderRequestCard = ({
     <Card
       style={styles.card}
       onPress={() =>
-        navigation.navigate('TenderRequests', {
-          screen: 'TenderRequest',
-          params: {
-            tenderRequestId: tenderRequest.id,
-          },
+        navigation.navigate('TenderRequest', {
+          tenderRequestId: tenderRequest.id,
         })
       }
     >
