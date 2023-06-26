@@ -208,40 +208,42 @@ const TenderRequest = ({
                   )}
                   <List.Section>
                     <List.Subheader>Dina skickade anbud</List.Subheader>
-                    {offers.map((offer, i) => (
-                      <Card
-                        key={i}
-                        style={styles.card}
-                        onPress={() => {
-                          console.log('pressed', offer)
-                          navigation.navigate('Supplier', {
-                            supplier: offer.supplier,
-                          })
-                        }}
-                      >
-                        <Card.Title
-                          titleVariant="titleSmall"
-                          titleStyle={{
-                            fontSize: 14,
+                    {offers
+                      .filter((o) => o.tenderRequestId === tenderRequest.id)
+                      .map((offer, i) => (
+                        <Card
+                          key={i}
+                          style={styles.card}
+                          onPress={() => {
+                            console.log('pressed', offer)
+                            navigation.navigate('Supplier', {
+                              supplier: offer.supplier,
+                            })
                           }}
-                          left={(props) => (
-                            <MaterialCommunityIcons
-                              name="file-document-outline"
-                              color="black"
-                              size={24}
-                            />
-                          )}
-                          title={offer.price.SEK + ' kr'}
-                          subtitle={
-                            'Inlämnad ' +
-                            offer.submissionDate?.toString().split('T')[0] +
-                            '. ' +
-                            (offer.approved ? 'Vunnen' : 'Ej godkänt')
-                          }
-                          right={(props) => <ChevronRight />}
-                        />
-                      </Card>
-                    ))}
+                        >
+                          <Card.Title
+                            titleVariant="titleSmall"
+                            titleStyle={{
+                              fontSize: 14,
+                            }}
+                            left={(props) => (
+                              <MaterialCommunityIcons
+                                name="file-document-outline"
+                                color="black"
+                                size={24}
+                              />
+                            )}
+                            title={offer.price.SEK + ' kr'}
+                            subtitle={
+                              'Inlämnad ' +
+                              offer.submissionDate?.toString().split('T')[0] +
+                              '. ' +
+                              (offer.approved ? 'Vunnen' : 'Ej godkänt')
+                            }
+                            right={(props) => <ChevronRight />}
+                          />
+                        </Card>
+                      ))}
                   </List.Section>
                 </Container>
               )}
@@ -257,6 +259,7 @@ const TenderRequest = ({
                 <Container>
                   <Subheading>Matchande anbud</Subheading>
                   {tenderOffers
+                    .filter((o) => o.tenderRequestId === tenderRequest.id)
                     .sort((a, b) => a.price.SEK - b.price.SEK)
                     .map((offer, i) => (
                       <Card
