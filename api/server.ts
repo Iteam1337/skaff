@@ -187,9 +187,9 @@ io.on('connection', (socket) => {
     sendPushNotification({
       to: tokens,
       title: 'Nytt erbjudande i Skaff',
-      body: `${deal.product?.name || 'Produkt'} i ${
-        deal.user?.postalAddress
-      } från ${deal.supplier.name}`,
+      body: `${deal.product?.name || 'Produkt'} för ${
+        Math.round(deal.price.SEK_per_Kg * 10) / 10
+      } kr/kg från ${deal.supplier.name}`,
       data: {
         date: new Date(),
         type: 'deal',
