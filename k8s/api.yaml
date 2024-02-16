@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: foodmarket-api
-          image: iteam1337/foodmarket
+          image: ghcr.io/iteam1337/foodmarket:main
 
           resources:
             limits: {}
@@ -46,7 +46,6 @@ metadata:
   labels:
     name: foodmarket-api
   annotations:
-    kubernetes.io/ingress.class: 'nginx'
     cert-manager.io/cluster-issuer: 'letsencrypt-prod'
 spec:
   tls:
