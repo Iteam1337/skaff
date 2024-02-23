@@ -49,6 +49,9 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: 'nginx'
     cert-manager.io/cluster-issuer: 'letsencrypt-prod'
+    external-dns.alpha.kubernetes.io/hostname: skaff-qr.iteam.pub.
+    external-dns.alpha.kubernetes.io/target: 94.142.251.120 # remove when we have automatic IP assignment
+
 spec:
   tls:
     - hosts:
