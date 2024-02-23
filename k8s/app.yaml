@@ -56,7 +56,7 @@ spec:
   tls:
     - hosts:
         - skaff-qr.iteam.pub
-      secretName: skaff-prod-tls
+      secretName: skaff-qr-prod-tls
   rules:
     - host: skaff-qr.iteam.pub
       http:
