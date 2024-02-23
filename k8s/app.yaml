@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: foodmarket
-          image: iteam1337/foodmarket
+          image: ghcr.io/iteam1337/foodmarket:main #{}
           env:
             - name: EXPO_PUBLIC_URL
               value: https://skaff-qr.iteam.pub/
