@@ -47,7 +47,10 @@ metadata:
     name: foodmarket-api
   annotations:
     cert-manager.io/cluster-issuer: 'letsencrypt-prod'
+    external-dns.alpha.kubernetes.io/hostname: skaff-api.iteam.pub.
+    external-dns.alpha.kubernetes.io/target: 94.142.251.120 # remove when we have automatic IP assignment
 spec:
+  ingressClassName: nginx
   tls:
     - hosts:
         - skaff-api.iteam.pub
