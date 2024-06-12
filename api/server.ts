@@ -22,6 +22,7 @@ const io = new Server(server, {
 })
 
 app.use('/assets', express.static(path.join(__dirname, '../assets')))
+app.get('/healthz', (req, res) => res.send('ok'))
 
 server.listen(port, () => {
   console.log(`listening on *:${port}`)

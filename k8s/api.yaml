@@ -26,13 +26,13 @@ spec:
               name: http
           readinessProbe:
             httpGet:
-              path: /
+              path: /socket.io/socket.io.js
               port: http
             initialDelaySeconds: 5
             periodSeconds: 10
           livenessProbe:
             httpGet:
-              path: /
+              path: /socket.io/socket.io.js
               port: http
             initialDelaySeconds: 30
             periodSeconds: 60
