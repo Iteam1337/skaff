@@ -16,7 +16,7 @@ spec:
           image: ghcr.io/iteam1337/foodmarket:main
           resources:
             limits:
-              memory: '256Mi'
+              memory: '1024Mi'
               cpu: '1000m'
             requests:
               memory: '128Mi'
