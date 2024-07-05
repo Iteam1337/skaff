@@ -258,7 +258,7 @@ io.on('connection', (socket) => {
           },
         })
 
-        if(tenderRequest && otherOffersForTender)
+        if (tenderRequest && otherOffersForTender)
           otherOffersForTender.forEach(o =>
             sendPushNotification({
               to: [o.supplier.token],
@@ -272,8 +272,8 @@ io.on('connection', (socket) => {
                 tenderRequestId: tenderRequest?.id,
               },
             }) 
-        )
-    }
+          )
+        }
     state.offers[index] = offer
     io.emit('offers', state.offers)
   })
