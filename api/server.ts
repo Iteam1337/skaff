@@ -241,6 +241,9 @@ io.on('connection', (socket) => {
       const tenderRequest = state.tenderRequests.find(
         (tr) => tr.id === offer.tenderRequestId
       )
+      const otherOffersForTender = state.offers.filter(
+        (o) => o.tenderRequestId === tenderRequest?.id && offer.id !== o.id
+      )
       if (tenderRequest)
         sendPushNotification({
           to: [token],
@@ -254,7 +257,23 @@ io.on('connection', (socket) => {
             tenderRequestId: offer.tenderRequestId,
           },
         })
-    }
+
+        if (tenderRequest && otherOffersForTender)
+          otherOffersForTender.forEach(o =>
+            sendPushNotification({
+              to: [o.supplier.token],
+              title: 'Anbud förkastat',
+              body: `Ditt bud på ${tenderRequest.title} har förkastats. ${offer.supplier.name}s bud har godkänts av följande skäl: ${offer.acceptanceMotivation}`,
+              data: {
+                date: new Date(),
+                type: 'offer',
+                to: [o.supplier.id],
+                id: offer.id,
+                tenderRequestId: tenderRequest?.id,
+              },
+            }) 
+          )
+        }
     state.offers[index] = offer
     io.emit('offers', state.offers)
   })

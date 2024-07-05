@@ -9,6 +9,7 @@ export type Offer = {
   buyer: Buyer
   supplier: Supplier
   approved: boolean
+  acceptanceMotivation: string
   submissionDate: Date
   submitted: boolean
   tenderRequestId: string
