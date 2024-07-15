@@ -54,7 +54,13 @@ const Chat = ({ tenderRequestId }: { tenderRequestId: string }) => {
                 <Text style={styles.messageText}>{message.text}</Text>
               </View>
               {i === messages.length - 1 && (
-                <Caption style={styles.messageMetadata}>
+                <Caption
+                  style={
+                    message.from === user?.id
+                      ? styles.questionMetadata
+                      : styles.answerMetadata
+                  }
+                >
                   {message.date.toLocaleString()}
                 </Caption>
               )}
@@ -69,7 +75,12 @@ const Chat = ({ tenderRequestId }: { tenderRequestId: string }) => {
             />
             <TouchableOpacity
               onPress={handleSendMessage}
-              style={styles.sendButton}
+              disabled={inputText.length === 0}
+              style={
+                inputText.length > 0
+                  ? styles.sendButton
+                  : styles.sendButtonDisabled
+              }
             >
               <Text style={styles.sendButtonText}>Skicka</Text>
             </TouchableOpacity>
@@ -106,8 +117,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#FFF',
   },
-  messageMetadata: {
-    alignSelf: 'center',
+  answerMetadata: {
+    alignSelf: 'flex-start',
+    marginTop: -10,
+    color: '#999',
+  },
+  questionMetadata: {
+    alignSelf: 'flex-end',
     marginTop: -10,
     color: '#999',
   },
@@ -126,6 +142,13 @@ const styles = StyleSheet.create({
   sendButton: {
     marginLeft: 10,
     backgroundColor: '#26CC77', // Morotsfärg
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 20,
+  },
+  sendButtonDisabled: {
+    marginLeft: 10,
+    backgroundColor: '#757575', // Morotsfärg
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 20,
