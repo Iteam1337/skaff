@@ -27,7 +27,7 @@ const Chat = ({ tenderRequestId }: { tenderRequestId: string }) => {
       id: Math.random().toString(36).slice(-6),
       tenderRequestId: tenderRequestId,
       text: inputText,
-      from: user?.id,
+      from: user ?? undefined,
       date: new Date(Date.now()),
     }
 
@@ -48,7 +48,9 @@ const Chat = ({ tenderRequestId }: { tenderRequestId: string }) => {
               <View
                 style={[
                   styles.messageContainer,
-                  message.from === user?.id ? styles.question : styles.answer,
+                  message.from?.id === user?.id
+                    ? styles.question
+                    : styles.answer,
                 ]}
               >
                 <Text style={styles.messageText}>{message.text}</Text>
@@ -56,7 +58,7 @@ const Chat = ({ tenderRequestId }: { tenderRequestId: string }) => {
               {i === messages.length - 1 && (
                 <Caption
                   style={
-                    message.from === user?.id
+                    message.from?.id === user?.id
                       ? styles.questionMetadata
                       : styles.answerMetadata
                   }

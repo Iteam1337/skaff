@@ -1,3 +1,4 @@
+import uuid from 'react-native-uuid'
 import { User } from './user'
 const image8 = '/assets/avatars/Image008.png'
 const image9 = '/assets/avatars/Image009.png'
@@ -11,7 +12,7 @@ export type Supplier = User & {
 
 export default [
   {
-    id: '1',
+    id: uuid.v4(),
     type: 'supplier',
     online: false,
     name: 'Kalles AB',
@@ -25,7 +26,7 @@ export default [
       'Vi är din lokala leverantör av närproducerad mat och dryck från Värmland. Beställ lokalt och närproducerat mathantverk som producerats där du själv lever och bor - för smakernas, djurens, människornas och miljöns skull.',
   },
   {
-    id: '2',
+    id: uuid.v4(),
     type: 'supplier',
     online: false,
     name: 'Liljenäs Gård',
@@ -39,7 +40,7 @@ export default [
       'Vi bevarar gamla traditioner i en modern tillverkning, det får ta lite extra tid och vi väljer våra köttleverantörer med omsorg. Vi vet genom våra kunder att det är smaken och vetskapen att det är producerat med kärlek som avgör i slutändan.',
   },
   {
-    id: '3',
+    id: uuid.v4(),
     type: 'supplier',
     online: false,
     name: 'Wermlands Mejeri',
@@ -53,7 +54,7 @@ export default [
       'Välkommen till Wermlands Mejeri. Ett mejeri med hjärtat i Värmlands Nysäter som säljer närproducerad mjölk och grädde från värmländska kor.',
   },
   {
-    id: '4',
+    id: uuid.v4(),
     type: 'supplier',
     online: false,
     name: 'Magdakullan',

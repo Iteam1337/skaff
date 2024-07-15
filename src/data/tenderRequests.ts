@@ -4,6 +4,7 @@
 // image: bild på vad som ska upphandlas
 
 import buyers, { Buyer } from './buyers'
+import { User } from './user'
 
 const days = 24 * 60 * 60 * 1000
 
@@ -28,7 +29,7 @@ export type TenderRequest = {
 export type Message = {
   id: string
   tenderRequestId: string
-  from: string | undefined
+  from: User | undefined
   date: Date
   text: string
 }

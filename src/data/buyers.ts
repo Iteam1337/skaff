@@ -1,5 +1,5 @@
+import uuid from 'react-native-uuid'
 import { User } from './user'
-
 const image3 = '/assets/avatars/Image003.png'
 const image4 = '/assets/avatars/Image004.png'
 const image5 = '/assets/avatars/Image005.png'
@@ -12,7 +12,7 @@ export type Buyer = User & {
 
 export default [
   {
-    id: '1',
+    id: uuid.v4(),
     type: 'buyer',
     online: false,
     name: 'Fredricelundsskolan',
@@ -25,7 +25,7 @@ export default [
       'När du kommer till oss möts du av glädje och god stämning! Fredricelundsskolan är en skola med elever från förskoleklass till årskurs 6 med cirka 280 elever. Vår skola ligger på Våxnäs cirka fyra kilometer nordväst om Karlstads centrum i ett naturfint område med park och skog i närheten.',
   },
   {
-    id: '2',
+    id: uuid.v4(),
     type: 'buyer',
     name: 'Frödingskolan',
     image: image4,
@@ -37,7 +37,7 @@ export default [
       'När du kommer till Frödingskolan möts du av glädje och nyfikenhet. Eleverna på skolan kommer från många olika kulturella bakgrunder. Detta ger en dynamik i lärandet och en härlig atmosfär! Frödingskolans främsta mål är att ge goda kunskaper och stärka språket i alla ämnen så att eleverna är väl förberedda för vidare studier och arbetsliv.',
   },
   {
-    id: '3',
+    id: uuid.v4(),
     type: 'buyer',
     name: 'Kvarnbergsskolan',
     image: image5,
@@ -49,7 +49,7 @@ export default [
       'Kvarnbergssskolan är en F-6 skola som ingår i Skolområde Syd. En skola för ALLA är viktigt för oss på Kvarnbergsskolan. Med forskningen som utgångspunkt strävar vi efter att skapa en kreativ miljö för stor som liten.',
   },
   {
-    id: '4',
+    id: uuid.v4(),
     type: 'buyer',
     name: 'Vålbergsskolan',
     image: image6,
@@ -61,7 +61,7 @@ export default [
       'Välkommen till Vålbergsskolan! För oss är det viktigt att era barn får ett bra bemötande och att vi har goda relationer med varandra.',
   },
   {
-    id: '5',
+    id: uuid.v4(),
     type: 'buyer',
     name: 'Nyeds skola',
     image: image7,

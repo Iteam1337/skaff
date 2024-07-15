@@ -325,10 +325,39 @@ io.on('connection', (socket) => {
     )
     const tenderRequest = state.tenderRequests[tenderRequestIndex]
 
+    console.log(tenderRequest.messages)
+
     state.tenderRequests[tenderRequestIndex].messages = [
       ...tenderRequest.messages,
       message,
     ]
+
+    // Send notification to everyone involved in the conversation
+    // Currently also sends notification to the user who sent the message for easy demo purposes
+
+    const toUsers = unique(
+      tenderRequest.messages.map((message) => message.from)
+      /* <- uncomment this to disable notification to sender */
+    )
+
+    const tokens = unique(
+      tenderRequest.messages
+        .map((message) => message.from?.token)
+        .filter((t) => t && t)
+    )
+
+    sendPushNotification({
+      to: tokens,
+      title: `Nytt meddelande i ${tenderRequest.title} från ${message.from.name}`,
+      body: message.text,
+      data: {
+        date: message.date,
+        type: 'message',
+        to: toUsers.map((user) => user.id),
+        id: tenderRequest.id,
+      },
+    })
+
     io.emit('messages', tenderRequest.messages)
   })
 
