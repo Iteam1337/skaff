@@ -337,7 +337,9 @@ io.on('connection', (socket) => {
 
     const toUsers = unique(
       tenderRequest.messages.map((message) => message.from)
-      /* <- uncomment this to disable notification to sender */
+      // .filter(
+      //   (user) => user?.id != message.from?.id
+      // ) /* <- uncomment this to disable notification to sender */
     )
 
     const tokens = unique(
