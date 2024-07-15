@@ -22,6 +22,15 @@ export type TenderRequest = {
   terms: string
   volume: number
   volumePerDelivery: number
+  messages: Message[]
+}
+
+export type Message = {
+  id: string
+  tenderRequestId: string
+  from: string | undefined
+  date: Date
+  text: string
 }
 
 export default [
@@ -30,17 +39,20 @@ export default [
     title: 'Ägg 100kg',
     lastAwardDate: new Date(Date.now() + 10 * days),
     buyer: buyers[0],
+    messages: new Array<Message>(),
   },
   {
     id: '2',
     title: 'Lammkött 100kg',
     lastAwardDate: new Date(Date.now() + 14 * days),
     buyer: buyers[1],
+    messages: new Array<Message>(),
   },
   {
     id: '3',
     title: 'Tomater 100kg',
     lastAwardDate: new Date(Date.now() + 3 * days),
     buyer: buyers[3],
+    messages: new Array<Message>(),
   },
 ] as TenderRequest[]

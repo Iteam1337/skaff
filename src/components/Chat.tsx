@@ -1,67 +1,62 @@
 import React, { useState } from 'react'
 import {
-  View,
-  Text,
+  KeyboardAvoidingView,
   ScrollView,
   StyleSheet,
+  Text,
   TouchableOpacity,
-  KeyboardAvoidingView,
+  View,
 } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import { Caption } from 'react-native-paper'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useAuthContext } from '../context/authContext'
+import { Message } from '../data/tenderRequests'
+import useMessages from '../hooks/useMessages'
 
-const messages = [
-  {
-    id: 1,
-    type: 'question',
-    text: 'Vad händer om skörden blir mindre än tänkt?',
-    date: '2021-05-01T12:00:00',
-  },
-  {
-    id: 2,
-    type: 'answer',
-    text: 'Vi för en kontinuerlig dialog och löser det i så fall tillsammans.',
-    date: '2021-05-01T12:01:00',
-  },
-  {
-    id: 3,
-    type: 'question',
-    text: 'Hur exakt är leveransplanen?',
-    date: '2021-05-02T12:02:00',
-  },
-  // ...fler meddelanden
-]
-const Chat = () => {
+const Chat = ({ tenderRequestId }: { tenderRequestId: string }) => {
   const [inputText, setInputText] = useState('')
+  const { user } = useAuthContext()
+  console.log(user)
+  const [messages, sendMessage, refresh] = useMessages(tenderRequestId)
+
   const handleSendMessage = () => {
     if (!inputText) return
-    // Logik för att hantera skickade meddelanden
-    // Exempel: lägga till meddelandet i meddelandelistan
-    messages.push({
-      id: (messages.at(-1)?.id || 0) + 1,
-      type: 'question',
+
+    const newMessage: Message = {
+      id: Math.random().toString(36).slice(-6),
+      tenderRequestId: tenderRequestId,
       text: inputText,
-      date: new Date().toISOString(),
-    })
-    setInputText('') // Rensa svarsfältet efter att ha skickat meddelandet
+      from: user?.id,
+      date: new Date(Date.now()),
+    }
+
+    sendMessage(newMessage)
+    setInputText('')
   }
+
+  React.useLayoutEffect(() => {
+    refresh()
+  }, [])
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <KeyboardAvoidingView>
         <ScrollView contentContainerStyle={styles.container}>
-          {messages.map((message, i) => (
+          {messages.map((message: Message, i: number) => (
             <View key={message.id}>
               <View
                 style={[
                   styles.messageContainer,
-                  message.type === 'question' ? styles.question : styles.answer,
+                  message.from === user?.id ? styles.question : styles.answer,
                 ]}
               >
                 <Text style={styles.messageText}>{message.text}</Text>
               </View>
               {i === messages.length - 1 && (
-                <Caption style={styles.messageMetadata}>{message.date}</Caption>
+                <Caption style={styles.messageMetadata}>
+                  {message.date.toLocaleString()}
+                </Caption>
               )}
             </View>
           ))}

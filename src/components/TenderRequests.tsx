@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { Card, FAB, List, Searchbar } from 'react-native-paper'
-import { ScrollView, StyleSheet, View } from 'react-native'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import useTenderRequests from '../hooks/useTenderRequests'
 import { useState } from 'react'
+import { ScrollView, StyleSheet } from 'react-native'
+import { Card, FAB, List, Searchbar } from 'react-native-paper'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import useAuth from '../hooks/useAuth'
+import useTenderRequests from '../hooks/useTenderRequests'
 
 const ChevronRight = () => (
   <MaterialCommunityIcons
@@ -51,9 +51,9 @@ const TenderRequests = ({ navigation }: { navigation: any }) => {
               <Card
                 key={i}
                 style={styles.card}
-                onPress={() =>
-                  navigation.navigate('TenderRequest', { tenderRequest })
-                }
+                onPress={() => {
+                  return navigation.navigate('TenderRequest', { tenderRequest })
+                }}
               >
                 <Card.Title
                   titleVariant="titleSmall"

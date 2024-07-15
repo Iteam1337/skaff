@@ -1,15 +1,15 @@
-import { Server } from 'socket.io'
 import express from 'express'
 import { createServer } from 'http'
 import path from 'path'
 import uuid from 'react-native-uuid'
+import { Server } from 'socket.io'
 
 import buyers from '../src/data/buyers'
+import { categories } from '../src/data/categories'
 import deals from '../src/data/deals'
 import offers from '../src/data/offers'
-import tenderRequests from '../src/data/tenderRequests'
 import suppliers from '../src/data/suppliers'
-import { categories } from '../src/data/categories'
+import tenderRequests from '../src/data/tenderRequests'
 import { sendPushNotification as push } from './notifications'
 const port = process.env.PORT || 3000
 const app = express()
@@ -258,22 +258,22 @@ io.on('connection', (socket) => {
           },
         })
 
-        if (tenderRequest && otherOffersForTender)
-          otherOffersForTender.forEach(o =>
-            sendPushNotification({
-              to: [o.supplier.token],
-              title: 'Anbud förkastat',
-              body: `Ditt bud på ${tenderRequest.title} har förkastats. ${offer.supplier.name}s bud har godkänts av följande skäl: ${offer.acceptanceMotivation}`,
-              data: {
-                date: new Date(),
-                type: 'offer',
-                to: [o.supplier.id],
-                id: offer.id,
-                tenderRequestId: tenderRequest?.id,
-              },
-            }) 
-          )
-        }
+      if (tenderRequest && otherOffersForTender)
+        otherOffersForTender.forEach((o) =>
+          sendPushNotification({
+            to: [o.supplier.token],
+            title: 'Anbud förkastat',
+            body: `Ditt bud på ${tenderRequest.title} har förkastats. ${offer.supplier.name}s bud har godkänts av följande skäl: ${offer.acceptanceMotivation}`,
+            data: {
+              date: new Date(),
+              type: 'offer',
+              to: [o.supplier.id],
+              id: offer.id,
+              tenderRequestId: tenderRequest?.id,
+            },
+          })
+        )
+    }
     state.offers[index] = offer
     io.emit('offers', state.offers)
   })
@@ -306,6 +306,30 @@ io.on('connection', (socket) => {
     )
     state.tenderRequests[index] = tenderRequest
     io.emit('tenderRequests', state.tenderRequests)
+  })
+
+  // CHAT
+
+  socket.on('messages', (tenderRequestId) => {
+    const tenderRequestIndex = state.tenderRequests.findIndex(
+      (d) => d.id === tenderRequestId
+    )
+    const tenderRequest = state.tenderRequests[tenderRequestIndex]
+
+    io.emit('messages', tenderRequest.messages)
+  })
+
+  socket.on('sendMessage', (message) => {
+    const tenderRequestIndex = state.tenderRequests.findIndex(
+      (d) => d.id === message.tenderRequestId
+    )
+    const tenderRequest = state.tenderRequests[tenderRequestIndex]
+
+    state.tenderRequests[tenderRequestIndex].messages = [
+      ...tenderRequest.messages,
+      message,
+    ]
+    io.emit('messages', tenderRequest.messages)
   })
 
   // NOTIFICATIONS
