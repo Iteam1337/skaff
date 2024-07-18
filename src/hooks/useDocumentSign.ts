@@ -1,51 +1,47 @@
 import { Linking } from 'react-native'
+import { User } from '../data/user'
 
-const useDocumentSign = (): [any, any, any, any] => {
-  const createNewFromTemplate = async () => {
-    const myHeaders = new Headers()
-    myHeaders.append(
-      'Authorization',
-      'oauth_signature_method="PLAINTEXT", oauth_consumer_key="659c27a6d0735cdf_7595", oauth_token="ee63ae623a835e56_30905", oauth_signature="9d11d25e68e273fc&9c6bda336365f552"'
-    )
-    myHeaders.append('Cookie', 'lang="en"; lang-ssn="en"')
+type CreateNewDocument = () => Promise<string>
 
-    const newDocument = await fetch(
-      'https://api-testbed.scrive.com/api/v2/documents/newfromtemplate/8222115557379372352',
-      {
-        method: 'POST',
-        headers: myHeaders,
-        redirect: 'follow',
-      }
-    )
+type UpdateDocument = (
+  documentId: string,
+  title: string,
+  parties: User[]
+) => Promise<Document>
 
-    const data = await newDocument.json()
-    const documentId = data.id
-    return documentId
-  }
+type StartDocument = (documentId: string) => Promise<Document>
 
-  const startNewDocument = async (documentId: string) => {
-    const myHeaders = new Headers()
-    myHeaders.append(
-      'Authorization',
-      'oauth_signature_method="PLAINTEXT", oauth_consumer_key="659c27a6d0735cdf_7595", oauth_token="ee63ae623a835e56_30905", oauth_signature="9d11d25e68e273fc&9c6bda336365f552"'
-    )
-    myHeaders.append('Cookie', 'lang="en"; lang-ssn="en"')
+type SignDocument = (party: SigningParty) => Promise<void>
 
-    const newDocument = await fetch(
-      `https://api-testbed.scrive.com/api/v2/documents/${documentId}/start`,
-      {
-        method: 'POST',
-        headers: myHeaders,
-        redirect: 'follow',
-      }
-    )
+type PartyField = {
+  type: string
+  value: string
+}
 
-    const data = await newDocument.json()
-    const signingUrl = data.parties[0].api_delivery_url
-    return signingUrl
-  }
+type SigningParty = {
+  name: string
+  email: string
+  api_delivery_url: string
+  signatory_role: string
+  delivery_method: string
+  sign_success_redirect_url: string
+  fields: PartyField[]
+}
 
-  const updateDocument = async (documentId: string) => {
+type Document = {
+  id: string
+  title: string
+  parties: SigningParty[]
+}
+
+const useDocumentSign = (): [
+  CreateNewDocument,
+  UpdateDocument,
+  StartDocument,
+  SignDocument
+] => {
+  /// Construct the headers for the API calls
+  const makeHeaders = () => {
     const headers = new Headers()
 
     headers.append(
@@ -55,12 +51,97 @@ const useDocumentSign = (): [any, any, any, any] => {
 
     headers.append('Cookie', 'lang="en"; lang-ssn="en"')
 
+    return headers
+  }
+
+  /// Creates a new document from a template
+  const createNewFromTemplate = async () => {
+    const headers = makeHeaders()
+
+    const newDocument = await fetch(
+      'https://api-testbed.scrive.com/api/v2/documents/newfromtemplate/8222115557379372352',
+      {
+        method: 'POST',
+        headers: headers,
+        redirect: 'follow',
+      }
+    )
+
+    const data = await newDocument.json()
+    const documentId = data.id
+    return documentId
+  }
+
+  /// Prepares the document for signing
+  const startNewDocument = async (documentId: string) => {
+    const headers = makeHeaders()
+
+    const newDocument = await fetch(
+      `https://api-testbed.scrive.com/api/v2/documents/${documentId}/start`,
+      {
+        method: 'POST',
+        headers: headers,
+        redirect: 'follow',
+      }
+    )
+
+    return newDocument.json()
+  }
+
+  /// Updates the document with the relevant information about signing parties
+  const updateDocument = async (
+    documentId: string,
+    title: string,
+    parties: User[]
+  ): Promise<Document> => {
+    const headers = makeHeaders()
+
     const formdata = new FormData()
 
-    formdata.append(
-      'document',
-      '{"title":"somekindofthing", "parties": [{"name": "Joakim Unge", "signatory_role": "signing_party", "email": "joakim.unge@prototyp.se", "delivery_method": "api", "sign_success_redirect_url": "http://www.unge.dev" }]}'
-    )
+    const defaultParty = {
+      is_signatory: false,
+      signatory_role: 'viewer',
+      delivery_method: 'api',
+      sign_success_redirect_url: 'http://www.unge.dev',
+      fields: [
+        {
+          type: 'company',
+          value: 'Default Party',
+          order: 1,
+          is_obligatory: true,
+        },
+      ],
+    }
+
+    const partiesData = parties.map((party) => {
+      return {
+        is_signatory: true,
+        signatory_role: 'signing_party',
+        delivery_method: 'api',
+        sign_success_redirect_url: 'http://www.unge.dev',
+        fields: [
+          {
+            type: 'company',
+            value: party.name,
+            order: 1,
+            is_obligatory: true,
+          },
+          {
+            type: 'email',
+            value: party.email,
+            order: 2,
+            is_obligatory: true,
+          },
+        ],
+      }
+    })
+
+    const documentData = {
+      title: title,
+      parties: [defaultParty, ...partiesData],
+    }
+
+    formdata.append('document', JSON.stringify(documentData))
 
     const newDocument = await fetch(
       `https://api-testbed.scrive.com/api/v2/documents/${documentId}/update`,
@@ -72,13 +153,15 @@ const useDocumentSign = (): [any, any, any, any] => {
       }
     )
 
-    console.log(await newDocument.json())
+    return newDocument.json()
   }
 
-  const signDocument = async (signingUrl: string) => {
+  /// Opens the relevant link for the signing party to sign the document
+  const signDocument = async (party: SigningParty) => {
     const baseUrl = 'https://api-testbed.scrive.com'
+    const signingUrl = party.api_delivery_url
     const url = new URL(signingUrl, baseUrl)
-    const result = await Linking.openURL(url.toString())
+    await Linking.openURL(url.toString())
   }
 
   return [createNewFromTemplate, updateDocument, startNewDocument, signDocument]

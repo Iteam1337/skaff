@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import { Modal, ScrollView, StyleSheet, TextInput, View } from 'react-native'
 import {
   Button,
@@ -254,10 +254,31 @@ const TenderRequest = ({
                   <Button
                     mode="contained"
                     onPress={async () => {
+                      // This function is a demo function to show how the signing process works
+                      // Actual flow would be multiple steps and multiple views.
+
                       const newDocumentId = await createNewFromTemplate()
-                      await updateDocument(newDocumentId)
-                      const signingUrl = await startNewDocument(newDocumentId)
-                      const result = await signDocument(signingUrl)
+                      await updateDocument(newDocumentId, tenderRequest.title, [
+                        user,
+                      ])
+                      const document = await startNewDocument(newDocumentId)
+
+                      /// Matches the logged in user to the signing party of the document
+                      const signingParty = document.parties.find((party) => {
+                        const emailField = party.fields.find(
+                          (field) => field.type === 'email'
+                        )
+                        if (!emailField) return false
+                        return emailField.value === user?.email
+                      })
+
+                      if (!signingParty) {
+                        console.error('Could not find signing party')
+                        return
+                      }
+
+                      /// Opens the relevant link for the signing party to sign the document
+                      await signDocument(signingParty)
                     }}
                   >
                     Demoknapp: Signera avtal
@@ -411,11 +432,11 @@ const TenderRequest = ({
   )
 }
 
-const Row = ({ children }) => (
+const Row = ({ children }: { children: ReactNode }) => (
   <View style={{ flexDirection: 'row' }}>{children}</View>
 )
 
-const Column = ({ children }) => (
+const Column = ({ children }: { children: ReactNode }) => (
   <View style={{ flexDirection: 'column', marginRight: 20 }}>{children}</View>
 )
 
