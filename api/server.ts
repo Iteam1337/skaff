@@ -11,7 +11,7 @@ import tenderRequests from '../src/data/tenderRequests'
 import suppliers from '../src/data/suppliers'
 import { categories } from '../src/data/categories'
 import { sendPushNotification as push } from './notifications'
-import { createPDF } from './scriveFile'
+import { createPDF } from './signicatFile'
 
 const port = process.env.PORT || 3000
 const app = express()
@@ -235,7 +235,7 @@ io.on('connection', (socket) => {
     respond(state.offers)
   })
 
-  socket.on('editOffer', (offer) => {
+  socket.on('editOffer', async (offer)  =>  {
     const index = state.offers.findIndex((d) => d.id === offer.id)
     const oldOffer = state.offers[index]
     if (!oldOffer.approved && offer.approved) {
@@ -275,8 +275,9 @@ io.on('connection', (socket) => {
               },
             }) 
           )
-        //TODO: CREATE DOCUMENT AND SEND IT TO SCRIVE
-        createPDF(offer, tenderRequest);
+
+          const contract = await createPDF(offer, tenderRequest);
+        if(contract) offer.contract = contract;
       }
     }
     state.offers[index] = offer
