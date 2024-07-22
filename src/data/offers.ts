@@ -1,6 +1,6 @@
-import buyers, { Buyer } from './buyers'
-import suppliers from './suppliers'
+import { Buyer } from './buyers'
 import { Supplier } from './suppliers'
+import { Contract } from './contract'
 
 const days = 24 * 60 * 60 * 1000
 
@@ -18,6 +18,7 @@ export type Offer = {
   }
   qualificationCriteriasMet: Array<string>
   optionalCriteriasMet: Array<string>
+  contract: Contract
   other: string
 }
 
