@@ -248,8 +248,14 @@ const TenderRequest = ({
                               'Inlämnad ' +
                               offer.submissionDate?.toString().split('T')[0] +
                               '. ' +
-                              (offer.approved ? 'Vunnen' : 'Ej godkänt')
+                              (offer.approved
+                                ? `Vunnen\nAcceptance reason: ${offer.acceptanceMotivation}`
+                                : 'Ej godkänt')
                             }
+                            subtitleNumberOfLines={3}
+                            subtitleStyle={{
+                              paddingBottom: 5
+                            }}
                             right={(props) => <ChevronRight />}
                           />
                         </Card>
