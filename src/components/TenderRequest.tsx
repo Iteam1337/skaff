@@ -218,9 +218,9 @@ const TenderRequest = ({
                   )}
                   <List.Section>
                     <List.Subheader>Dina skickade anbud</List.Subheader>
-                    {validOffers.map((offer, i) => (
+                    {validOffers.map((offer) => (
                       <Card
-                        key={i}
+                        key={offer.id}
                         style={styles.card}
                         onPress={() => {
                           console.log('pressed', offer)
@@ -266,10 +266,10 @@ const TenderRequest = ({
                 </Container>
                 <Container>
                   <Subheading>Matchande anbud</Subheading>
-                  {validOffers.map((offer, i) => (
+                  {validOffers.map((offer) => (
                     <View>
                       <Card
-                        key={i}
+                        key={offer.id}
                         style={styles.card}
                         //  onPress={() => navigation.navigate('TenderRequest', { id })}
                       >
