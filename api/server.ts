@@ -1,15 +1,15 @@
-import { Server } from 'socket.io'
 import express from 'express'
 import { createServer } from 'http'
 import path from 'path'
 import uuid from 'react-native-uuid'
+import { Server } from 'socket.io'
 
 import buyers from '../src/data/buyers'
+import { categories } from '../src/data/categories'
 import deals from '../src/data/deals'
 import offers from '../src/data/offers'
-import tenderRequests from '../src/data/tenderRequests'
 import suppliers from '../src/data/suppliers'
-import { categories } from '../src/data/categories'
+import tenderRequests from '../src/data/tenderRequests'
 import { sendPushNotification as push } from './notifications'
 import { createPDF } from './signicatFile'
 
@@ -235,53 +235,58 @@ io.on('connection', (socket) => {
     respond(state.offers)
   })
 
-  socket.on('editOffer', async (offer)  =>  {
-    const index = state.offers.findIndex((d) => d.id === offer.id)
-    const oldOffer = state.offers[index]
-    if (!oldOffer.approved && offer.approved) {
-      const token = oldOffer.supplier.token
-      const tenderRequest = state.tenderRequests.find(
-        (tr) => tr.id === offer.tenderRequestId
-      )
-      const otherOffersForTender = state.offers.filter(
-        (o) => o.tenderRequestId === tenderRequest?.id && offer.id !== o.id
-      )
-      if (tenderRequest) {
-        sendPushNotification({
-          to: [token],
-          title: 'Anbud godkänt',
-          body: `Ditt anbud på ${tenderRequest.title} har godkänts`,
-          data: {
-            date: new Date(),
-            type: 'offer',
-            to: [oldOffer.supplier.id],
-            id: offer.id,
-            tenderRequestId: offer.tenderRequestId,
-          },
-        })
+  socket.on('editOffer', async (offer) => {
+    try {
+      const index = state.offers.findIndex((d) => d.id === offer.id)
+      const oldOffer = state.offers[index]
+      if (!oldOffer.approved && offer.approved) {
+        const token = oldOffer.supplier.token
+        const tenderRequest = state.tenderRequests.find(
+          (tr) => tr.id === offer.tenderRequestId
+        )
+        const otherOffersForTender = state.offers.filter(
+          (o) => o.tenderRequestId === tenderRequest?.id && offer.id !== o.id
+        )
+        if (tenderRequest) {
+          sendPushNotification({
+            to: [token],
+            title: 'Anbud godkänt',
+            body: `Ditt anbud på ${tenderRequest.title} har godkänts`,
+            data: {
+              date: new Date(),
+              type: 'offer',
+              to: [oldOffer.supplier.id],
+              id: offer.id,
+              tenderRequestId: offer.tenderRequestId,
+            },
+          })
 
-        if (otherOffersForTender)
-          otherOffersForTender.forEach(o =>
-            sendPushNotification({
-              to: [o.supplier.token],
-              title: 'Anbud förkastat',
-              body: `Ditt bud på ${tenderRequest.title} har förkastats. ${offer.supplier.name}s bud har godkänts av följande skäl: ${offer.acceptanceMotivation}`,
-              data: {
-                date: new Date(),
-                type: 'offer',
-                to: [o.supplier.id],
-                id: offer.id,
-                tenderRequestId: tenderRequest?.id,
-              },
-            }) 
-          )
+          if (otherOffersForTender)
+            otherOffersForTender.forEach((o) =>
+              sendPushNotification({
+                to: [o.supplier.token],
+                title: 'Anbud förkastat',
+                body: `Ditt bud på ${tenderRequest.title} har förkastats. ${offer.supplier.name}s bud har godkänts av följande skäl: ${offer.acceptanceMotivation}`,
+                data: {
+                  date: new Date(),
+                  type: 'offer',
+                  to: [o.supplier.id],
+                  id: offer.id,
+                  tenderRequestId: tenderRequest?.id,
+                },
+              })
+            )
 
-          const contract = await createPDF(offer, tenderRequest);
-        if(contract) offer.contract = contract;
+          const contract = await createPDF(offer, tenderRequest)
+          if (contract) offer.contract = contract
+        }
+        state.offers[index] = offer
       }
+
+      io.emit('offers', state.offers)
+    } catch (error) {
+      console.error('Error editing offer:', error)
     }
-    state.offers[index] = offer
-    io.emit('offers', state.offers)
   })
 
   // TENDER REQUESTS

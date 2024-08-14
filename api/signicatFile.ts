@@ -8,10 +8,6 @@ const clientId = process.env.SIGNICAT_CLIENT_ID || ''
 const clientSecret = process.env.SIGNICAT_CLIENT_SECRET || ''
 const apiUrl = process.env.SIGNICAT_API_URL || ''
 
-console.log('Signicat client ID:', clientId)
-console.log('Signicat client secret:', clientSecret)
-console.log('Signicat API URL:', apiUrl)
-
 export async function createPDF(
   offer: Offer,
   tenderRequest: TenderRequest
@@ -91,7 +87,7 @@ async function uploadPdf(
   try {
     const body = {
       title: tenderRequest.title,
-      externalId: 'ae7b9ca7-3839-4e0d-a070-9f14bffbbf55',
+      externalId: tenderRequest.id,
       dataToSign: {
         base64Content: pdfContent,
         fileName: `${tenderRequest.title} - contract.pdf`,
