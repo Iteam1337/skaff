@@ -1,17 +1,15 @@
-import buyers from '../data/buyers'
+import { useEffect } from 'react'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import {
   Avatar,
   Button,
-  Searchbar,
-  Text,
-  Subheading,
-  Title,
-  Paragraph,
   IconButton,
+  Paragraph,
+  Subheading,
+  Text,
+  Title,
 } from 'react-native-paper'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { ScrollView, StyleSheet, SafeAreaView, View } from 'react-native'
-import { useEffect, useState } from 'react'
 
 const Buyer = ({
   route,

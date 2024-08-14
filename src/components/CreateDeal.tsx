@@ -8,13 +8,12 @@ import {
   StyleSheet,
   View,
 } from 'react-native'
-import TextInput from './form/TextInput'
-import DropDownList from './form/DropDownList'
-import DateTimeInput from './form/DateTimeInput'
-import useDeals from '../hooks/useDeals'
-import useAuth from '../hooks/useAuth'
 import { useAuthContext } from '../context/authContext'
 import { Deal } from '../data/deals'
+import useDeals from '../hooks/useDeals'
+import DateTimeInput from './form/DateTimeInput'
+import DropDownList from './form/DropDownList'
+import TextInput from './form/TextInput'
 
 const styles = StyleSheet.create({
   actionContainer: {

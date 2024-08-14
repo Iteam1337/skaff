@@ -1,4 +1,11 @@
-import { useState, useEffect, useLayoutEffect } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
+import {
+  KeyboardAvoidingView,
+  SafeAreaView,
+  StyleSheet,
+  View,
+} from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler'
 import {
   Button,
   Divider,
@@ -6,19 +13,13 @@ import {
   Subheading,
   Surface,
   Text,
-  useTheme,
 } from 'react-native-paper'
-import { ScrollView } from 'react-native-gesture-handler'
-import { KeyboardAvoidingView, SafeAreaView, StyleSheet } from 'react-native'
-import { View } from 'react-native'
+import uuid from 'react-native-uuid'
+import { Offer } from '../data/offers'
+import useAuth from '../hooks/useAuth'
+import useOffers from '../hooks/useOffers'
 import CheckboxWithText from './form/CheckboxWithText'
 import TextInput from './form/TextInput'
-import useTenderRequests from '../hooks/useTenderRequests'
-import useAuth from '../hooks/useAuth'
-import uuid from 'react-native-uuid'
-import useOffers from '../hooks/useOffers'
-import { TenderRequest } from '../data/tenderRequests'
-import { Offer } from '../data/offers'
 
 const styles = StyleSheet.create({
   container: {

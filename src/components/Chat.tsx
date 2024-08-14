@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import {
-  View,
-  Text,
+  KeyboardAvoidingView,
   ScrollView,
   StyleSheet,
+  Text,
   TouchableOpacity,
-  KeyboardAvoidingView,
+  View,
 } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import { Caption } from 'react-native-paper'

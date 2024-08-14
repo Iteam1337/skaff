@@ -1,23 +1,22 @@
-import {
-  Text,
-  Button,
-  List,
-  useTheme,
-  Divider,
-  Card,
-  Headline,
-  Subheading,
-} from 'react-native-paper'
-import { StyleSheet, SafeAreaView, View } from 'react-native'
-import { Tabs, TabScreen } from 'react-native-paper-tabs'
+import { StyleSheet, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
+import {
+  Button,
+  Card,
+  Divider,
+  Headline,
+  List,
+  Subheading,
+  useTheme,
+} from 'react-native-paper'
+import { Tabs, TabScreen } from 'react-native-paper-tabs'
 import Buyer from './Buyer'
 
-import useAuth from '../hooks/useAuth'
 import { useEffect, useState } from 'react'
+import useAuth from '../hooks/useAuth'
+import useOffers from '../hooks/useOffers'
 import useTenderRequests from '../hooks/useTenderRequests'
 import TenderRequestCard from './TenderRequestCard'
-import useOffers from '../hooks/useOffers'
 
 const BuyerProfile = ({
   route,

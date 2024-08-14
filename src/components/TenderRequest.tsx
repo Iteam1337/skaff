@@ -1,35 +1,27 @@
-import { useEffect, useLayoutEffect, useState } from 'react'
-import {
-  Caption,
-  Headline,
-  Subheading,
-  useTheme,
-  Text,
-  Button,
-  Paragraph,
-  Divider,
-  Card,
-  List,
-  Avatar,
-} from 'react-native-paper'
-import {
-  Modal,
-  ScrollView,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native'
-import { Tabs, TabScreen } from 'react-native-paper-tabs'
-import Chat from './Chat'
-import useTenderRequests from '../hooks/useTenderRequests'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import useAuth from '../hooks/useAuth'
-import { TenderRequest as TenderRequestType } from '../data/tenderRequests'
-import useOffers from '../hooks/useOffers'
 import * as WebBrowser from 'expo-web-browser'
+import { useEffect, useState } from 'react'
+import { Modal, ScrollView, StyleSheet, TextInput, View } from 'react-native'
+import {
+  Button,
+  Caption,
+  Card,
+  Divider,
+  Headline,
+  List,
+  Paragraph,
+  Subheading,
+  Text,
+  useTheme,
+} from 'react-native-paper'
+import { Tabs, TabScreen } from 'react-native-paper-tabs'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { Offer } from '../data/offers'
+import { TenderRequest as TenderRequestType } from '../data/tenderRequests'
 import { User } from '../data/user'
+import useAuth from '../hooks/useAuth'
+import useOffers from '../hooks/useOffers'
+import useTenderRequests from '../hooks/useTenderRequests'
+import Chat from './Chat'
 
 const ChevronRight = () => (
   <MaterialCommunityIcons
@@ -254,7 +246,7 @@ const TenderRequest = ({
                             }
                             subtitleNumberOfLines={3}
                             subtitleStyle={{
-                              paddingBottom: 5
+                              paddingBottom: 5,
                             }}
                             right={(props) => <ChevronRight />}
                           />

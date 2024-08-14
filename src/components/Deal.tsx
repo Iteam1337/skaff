@@ -1,21 +1,19 @@
 import * as React from 'react'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import {
+  Button,
   Caption,
+  Checkbox,
+  DataTable,
   Headline,
   Subheading,
-  useTheme,
   Text,
-  DataTable,
-  Checkbox,
-  Button,
+  useTheme,
 } from 'react-native-paper'
-import { ScrollView, StyleSheet, View } from 'react-native'
 import { Tabs, TabScreen } from 'react-native-paper-tabs'
-import Chat from './Chat'
-import deals from '../data/deals'
 import { certifications } from '../data/categories'
-import useAuth from '../hooks/useAuth'
 import useDeals from '../hooks/useDeals'
+import Chat from './Chat'
 
 const Header = ({ product, supplier, price }) => (
   <View style={{ ...styles.container, ...styles.header }}>

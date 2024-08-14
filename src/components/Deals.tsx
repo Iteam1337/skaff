@@ -1,13 +1,11 @@
 import * as React from 'react'
-import { Card, FAB, List, Searchbar, Text } from 'react-native-paper'
-import { ScrollView, StyleSheet, View } from 'react-native'
-import { areas } from '../data/categories'
+import { ScrollView, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import Chat from './Chat'
-import useDeals from '../hooks/useDeals'
+import { Card, FAB, List, Searchbar, Text } from 'react-native-paper'
+import { areas } from '../data/categories'
 import { Deal } from '../data/deals'
-import { useState } from 'react'
 import useAuth from '../hooks/useAuth'
+import useDeals from '../hooks/useDeals'
 
 interface Area {
   image: string

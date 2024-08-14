@@ -1,12 +1,12 @@
-import { useState, useEffect, useLayoutEffect } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
+import { KeyboardAvoidingView, StyleSheet } from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler'
 import { Button } from 'react-native-paper'
-import TextInput from './form/TextInput'
+import useAuth from '../hooks/useAuth'
+import useTenderRequests from '../hooks/useTenderRequests'
 import DateTimeInput from './form/DateTimeInput'
 import DropDownList from './form/DropDownList'
-import { ScrollView } from 'react-native-gesture-handler'
-import useTenderRequests from '../hooks/useTenderRequests'
-import useAuth from '../hooks/useAuth'
-import { KeyboardAvoidingView, StyleSheet, View } from 'react-native'
+import TextInput from './form/TextInput'
 
 const CreateTenderRequest = ({
   navigation,
