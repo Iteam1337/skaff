@@ -5,7 +5,7 @@
   "homepage": "https://skaff.iteam.pub/",
   "scripts": {
     "start": "expo start",
-    "start:api": "ts-node api/server.ts",
+    "start:api": "node -r ts-node/register --env-file=.env  api/server.ts",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
