@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import { StatusBar } from 'expo-status-bar'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
-import Navigation from './RootNavigation'
 import { NavigationContainer } from '@react-navigation/native'
+import React from 'react'
 import { useTheme } from 'react-native-paper'
-import { SocketProvider } from './context/socketContext'
-import { AuthProvider } from './context/authContext'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { NotificationSnackbar } from './components/NotificationSnackbar'
+import { AuthProvider } from './context/authContext'
+import { SocketProvider } from './context/socketContext'
+import Navigation from './RootNavigation'
 
 export default function App() {
   const theme = useTheme()

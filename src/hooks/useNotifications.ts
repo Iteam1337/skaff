@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { SocketContext } from '../context/socketContext'
 import useAuth from './useAuth'
-import { useAuthContext } from '../context/authContext'
 
 type Notification = {
   to: Array<string>
@@ -11,7 +10,8 @@ type Notification = {
     date: Date
     type: string
     to: string
-    id: string
+    id: string | number
+    tenderRequestId?: string
   }
 }
 

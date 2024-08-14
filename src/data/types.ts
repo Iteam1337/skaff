@@ -18,11 +18,11 @@ interface Origin {
 }
 
 interface Price {
-  sek: string
-  kilos: string
-  sekPerKg: string
-  finalAmountSEKPerKg: string
-  percentageOutsideContract: string
+  SEK: number
+  kilos: number
+  SEK_per_Kg: number
+  finalAmountSEK_per_Kg: number
+  percentageOutsideContract: number
 }
 
 interface Product {
@@ -77,11 +77,11 @@ const item: ProcurementItem = {
     },
   },
   price: {
-    sek: '1573,00',
-    kilos: '78,00',
-    sekPerKg: '20,20',
-    finalAmountSEKPerKg: '20,20',
-    percentageOutsideContract: '100,00',
+    SEK: 1570.0,
+    kilos: 78.0,
+    SEK_per_Kg: 20.2,
+    finalAmountSEK_per_Kg: 20.2,
+    percentageOutsideContract: 100.0,
   },
   certifications: {
     organic: true,

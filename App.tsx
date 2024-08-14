@@ -1,16 +1,15 @@
-import 'react-native-gesture-handler'
+import { StatusBar } from 'expo-status-bar'
 import * as React from 'react'
-import { AppRegistry, Platform, StyleSheet, View } from 'react-native'
+import { AppRegistry, Platform } from 'react-native'
+import 'react-native-gesture-handler'
 import {
-  Provider as PaperProvider,
   MD2LightTheme,
+  Provider as PaperProvider,
   configureFonts,
 } from 'react-native-paper'
 import { expo } from './app.json'
 import App from './src/App'
-import { StatusBar } from 'expo-status-bar'
 import IphoneDummy from './src/components/IphoneDummy'
-import useNotifications from './src/hooks/useNotifications'
 
 const fontConfig = {
   web: {

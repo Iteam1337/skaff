@@ -433,11 +433,11 @@ const TenderRequest = ({
   )
 }
 
-const Row = ({ children }) => (
+const Row = ({ children }: { children: React.ReactNode }) => (
   <View style={{ flexDirection: 'row' }}>{children}</View>
 )
 
-const Column = ({ children }) => (
+const Column = ({ children }: { children: React.ReactNode }) => (
   <View style={{ flexDirection: 'column', marginRight: 20 }}>{children}</View>
 )
 

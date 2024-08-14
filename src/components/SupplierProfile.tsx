@@ -118,7 +118,6 @@ const SupplierProfile = ({
                   <TenderRequestCard
                     key={tenderRequest.id}
                     user={supplier}
-                    key={tenderRequest.id}
                     tenderRequest={tenderRequest}
                     navigation={navigation}
                   />
