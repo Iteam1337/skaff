@@ -369,7 +369,7 @@ const TenderRequest = ({
                                   setShowModal(false)
                                 }}
                               >
-                                Tilldela
+                                Accept
                               </Button>
                             </Container>
                           </View>
