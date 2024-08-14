@@ -28,6 +28,18 @@ Så här kommer du igång:
 
 Nu startas automatiskt din iOS Simulator och du kan testa applikationen live där.
 
+## Signera avtal
+
+Vi använder oss av [**Signicat**](https://developer.signicat.com/) för att signera avtal digitalt mellan Producent och Beställare. För att enkelt kunna demonstrera flödet kör vi Norwegian BankID
+
+**För att detta ska fungera korrekt behöver du förbereda följande:**
+
+Döp om `.env.example` till `.env` och fyll i `SIGNICAT_CLIENT_ID` och `SIGNICAT_CLIENT_SECRET`
+
+Följ sedan stegen under [**Order test user**](https://developer.signicat.com/identity-methods/nbid/test/#order-test-user) för att generera testanvändare hos BankID Norge.
+
+När du signerar avtalet, välj "Norwegian BankID" och följ stegen.
+
 ## Screenshots (ej färdig layout)
 
 ![image](https://user-images.githubusercontent.com/395843/232560646-26c641a6-429d-46cc-8b9d-1ed460c9e119.png)
