@@ -12,7 +12,14 @@ import {
   List,
   Avatar,
 } from 'react-native-paper'
-import { ScrollView, StyleSheet, View } from 'react-native'
+import {
+  Modal,
+  ScrollView,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 import { Tabs, TabScreen } from 'react-native-paper-tabs'
 import Chat from './Chat'
 import useTenderRequests from '../hooks/useTenderRequests'
@@ -45,6 +52,10 @@ const TenderRequest = ({
   const { user } = useAuth()
   const [offers, updateOffer, , refreshOffers] = useOffers()
 
+  const [showModal, setShowModal] = useState(false)
+  const [acceptanceMotivationText, setAcceptanceMotivationText] = useState("");
+  const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined)
+
   useEffect(() => {
     if (route.params.tenderRequestId) {
       const tenderRequestFromState = tenderRequests.find(
@@ -57,9 +68,7 @@ const TenderRequest = ({
   }, [route.params.tenderRequestId, tenderRequests])
 
   useEffect(() => {
-    const buyer = user?.type === 'buyer' ? user : undefined
-    const supplier = user?.type === 'supplier' ? user : undefined
-    refreshOffers({ buyer, supplier })
+    refreshOffers()
     refreshTenderRequests()
   }, [user])
 
@@ -70,11 +79,15 @@ const TenderRequest = ({
       </Text>
     )
 
-  const validOffers = offers
+
+  const buyer = user?.type === 'buyer' ? user : undefined
+  const supplier = user?.type === 'supplier' ? user : undefined
+
+  const myValidOffers = offers
     .filter((offer) => offer.tenderRequestId === tenderRequest?.id)
     .filter(
       (offer) => offer.buyer.id === user?.id || offer.supplier.id === user?.id
-    )
+    ).filter(buyer ? (offer) => offer.buyer.id === buyer.id : (offer) => offer.supplier.id === supplier?.id)
     .sort((a, b) => a.price.SEK - b.price.SEK)
 
   return (
@@ -91,10 +104,10 @@ const TenderRequest = ({
         style={{ backgroundColor: '#D8F5E3' }}
         // dark={false} // works the same as AppBar in react-native-paper
         theme={theme} // works the same as AppBar in react-native-paper
-        // mode="scrollable" // fixed, scrollable | default=fixed
-        // onChangeIndex={(newIndex) => {}} // react on index change
-        // showLeadingSpace={true} //  (default=true) show leading space in scrollable tabs inside the header
-        // disableSwipe={false} // (default=false) disable swipe to left/right gestures
+      // mode="scrollable" // fixed, scrollable | default=fixed
+      // onChangeIndex={(newIndex) => {}} // react on index change
+      // showLeadingSpace={true} //  (default=true) show leading space in scrollable tabs inside the header
+      // disableSwipe={false} // (default=false) disable swipe to left/right gestures
       >
         <TabScreen label="Förfrågan">
           <ScrollView>
@@ -183,7 +196,7 @@ const TenderRequest = ({
             <>
               {user?.type === 'supplier' && (
                 <Container>
-                  {!validOffers.length && (
+                  {!myValidOffers.length && (
                     <>
                       <Paragraph>
                         För att lämna anbud måste du vara ansluten till detta
@@ -207,40 +220,45 @@ const TenderRequest = ({
                   )}
                   <List.Section>
                     <List.Subheader>Dina skickade anbud</List.Subheader>
-                    {validOffers.map((offer, i) => (
-                      <Card
-                        key={i}
-                        style={styles.card}
-                        onPress={() => {
-                          console.log('pressed', offer)
-                          navigation.navigate('Supplier', {
-                            supplier: offer.supplier,
-                          })
-                        }}
-                      >
-                        <Card.Title
-                          titleVariant="titleSmall"
-                          titleStyle={{
-                            fontSize: 14,
+                    {myValidOffers.map((offer) => {
+                      const winningOffer = offers.find((offer) => offer.tenderRequestId === tenderRequest.id && offer.approved)
+                      return (
+                        <Card
+                          key={offer.id}
+                          style={styles.card}
+                          onPress={() => {
+                            console.log('pressed', offer)
+                            navigation.navigate('Supplier', {
+                              supplier: offer.supplier,
+                            })
                           }}
-                          left={(props) => (
-                            <MaterialCommunityIcons
-                              name="file-document-outline"
-                              color="black"
-                              size={24}
-                            />
-                          )}
-                          title={offer.price.SEK + ' kr'}
-                          subtitle={
-                            'Inlämnad ' +
-                            offer.submissionDate?.toString().split('T')[0] +
-                            '. ' +
-                            (offer.approved ? 'Vunnen' : 'Ej godkänt')
-                          }
-                          right={(props) => <ChevronRight />}
-                        />
-                      </Card>
-                    ))}
+                        >
+                          <Card.Title
+                            titleVariant="titleSmall"
+                            titleStyle={{
+                              fontSize: 14,
+                            }}
+                            left={(props) => (
+                              <MaterialCommunityIcons
+                                name="file-document-outline"
+                                color="black"
+                                size={24}
+                              />
+                            )}
+                            title={offer.price.SEK + ' kr'}
+                            subtitle={
+                              'Inlämnad ' +
+                              offer.submissionDate?.toString().split('T')[0] +
+                              '. '
+                            }
+                            right={(props) => <ChevronRight />}
+                          />
+                          <View style={styles.acceptanceReasonTextWrapper}>
+                            <Text style={styles.acceptanceReasonText}>{getStatusText(offer, winningOffer)}</Text>
+                          </View>
+                        </Card>
+                      )
+                    })}
                   </List.Section>
                 </Container>
               )}
@@ -255,69 +273,112 @@ const TenderRequest = ({
                 </Container>
                 <Container>
                   <Subheading>Matchande anbud</Subheading>
-                  {validOffers.map((offer, i) => (
-                    <Card
-                      key={i}
-                      style={styles.card}
+                  {myValidOffers.map((offer) => (
+                    <View>
+                      <Card
+                        key={offer.id}
+                        style={styles.card}
                       //  onPress={() => navigation.navigate('TenderRequest', { id })}
-                    >
-                      <Card.Title
-                        titleVariant="titleSmall"
-                        titleStyle={{
-                          fontSize: 14,
-                        }}
-                        title={
-                          offer.price.SEK + ' kr från: ' + offer.supplier?.name
-                        }
-                        subtitle={
-                          'Inkom ' +
-                          offer.submissionDate?.toString().split('T')[0]
-                        }
-                        right={(props) => {
-                          if (offer.approved)
-                            return (
-                              <Container
-                                style={{
-                                  flexDirection: 'row',
-                                  display: 'flex',
-                                }}
-                              >
-                                <MaterialCommunityIcons
-                                  size={25}
-                                  name="clipboard-check"
-                                />
-                                <Text
+                      >
+                        <Card.Title
+                          titleVariant="titleSmall"
+                          titleStyle={{
+                            fontSize: 14,
+                          }}
+                          title={
+                            offer.price.SEK +
+                            ' kr från: ' +
+                            offer.supplier?.name
+                          }
+                          subtitle={
+                            'Inkom ' +
+                            offer.submissionDate?.toString().split('T')[0]
+                          }
+                          right={(props) => {
+                            if (offer.approved)
+                              return (
+                                <Container
                                   style={{
-                                    marginLeft: 5,
-                                    marginTop: 5,
+                                    flexDirection: 'row',
+                                    display: 'flex',
                                   }}
                                 >
-                                  Tilldelad
-                                </Text>
-                              </Container>
+                                  <MaterialCommunityIcons
+                                    size={25}
+                                    name="clipboard-check"
+                                  />
+                                  <Text
+                                    style={{
+                                      marginLeft: 5,
+                                      marginTop: 5,
+                                    }}
+                                  >
+                                    Tilldelad
+                                  </Text>
+                                </Container>
+                              )
+                            else if (
+                              offers.filter((offer) => offer.approved).length <
+                              1
                             )
-                          else if (
-                            offers.filter((offer) => offer.approved).length < 1
-                          )
-                            return (
+                              return (
+                                <Button
+                                  icon="clipboard-check"
+                                  mode="contained"
+                                  uppercase={false}
+                                  style={{ marginRight: 10 }}
+                                  onPress={() => {
+                                    setSelectedOffer(offer)
+                                    setShowModal(true)
+                                  }}
+                                >
+                                  Tilldela
+                                </Button>
+                              )
+                          }}
+                        />
+                        {offer.acceptanceMotivation && (
+                          <View style={styles.acceptanceReasonTextWrapper}>
+                            <Text style={styles.acceptanceReasonText}>Motivering till val av anbud:</Text>
+                            <Text style={styles.acceptanceReasonText}>{offer.acceptanceMotivation}</Text>
+                          </View>
+                        )}
+                      </Card>
+                      <Modal visible={showModal} transparent={true}>
+                        <View style={styles.centerView}>
+                          <View style={styles.modalView}>
+                            <Text style={styles.modalText}>
+                              Motivering till valet av {selectedOffer?.supplier.name}s anbud:{' '}
+                            </Text>
+                            <TextInput
+                              style={styles.modalInput}
+                              multiline={true}
+                              onChangeText={text => setAcceptanceMotivationText(text)}
+                            />
+                            <Container style={styles.modalButtons}>
+                              <Button onPress={() => {
+                                setShowModal(false)
+                                setSelectedOffer(undefined)
+                              }}>
+                                Avbryt
+                              </Button>
                               <Button
-                                icon="clipboard-check"
                                 mode="contained"
-                                uppercase={false}
-                                style={{ marginRight: 10 }}
                                 onPress={() => {
-                                  console.log('offer', offer)
-                                  updateOffer({ ...offer, approved: true })
+                                  updateOffer({ ...selectedOffer, acceptanceMotivation: acceptanceMotivationText, approved: true })
+                                  setShowModal(false)
                                 }}
                               >
-                                Tilldela
+                                Accept
                               </Button>
-                            )
-                        }}
-                      />
-                    </Card>
+                            </Container>
+                          </View>
+                        </View>
+                      </Modal>
+                    </View>
                   ))}
                 </Container>
+
                 <Container>
                   <Divider />
                   <Subheading>Ej uppfyllda anbud</Subheading>
@@ -337,6 +398,15 @@ const TenderRequest = ({
       </Tabs>
     </>
   )
+}
+const getStatusText = (offer: Offer, winningOffer: Offer | undefined) => {
+  if (winningOffer != undefined) {
+    if (offer.approved) {
+      return `Ert anbud valdes med motiveringen: ${offer.acceptanceMotivation}`
+    }
+    return `Ett annat anbud från ${winningOffer.supplier.name} valdes med motiveringen: ${winningOffer.acceptanceMotivation}`
+  }
+  return 'Ej godkänt'
 }
 
 const Row = ({ children }) => (
@@ -368,4 +438,40 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     backgroundColor: 'white',
   },
+  centerView: {
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalView: {
+    backgroundColor: 'white',
+    marginHorizontal: 20,
+    padding: 35,
+    borderRadius: 4,
+  },
+  modalText: {
+    fontSize: 16,
+    marginBottom: 12,
+  },
+  modalInput: {
+    height: 120,
+    textAlignVertical: 'top',
+    margin: 12,
+    borderWidth: 0.3,
+    padding: 10,
+    borderRadius: 4,
+  },
+  modalButtons: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  acceptanceReasonTextWrapper: {
+    paddingHorizontal: 12,
+    paddingBottom: 12
+  },
+  acceptanceReasonText: {
+    fontSize: 12,
+  }
 })
