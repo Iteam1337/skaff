@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native'
 import { Button, Card } from 'react-native-paper'
 import { Offer } from '../data/offers'
-import useAuth from '../hooks/useAuth'
 import { User } from '../data/user'
 
 const OfferCard = ({

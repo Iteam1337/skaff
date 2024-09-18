@@ -3,6 +3,7 @@
 // subtitle: vilken är organisationen, t ex skolmatsalen
 // image: bild på vad som ska upphandlas
 
+import uuid from 'react-native-uuid'
 import buyers, { Buyer } from './buyers'
 
 const days = 24 * 60 * 60 * 1000
@@ -26,19 +27,19 @@ export type TenderRequest = {
 
 export default [
   {
-    id: '1',
+    id: uuid.v4(),
     title: 'Ägg 100kg',
     lastAwardDate: new Date(Date.now() + 10 * days),
     buyer: buyers[0],
   },
   {
-    id: '2',
+    id: uuid.v4(),
     title: 'Lammkött 100kg',
     lastAwardDate: new Date(Date.now() + 14 * days),
     buyer: buyers[1],
   },
   {
-    id: '3',
+    id: uuid.v4(),
     title: 'Tomater 100kg',
     lastAwardDate: new Date(Date.now() + 3 * days),
     buyer: buyers[3],

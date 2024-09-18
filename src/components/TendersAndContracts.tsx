@@ -1,7 +1,6 @@
 import * as React from 'react'
+import { SafeAreaView, StyleSheet } from 'react-native'
 import { Button, List } from 'react-native-paper'
-import { StyleSheet, SafeAreaView } from 'react-native'
-import { NavigationProp, ParamListBase } from '@react-navigation/native'
 import useAuth from '../hooks/useAuth'
 
 const TendersAndContracts = ({ navigation }: any) => {

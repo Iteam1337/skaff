@@ -1,9 +1,9 @@
-import { List } from 'react-native-paper'
-import useNotifications from '../hooks/useNotifications'
 import { useEffect } from 'react'
+import { List } from 'react-native-paper'
+import useDeals from '../hooks/useDeals'
+import useNotifications from '../hooks/useNotifications'
 import useOffers from '../hooks/useOffers'
 import useTenderRequests from '../hooks/useTenderRequests'
-import useDeals from '../hooks/useDeals'
 
 export default function Notifications({ navigation }) {
   const [notifications, refresh] = useNotifications()

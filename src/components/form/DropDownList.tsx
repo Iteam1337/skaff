@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { KeyboardTypeOptions } from 'react-native'
 import { useTheme } from 'react-native-paper'
 import DropDown from 'react-native-paper-dropdown'
 

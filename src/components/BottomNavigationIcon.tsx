@@ -1,4 +1,4 @@
-import { Text, Button, List, useTheme, Divider, Card } from 'react-native-paper'
+import { useTheme } from 'react-native-paper'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const BottomNavigationIcon = ({

@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
-import useNotifications from '../hooks/useNotifications'
-import { Button, Snackbar, Text } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
+import { useEffect, useState } from 'react'
+import { Snackbar } from 'react-native-paper'
+import useNotifications from '../hooks/useNotifications'
 
 const getNavigationArguments = (data: any) => {
   if (!data) return null

@@ -1,13 +1,13 @@
+import { useEffect } from 'react'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import {
   Avatar,
-  Text,
-  Subheading,
   Divider,
-  Paragraph,
   IconButton,
+  Paragraph,
+  Subheading,
+  Text,
 } from 'react-native-paper'
-import { ScrollView, StyleSheet, View } from 'react-native'
-import { useEffect } from 'react'
 
 const Supplier = ({
   route,

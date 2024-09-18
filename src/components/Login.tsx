@@ -1,12 +1,11 @@
-import { useContext, useEffect, useLayoutEffect, useState } from 'react'
-import { View, Text, SafeAreaView, StyleSheet, ScrollView } from 'react-native'
-import { Avatar, Title, Button, Subheading } from 'react-native-paper'
+import { useContext, useEffect, useState } from 'react'
+import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Avatar, Button, Subheading, Title } from 'react-native-paper'
 import { registerForPushNotificationsAsync } from '../../lib/notifications'
+import { SocketContext } from '../context/socketContext'
 import useAuth from '../hooks/useAuth'
 import useBuyers from '../hooks/useBuyers'
 import useSuppliers from '../hooks/useSuppliers'
-import { useAuthContext } from '../context/authContext'
-import { SocketContext } from '../context/socketContext'
 
 const Login = ({ onLogin }: { onLogin: any }) => {
   const { user, login, logout, reset } = useAuth()

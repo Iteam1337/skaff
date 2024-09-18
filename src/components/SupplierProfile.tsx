@@ -1,14 +1,14 @@
-import { Button, List, useTheme, Divider, Card } from 'react-native-paper'
-import { Tabs, TabScreen } from 'react-native-paper-tabs'
-import Supplier from './Supplier'
 import { useEffect, useState } from 'react'
-import useAuth from '../hooks/useAuth'
-import useOffers from '../hooks/useOffers'
-import OfferCard from './OfferCard'
 import { ScrollView } from 'react-native'
-import useTenderRequests from '../hooks/useTenderRequests'
+import { Button, Card, Divider, List, useTheme } from 'react-native-paper'
+import { Tabs, TabScreen } from 'react-native-paper-tabs'
+import useAuth from '../hooks/useAuth'
 import useDeals from '../hooks/useDeals'
+import useOffers from '../hooks/useOffers'
+import useTenderRequests from '../hooks/useTenderRequests'
 import DealCard from './DealCard'
+import OfferCard from './OfferCard'
+import Supplier from './Supplier'
 import TenderRequestCard from './TenderRequestCard'
 
 const SupplierProfile = ({
@@ -118,7 +118,6 @@ const SupplierProfile = ({
                   <TenderRequestCard
                     key={tenderRequest.id}
                     user={supplier}
-                    key={tenderRequest.id}
                     tenderRequest={tenderRequest}
                     navigation={navigation}
                   />

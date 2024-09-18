@@ -1,17 +1,17 @@
 import * as React from 'react'
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native'
 import {
   Avatar,
   Button,
   Divider,
   Searchbar,
-  Text,
   Subheading,
+  Text,
   useTheme,
 } from 'react-native-paper'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { ScrollView, StyleSheet, SafeAreaView, View } from 'react-native'
-import suppliers from '../data/suppliers'
 import buyers from '../data/buyers'
+import suppliers from '../data/suppliers'
 
 const Explore = ({ navigation }: { navigation: any }) => {
   const [searchQuery, setSearchQuery] = React.useState('')
