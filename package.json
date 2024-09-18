@@ -9,10 +9,12 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "serve": "expo export && npx serve dist -p 3000",
     "deploy": "gh-pages -d dist",
     "predeploy": "expo export && echo skaff.iteam.pub > dist/CNAME"
   },
   "dependencies": {
+    "@expo/metro-runtime": "~3.2.3",
     "@react-native-async-storage/async-storage": "1.23.1",
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/material-bottom-tabs": "^6.2.15",
@@ -41,9 +43,9 @@
     "react-native-vector-icons": "^10.1.0",
     "react-native-web": "~0.19.10",
     "react-navigation-header-buttons": "^10.0.0",
+    "serve": "^14.2.3",
     "socket.io": "^4.6.2",
-    "socket.io-react-hook": "^2.4.1",
-    "@expo/metro-runtime": "~3.2.3"
+    "socket.io-react-hook": "^2.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",
