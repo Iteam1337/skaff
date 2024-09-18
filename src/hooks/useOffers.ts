@@ -26,17 +26,16 @@ const useOffers = (): [Array<Offer>, any, any, any] => {
   }
 
   const refresh = ({ supplier, buyer } = {}) =>
-    socket.emit('offers', (offers: Array<Offer>) =>
-      setOffers(
-        offers
-          .filter((o) => {
-            if (supplier) return o.supplier.id == supplier.id
-            if (buyer) return o.buyer.id == buyer.id
-            return true
-          })
-          .sort((a, b) => a.price.SEK - b.price.SEK)
-      )
-    )
+    socket.emit('offers', (offers: Array<Offer>) => {
+      let filteredOffers = offers
+      if (supplier) {
+        filteredOffers = filteredOffers.filter((o) => o.supplier.id == supplier.id)
+      }
+      if (buyer) {
+        filteredOffers = filteredOffers.filter((o) => o.buyer.id == buyer.id)
+      }
+      setOffers(filteredOffers.sort((a, b) => a.price.SEK - b.price.SEK))
+    })
 
   return [offers, editOffer, addOffer, refresh]
 }

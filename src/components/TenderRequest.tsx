@@ -48,6 +48,9 @@ const TenderRequest = ({
 
   const [showModal, setShowModal] = useState(false)
   const [acceptanceMotivationText, setAcceptanceMotivationText] = useState('')
+  const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(
+    undefined
+  )
 
   useEffect(() => {
     if (route.params.tenderRequestId) {
@@ -61,9 +64,7 @@ const TenderRequest = ({
   }, [route.params.tenderRequestId, tenderRequests])
 
   useEffect(() => {
-    const buyer = user?.type === 'buyer' ? user : undefined
-    const supplier = user?.type === 'supplier' ? user : undefined
-    refreshOffers({ buyer, supplier })
+    refreshOffers()
     refreshTenderRequests()
   }, [user])
 
@@ -74,10 +75,18 @@ const TenderRequest = ({
       </Text>
     )
 
-  const validOffers = offers
+  const buyer = user?.type === 'buyer' ? user : undefined
+  const supplier = user?.type === 'supplier' ? user : undefined
+
+  const myValidOffers = offers
     .filter((offer) => offer.tenderRequestId === tenderRequest?.id)
     .filter(
       (offer) => offer.buyer.id === user?.id || offer.supplier.id === user?.id
+    )
+    .filter(
+      buyer
+        ? (offer) => offer.buyer.id === buyer.id
+        : (offer) => offer.supplier.id === supplier?.id
     )
     .sort((a, b) => a.price.SEK - b.price.SEK)
 
@@ -187,7 +196,7 @@ const TenderRequest = ({
             <>
               {user?.type === 'supplier' && (
                 <Container>
-                  {!validOffers.length && (
+                  {!myValidOffers.length && (
                     <>
                       <Paragraph>
                         För att lämna anbud måste du vara ansluten till detta
@@ -211,10 +220,15 @@ const TenderRequest = ({
                   )}
                   <List.Section>
                     <List.Subheader>Dina skickade anbud</List.Subheader>
-                    {validOffers.map((offer, i) => (
-                      <View>
+                    {myValidOffers.map((offer) => {
+                      const winningOffer = offers.find(
+                        (offer) =>
+                          offer.tenderRequestId === tenderRequest.id &&
+                          offer.approved
+                      )
+                      return (
                         <Card
-                          key={i}
+                          key={offer.id}
                           style={styles.card}
                           onPress={() => {
                             console.log('pressed', offer)
@@ -239,35 +253,18 @@ const TenderRequest = ({
                             subtitle={
                               'Inlämnad ' +
                               offer.submissionDate?.toString().split('T')[0] +
-                              '. ' +
-                              (offer.approved
-                                ? `Vunnen\nAcceptance reason: ${offer.acceptanceMotivation}`
-                                : 'Ej godkänt')
+                              '. '
                             }
-                            subtitleNumberOfLines={3}
-                            subtitleStyle={{
-                              paddingBottom: 5,
-                            }}
                             right={(props) => <ChevronRight />}
                           />
+                          <View style={styles.acceptanceReasonTextWrapper}>
+                            <Text style={styles.acceptanceReasonText}>
+                              {getStatusText(offer, winningOffer)}
+                            </Text>
+                          </View>
                         </Card>
-                        {offer.approved &&
-                          offer.contract &&
-                          singedUserIsSigningParty(offer, user) && (
-                            <Button
-                              mode="contained"
-                              onPress={() => {
-                                console.log('Contract info: ', offer.contract)
-                                WebBrowser.openBrowserAsync(
-                                  offer.contract.supplierSignUrl
-                                )
-                              }}
-                            >
-                              Sign contract
-                            </Button>
-                          )}
-                      </View>
-                    ))}
+                      )
+                    })}
                   </List.Section>
                 </Container>
               )}
@@ -282,10 +279,10 @@ const TenderRequest = ({
                 </Container>
                 <Container>
                   <Subheading>Matchande anbud</Subheading>
-                  {validOffers.map((offer, i) => (
+                  {myValidOffers.map((offer) => (
                     <View>
                       <Card
-                        key={i}
+                        key={offer.id}
                         style={styles.card}
                         //  onPress={() => navigation.navigate('TenderRequest', { id })}
                       >
@@ -337,6 +334,7 @@ const TenderRequest = ({
                                   uppercase={false}
                                   style={{ marginRight: 10 }}
                                   onPress={() => {
+                                    setSelectedOffer(offer)
                                     setShowModal(true)
                                   }}
                                 >
@@ -348,7 +346,10 @@ const TenderRequest = ({
                         {offer.acceptanceMotivation && (
                           <View style={styles.acceptanceReasonTextWrapper}>
                             <Text style={styles.acceptanceReasonText}>
-                              Acceptance reason: {offer.acceptanceMotivation}
+                              Motivering till val av anbud:
+                            </Text>
+                            <Text style={styles.acceptanceReasonText}>
+                              {offer.acceptanceMotivation}
                             </Text>
                           </View>
                         )}
@@ -372,7 +373,8 @@ const TenderRequest = ({
                         <View style={styles.centerView}>
                           <View style={styles.modalView}>
                             <Text style={styles.modalText}>
-                              Motivation to choose {offer.buyer.name}'s offer:{' '}
+                              Motivering till valet av{' '}
+                              {selectedOffer?.supplier.name}s anbud:{' '}
                             </Text>
                             <TextInput
                               style={styles.modalInput}
@@ -382,19 +384,19 @@ const TenderRequest = ({
                               }
                             />
                             <Container style={styles.modalButtons}>
-                              <Button onPress={() => setShowModal(false)}>
-                                Cancel
+                              <Button
+                                onPress={() => {
+                                  setShowModal(false)
+                                  setSelectedOffer(undefined)
+                                }}
+                              >
+                                Avbryt
                               </Button>
                               <Button
                                 mode="contained"
                                 onPress={() => {
-                                  console.log('offer', offer)
-                                  console.log(
-                                    'motivation text',
-                                    acceptanceMotivationText
-                                  )
                                   updateOffer({
-                                    ...offer,
+                                    ...selectedOffer,
                                     acceptanceMotivation:
                                       acceptanceMotivationText,
                                     approved: true,
@@ -431,6 +433,15 @@ const TenderRequest = ({
       </Tabs>
     </>
   )
+}
+const getStatusText = (offer: Offer, winningOffer: Offer | undefined) => {
+  if (winningOffer != undefined) {
+    if (offer.approved) {
+      return `Ert anbud valdes med motiveringen: ${offer.acceptanceMotivation}`
+    }
+    return `Ett annat anbud från ${winningOffer.supplier.name} valdes med motiveringen: ${winningOffer.acceptanceMotivation}`
+  }
+  return 'Ej godkänt'
 }
 
 const Row = ({ children }: { children: React.ReactNode }) => (
