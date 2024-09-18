@@ -1,14 +1,8 @@
 name: Publish to Github Pages
 
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
 on:
   push:
     branches: ['main']
-    # Publish semver tags as releases.
     tags: ['v*.*.*']
 
 jobs:
@@ -24,10 +18,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Git user config
-        run: git config --global user.email "registry@iteam.se"
-      - name: Git user config
-        run: git config --global user.name "ghpages bot"
-
       - name: Publish to Github Pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm run deploy
