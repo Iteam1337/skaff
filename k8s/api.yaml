@@ -14,6 +14,23 @@ spec:
       containers:
         - name: foodmarket-api
           image: ghcr.io/iteam1337/foodmarket:main
+          env:
+            #// pick from .env.example
+            - name: SIGNICAT_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: signicat
+                  key: SIGNICAT_CLIENT_ID
+            - name: SIGNICAT_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: signicat
+                  key: SIGNICAT_CLIENT_SECRET
+            - name: SIGNICAT_API_URL
+              valueFrom:
+                secretKeyRef:
+                  name: signicat
+                  key: SIGNICAT_API_URL
           resources:
             requests:
               memory: '256Mi'
