@@ -9,7 +9,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "deploy": "gh-pages -d web-build",
+    "deploy": "gh-pages -d dist",
     "predeploy": "expo export && echo skaff.iteam.pub > dist/CNAME"
   },
   "dependencies": {
