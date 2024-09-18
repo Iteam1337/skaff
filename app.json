@@ -25,7 +25,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png",
-      "publicPath": "/skaff/"
+      "publicPath": "/"
     },
     "runtimeVersion": {
       "policy": "sdkVersion"
