@@ -7,6 +7,7 @@ Detta är prototypen av matmarknaden byggd på dynamiskt inköpssystem DIS.
 ## Testa
 
 Ladda ner appen Expo Go och scanna därefter följande QR-kod:
+
 ![image](https://github.com/user-attachments/assets/da7c310d-6c61-4104-a193-c21ce98fcae6)
 
 ## Kom igång
@@ -20,18 +21,6 @@ Så här kommer du igång:
     npm run ios
 
 Nu startas automatiskt din iOS Simulator och du kan testa applikationen live där.
-
-## Signera avtal
-
-Vi använder oss av [**Signicat**](https://developer.signicat.com/) för att signera avtal digitalt mellan Producent och Beställare. För att enkelt kunna demonstrera flödet kör vi Norwegian BankID
-
-**För att detta ska fungera korrekt behöver du förbereda följande:**
-
-Döp om `.env.example` till `.env` och fyll i `SIGNICAT_CLIENT_ID` och `SIGNICAT_CLIENT_SECRET`
-
-Följ sedan stegen under [**Order test user**](https://developer.signicat.com/identity-methods/nbid/test/#order-test-user) för att generera testanvändare hos BankID Norge.
-
-När du signerar avtalet, välj "Norwegian BankID" och följ stegen.
 
 ## Screenshots (ej färdig layout)
 
@@ -48,6 +37,19 @@ För att göra en ny release av appen kör man detta kommando:
     eas update
 
 Då får man en länk till nya QR-koder att publicera
+
+
+## Signering av avtal (betaversion)
+
+Vi testar att använda [**Signicat**](https://developer.signicat.com/) för att signera avtal digitalt mellan Producent och Beställare. För att enkelt kunna demonstrera flödet kör vi Norwegian BankID
+
+**För att detta ska fungera korrekt behöver du förbereda följande:**
+
+Döp om `.env.example` till `.env` och fyll i `SIGNICAT_CLIENT_ID` och `SIGNICAT_CLIENT_SECRET`
+
+Följ sedan stegen under [**Order test user**](https://developer.signicat.com/identity-methods/nbid/test/#order-test-user) för att generera testanvändare hos BankID Norge.
+
+När du signerar avtalet, välj "Norwegian BankID" och följ stegen.
 
 ## LICENS
 
