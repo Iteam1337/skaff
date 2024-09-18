@@ -51,9 +51,9 @@ const TenderRequests = ({ navigation }: { navigation: any }) => {
               <Card
                 key={i}
                 style={styles.card}
-                onPress={() =>
-                  navigation.navigate('TenderRequest', { tenderRequest })
-                }
+                onPress={() => {
+                  return navigation.navigate('TenderRequest', { tenderRequest })
+                }}
               >
                 <Card.Title
                   titleVariant="titleSmall"

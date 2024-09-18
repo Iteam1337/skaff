@@ -1,6 +1,4 @@
-import * as WebBrowser from 'expo-web-browser'
-import { useEffect, useState } from 'react'
-import { Modal, ScrollView, StyleSheet, TextInput, View } from 'react-native'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import {
   Button,
   Caption,
@@ -189,7 +187,7 @@ const TenderRequest = ({
           </ScrollView>
         </TabScreen>
         <TabScreen label="Meddelande">
-          <Chat />
+          <Chat tenderRequestId={tenderRequest.id} />
         </TabScreen>
         <TabScreen label="Anbud">
           <>
@@ -395,8 +393,13 @@ const TenderRequest = ({
                               <Button
                                 mode="contained"
                                 onPress={() => {
+                                  console.log('offer', offer)
+                                  console.log(
+                                    'motivation text',
+                                    acceptanceMotivationText
+                                  )
                                   updateOffer({
-                                    ...selectedOffer,
+                                    ...offer,
                                     acceptanceMotivation:
                                       acceptanceMotivationText,
                                     approved: true,
@@ -511,6 +514,7 @@ const styles = StyleSheet.create({
   },
   acceptanceReasonTextWrapper: {
     paddingHorizontal: 12,
+    paddingBottom: 12,
     paddingBottom: 12,
   },
   acceptanceReasonText: {
