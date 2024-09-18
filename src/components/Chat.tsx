@@ -44,7 +44,7 @@ const Chat = ({ tenderRequestId }: { tenderRequestId: string }) => {
       <KeyboardAvoidingView>
         <ScrollView contentContainerStyle={styles.container}>
           {messages.map((message: Message, i: number) => (
-            <View key={message.id}>
+            <View key={i}>
               <View
                 style={[
                   styles.messageContainer,

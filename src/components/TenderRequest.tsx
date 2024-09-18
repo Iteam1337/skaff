@@ -1,4 +1,5 @@
-import { useEffect, useLayoutEffect, useState } from 'react'
+import * as WebBrowser from 'expo-web-browser'
+import { useEffect, useState } from 'react'
 import {
   Button,
   Caption,
@@ -11,6 +12,8 @@ import {
   Text,
   useTheme,
 } from 'react-native-paper'
+
+import { Modal, ScrollView, StyleSheet, View, TextInput } from 'react-native'
 import { Tabs, TabScreen } from 'react-native-paper-tabs'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { Offer } from '../data/offers'
@@ -218,7 +221,7 @@ const TenderRequest = ({
                   )}
                   <List.Section>
                     <List.Subheader>Dina skickade anbud</List.Subheader>
-                    {myValidOffers.map((offer) => {
+                    {myValidOffers.map((offer, i) => {
                       const winningOffer = offers.find(
                         (offer) =>
                           offer.tenderRequestId === tenderRequest.id &&
@@ -226,7 +229,7 @@ const TenderRequest = ({
                       )
                       return (
                         <Card
-                          key={offer.id}
+                          key={i}
                           style={styles.card}
                           onPress={() => {
                             console.log('pressed', offer)
@@ -407,7 +410,7 @@ const TenderRequest = ({
                                   setShowModal(false)
                                 }}
                               >
-                                Accept
+                                Tilldela
                               </Button>
                             </Container>
                           </View>
@@ -500,9 +503,9 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   modalInput: {
-    height: 120,
+    height: 60,
     textAlignVertical: 'top',
-    margin: 12,
+    margin: 0,
     borderWidth: 0.3,
     padding: 10,
     borderRadius: 4,
