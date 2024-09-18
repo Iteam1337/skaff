@@ -2,19 +2,12 @@
 
 ## Bakgrund
 
-Detta är den blivande prototypen av matmarknaden byggd på dynamiskt inköpssystem DIS.
+Detta är prototypen av matmarknaden byggd på dynamiskt inköpssystem DIS.
 
 ## Testa
 
-Ladda ner appen Expo Go och scanna därefter följande QR-koder:
-
-![image](https://github.com/Iteam1337/skaff/assets/395843/c4603d13-6f12-425c-8f42-2bfca059de26)
-
-Iphone
-
-![image](https://github.com/Iteam1337/skaff/assets/395843/0c164b7b-af4d-4539-9b73-f8fd6445ae7a)
-
-Android
+Ladda ner appen Expo Go och scanna därefter följande QR-kod:
+![image](https://github.com/user-attachments/assets/da7c310d-6c61-4104-a193-c21ce98fcae6)
 
 ## Kom igång
 
@@ -44,11 +37,9 @@ När du signerar avtalet, välj "Norwegian BankID" och följ stegen.
 
 ![image](https://user-images.githubusercontent.com/395843/232560646-26c641a6-429d-46cc-8b9d-1ed460c9e119.png)
 
-## Release
+## Produktionsmiljö
 
-För att göra en release (kräver access till Kuberneteskluster). Se gärna till att du har pushat all kod innan du releasar :) (TODO: gör en automatisk release på push)
-
-    skaffold run --default-repo registry.iteam.services
+Appen är beroende av ett API som kör Socket.IO och hanterar demouppgifter. Detta API driftas i Berget.cloud i ett eget Kuberneteskluster. Det betyder att ingen data skickas utanför EU vilket gör det enklare att hantera personuppgifter etc. För att konfigurera klustret är det enklast att ändra i k8s mappen. Alla filer där skickas automatiskt till kubernetesklustret. Vid nya ändringar i main byggs automatiskt en ny version av API och deployas automatiskt i klustret när det är klart. API:et nås på adressen <a href="https://skaff-api.iteam.pub">skaff-api.iteam.pub</a>.
 
 ## Publisera ny version av appen
 
@@ -60,4 +51,4 @@ Då får man en länk till nya QR-koder att publicera
 
 ## LICENS
 
-MIT Copyright (c) 2023 Iteam Solutions AB
+MIT Copyright (c) 2024 Iteam Solutions AB
