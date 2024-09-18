@@ -31,6 +31,8 @@ spec:
                 secretKeyRef:
                   name: env
                   key: SIGNICAT_API_URL
+              # create these from .env with this command
+              # kubectl create secret generic env --from-env-file=.env
           resources:
             requests:
               memory: '256Mi'
