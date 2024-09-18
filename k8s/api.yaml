@@ -19,17 +19,17 @@ spec:
             - name: SIGNICAT_CLIENT_ID
               valueFrom:
                 secretKeyRef:
-                  name: signicat
+                  name: env
                   key: SIGNICAT_CLIENT_ID
             - name: SIGNICAT_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: signicat
+                  name: env
                   key: SIGNICAT_CLIENT_SECRET
             - name: SIGNICAT_API_URL
               valueFrom:
                 secretKeyRef:
-                  name: signicat
+                  name: env
                   key: SIGNICAT_API_URL
           resources:
             requests:
