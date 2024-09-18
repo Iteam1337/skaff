@@ -23,6 +23,7 @@ const io = new Server(server, {
   },
 })
 
+app.use('/', express.static(path.join(__dirname, '../dist')))
 app.use('/assets', express.static(path.join(__dirname, '../assets')))
 app.get('/healthz', (req, res) => res.send('ok'))
 
