@@ -5,6 +5,7 @@
 
 import uuid from 'react-native-uuid'
 import buyers, { Buyer } from './buyers'
+import { User } from './user'
 
 const days = 24 * 60 * 60 * 1000
 
@@ -23,6 +24,15 @@ export type TenderRequest = {
   terms: string
   volume: number
   volumePerDelivery: number
+  messages: Message[]
+}
+
+export type Message = {
+  id: string
+  tenderRequestId: string
+  from: User | undefined
+  date: Date
+  text: string
 }
 
 export default [
@@ -31,17 +41,20 @@ export default [
     title: 'Ägg 100kg',
     lastAwardDate: new Date(Date.now() + 10 * days),
     buyer: buyers[0],
+    messages: new Array<Message>(),
   },
   {
     id: uuid.v4(),
     title: 'Lammkött 100kg',
     lastAwardDate: new Date(Date.now() + 14 * days),
     buyer: buyers[1],
+    messages: new Array<Message>(),
   },
   {
     id: uuid.v4(),
     title: 'Tomater 100kg',
     lastAwardDate: new Date(Date.now() + 3 * days),
     buyer: buyers[3],
+    messages: new Array<Message>(),
   },
 ] as TenderRequest[]
