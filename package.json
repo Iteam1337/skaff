@@ -11,7 +11,7 @@
     "web": "expo start --web",
     "build": "expo export",
     "deploy": "gh-pages -d dist",
-    "predeploy": "expo export && echo skaff.iteam.pub > dist/CNAME"
+    "predeploy": "expo export && echo skaff.iteam.pub > dist/CNAME && touch dist/.nojekyll"
   },
   "dependencies": {
     "@expo/metro-runtime": "~3.2.3",
