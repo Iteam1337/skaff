@@ -21,4 +21,5 @@ jobs:
       - name: Publish to Github Pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # also runs predeploy
         run: npm run deploy
